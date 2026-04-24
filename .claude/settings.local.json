@@ -58,7 +58,12 @@
       "Bash(mv \"VARGINHA - 2057.docx\" \"MODELO - VARGINHA - 2057.docx\")",
       "Bash(mv \"MATO GROSSO DO SUL - 6122.docx\" \"MODELO - MATO GROSSO DO SUL - 6122.docx\")",
       "Bash(mv \"SÃO PAULO - 0908.docx\" \"MODELO - SÃO PAULO - 0908.docx\")",
-      "Bash(mv \"CUIABÁ - 1507.docx\" \"MODELO - CUIABÁ - 1507.docx\")"
+      "Bash(mv \"CUIABÁ - 1507.docx\" \"MODELO - CUIABÁ - 1507.docx\")",
+      "Bash(mv \"MODELO - CUIABÁ - 1507.docx\" \"MODELO - 1507 - CUIABÁ.docx\")",
+      "Bash(mv \"MODELO - DIVINÓPOLIS - 2056.docx\" \"MODELO - 2056 - DIVINÓPOLIS.docx\")",
+      "Bash(mv \"MODELO - MATO GROSSO DO SUL - 6122.docx\" \"MODELO - 6122 - MATO GROSSO DO SUL.docx\")",
+      "Bash(mv \"MODELO - SALINAS - 2626.docx\" \"MODELO - 2626 - SALINAS.docx\")",
+      "Bash(mv \"MODELO - SAO JOSE DO RIO PRETO - 1565.docx\" \"MODELO - 1565 - SAO JOSE DO RIO PRETO.docx\")"
     ]
   }
 }
