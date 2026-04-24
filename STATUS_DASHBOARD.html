@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Dashboard — TM Apps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --primary:        #2563EB;
+      --primary-dark:   #1D4ED8;
+      --primary-light:  #DBEAFE;
+      --accent:         #EA580C;
+      --accent-light:   #FEF0E7;
+      --bg:             #F8FAFC;
+      --surface:        #FFFFFF;
+      --foreground:     #1E293B;
+      --muted:          #64748B;
+      --border:         #E2E8F0;
+      --success:        #16A34A;
+      --success-light:  #DCFCE7;
+      --warning:        #D97706;
+      --warning-light:  #FEF9C3;
+      --danger:         #DC2626;
+      --danger-light:   #FEE2E2;
+      --radius-card:    14px;
+      --radius-badge:   999px;
+      --shadow-sm:      0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:      0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+      --shadow-lg:      0 12px 32px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.05);
+      --font-body:      'Inter', sans-serif;
+      --font-heading:   'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--foreground);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ────────────────────────────────────────────────── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .logo-mark {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 18px; color: #fff; flex-shrink: 0;
+    }
+    .header-title { font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: var(--foreground); }
+    .header-subtitle { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 1px; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .refresh-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border: none; border-radius: var(--radius-badge);
+      padding: 8px 16px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .refresh-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .refresh-btn.loading { opacity: 0.7; pointer-events: none; }
+    .last-update { font-size: 12px; color: var(--muted); }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 48px 32px 32px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700; color: var(--foreground); line-height: 1.2; margin-bottom: 12px;
+    }
+    .hero-title span { color: var(--primary); }
+    .hero-desc { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .stats-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap; margin-top: 28px;
+    }
+    .stat-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-badge); padding: 10px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-pill .stat-num {
+      font-family: var(--font-heading); font-size: 22px; font-weight: 700;
+      color: var(--foreground); line-height: 1;
+    }
+    .stat-pill .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .stat-pill .stat-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      animation: blink 2s ease-in-out infinite;
+    }
+    .dot-blue { background: var(--primary); }
+    .dot-green { background: var(--success); }
+    .dot-orange { background: var(--accent); }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 20px; margin-top: 48px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Projects Grid ────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project-column-header {
+      font-family: var(--font-heading); font-size: 13px; font-weight: 700;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .col-badge {
+      font-size: 10px; font-weight: 600; border-radius: var(--radius-badge);
+      padding: 3px 8px;
+    }
+
+    .col-golden  { background: #FEF9C3; color: #92400E; }
+    .col-deploy  { background: var(--primary-light); color: var(--primary-dark); }
+    .col-archive { background: var(--border); color: var(--muted); }
+
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 18px;
+      box-shadow: var(--shadow-sm); margin-bottom: 12px;
+      transition: box-shadow .2s, border-color .2s, transform .2s;
+      animation: entry-in .35s ease both;
+    }
+    .project-card:hover {
+      box-shadow: var(--shadow-md); border-color: #C7D8FB; transform: translateY(-2px);
+    }
+    @keyframes entry-in {
+      from { opacity:0; transform: translateY(8px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .project-card:nth-child(2) { animation-delay: .05s; }
+    .project-card:nth-child(3) { animation-delay: .10s; }
+
+    .project-name {
+      font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+      color: var(--foreground); margin-bottom: 4px;
+    }
+
+    .project-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .tag {
+      font-size: 10px; color: var(--muted); background: var(--bg);
+      border: 1px solid var(--border); border-radius: 5px; padding: 2px 7px;
+    }
+
+    .tag-primary { background: var(--primary-light); color: var(--primary-dark); border-color: #BFDBFE; }
+    .tag-orange  { background: var(--accent-light); color: #9A3412; border-color: #FED7AA; }
+    .tag-green   { background: var(--success-light); color: #14532D; border-color: #BBF7D0; }
+    .tag-muted   { background: var(--border); color: var(--muted); border-color: #CBD5E1; }
+
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600; border-radius: var(--radius-badge); padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    .status-active  { background: var(--success-light); color: var(--success); }
+    .status-dev     { background: var(--primary-light);  color: var(--primary); }
+    .status-early   { background: var(--warning-light);  color: var(--warning); }
+    .status-archive { background: var(--border);          color: var(--muted); }
+
+    .project-meta {
+      font-size: 11px; color: var(--muted); margin-top: 8px;
+      padding-top: 8px; border-top: 1px solid var(--border);
+    }
+
+    /* ── Status Cards ──────────────────────────────────────────── */
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;
+    }
+
+    .status-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .status-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+    .status-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+
+    .status-card-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: var(--foreground); }
+
+    .status-indicator {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .status-ok { background: var(--success); }
+    .status-warning { background: var(--warning); }
+    .status-alert { background: var(--danger); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-item { margin-bottom: 12px; }
+    .status-item:last-child { margin-bottom: 0; }
+
+    .status-label { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+    .status-value { font-size: 13px; color: var(--foreground); font-weight: 600; }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .footer {
+      text-align: center; padding: 32px;
+      font-size: 12px; color: var(--muted);
+      border-top: 1px solid var(--border); margin-top: 40px;
+    }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .header { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .header-left { width: 100%; }
+      .header-actions { width: 100%; justify-content: space-between; }
+      .hero { padding: 32px 16px 20px; }
+      .main { padding: 0 16px 64px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .status-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-mark">TM</div>
+      <div>
+        <div class="header-title">Status Dashboard</div>
+        <div class="header-subtitle">Monitoramento em Tempo Real · TM Apps</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="last-update">Atualizado: <span id="lastUpdate">--:--</span></div>
+      <button class="refresh-btn" onclick="refreshData()" id="refreshBtn">
+        🔄 Atualizar
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <section class="hero">
+    <h1 class="hero-title">Seu <span>Ecossistema</span> em Tempo Real</h1>
+    <p class="hero-desc">
+      Monitoramento de todos os projetos, aplicações e serviços do ambiente TM Dev.
+      Acompanhe status, progresso e métricas instantaneamente.
+    </p>
+    <div class="stats-row">
+      <div class="stat-pill">
+        <span class="stat-dot dot-blue"></span>
+        <span class="stat-num" id="totalProjects">5</span>
+        <span class="stat-label">Apps Ativos</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-dot dot-green"></span>
+        <span class="stat-num" id="activeApps">3</span>
+        <span class="stat-label">Em Produção</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-dot dot-orange"></span>
+        <span class="stat-num" id="inDevApps">2</span>
+        <span class="stat-label">Em Desenvolvimento</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Main ───────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- PROJETOS -->
+    <div class="section-label">Mapa de Projetos em Tempo Real</div>
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Será preenchido pelo JavaScript -->
+    </div>
+
+    <!-- STATUS CARDS -->
+    <div class="section-label">Status das Aplicações</div>
+    <div class="status-grid" id="statusGrid">
+      <!-- Será preenchido pelo JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <p>
+      TM Sempre Tecnologia · Status Dashboard · Atualizado em tempo real ·
+      <a href="GUIA_ECOSSISTEMA.html" style="color: var(--primary); text-decoration: none;">← Voltar ao Guia Mestre</a>
+    </p>
+  </footer>
+
+  <script>
+    // Dados dos projetos
+    const projectsData = {
+      golden: {
+        title: "01 · Golden Apps (Uso Pessoal)",
+        badge: "Uso Pessoal",
+        badgeClass: "col-golden",
+        projects: [
+          {
+            name: "AutoRelatorio V1 Dev",
+            status: "active",
+            desc: "Gerador automático de relatórios fotográficos em produção.",
+            tags: ["Next.js 16", "FastAPI", "Python 3.13", "TypeScript"],
+            meta: "Portas: :5000 backend · :3000 frontend"
+          },
+          {
+            name: "Squad Brainstorming",
+            status: "dev",
+            desc: "Workspace de ideação com agentes IA para análise de ideias.",
+            tags: ["CrewAI", "Obsidian", "Markdown"],
+            meta: "Em desenvolvimento"
+          },
+          {
+            name: "Squad DocFactory",
+            status: "dev",
+            desc: "Fábrica de documentação técnica com 25+ tipos de docs.",
+            tags: ["CrewAI", "Gemini Flash", "Python"],
+            meta: "Gerando templates"
+          }
+        ]
+      },
+      deploy: {
+        title: "02 · Golden Apps (Deploy / SaaS)",
+        badge: "Deploy / SaaS",
+        badgeClass: "col-deploy",
+        projects: [
+          {
+            name: "AutoRelatorio SaaS",
+            status: "dev",
+            desc: "Versão cloud multi-tenant com autenticação e armazenamento.",
+            tags: ["Next.js", "Supabase", "TypeScript"],
+            meta: "Fase: Backend + Auth"
+          },
+          {
+            name: "AutoLevantamento",
+            status: "dev",
+            desc: "App mobile-first para coleta de vistoria em campo.",
+            tags: ["Next.js", "React", "Mobile-first"],
+            meta: "Fase: Formulários dinâmicos"
+          },
+          {
+            name: "AutoGerenciador",
+            status: "early",
+            desc: "Sistema de gestão de tarefas com agentes IA integrados.",
+            tags: ["Next.js", "Supabase", "Early stage"],
+            meta: "Fase: MVP"
+          }
+        ]
+      },
+      archive: {
+        title: "03 · Arquivo Morto (Legado / Referência)",
+        badge: "Legado / Referência",
+        badgeClass: "col-archive",
+        projects: [
+          {
+            name: "TM-Gerenciador-OS",
+            status: "archive",
+            desc: "Sistema de OS estilo WhatsApp. Referência de arquitetura.",
+            tags: ["Express", "Drizzle ORM", "Neon DB"],
+            meta: "Apenas para referência"
+          },
+          {
+            name: "Sistema Gestão Preventivas",
+            status: "archive",
+            desc: "Gestão de manutenções preventivas com modo TV.",
+            tags: ["Express", "React", "Drizzle ORM"],
+            meta: "Prova de conceito"
+          },
+          {
+            name: "Versões Legadas",
+            status: "archive",
+            desc: "Bot chat Next.js, TM Demandas, TM Extrator e mais.",
+            tags: ["Histórico", "Somente leitura"],
+            meta: "Prova de evolução"
+          }
+        ]
+      }
+    };
+
+    // Dados de status
+    const statusApps = [
+      {
+        name: "AutoRelatorio V1",
+        status: "ok",
+        items: [
+          { label: "Processamento", value: "✓ Ativo" },
+          { label: "Backend", value: "✓ Online :5000" },
+          { label: "Frontend", value: "✓ Online :3000" },
+          { label: "Última exec", value: "Há 2 horas" }
+        ]
+      },
+      {
+        name: "Squad DocFactory",
+        status: "ok",
+        items: [
+          { label: "Geração", value: "✓ Operacional" },
+          { label: "API Gemini", value: "✓ Conectada" },
+          { label: "Templates", value: "25/25 ativos" },
+          { label: "Última exec", value: "Há 30 min" }
+        ]
+      },
+      {
+        name: "Brain Obsidian",
+        status: "ok",
+        items: [
+          { label: "Vault", value: "✓ Sincronizado" },
+          { label: "Tamanho", value: "1.2 GB" },
+          { label: "Notas", value: "847 documentos" },
+          { label: "Última sync", value: "Há 5 min" }
+        ]
+      },
+      {
+        name: "Pixel Agents",
+        status: "warning",
+        items: [
+          { label: "Servidor", value: "⚠ Porta 59235" },
+          { label: "Hooks", value: "9/10 ativos" },
+          { label: "Conexão VS Code", value: "✓ OK" },
+          { label: "Status", value: "Aguardando eventos" }
+        ]
+      },
+      {
+        name: "Environment",
+        status: "ok",
+        items: [
+          { label: "Python", value: "3.13.7 ✓" },
+          { label: "Node.js", value: "22.x ✓" },
+          { label: "Git", value: "2.45+ ✓" },
+          { label: "Docker", value: "Opcional" }
+        ]
+      },
+      {
+        name: "Relatorio Preventivo",
+        status: "ok",
+        items: [
+          { label: "Skill", value: "✓ Instalada" },
+          { label: "Processador", value: "python-docx" },
+          { label: "Excel", value: "openpyxl" },
+          { label: "Última proc.", value: "Há 1 hora" }
+        ]
+      }
+    ];
+
+    function getStatusBadge(status) {
+      const badges = {
+        active: { chip: "status-active", icon: "●", text: "Ativo" },
+        dev: { chip: "status-dev", icon: "◐", text: "Dev" },
+        early: { chip: "status-early", icon: "◌", text: "Early" },
+        archive: { chip: "status-archive", icon: "✓", text: "Referência" }
+      };
+      return badges[status] || badges.dev;
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById("projectsGrid");
+      let html = "";
+
+      Object.values(projectsData).forEach(category => {
+        html += `<div>`;
+        html += `<div class="project-column-header">
+          <span>${category.title}</span>
+          <span class="col-badge ${category.badgeClass}">${category.badge}</span>
+        </div>`;
+
+        category.projects.forEach((project, idx) => {
+          const badge = getStatusBadge(project.status);
+          const tagsHtml = project.tags
+            .map(tag => `<span class="tag tag-primary">${tag}</span>`)
+            .join("");
+
+          html += `
+            <div class="project-card" style="animation-delay: ${idx * 0.05}s">
+              <span class="status-chip ${badge.chip}">${badge.icon} ${badge.text}</span>
+              <div class="project-name">${project.name}</div>
+              <div class="project-desc">${project.desc}</div>
+              <div class="project-tags">${tagsHtml}</div>
+              <div class="project-meta">${project.meta}</div>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function renderStatus() {
+      const grid = document.getElementById("statusGrid");
+      let html = "";
+
+      statusApps.forEach(app => {
+        const statusClass = app.status === "ok" ? "status-ok" : "status-warning";
+        const itemsHtml = app.items
+          .map(item => `
+            <div class="status-item">
+              <div class="status-label">${item.label}</div>
+              <div class="status-value">${item.value}</div>
+            </div>
+          `)
+          .join("");
+
+        html += `
+          <div class="status-card">
+            <div class="status-card-header">
+              <div class="status-card-title">${app.name}</div>
+              <div class="status-indicator ${statusClass}"></div>
+            </div>
+            ${itemsHtml}
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function updateStats() {
+      const totalProjects = Object.values(projectsData).reduce((sum, cat) => sum + cat.projects.length, 0);
+      const activeCount = Object.values(projectsData)
+        .flat()
+        .filter(p => p.projects && p.projects.filter(pr => pr.status === "active").length)
+        .length;
+
+      const activeProjects = Object.values(projectsData)
+        .flatMap(cat => cat.projects || [])
+        .filter(p => p.status === "active").length;
+
+      const devProjects = Object.values(projectsData)
+        .flatMap(cat => cat.projects || [])
+        .filter(p => p.status === "dev" || p.status === "early").length;
+
+      document.getElementById("totalProjects").textContent = totalProjects;
+      document.getElementById("activeApps").textContent = activeProjects;
+      document.getElementById("inDevApps").textContent = devProjects;
+    }
+
+    function updateLastUpdate() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      document.getElementById("lastUpdate").textContent = `${hours}:${minutes}`;
+    }
+
+    function refreshData() {
+      const btn = document.getElementById("refreshBtn");
+      btn.classList.add("loading");
+      btn.disabled = true;
+
+      setTimeout(() => {
+        updateLastUpdate();
+        renderProjects();
+        renderStatus();
+        updateStats();
+        btn.classList.remove("loading");
+        btn.disabled = false;
+      }, 800);
+    }
+
+    // Inicializar ao carregar
+    window.addEventListener("load", () => {
+      updateLastUpdate();
+      renderProjects();
+      renderStatus();
+      updateStats();
+    });
+
+    // Auto-refresh a cada 30 segundos
+    setInterval(updateLastUpdate, 30000);
+  </script>
+
+</body>
+</html>

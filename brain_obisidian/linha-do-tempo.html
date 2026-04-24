@@ -122,25 +122,33 @@
       50%       { transform: translateY(-12px); }
     }
     .rocket-wrapper svg {
-      filter: drop-shadow(0 8px 20px rgba(37,99,235,.25));
+      filter: drop-shadow(0 12px 32px rgba(109,40,217,.40)) drop-shadow(0 4px 12px rgba(109,40,217,.20));
     }
     /* Flame pulse */
-    .flame { animation: flame-pulse 0.4s ease-in-out infinite alternate; transform-origin: top center; }
+    .flame { animation: flame-pulse 0.45s ease-in-out infinite alternate; transform-origin: top center; }
     @keyframes flame-pulse {
       from { transform: scaleY(1) scaleX(1); opacity: 1; }
-      to   { transform: scaleY(1.18) scaleX(.88); opacity: .85; }
+      to   { transform: scaleY(1.22) scaleX(.84); opacity: .88; }
+    }
+    /* Flame outer glow */
+    .flame-glow { animation: glow-pulse 0.45s ease-in-out infinite alternate; transform-origin: top center; }
+    @keyframes glow-pulse {
+      from { opacity: .35; transform: scaleY(1) scaleX(1); }
+      to   { opacity: .15; transform: scaleY(1.3) scaleX(.8); }
     }
     /* Particles */
     .particle {
       animation: particle-fall linear infinite;
       transform-origin: top;
     }
-    .p1 { animation-duration: 1.1s; animation-delay: 0s; }
-    .p2 { animation-duration: 1.3s; animation-delay: .25s; }
-    .p3 { animation-duration: 0.9s; animation-delay: .5s; }
+    .p1 { animation-duration: 1.0s; animation-delay: 0s; }
+    .p2 { animation-duration: 1.25s; animation-delay: .22s; }
+    .p3 { animation-duration: 0.85s; animation-delay: .48s; }
+    .p4 { animation-duration: 1.15s; animation-delay: .65s; }
+    .p5 { animation-duration: 0.95s; animation-delay: .35s; }
     @keyframes particle-fall {
       0%   { opacity: 1; transform: translateY(0) scaleX(1); }
-      100% { opacity: 0; transform: translateY(24px) scaleX(.5); }
+      100% { opacity: 0; transform: translateY(28px) scaleX(.4); }
     }
 
     .hero-eyebrow {
@@ -267,7 +275,7 @@
       background: var(--surface);
       border: 2px solid var(--border);
       z-index: 1;
-      transition: border-color .2s, transform .2s;
+      transition: border-color .25s, transform .25s, background .25s, box-shadow .25s;
     }
     .entry.is-done  .entry-dot { border-color: var(--success); background: var(--success); }
     .entry.is-active .entry-dot {
@@ -281,6 +289,41 @@
       50%       { box-shadow: 0 0 0 8px rgba(37,99,235,.06); }
     }
     .entry.is-pending .entry-dot { border-color: var(--border); background: var(--bg); }
+
+    /* ── Hover continuous ripple on dots ── */
+    .entry-dot::before,
+    .entry-dot::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1);
+    }
+    .entry:hover .entry-dot {
+      border-color: var(--primary) !important;
+      background: var(--primary) !important;
+      transform: scale(1.25);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.25) !important;
+      animation: none !important;
+    }
+    .entry:hover .entry-dot::before {
+      animation: ripple-a 1.4s ease-out infinite;
+    }
+    .entry:hover .entry-dot::after {
+      animation: ripple-a 1.4s ease-out infinite .7s;
+    }
+    @keyframes ripple-a {
+      0%   { opacity: .65; transform: scale(1); }
+      100% { opacity: 0;   transform: scale(3.2); }
+    }
+    /* Done dot overrides ripple color */
+    .entry.is-done:hover .entry-dot::before,
+    .entry.is-done:hover .entry-dot::after {
+      border-color: var(--success);
+    }
 
     /* Card */
     .entry-card {
@@ -421,33 +464,132 @@
   <!-- ── Hero ────────────────────────────────────────────────── -->
   <section class="hero">
 
-    <!-- Rocket SVG animado -->
+    <!-- Rocket SVG animado premium -->
     <div class="rocket-wrapper">
-      <svg width="72" height="100" viewBox="0 0 72 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Body -->
-        <path d="M36 4 C28 4 20 20 18 40 L18 70 L36 78 L54 70 L54 40 C52 20 44 4 36 4Z" fill="#2563EB"/>
-        <!-- Window -->
-        <circle cx="36" cy="36" r="9" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="2"/>
-        <circle cx="36" cy="36" r="5" fill="#93C5FD"/>
-        <!-- Left fin -->
-        <path d="M18 58 L8 72 L18 68Z" fill="#1D4ED8"/>
-        <!-- Right fin -->
-        <path d="M54 58 L64 72 L54 68Z" fill="#1D4ED8"/>
-        <!-- Nozzle -->
-        <rect x="30" y="70" width="12" height="8" rx="3" fill="#1E40AF"/>
-        <!-- Flame group -->
-        <g class="flame">
-          <ellipse cx="36" cy="83" rx="7" ry="10" fill="#F97316"/>
-          <ellipse cx="36" cy="85" rx="4" ry="7" fill="#FCD34D"/>
-          <ellipse cx="36" cy="87" rx="2" ry="4" fill="#FFFFFF" opacity=".8"/>
+      <svg width="90" height="148" viewBox="0 0 90 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Body: violeta/roxo rico -->
+          <linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#5B21B6"/>
+            <stop offset="42%"  stop-color="#7C3AED"/>
+            <stop offset="68%"  stop-color="#8B5CF6"/>
+            <stop offset="100%" stop-color="#5B21B6"/>
+          </linearGradient>
+          <!-- Nariz escuro -->
+          <linearGradient id="noseG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#1E1B4B"/>
+            <stop offset="50%"  stop-color="#312E81"/>
+            <stop offset="100%" stop-color="#1E1B4B"/>
+          </linearGradient>
+          <!-- Brilho lateral (sheen) -->
+          <linearGradient id="sheenG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="white" stop-opacity="0"/>
+            <stop offset="35%"  stop-color="white" stop-opacity="0.22"/>
+            <stop offset="65%"  stop-color="white" stop-opacity="0.06"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+          <!-- Aletas -->
+          <linearGradient id="finG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#3B0764"/>
+            <stop offset="100%" stop-color="#4C1D95"/>
+          </linearGradient>
+          <!-- Bocal metálico -->
+          <linearGradient id="nozzleG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#312E81"/>
+            <stop offset="100%" stop-color="#1E1B4B"/>
+          </linearGradient>
+          <!-- Chama radial -->
+          <radialGradient id="flameG" cx="50%" cy="25%" r="55%">
+            <stop offset="0%"   stop-color="#FFFFFF"/>
+            <stop offset="30%"  stop-color="#FEF08A"/>
+            <stop offset="65%"  stop-color="#FB923C"/>
+            <stop offset="100%" stop-color="#EA580C" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Glow da chama -->
+          <radialGradient id="flameGlowG" cx="50%" cy="40%" r="50%">
+            <stop offset="0%"   stop-color="#F97316" stop-opacity=".45"/>
+            <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Visor do astronauta (teal) -->
+          <radialGradient id="windowG" cx="38%" cy="35%" r="60%">
+            <stop offset="0%"   stop-color="#5EEAD4"/>
+            <stop offset="60%"  stop-color="#0D9488"/>
+            <stop offset="100%" stop-color="#0F766E"/>
+          </radialGradient>
+          <!-- Filtro glow suave para a chama -->
+          <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ── Halo de calor embaixo ── -->
+        <ellipse cx="45" cy="136" rx="22" ry="6" fill="#F97316" opacity=".12"/>
+
+        <!-- ── Aletas ── -->
+        <!-- Esquerda -->
+        <path d="M26 78 L9 108 L26 99Z" fill="url(#finG)"/>
+        <!-- Direita -->
+        <path d="M64 78 L81 108 L64 99Z" fill="url(#finG)"/>
+        <!-- Detalhe brilho aleta esq -->
+        <path d="M26 78 L18 93 L26 90Z" fill="white" opacity=".12"/>
+        <!-- Detalhe brilho aleta dir -->
+        <path d="M64 78 L72 93 L64 90Z" fill="white" opacity=".10"/>
+
+        <!-- ── Corpo principal ── -->
+        <path d="M45 6 C33 6 24 28 22 56 L22 98 L45 106 L68 98 L68 56 C66 28 57 6 45 6Z"
+              fill="url(#bodyG)"/>
+        <!-- Sheen (brilho lateral) -->
+        <path d="M45 6 C33 6 24 28 22 56 L22 98 L45 106 L68 98 L68 56 C66 28 57 6 45 6Z"
+              fill="url(#sheenG)"/>
+
+        <!-- ── Nariz ── -->
+        <path d="M45 6 C38 6 30 16 28 30 L62 30 C60 16 52 6 45 6Z"
+              fill="url(#noseG)"/>
+        <!-- Brilho do nariz -->
+        <path d="M45 8 C40 8 34 16 32 27 L50 27 C49 16 48 8 45 8Z"
+              fill="white" opacity=".14"/>
+
+        <!-- ── Faixas accent ── -->
+        <rect x="32" y="34" width="26" height="5" rx="2.5" fill="#EA580C" opacity=".92"/>
+        <rect x="35" y="44" width="20" height="3" rx="1.5" fill="#EA580C" opacity=".55"/>
+
+        <!-- ── Visor / janela ── -->
+        <!-- Anel externo escuro -->
+        <circle cx="45" cy="66" r="15" fill="#1E1B4B" stroke="#4C1D95" stroke-width="2"/>
+        <!-- Vidro interior (teal) -->
+        <circle cx="45" cy="66" r="11.5" fill="url(#windowG)"/>
+        <!-- Reflexo 1 (canto superior esq) -->
+        <ellipse cx="40.5" cy="61.5" rx="3.5" ry="2.2" fill="white" opacity=".38"
+                 transform="rotate(-25 40.5 61.5)"/>
+        <!-- Reflexo 2 (menor) -->
+        <ellipse cx="43" cy="69" rx="1.5" ry="1" fill="white" opacity=".18"/>
+        <!-- Pupila central -->
+        <circle cx="45" cy="66" r="2.5" fill="#CCFBF1" opacity=".65"/>
+
+        <!-- ── Bocal ── -->
+        <rect x="34" y="98"  width="22" height="12" rx="5"   fill="url(#nozzleG)"/>
+        <rect x="37" y="98"  width="16" height="7"  rx="3.5" fill="#3730A3"/>
+        <!-- Fenda decorativa bocal -->
+        <rect x="43" y="99"  width="4"  height="6"  rx="2"   fill="#312E81" opacity=".6"/>
+
+        <!-- ── Glow exterior da chama ── -->
+        <ellipse class="flame-glow" cx="45" cy="116" rx="16" ry="18" fill="url(#flameGlowG)"/>
+
+        <!-- ── Chama principal (animada) ── -->
+        <g class="flame" filter="url(#fGlow)">
+          <ellipse cx="45" cy="116" rx="10" ry="16" fill="#F97316"/>
+          <ellipse cx="45" cy="118" rx="7"  ry="11" fill="#FCD34D"/>
+          <ellipse cx="45" cy="121" rx="4"  ry="7"  fill="url(#flameG)"/>
+          <ellipse cx="45" cy="123" rx="2"  ry="3.5" fill="#FFFFFF" opacity=".92"/>
         </g>
-        <!-- Particles -->
-        <circle class="particle p1" cx="29" cy="91" r="2" fill="#F97316" opacity=".8"/>
-        <circle class="particle p2" cx="36" cy="95" r="1.5" fill="#FCD34D" opacity=".7"/>
-        <circle class="particle p3" cx="43" cy="92" r="2" fill="#F97316" opacity=".8"/>
-        <!-- Accent stripe -->
-        <rect x="32" y="16" width="8" height="3" rx="1.5" fill="#EA580C" opacity=".8"/>
-        <rect x="32" y="23" width="8" height="2" rx="1" fill="#EA580C" opacity=".5"/>
+
+        <!-- ── Partículas de escape ── -->
+        <circle class="particle p1" cx="36" cy="130" r="2.5" fill="#F97316" opacity=".85"/>
+        <circle class="particle p2" cx="45" cy="136" r="2"   fill="#FCD34D" opacity=".75"/>
+        <circle class="particle p3" cx="54" cy="131" r="2.5" fill="#F97316" opacity=".85"/>
+        <circle class="particle p4" cx="40" cy="134" r="1.8" fill="#FCD34D" opacity=".60"/>
+        <circle class="particle p5" cx="50" cy="135" r="1.8" fill="#FCD34D" opacity=".60"/>
       </svg>
     </div>
 

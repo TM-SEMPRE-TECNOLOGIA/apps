@@ -1,0 +1,201 @@
+{
+  "main": {
+    "id": "5399a3b30ae2d3ee",
+    "type": "split",
+    "children": [
+      {
+        "id": "0f82a95d3ab2cb83",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8ec1f8889f9497c6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "brain_obisidian/00 - Jarvis Brain/Mesa_de_Comando.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Mesa_de_Comando"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ca4cf17eed436ab6",
+    "type": "split",
+    "children": [
+      {
+        "id": "da380a1d8c884ebd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fea7f02adb37db20",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "3e121da0a0597c9a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "f4b5d2edab45fffb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e712d74a6f3cee8b",
+    "type": "split",
+    "children": [
+      {
+        "id": "88964d00b918bb45",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "461f1478c68aad39",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "brain_obisidian/00 - Jarvis Brain/Mesa_de_Comando.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos para Mesa_de_Comando"
+            }
+          },
+          {
+            "id": "177b10133364a0e8",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída"
+            }
+          },
+          {
+            "id": "5c5010c87fe9f571",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "d95a0e520708ca87",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "245d6580d0689894",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "8ec1f8889f9497c6",
+  "lastOpenFiles": [
+    "brain_obisidian/00 - Jarvis Brain/Logs/diario_de_dev_2026-04-21.md",
+    "brain_obisidian/Logs/design-system-decisions.md",
+    "Prints/Criação de produtos com IA.png",
+    "brain_obisidian/Logs/sessao_atual.md",
+    "brain_obisidian/Logs",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/README.md",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/public/vercel.svg",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/public/window.svg",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/public/file.svg",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/public/globe.svg",
+    "03_Arquivo_Morto_Legado/LEGADO - ANTIGOS/Bot-chat-next.js/nextjs-chat/public/next.svg",
+    "brain_obisidian/linha-do-tempo.html",
+    "brain_obisidian/00 - Jarvis Brain/Knowledge/AutoRelatorio_v2_PRD.md",
+    "brain_obisidian/00 - Jarvis Brain/Logs/diario_de_dev_2026-04-19.md",
+    "Sem título.canvas"
+  ]
+}
