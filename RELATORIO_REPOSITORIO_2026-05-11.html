@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório de Repositório — TM Sempre Tecnologia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --TM-primary:             #C8541C;
+      --TM-primary-hover:       #A6451A;
+      --TM-primary-light:       #FBEDE3;
+      --TM-primary-light-alpha: rgba(200,84,28,.12);
+      --tm-bg:           #F5F4F1;
+      --tm-bg-card:      #FFFFFF;
+      --tm-bg-hover:     #ECEAE5;
+      --tm-bg-input:     #FFFFFF;
+      --tm-bg-sidebar:   #FAF9F6;
+      --tm-bg-secondary: #E8E5DE;
+      --tm-bg-accent:    #FBEDE3;
+      --tm-bg-muted:     #EFEDE8;
+      --tm-text:        #1A1A1A;
+      --tm-text-muted:  #5C5A55;
+      --tm-text-subtle: #8C8A85;
+      --tm-border:       #DAD7D0;
+      --tm-border-hover: #B8B5AD;
+      --tm-border-strong:#1A1A1A;
+      --tm-success:     #4F7A3A;
+      --tm-info:        #345878;
+      --tm-warning:     #C8541C;
+      --tm-destructive: #A33B2A;
+      --TM-chart-1: #C8541C;
+      --TM-chart-2: #8C5A2E;
+      --TM-chart-3: #5C5A55;
+      --TM-chart-4: #345878;
+      --TM-chart-5: #2B2B2B;
+      --TM-font-serif: "Roboto Slab", Georgia, serif;
+      --TM-font-sans:  "Inter", system-ui, sans-serif;
+      --TM-font-mono:  "JetBrains Mono", monospace;
+      --TM-radius-sm: 4px;
+      --TM-radius-md: 6px;
+      --TM-radius-lg: 8px;
+      --TM-radius-xl: 12px;
+      --TM-shadow-sm: 0 1px 0 rgba(26,26,26,.04), 0 1px 2px rgba(26,26,26,.04);
+      --TM-shadow-md: 0 2px 4px -1px rgba(26,26,26,.08), 0 1px 2px rgba(26,26,26,.04);
+      --TM-shadow-lg: 0 8px 16px -4px rgba(26,26,26,.10), 0 2px 4px -1px rgba(26,26,26,.06);
+      --TM-shadow-xl: 0 16px 24px -6px rgba(26,26,26,.12), 0 4px 8px -2px rgba(26,26,26,.06);
+      --tm-space-1:  4px;
+      --tm-space-2:  8px;
+      --tm-space-3:  12px;
+      --tm-space-4:  16px;
+      --tm-space-5:  24px;
+      --tm-space-6:  32px;
+      --tm-space-7:  48px;
+      --tm-space-8:  64px;
+    }
+
+    html.dark {
+      --TM-primary:             #E47A4A;
+      --TM-primary-hover:       #C8541C;
+      --TM-primary-light:       #2B2520;
+      --TM-primary-light-alpha: rgba(228,122,74,.18);
+      --tm-bg:           #161513;
+      --tm-bg-card:      #1F1E1B;
+      --tm-bg-hover:     #2A2926;
+      --tm-bg-input:     #1F1E1B;
+      --tm-bg-sidebar:   #1A1916;
+      --tm-bg-secondary: #2A2926;
+      --tm-bg-accent:    #2B2520;
+      --tm-bg-muted:     #232220;
+      --tm-text:        #EFEDE8;
+      --tm-text-muted:  #A8A6A0;
+      --tm-text-subtle: #6E6C66;
+      --tm-border:       #34322E;
+      --tm-border-hover: #4A4842;
+      --tm-border-strong:#EFEDE8;
+      --TM-shadow-sm: 0 1px 0 rgba(0,0,0,.40);
+      --TM-shadow-md: 0 2px 4px -1px rgba(0,0,0,.50);
+      --TM-shadow-lg: 0 8px 16px -4px rgba(0,0,0,.55);
+      --TM-shadow-xl: 0 16px 24px -6px rgba(0,0,0,.65);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--tm-bg);
+      transition: background .3s ease, color .3s ease;
+    }
+
+    body {
+      font-family: var(--TM-font-sans);
+      color: var(--tm-text);
+      background: var(--tm-bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--TM-primary);
+      outline-offset: 2px;
+    }
+
+    .tm-display  { font-family: var(--TM-font-serif); font-weight: 600; font-size: clamp(2rem,5vw,3rem); line-height: 1.1; letter-spacing: -.015em; color: var(--tm-text); }
+    .tm-h1       { font-family: var(--TM-font-serif); font-weight: 600; font-size: 26px; line-height: 1.25; letter-spacing: -.01em; color: var(--tm-text); }
+    .tm-h2       { font-family: var(--TM-font-serif); font-weight: 500; font-size: 19px; line-height: 1.35; color: var(--tm-text); }
+    .tm-h3       { font-family: var(--TM-font-sans);  font-weight: 600; font-size: 15px; line-height: 1.4; color: var(--tm-text); letter-spacing: .005em; }
+    .tm-body     { font-family: var(--TM-font-sans);  font-weight: 400; font-size: 14px; line-height: 1.6; color: var(--tm-text); }
+    .tm-body-m   { font-family: var(--TM-font-sans);  font-weight: 400; font-size: 14px; line-height: 1.6; color: var(--tm-text-muted); }
+    .tm-small    { font-family: var(--TM-font-sans);  font-size: 12px; color: var(--tm-text-muted); }
+    .tm-mono     { font-family: var(--TM-font-mono);  font-size: 13px; color: var(--tm-text); }
+    .tm-mono-lbl { font-family: var(--TM-font-mono);  font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-text-subtle); font-weight: 500; }
+
+    .hdr {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--tm-bg-card);
+      border-bottom: 1px solid var(--tm-border);
+      box-shadow: var(--TM-shadow-sm);
+      height: 56px;
+      display: flex; align-items: center; gap: 18px;
+      padding: 0 24px;
+      transition: background .3s, border-color .3s;
+    }
+    .brand-sq   { width: 18px; height: 18px; background: var(--TM-primary); border-radius: 2px; }
+    .brand-name { font-family: var(--TM-font-serif); font-weight: 600; font-size: 16px; color: var(--tm-text); letter-spacing: -.005em; }
+    .brand-badge { font-family: var(--TM-font-mono); font-size: 10px; font-weight: 600; letter-spacing: .12em; padding: 2px 7px; border-radius: 3px; background: var(--tm-text); color: var(--tm-bg-card); }
+
+    .hdr-nav { flex: 1; }
+    .hdr-nav a { padding: 7px 13px; border-radius: 4px 4px 0 0; text-decoration: none; color: var(--tm-text-muted); font-weight: 500; font-size: 14px; transition: color .15s, background .15s; }
+    .hdr-nav a:hover { color: var(--tm-text); background: var(--tm-bg-hover); }
+
+    .hdr-actions { display: flex; gap: 12px; align-items: center; }
+
+    .btn-toggle {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 12px;
+      background: var(--tm-bg-hover);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-md);
+      color: var(--tm-text);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-toggle:hover { background: var(--tm-bg-secondary); border-color: var(--tm-border-hover); }
+
+    main { margin-top: 56px; padding: 48px 24px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+    .stat-card {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-top: 3px solid var(--TM-primary);
+      border-radius: var(--TM-radius-lg);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .stat-label { font-family: var(--TM-font-mono); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-text-subtle); margin-bottom: 8px; }
+    .stat-value { font-family: var(--TM-font-serif); font-size: 2rem; font-weight: 600; color: var(--tm-text); letter-spacing: -.01em; line-height: 1; }
+    .stat-delta { font-family: var(--TM-font-mono); font-size: 11px; font-weight: 500; margin-top: 8px; color: var(--tm-success); }
+
+    .card {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-lg);
+      padding: 22px;
+      box-shadow: var(--TM-shadow-sm);
+      transition: border-color .2s, box-shadow .2s;
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: var(--tm-border-hover); box-shadow: var(--TM-shadow-md); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 24px; }
+
+    .section-title { font-class: .tm-h1; margin-bottom: 24px; margin-top: 48px; padding-bottom: 12px; border-bottom: 1px solid var(--tm-border); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; font-family: var(--TM-font-mono);
+      font-size: 10px; font-weight: 600; letter-spacing: .12em;
+      border-radius: var(--TM-radius-sm); border: 1px solid transparent;
+      text-transform: uppercase;
+    }
+    .badge-ok      { background: #EAF1E4; color: #3A5A2C; border-color: #C5D4B4; }
+    .badge-info    { background: #E2EBF2; color: #1F3D55; border-color: #B8CADB; }
+    .badge-warn    { background: var(--TM-primary-light); color: var(--TM-primary-hover); border-color: rgba(200,84,28,.3); }
+
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--TM-font-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .1em; padding: 3px 8px; border-radius: 3px;
+      background: rgba(79,122,58,.12); color: var(--tm-success);
+      border: 1px solid rgba(79,122,58,.25);
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      background: var(--tm-success); border-radius: 50%;
+      animation: pulse-dot 2.5s ease infinite;
+    }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+    th {
+      background: var(--tm-bg-secondary);
+      border: 1px solid var(--tm-border);
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--tm-text);
+      border-top: 2px solid var(--TM-primary);
+    }
+    td {
+      border: 1px solid var(--tm-border);
+      padding: 10px 14px;
+    }
+    tr:hover { background: var(--tm-bg-hover); }
+
+    .footer {
+      margin-top: 64px;
+      padding: 40px 24px;
+      background: var(--tm-bg-secondary);
+      border-top: 1px solid var(--tm-border);
+      text-align: center;
+    }
+    .footer-brand {
+      display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px;
+    }
+    .footer-sq { width: 14px; height: 14px; background: var(--TM-primary); border-radius: 2px; }
+    .footer-name { font-family: var(--TM-font-serif); font-weight: 600; font-size: 14px; color: var(--tm-text); }
+    .footer-meta { display: flex; gap: 16px; justify-content: center; font-size: 12px; color: var(--tm-text-muted); flex-wrap: wrap; }
+
+    .anim-in { transition: opacity .5s ease, transform .5s ease; opacity: 0; transform: translateY(16px); }
+    .anim-in.visible { opacity: 1; transform: none; }
+
+    .list-item { padding: 12px 0; border-bottom: 1px solid var(--tm-border); }
+    .list-item:last-child { border-bottom: none; }
+
+    @media (max-width: 768px) {
+      main { padding: 32px 16px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .tm-h1 { font-size: 22px; }
+      .hdr { flex-wrap: wrap; height: auto; }
+      .brand-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a class="brand" href="#">
+      <span class="brand-sq"></span>
+      <span class="brand-name">TM Sempre Tecnologia</span>
+      <span class="brand-badge">RELATÓRIO</span>
+    </a>
+    <nav class="hdr-nav"></nav>
+    <div class="hdr-actions">
+      <button class="btn-toggle" id="dark-toggle">
+        <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-sun" width="14" height="14" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+        Tema
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+        <span class="live-dot"></span>
+        <span class="tm-mono-lbl">RELATÓRIO TÉCNICO</span>
+      </div>
+      <h1 class="tm-display">Análise do Repositório TM-MEUS-APPS</h1>
+      <p class="tm-body-m" style="margin-top: 12px;">Data: 11 de maio de 2026 · Branch: test</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="stat-card anim-in">
+        <div class="stat-label">Arquivos</div>
+        <div class="stat-value">521</div>
+        <div class="stat-delta">▲ sincronizados</div>
+      </div>
+      <div class="stat-card anim-in">
+        <div class="stat-label">Inserções</div>
+        <div class="stat-value">+59K</div>
+        <div class="stat-delta">▲ dados novos</div>
+      </div>
+      <div class="stat-card anim-in">
+        <div class="stat-label">Deletions</div>
+        <div class="stat-value">-1.7K</div>
+        <div class="stat-delta">▼ legado removido</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tm-h2">Status do Push</div>
+      <p class="tm-body" style="margin-top: 12px; margin-bottom: 16px;">O commit foi concluído com sucesso e está aguardando push para origin/test. O repositório está com <strong>1 commit à frente</strong> do remoto.</p>
+      <div style="background: var(--tm-bg-secondary); padding: 12px 14px; border-radius: var(--TM-radius-md); border-left: 3px solid var(--tm-info); font-family: var(--TM-font-mono); font-size: 12px;">
+        <div>Branch: <strong>test</strong></div>
+        <div>Commit Hash: <strong>79d79ed</strong></div>
+        <div>Status: <span class="status-pill"><span class="live-dot"></span>PREPARADO</span></div>
+      </div>
+    </div>
+
+    <h2 class="tm-h1" style="margin-top: 48px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--tm-border);">Mudanças Implementadas</h2>
+
+    <div class="card">
+      <div class="tm-h3">Estrutura do Workspace</div>
+      <div style="margin-top: 16px;">
+        <div class="list-item">
+          <div class="tm-body" style="font-weight: 600; margin-bottom: 4px;">✓ .agent/</div>
+          <div class="tm-small">Agents especializados (20 agentes), workflows (10), skills (80+), scripts de automação</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body" style="font-weight: 600; margin-bottom: 4px;">✓ Meus Plugins e Skills/</div>
+          <div class="tm-small">Skills consolidadas, plugins, referências de design</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body" style="font-weight: 600; margin-bottom: 4px;">✓ TM Design System - NOVO Laranjado/</div>
+          <div class="tm-small">Tokens v3, componentes, exemplos, UI kits para AutoRelatório</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body" style="font-weight: 600; margin-bottom: 4px;">✓ Monetização com IA/</div>
+          <div class="tm-small">Estratégias, agentes Meta Ads, squads, projetos</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body" style="font-weight: 600; margin-bottom: 4px;">✓ Obisidian/</div>
+          <div class="tm-small">Brain centralizado com knowledge, logs, documentação técnica</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="tm-h1" style="margin-top: 48px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--tm-border);">Skills Encontrados</h2>
+
+    <div class="card">
+      <div class="tm-h3">find-skills</div>
+      <p class="tm-body-m" style="margin-top: 8px; margin-bottom: 16px;">Skill instalado via vercel-labs. Total de 1.5M instalações. Permite descobrir e instalar skills do ecossistema de agentes.</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <span class="badge badge-ok">ATIVO</span>
+        <span class="badge badge-info">VERCEL-LABS</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tm-h3">tm-design-system:tm-web-pages</div>
+      <p class="tm-body-m" style="margin-top: 8px; margin-bottom: 16px;">Skill de construção de páginas com Design System TM v3. Gera HTML self-contained com tokens, dark mode, animações e responsividade.</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <span class="badge badge-ok">ATIVO</span>
+        <span class="badge badge-warn">DESIGN SYSTEM</span>
+      </div>
+    </div>
+
+    <h2 class="tm-h1" style="margin-top: 48px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--tm-border);">Context7 — Integração com Repositório</h2>
+
+    <div class="card">
+      <div class="tm-body" style="line-height: 1.8;">
+        <p><strong>Context7 é um serviço de documentação contextual</strong> que pode ser integrado ao seu repositório de 3 maneiras:</p>
+
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+          <div style="margin-bottom: 16px;">
+            <div class="tm-h3" style="margin-bottom: 8px;">1. Via package.json</div>
+            <div class="tm-body-m">Declare dependências no <code style="background: var(--tm-bg-secondary); padding: 2px 6px; border-radius: 2px;">package.json</code> com versões exatas. Context7 indexa automaticamente.</div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <div class="tm-h3" style="margin-bottom: 8px;">2. Via .context7rc ou CLAUDE.md</div>
+            <div class="tm-body-m">Arquivo de configuração que aponta para repositórios de código, documentação e referencias. Context7 aprende a estrutura do seu projeto.</div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <div class="tm-h3" style="margin-bottom: 8px;">3. Via Context7 Query Tool</div>
+            <div class="tm-body-m">Use <code style="background: var(--tm-bg-secondary); padding: 2px 6px; border-radius: 2px;">mcp__query-docs</code> com seu libraryId para consultar docs de forma contextual durante sessões.</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 16px; padding: 12px 14px; background: var(--tm-bg-secondary); border-left: 3px solid var(--tm-info); border-radius: var(--TM-radius-md);">
+          <strong>Próximo passo:</strong> Criar arquivo <code>.context7rc.json</code> na raiz do repositório para mapear seus agentes, skills, design system e documentação técnica.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="tm-h1" style="margin-top: 48px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--tm-border);">Recomendações</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="tm-h3" style="color: var(--tm-success);">✓ Prioridade Alta</div>
+        <div class="list-item" style="margin-top: 12px;">
+          <div class="tm-body">Completar push para origin/test</div>
+          <div class="tm-small">Git push está em background. Monitorar conclusão.</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body">Configurar Context7</div>
+          <div class="tm-small">Criar .context7rc para integração automática</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body">Refatoração Frontend AutoRelatório</div>
+          <div class="tm-small">Plano de 5-6 sessões com tokens TM v3</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tm-h3" style="color: var(--tm-info);">◆ Para Próximas Sessões</div>
+        <div class="list-item" style="margin-top: 12px;">
+          <div class="tm-body">Documentar arquitetura em ARCHITECTURE.md</div>
+          <div class="tm-small">Mapear dependências entre módulos</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body">Consolidar agentes em squads</div>
+          <div class="tm-small">Organizar por domínio (frontend, backend, design)</div>
+        </div>
+        <div class="list-item">
+          <div class="tm-body">Setup PWA para AutoRelatório v3</div>
+          <div class="tm-small">Service worker + offline-first</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 24px; background: var(--TM-primary-light); border-color: var(--TM-primary); border-top-color: var(--TM-primary);">
+      <div class="tm-h3" style="color: var(--TM-primary-hover);">↪ Checklist de Próximas Ações</div>
+      <table style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th style="width: 60%;">Ação</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Completar git push origin/test</td>
+            <td><span class="badge badge-warn">PENDENTE</span></td>
+          </tr>
+          <tr>
+            <td>Criar arquivo .context7rc.json</td>
+            <td><span class="badge">EM BACKLOG</span></td>
+          </tr>
+          <tr>
+            <td>FASE 1 — Refatorar globals.css</td>
+            <td><span class="badge">EM BACKLOG</span></td>
+          </tr>
+          <tr>
+            <td>Documentar design system decisions</td>
+            <td><span class="badge">EM BACKLOG</span></td>
+          </tr>
+          <tr>
+            <td>Setup CI/CD pipeline</td>
+            <td><span class="badge">EM BACKLOG</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <div class="footer-sq"></div>
+      <span class="footer-name">TM Sempre Tecnologia</span>
+    </div>
+    <div class="footer-meta">
+      <span>AutoRelatório V2 · 2026</span>
+      <span class="status-pill"><span class="live-dot"></span>ESTÁVEL</span>
+    </div>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('dark-toggle');
+    const moon = document.getElementById('icon-moon');
+    const sun = document.getElementById('icon-sun');
+
+    function applyTheme(dark) {
+      html.classList.toggle('dark', dark);
+      moon.style.display = dark ? 'none' : '';
+      sun.style.display = dark ? '' : 'none';
+      try { localStorage.setItem('tm-theme', dark ? 'dark' : 'light'); } catch(e) {}
+    }
+
+    (function() {
+      let saved;
+      try { saved = localStorage.getItem('tm-theme'); } catch(e) {}
+      applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    })();
+
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.anim-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
