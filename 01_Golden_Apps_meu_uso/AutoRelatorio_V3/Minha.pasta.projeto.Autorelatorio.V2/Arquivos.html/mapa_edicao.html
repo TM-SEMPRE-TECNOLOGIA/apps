@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Edição — AutoRelatorio V2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #0f0f0f;
+      --surface:    #161616;
+      --surface2:   #1e1e1e;
+      --border:     #2a2a2a;
+      --border2:    #333;
+      --text:       #e2e2e2;
+      --text-dim:   #888;
+      --text-faint: #444;
+      --accent:     #c8a96e;
+      --accent-dim: #8a6e3e;
+      --green:      #5a9e6f;
+      --blue:       #5a7a9e;
+      --purple:     #7a5a9e;
+      --red:        #9e5a5a;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* ── Header ── */
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 16px; }
+
+    .back-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .back-btn:hover { color: var(--text-dim); border-color: var(--border2); }
+
+    .header-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .header-sub {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    .header-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 4px 10px;
+      border: 1px solid var(--accent-dim);
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    /* ── Layout ── */
+    .body-wrap {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* ── Map area ── */
+    .map-area {
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .map-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 32px;
+    }
+
+    /* ── Flow ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Layer ── */
+    .layer {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .layer-label {
+      width: 100px;
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      padding-top: 14px;
+      text-align: right;
+      padding-right: 16px;
+      letter-spacing: 1px;
+    }
+
+    .layer-nodes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex: 1;
+    }
+
+    /* ── Node ── */
+    .node {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+      position: relative;
+      min-width: 140px;
+    }
+
+    .node:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+      background: var(--surface2);
+    }
+
+    .node.selected {
+      border-color: var(--accent-dim);
+      background: var(--surface2);
+      box-shadow: 0 0 0 1px var(--accent-dim), 0 6px 24px rgba(0,0,0,0.4);
+    }
+
+    .node-type {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .node-type.be  { color: var(--green); }
+    .node-type.fe  { color: var(--blue); }
+    .node-type.run { color: var(--accent); }
+    .node-type.tpl { color: var(--purple); }
+    .node-type.out { color: var(--red); }
+
+    .node-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .node-path {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    /* ── Connector arrows ── */
+    .connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 28px;
+      margin-left: 100px;
+    }
+
+    .connector-line {
+      width: 1px;
+      height: 20px;
+      background: var(--border2);
+      position: relative;
+    }
+
+    .connector-line::after {
+      content: '↓';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--border2);
+    }
+
+    /* ── Flow step ── */
+    .flow-step {
+      margin-left: 100px;
+      border-left: 2px solid var(--border);
+      padding: 0 0 24px 24px;
+      position: relative;
+    }
+
+    .flow-step::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border2);
+      position: absolute;
+      left: -5px;
+      top: 16px;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .step-text strong { color: var(--text); font-weight: 500; }
+    .step-text code {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    /* ── Detail panel ── */
+    .detail-panel {
+      border-left: 1px solid var(--border);
+      background: var(--surface);
+      padding: 32px 24px;
+      position: sticky;
+      top: 65px;
+      height: calc(100vh - 65px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .detail-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .detail-empty-icon {
+      font-size: 32px;
+      opacity: 0.2;
+    }
+
+    .detail-empty-text {
+      font-size: 12px;
+      color: var(--text-faint);
+      line-height: 1.6;
+    }
+
+    .detail-content { display: none; }
+    .detail-content.visible { display: flex; flex-direction: column; gap: 20px; }
+
+    .detail-header { }
+
+    .detail-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .detail-tag.be     { color: var(--green); }
+    .detail-tag.fe     { color: var(--blue); }
+    .detail-tag.run    { color: var(--accent); }
+    .detail-tag.tpl    { color: var(--purple); }
+    .detail-tag.out    { color: var(--red); }
+
+    .detail-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .detail-filepath {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      word-break: break-all;
+    }
+
+    .detail-divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    .detail-section-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 10px;
+    }
+
+    .detail-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    .detail-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .detail-item {
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .di-bullet {
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .detail-tip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent-dim);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .detail-tip strong { color: var(--accent); font-weight: 500; }
+
+    .detail-code-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    @media (max-width: 900px) {
+      .body-wrap { grid-template-columns: 1fr; }
+      .detail-panel { display: none; }
+      .map-area { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-left">
+    <div>
+      <div class="header-title">Mapa de Edição</div>
+      <div class="header-sub">AutoRelatorio V2 · APP/ frontend + backend</div>
+    </div>
+  </div>
+  <span class="header-badge">v2.0</span>
+</header>
+
+<div class="body-wrap">
+
+  <!-- ── Map ── -->
+  <div class="map-area">
+    <div class="map-label">Clique em qualquer arquivo para ver detalhes →</div>
+
+    <div class="flow">
+
+      <!-- ORQUESTRADOR -->
+      <div class="layer">
+        <div class="layer-label">ENTRADA</div>
+        <div class="layer-nodes">
+          <div class="node" onclick="showDetail('run-bat')">
+            <div class="node-type run">Launcher</div>
+            <div class="node-name">run.bat</div>
+            <div class="node-path">/ run.bat</div>
+          </div>
+          <div class="node" onclick="showDetail('run-py')">
+            <div class="node-type run">Orquestrador</div>
+            <div class="node-name">run.py</div>
+            <div class="node-path">/ run.py</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><div class="connector-line"></div></div>
+
+      <!-- BACKEND -->
+      <div class="layer">
+        <div class="layer-label">BACKEND</div>
+        <div class="layer-nodes">
+          <div class="node" onclick="showDetail('server')">
+            <div class="node-type be">Rotas HTTP</div>
+            <div class="node-name">server.py</div>
+            <div class="node-path">APP/backend/server.py</div>
+          </div>
+          <div class="node" onclick="showDetail('generator')">
+            <div class="node-type be">Scanner</div>
+            <div class="node-name">generator.py</div>
+            <div class="node-path">APP/backend/generator.py</div>
+          </div>
+          <div class="node" onclick="showDetail('generator-sp')">
+            <div class="node-type be">Scanner SP</div>
+            <div class="node-name">generator_sp.py</div>
+            <div class="node-path">APP/backend/generator_sp.py</div>
+          </div>
+          <div class="node" onclick="showDetail('word-utils')">
+            <div class="node-type be">Word</div>
+            <div class="node-name">word_utils.py</div>
+            <div class="node-path">APP/backend/word_utils.py</div>
+          </div>
+          <div class="node" onclick="showDetail('word-utils-sp')">
+            <div class="node-type be">Word SP</div>
+            <div class="node-name">word_utils_sp.py</div>
+            <div class="node-path">APP/backend/word_utils_sp.py</div>
+          </div>
+          <div class="node" onclick="showDetail('llm')">
+            <div class="node-type be">IA</div>
+            <div class="node-name">llm_generator.py</div>
+            <div class="node-path">APP/backend/llm_generator.py</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><div class="connector-line"></div></div>
+
+      <!-- TEMPLATES -->
+      <div class="layer">
+        <div class="layer-label">TEMPLATES</div>
+        <div class="layer-nodes">
+          <div class="node" onclick="showDetail('templates')">
+            <div class="node-type tpl">Templates</div>
+            <div class="node-name">templates/</div>
+            <div class="node-path">APP/backend/templates/ · 9 arquivos .docx</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><div class="connector-line"></div></div>
+
+      <!-- FRONTEND -->
+      <div class="layer">
+        <div class="layer-label">FRONTEND</div>
+        <div class="layer-nodes">
+          <div class="node" onclick="showDetail('page')">
+            <div class="node-type fe">Core</div>
+            <div class="node-name">page.tsx</div>
+            <div class="node-path">APP/frontend/app/page.tsx</div>
+          </div>
+          <div class="node" onclick="showDetail('sidebar')">
+            <div class="node-type fe">Wizard</div>
+            <div class="node-name">SidebarWizard.tsx</div>
+            <div class="node-path">APP/frontend/components/</div>
+          </div>
+          <div class="node" onclick="showDetail('preview')">
+            <div class="node-type fe">Grid</div>
+            <div class="node-name">PreviewGrid.tsx</div>
+            <div class="node-path">APP/frontend/components/</div>
+          </div>
+          <div class="node" onclick="showDetail('editor')">
+            <div class="node-type fe">Editor</div>
+            <div class="node-name">ImageEditorModal.tsx</div>
+            <div class="node-path">APP/frontend/components/</div>
+          </div>
+          <div class="node" onclick="showDetail('console')">
+            <div class="node-type fe">Logs</div>
+            <div class="node-name">ConsoleWatcher.tsx</div>
+            <div class="node-path">APP/frontend/components/</div>
+          </div>
+          <div class="node" onclick="showDetail('globals')">
+            <div class="node-type fe">Estilos</div>
+            <div class="node-name">globals.css</div>
+            <div class="node-path">APP/frontend/app/globals.css</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><div class="connector-line"></div></div>
+
+      <!-- OUTPUT -->
+      <div class="layer">
+        <div class="layer-label">SAÍDA</div>
+        <div class="layer-nodes">
+          <div class="node" onclick="showDetail('output')">
+            <div class="node-type out">Documento</div>
+            <div class="node-name">output/</div>
+            <div class="node-path">APP/backend/output/ · .docx gerado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLUXO DE EXECUÇÃO -->
+      <div style="margin-top: 48px; margin-left: 100px;">
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--text-faint); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Fluxo de execução</div>
+
+        <div class="flow-step">
+          <div class="step-num">01</div>
+          <div class="step-text">Usuário executa <code>run.bat</code> → chama <code>run.py</code></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">02</div>
+          <div class="step-text"><code>run.py</code> limpa portas, sobe <strong>FastAPI</strong> na <code>:5000</code> e <strong>Next.js</strong> na <code>:3000</code></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">03</div>
+          <div class="step-text">Frontend carrega <code>page.tsx</code>, busca templates em <code>GET /api/templates</code></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">04</div>
+          <div class="step-text">Usuário seleciona pasta → <code>POST /api/scan</code> → <code>generator.py</code> ou <code>generator_sp.py</code></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">05</div>
+          <div class="step-text"><code>PreviewGrid</code> renderiza fotos; usuário edita via <code>ImageEditorModal</code></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">06</div>
+          <div class="step-text">Confirmar → <code>POST /api/generate</code> → <code>word_utils.py</code> monta o <code>.docx</code></div>
+        </div>
+        <div class="flow-step" style="border-color: transparent;">
+          <div class="step-num">07</div>
+          <div class="step-text">Download via <code>GET /api/download</code> → arquivo salvo em <code>output/</code></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Detail Panel ── -->
+  <aside class="detail-panel" id="detailPanel">
+
+    <div class="detail-empty" id="detailEmpty">
+      <div class="detail-empty-icon">◈</div>
+      <div class="detail-empty-text">Clique em um arquivo<br>no mapa para ver os detalhes</div>
+    </div>
+
+    <!-- run.bat -->
+    <div class="detail-content" id="d-run-bat">
+      <div class="detail-header">
+        <div class="detail-tag run">Launcher</div>
+        <div class="detail-name">run.bat</div>
+        <div class="detail-filepath">/ run.bat</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Ponto de entrada para Windows. Duplo clique nele abre o terminal com o título correto e dispara o orquestrador Python.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Quiser mudar o título da janela do terminal</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Precisar passar variáveis de ambiente antes do run.py</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- run.py -->
+    <div class="detail-content" id="d-run-py">
+      <div class="detail-header">
+        <div class="detail-tag run">Orquestrador</div>
+        <div class="detail-name">run.py</div>
+        <div class="detail-filepath">/ run.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Gerencia todo o ciclo de vida do sistema: limpa portas presas, sobe backend e frontend, faz health-check, exibe logs em tempo real e encerra tudo com Ctrl+C.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar o timeout de espera do backend (HEALTH_TIMEOUT)</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar o banner de boas-vindas no terminal</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar um terceiro serviço ao orquestrador</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar as portas padrão (5000 / 3000)</span></div>
+        </div>
+      </div>
+      <div class="detail-tip"><strong>Dica:</strong> A constante HEALTH_TIMEOUT (linha ~31) controla quantos segundos espera o backend antes de abortar.</div>
+    </div>
+
+    <!-- server.py -->
+    <div class="detail-content" id="d-server">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · Rotas HTTP</div>
+        <div class="detail-name">server.py</div>
+        <div class="detail-filepath">APP/backend/server.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Define todos os endpoints da API REST que o frontend consome. É o "porteiro" entre a interface e a lógica de negócio.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Endpoints principais</div>
+        <div class="detail-code-block">GET  /api/templates
+POST /api/upload-template
+POST /api/scan
+GET  /api/image
+GET  /api/thumbnail
+POST /api/generate
+GET  /api/download</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar nova rota ou funcionalidade de API</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar validação de dados recebidos do frontend</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Ajustar CORS ou configurações do servidor</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- generator.py -->
+    <div class="detail-content" id="d-generator">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · Scanner</div>
+        <div class="detail-name">generator.py</div>
+        <div class="detail-filepath">APP/backend/generator.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Varre a pasta selecionada pelo usuário no modo Tradicional. Lê a estrutura de subpastas e retorna um JSON com as fotos organizadas por área e item.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar a lógica de ordenação de fotos</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar filtros de extensão de arquivo</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar a estrutura de pastas esperada</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- generator_sp.py -->
+    <div class="detail-content" id="d-generator-sp">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · Scanner SP</div>
+        <div class="detail-name">generator_sp.py</div>
+        <div class="detail-filepath">APP/backend/generator_sp.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Variante do generator para o modo São Paulo. Usa regex nos nomes dos arquivos para extrair medidas (largura, altura, desconto) e constrói hierarquias mais complexas.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar o padrão regex de extração de medidas</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar novos campos extraídos do nome do arquivo</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar agrupamento Foto × Detalhe</span></div>
+        </div>
+      </div>
+      <div class="detail-tip"><strong>SP vs Tradicional:</strong> A diferença principal é que o SP agrupa fotos em pares (vista ampla + detalhe) e extrai medidas do nome do arquivo via regex.</div>
+    </div>
+
+    <!-- word_utils.py -->
+    <div class="detail-content" id="d-word-utils">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · Word</div>
+        <div class="detail-name">word_utils.py</div>
+        <div class="detail-filepath">APP/backend/word_utils.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Recebe os dados organizados e insere fotos, descrições e formatação dentro do template .docx no modo Tradicional.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar tamanho ou posição das fotos no Word</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar formatação de texto das legendas</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar novos campos ao relatório tradicional</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- word_utils_sp.py -->
+    <div class="detail-content" id="d-word-utils-sp">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · Word SP</div>
+        <div class="detail-name">word_utils_sp.py</div>
+        <div class="detail-filepath">APP/backend/word_utils_sp.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Versão SP do insersor Word. Monta tabelas de 5 colunas com medidas em vermelho, subtotais e estrutura específica do contrato São Paulo.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar estrutura das tabelas de 5 colunas</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar formatação de medidas (cor, negrito)</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Ajustar cálculo de subtotais</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- llm_generator.py -->
+    <div class="detail-content" id="d-llm">
+      <div class="detail-header">
+        <div class="detail-tag be">Backend · IA</div>
+        <div class="detail-name">llm_generator.py</div>
+        <div class="detail-filepath">APP/backend/llm_generator.py</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Responsável por gerar descrições automáticas de fotos usando um modelo de linguagem (LLM). Ainda em desenvolvimento para integração completa.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Configurar a chave de API do modelo (Claude, GPT etc.)</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Ajustar o prompt base de geração de descrições</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Integrar ao fluxo do server.py</span></div>
+        </div>
+      </div>
+      <div class="detail-tip"><strong>Status:</strong> Arquivo existe mas não está 100% integrado ao fluxo principal. Próxima fase do roadmap.</div>
+    </div>
+
+    <!-- templates -->
+    <div class="detail-content" id="d-templates">
+      <div class="detail-header">
+        <div class="detail-tag tpl">Templates</div>
+        <div class="detail-name">templates/</div>
+        <div class="detail-filepath">APP/backend/templates/</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que é</div>
+        <div class="detail-desc">Pasta com 9 arquivos .docx que servem de base para o relatório. O sistema insere fotos e texto dentro desses templates — nunca cria do zero.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Atualizar o cabeçalho ou rodapé do relatório</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar a fonte ou estilo base do documento</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar um novo modelo de relatório</span></div>
+        </div>
+      </div>
+      <div class="detail-tip"><strong>Atenção:</strong> Edite os .docx no Word diretamente. Não mude a estrutura dos marcadores internos (placeholders) sem atualizar word_utils.py.</div>
+    </div>
+
+    <!-- page.tsx -->
+    <div class="detail-content" id="d-page">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Core</div>
+        <div class="detail-name">page.tsx</div>
+        <div class="detail-filepath">APP/frontend/app/page.tsx</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Componente raiz da aplicação. Gerencia todo o estado global da sessão: pasta selecionada, tipo de relatório, fotos carregadas, modal aberto, documento gerado.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar novo estado global à aplicação</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar o layout geral da página</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar o dropdown de descrições (descriptionsOptions)</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar nova chamada de API</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SidebarWizard -->
+    <div class="detail-content" id="d-sidebar">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Wizard</div>
+        <div class="detail-name">SidebarWizard.tsx</div>
+        <div class="detail-filepath">APP/frontend/components/SidebarWizard.tsx</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Painel lateral com os 6 passos de configuração: seleção de pasta, escolha de modo (Tradicional/SP), seleção de template, e botão de gerar.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar novo input ou seletor no painel lateral</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar os steps do wizard</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar textos dos labels e placeholders</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PreviewGrid -->
+    <div class="detail-content" id="d-preview">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Grid</div>
+        <div class="detail-name">PreviewGrid.tsx</div>
+        <div class="detail-filepath">APP/frontend/components/PreviewGrid.tsx</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Renderiza a grade responsiva de fotos após o scan. Cada card mostra a imagem, nome do arquivo e permite abrir o editor modal.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar o tamanho ou layout dos cards de foto</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar informações extras em cada card</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar a lógica de seleção de fotos</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ImageEditorModal -->
+    <div class="detail-content" id="d-editor">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Editor</div>
+        <div class="detail-name">ImageEditorModal.tsx</div>
+        <div class="detail-filepath">APP/frontend/components/ImageEditorModal.tsx</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Modal de tela cheia para edição de fotos. Usa Fabric.js como canvas — permite adicionar setas, caixas de texto e recortar. Salva a imagem editada de volta na sessão.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar nova ferramenta ao editor (círculo, highlight etc.)</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar cores ou espessura padrão das anotações</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar o comportamento de salvar a edição</span></div>
+        </div>
+      </div>
+      <div class="detail-tip"><strong>Lib:</strong> Fabric.js 7.3.1 — canvas interativo. Documentação em fabricjs.com.</div>
+    </div>
+
+    <!-- ConsoleWatcher -->
+    <div class="detail-content" id="d-console">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Logs</div>
+        <div class="detail-name">ConsoleWatcher.tsx</div>
+        <div class="detail-filepath">APP/frontend/components/ConsoleWatcher.tsx</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">Componente que exibe os logs do backend em tempo real dentro da interface. Mostra erros em vermelho, sucesso em verde.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar o formato visual dos logs na tela</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar filtro por tipo de mensagem</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Alterar o intervalo de polling dos logs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- globals.css -->
+    <div class="detail-content" id="d-globals">
+      <div class="detail-header">
+        <div class="detail-tag fe">Frontend · Estilos</div>
+        <div class="detail-name">globals.css</div>
+        <div class="detail-filepath">APP/frontend/app/globals.css</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que faz</div>
+        <div class="detail-desc">CSS global da aplicação. Define variáveis de cor, reset base e estilos que se aplicam a toda a interface.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Edite aqui quando</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Mudar as cores principais do design system</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Adicionar fontes globais</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Ajustar variáveis Tailwind customizadas</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- output -->
+    <div class="detail-content" id="d-output">
+      <div class="detail-header">
+        <div class="detail-tag out">Saída</div>
+        <div class="detail-name">output/</div>
+        <div class="detail-filepath">APP/backend/output/</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div>
+        <div class="detail-section-title">O que é</div>
+        <div class="detail-desc">Pasta onde os relatórios .docx gerados são salvos. O frontend faz download daqui via /api/download.</div>
+      </div>
+      <div>
+        <div class="detail-section-title">Observações</div>
+        <div class="detail-items-list">
+          <div class="detail-item"><span class="di-bullet">→</span><span>Não versionar — adicionar ao .gitignore</span></div>
+          <div class="detail-item"><span class="di-bullet">→</span><span>Limpar periodicamente para não acumular arquivos</span></div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script>
+  function showDetail(id) {
+    document.getElementById('detailEmpty').style.display = 'none';
+    document.querySelectorAll('.detail-content').forEach(d => d.classList.remove('visible'));
+    document.querySelectorAll('.node').forEach(n => n.classList.remove('selected'));
+
+    const detail = document.getElementById('d-' + id);
+    if (detail) detail.classList.add('visible');
+
+    // Highlight node
+    document.querySelectorAll('.node').forEach(n => {
+      if (n.getAttribute('onclick') === `showDetail('${id}')`) {
+        n.classList.add('selected');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

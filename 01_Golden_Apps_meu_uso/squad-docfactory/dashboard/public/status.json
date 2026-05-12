@@ -1,0 +1,97 @@
+{
+  "lastUpdate": "2026-04-01T02:11:40-03:00",
+  "projectName": "Auto Relatório (NX Relatórios)",
+  "orchestrator": "Antigravity AI — Agentic Mode",
+  "phases": [
+    {
+      "id": "01",
+      "name": "Planejamento Estratégico",
+      "folder": "01_planejamento_estrategico",
+      "agent": "Product Owner Estrategista",
+      "status": "done",
+      "docs": [
+        { "name": "O_Plano_Mestre_2.0.md", "status": "done", "sizeKb": 4 }
+      ]
+    },
+    {
+      "id": "02",
+      "name": "Discovery UX",
+      "folder": "02_discovery_ux",
+      "agent": "UX Researcher",
+      "status": "done",
+      "docs": [
+        { "name": "02_Personas_e_Jornadas.md", "status": "done", "sizeKb": 3 },
+        { "name": "03_Pesquisa_Concorrencia.md", "status": "done", "sizeKb": 4 },
+        { "name": "04_Wireframes_Flows.md", "status": "done", "sizeKb": 2 }
+      ]
+    },
+    {
+      "id": "03",
+      "name": "Definição do Produto",
+      "folder": "03_definicao_produto",
+      "agent": "Product Definer",
+      "status": "done",
+      "docs": [
+        { "name": "PRD.md", "status": "done", "sizeKb": 3 },
+        { "name": "NFRD.md", "status": "done", "sizeKb": 3 },
+        { "name": "User_Stories.md", "status": "done", "sizeKb": 3 }
+      ]
+    },
+    {
+      "id": "04",
+      "name": "Arquitetura",
+      "folder": "04_arquitetura",
+      "agent": "Architect",
+      "status": "done",
+      "docs": [
+        { "name": "Arquitetura_Tecnica.md", "status": "done", "sizeKb": 3 },
+        { "name": "DER.md", "status": "done", "sizeKb": 4 },
+        { "name": "API_Contracts.md", "status": "done", "sizeKb": 3 }
+      ]
+    },
+    {
+      "id": "05",
+      "name": "Dev Frontend",
+      "folder": "05_dev_frontend",
+      "agent": "Frontend Engineer",
+      "status": "done",
+      "docs": [
+        { "name": "Component_Map.md", "status": "done", "sizeKb": 3 },
+        { "name": "Design_System.md", "status": "done", "sizeKb": 2 }
+      ]
+    },
+    {
+      "id": "06",
+      "name": "Dev Backend",
+      "folder": "06_dev_backend",
+      "agent": "Backend Engineer",
+      "status": "done",
+      "docs": [
+        { "name": "Endpoints_Reference.md", "status": "done", "sizeKb": 3 },
+        { "name": "Business_Logic.md", "status": "done", "sizeKb": 3 }
+      ]
+    },
+    {
+      "id": "07",
+      "name": "Testes & QA",
+      "folder": "07_testes_qa",
+      "agent": "QA Specialist",
+      "status": "done",
+      "docs": [
+        { "name": "Test_Plan.md", "status": "done", "sizeKb": 3 },
+        { "name": "Edge_Cases.md", "status": "done", "sizeKb": 3 }
+      ]
+    },
+    {
+      "id": "08",
+      "name": "Deploy & DevOps",
+      "folder": "08_deploy_devops",
+      "agent": "DevOps Engineer",
+      "status": "done",
+      "docs": [
+        { "name": "Deploy_Guide.md", "status": "done", "sizeKb": 3 },
+        { "name": "CI_CD.md", "status": "done", "sizeKb": 2 }
+      ]
+    }
+  ]
+}

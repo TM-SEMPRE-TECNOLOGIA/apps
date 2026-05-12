@@ -1,0 +1,291 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.app{display:flex;flex-direction:column;height:580px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.logo{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.badge-mode{display:flex;gap:4px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:3px}
+.mode-btn{font-size:11px;padding:4px 10px;border-radius:6px;border:none;cursor:pointer;background:transparent;color:var(--color-text-secondary)}
+.mode-btn.active{background:var(--color-background-primary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);font-weight:500}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.btn-sm{font-size:11px;padding:5px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);cursor:pointer;background:transparent;color:var(--color-text-secondary)}
+.btn-primary{background:#1a56db;color:#fff;border-color:#1a56db;font-weight:500}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:220px;min-width:220px;border-right:0.5px solid var(--color-border-tertiary);overflow-y:auto;background:var(--color-background-secondary);padding:8px 0}
+.sidebar-label{font-size:10px;color:var(--color-text-tertiary);padding:8px 14px 4px;text-transform:uppercase;letter-spacing:0.06em}
+.tree-item{display:flex;align-items:center;gap:6px;padding:5px 14px;cursor:pointer;font-size:12px;color:var(--color-text-secondary);border-left:2px solid transparent;transition:background 0.1s}
+.tree-item:hover{background:var(--color-background-primary)}
+.tree-item.selected{background:var(--color-background-primary);color:var(--color-text-primary);border-left-color:#1a56db;font-weight:500}
+.tree-item.drop-target{background:#eff6ff;border-left-color:#3b82f6}
+.tree-icon{font-size:14px;width:16px;text-align:center}
+.tree-arrow{font-size:9px;color:var(--color-text-tertiary);margin-right:2px}
+.tree-child{padding-left:28px}
+.tree-count{margin-left:auto;font-size:10px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:99px;padding:1px 6px;color:var(--color-text-tertiary)}
+.tree-count.filled{background:#dbeafe;color:#1d4ed8;border-color:#bfdbfe}
+.content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.content-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.breadcrumb{font-size:12px;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px}
+.breadcrumb span{color:var(--color-text-primary);font-weight:500}
+.view-toggle{display:flex;gap:4px}
+.vbtn{padding:4px 6px;border:0.5px solid var(--color-border-tertiary);border-radius:4px;cursor:pointer;background:transparent;font-size:12px;color:var(--color-text-secondary)}
+.vbtn.active{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.photos-area{flex:1;overflow-y:auto;padding:12px}
+.section-title{font-size:11px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;padding-bottom:4px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-bottom:16px}
+.photo-card{border-radius:var(--border-radius-md);overflow:hidden;border:0.5px solid var(--color-border-tertiary);cursor:pointer;background:var(--color-background-secondary);transition:border-color 0.15s}
+.photo-card:hover{border-color:var(--color-border-primary)}
+.photo-card.selected{border-color:#1a56db;border-width:1.5px}
+.photo-thumb{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:22px;position:relative}
+.photo-label{font-size:10px;padding:4px 6px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:0.5px solid var(--color-border-tertiary)}
+.photo-tag{position:absolute;top:4px;right:4px;font-size:9px;background:#1a56db;color:#fff;border-radius:99px;padding:1px 5px}
+.statusbar{padding:6px 16px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between;background:var(--color-background-secondary)}
+.status-text{font-size:10px;color:var(--color-text-tertiary)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:5px}
+.action-bar{display:flex;align-items:center;gap:8px;padding:8px 16px;border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.action-label{font-size:11px;color:var(--color-text-secondary)}
+.action-select{font-size:11px;padding:4px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.btn-assign{font-size:11px;padding:5px 12px;border-radius:var(--border-radius-md);border:none;cursor:pointer;background:#1a56db;color:#fff;font-weight:500}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:8px;color:var(--color-text-tertiary);font-size:12px}
+.highlight-pulse{animation:pulse 1.5s ease-in-out 3}
+@keyframes pulse{0%,100%{background:var(--color-background-primary)}50%{background:#eff6ff}}
+</style>
+
+<div class="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo">NX Relatórios</div>
+      <div class="badge-mode">
+        <button class="mode-btn" onclick="setMode('relatorio')">Relatório</button>
+        <button class="mode-btn active" id="btn-organizar">Organizar</button>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span style="font-size:11px;color:var(--color-text-tertiary)">📁 C:/Demanda/Agência 1158</span>
+      <button class="btn-sm">Abrir pasta</button>
+      <button class="btn-sm btn-primary" onclick="sendPrompt('Quero entender como seria a integração do Modo Organizar com o backend Python para gerar o Word direto, sem precisar criar pastas fisicamente.')">Gerar Word ↗</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sidebar">
+      <div class="sidebar-label">Estrutura de pastas</div>
+
+      <div class="tree-item" onclick="selectAmb('nao-classificadas')" id="tree-nc">
+        <span class="tree-icon">📋</span>
+        <span>Não classificadas</span>
+        <span class="tree-count" id="count-nc">8</span>
+      </div>
+
+      <div style="margin-top:4px">
+        <div class="tree-item" onclick="toggleArea('externa')" id="tree-ext">
+          <span class="tree-arrow" id="arr-ext">▶</span>
+          <span class="tree-icon">🏢</span>
+          <span>Área externa</span>
+          <span class="tree-count" id="count-ext">0</span>
+        </div>
+        <div id="children-ext" style="display:none">
+          <div class="tree-item tree-child" onclick="selectAmb('fachada')" id="tree-fachada">
+            <span class="tree-icon">📷</span>
+            <span>Fachada</span>
+            <span class="tree-count" id="count-fachada">0</span>
+          </div>
+          <div class="tree-item tree-child" onclick="selectAmb('acesso')" id="tree-acesso">
+            <span class="tree-icon">🚪</span>
+            <span>Acesso</span>
+            <span class="tree-count" id="count-acesso">0</span>
+          </div>
+        </div>
+
+        <div class="tree-item" onclick="toggleArea('interna')" id="tree-int">
+          <span class="tree-arrow" id="arr-int">▶</span>
+          <span class="tree-icon">🏠</span>
+          <span>Área interna</span>
+          <span class="tree-count" id="count-int">0</span>
+        </div>
+        <div id="children-int" style="display:none">
+          <div class="tree-item tree-child" onclick="selectAmb('saa')" id="tree-saa">
+            <span class="tree-icon">🏧</span>
+            <span>SAA</span>
+            <span class="tree-count" id="count-saa">0</span>
+          </div>
+          <div class="tree-item tree-child" onclick="selectAmb('atendimento')" id="tree-atend">
+            <span class="tree-icon">💼</span>
+            <span>Atendimento</span>
+            <span class="tree-count" id="count-atend">0</span>
+          </div>
+          <div class="tree-item tree-child" onclick="selectAmb('banheiro')" id="tree-banh">
+            <span class="tree-icon">🚿</span>
+            <span>Banheiro</span>
+            <span class="tree-count" id="count-banh">0</span>
+          </div>
+          <div class="tree-item tree-child" onclick="selectAmb('copa')" id="tree-copa">
+            <span class="tree-icon">☕</span>
+            <span>Copa</span>
+            <span class="tree-count" id="count-copa">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="content-header">
+        <div class="breadcrumb" id="breadcrumb">Modo Organizar › <span>Não classificadas</span></div>
+        <div class="view-toggle">
+          <button class="vbtn active">⊞</button>
+          <button class="vbtn">☰</button>
+        </div>
+      </div>
+
+      <div class="photos-area" id="photos-area">
+        <div class="section-title" id="section-title">Fotos sem ambiente (8)</div>
+        <div class="photo-grid" id="photo-grid"></div>
+      </div>
+
+      <div class="action-bar" id="action-bar" style="display:none">
+        <span class="action-label">Mover <strong id="sel-count">0</strong> foto(s) para:</span>
+        <select class="action-select" id="dest-select">
+          <option value="">Selecione o destino...</option>
+          <option value="fachada">Área externa / Fachada</option>
+          <option value="acesso">Área externa / Acesso</option>
+          <option value="saa">Área interna / SAA</option>
+          <option value="atendimento">Área interna / Atendimento</option>
+          <option value="banheiro">Área interna / Banheiro</option>
+          <option value="copa">Área interna / Copa</option>
+        </select>
+        <button class="btn-assign" onclick="assignSelected()">Mover ✓</button>
+        <button class="btn-sm" onclick="clearSelection()" style="margin-left:auto">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <div><span class="status-dot"></span><span class="status-text">Motor online · v3.2</span></div>
+    <div class="status-text" id="status-msg">Selecione fotos e escolha o destino para organizar</div>
+  </div>
+</div>
+
+<script>
+const PHOTOS = [
+  {id:1,label:'IMG_0001.jpg',color:'#dbeafe',icon:'🏛️',amb:null},
+  {id:2,label:'IMG_0002.jpg',color:'#fef9c3',icon:'🪟',amb:null},
+  {id:3,label:'IMG_0003.jpg',color:'#dcfce7',icon:'🚪',amb:null},
+  {id:4,label:'IMG_0004.jpg',color:'#fce7f3',icon:'💡',amb:null},
+  {id:5,label:'IMG_0005.jpg',color:'#ede9fe',icon:'🪞',amb:null},
+  {id:6,label:'IMG_0006.jpg',color:'#ffedd5',icon:'🔧',amb:null},
+  {id:7,label:'IMG_0007.jpg',color:'#d1fae5',icon:'🏧',amb:null},
+  {id:8,label:'IMG_0008.jpg',color:'#fee2e2',icon:'🚿',amb:null},
+];
+
+let selected = new Set();
+let currentView = 'nao-classificadas';
+const counts = {nc:8, ext:0, int:0, fachada:0, acesso:0, saa:0, atendimento:0, banheiro:0, copa:0};
+const areaMap = {fachada:'ext', acesso:'ext', saa:'int', atendimento:'int', banheiro:'int', copa:'int'};
+
+function getPhotosFor(view){
+  if(view==='nao-classificadas') return PHOTOS.filter(p=>!p.amb);
+  return PHOTOS.filter(p=>p.amb===view);
+}
+
+function updateCounts(){
+  counts.nc = PHOTOS.filter(p=>!p.amb).length;
+  counts.fachada = PHOTOS.filter(p=>p.amb==='fachada').length;
+  counts.acesso = PHOTOS.filter(p=>p.amb==='acesso').length;
+  counts.saa = PHOTOS.filter(p=>p.amb==='saa').length;
+  counts.atendimento = PHOTOS.filter(p=>p.amb==='atendimento').length;
+  counts.banheiro = PHOTOS.filter(p=>p.amb==='banheiro').length;
+  counts.copa = PHOTOS.filter(p=>p.amb==='copa').length;
+  counts.ext = counts.fachada + counts.acesso;
+  counts.int = counts.saa + counts.atendimento + counts.banheiro + counts.copa;
+
+  ['nc','ext','int','fachada','acesso','saa','atendimento','banheiro','copa'].forEach(k=>{
+    const el = document.getElementById('count-'+k);
+    if(el){
+      el.textContent = counts[k];
+      el.className = 'tree-count' + (counts[k]>0?' filled':'');
+    }
+  });
+}
+
+function renderGrid(){
+  const photos = getPhotosFor(currentView);
+  const grid = document.getElementById('photo-grid');
+  const title = document.getElementById('section-title');
+  const label = currentView==='nao-classificadas'?'Fotos sem ambiente':currentView.charAt(0).toUpperCase()+currentView.slice(1);
+  title.textContent = label+' ('+photos.length+')';
+
+  if(photos.length===0){
+    grid.innerHTML = '<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:8px;color:var(--color-text-tertiary)"><div style="font-size:28px">📂</div><div style="font-size:12px">Nenhuma foto aqui</div></div>';
+    return;
+  }
+
+  grid.innerHTML = photos.map(p=>`
+    <div class="photo-card${selected.has(p.id)?' selected':''}" onclick="toggleSelect(${p.id})" id="pc-${p.id}">
+      <div class="photo-thumb" style="background:${p.color}">
+        <span style="font-size:24px">${p.icon}</span>
+        ${selected.has(p.id)?'<div style="position:absolute;inset:0;background:rgba(26,86,219,0.15);display:flex;align-items:center;justify-content:center"><span style="font-size:18px;color:#1a56db">✓</span></div>':''}
+      </div>
+      <div class="photo-label">${p.label}</div>
+    </div>
+  `).join('');
+}
+
+function toggleSelect(id){
+  if(selected.has(id)) selected.delete(id);
+  else selected.add(id);
+  document.getElementById('sel-count').textContent = selected.size;
+  document.getElementById('action-bar').style.display = selected.size>0?'flex':'none';
+  renderGrid();
+}
+
+function clearSelection(){
+  selected.clear();
+  document.getElementById('action-bar').style.display='none';
+  renderGrid();
+}
+
+function assignSelected(){
+  const dest = document.getElementById('dest-select').value;
+  if(!dest){alert('Selecione o destino!');return;}
+  selected.forEach(id=>{
+    const p = PHOTOS.find(x=>x.id===id);
+    if(p) p.amb = dest;
+  });
+  clearSelection();
+  updateCounts();
+  // Abrir a pasta destino na sidebar
+  const area = areaMap[dest];
+  if(area){
+    document.getElementById('children-'+area).style.display='block';
+    document.getElementById('arr-'+area).textContent='▼';
+  }
+  document.getElementById('status-msg').textContent = 'Fotos movidas para '+dest+' com sucesso';
+  selectAmb(currentView);
+}
+
+function selectAmb(amb){
+  currentView = amb;
+  document.querySelectorAll('.tree-item').forEach(el=>el.classList.remove('selected'));
+  const map = {'nao-classificadas':'tree-nc','fachada':'tree-fachada','acesso':'tree-acesso','saa':'tree-saa','atendimento':'tree-atend','banheiro':'tree-banh','copa':'tree-copa'};
+  if(map[amb]) document.getElementById(map[amb]).classList.add('selected');
+  const labels = {'nao-classificadas':'Não classificadas','fachada':'Fachada','acesso':'Acesso','saa':'SAA','atendimento':'Atendimento','banheiro':'Banheiro','copa':'Copa'};
+  document.getElementById('breadcrumb').innerHTML = 'Modo Organizar › <span>'+(labels[amb]||amb)+'</span>';
+  clearSelection();
+  renderGrid();
+}
+
+function toggleArea(area){
+  const ch = document.getElementById('children-'+area);
+  const arr = document.getElementById('arr-'+area);
+  const open = ch.style.display==='block';
+  ch.style.display = open?'none':'block';
+  arr.textContent = open?'▶':'▼';
+}
+
+function setMode(m){
+  if(m==='relatorio') sendPrompt('Quero ver como o Modo Organizar se conecta com o Modo Relatório existente — o fluxo completo da ideia.');
+}
+
+updateCounts();
+selectAmb('nao-classificadas');
+</script>

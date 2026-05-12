@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TM Ecossistema — Guia Mestre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --primary:        #2563EB;
+      --primary-dark:   #1D4ED8;
+      --primary-light:  #DBEAFE;
+      --accent:         #EA580C;
+      --accent-light:   #FEF0E7;
+      --bg:             #F8FAFC;
+      --surface:        #FFFFFF;
+      --foreground:     #1E293B;
+      --muted:          #64748B;
+      --border:         #E2E8F0;
+      --success:        #16A34A;
+      --success-light:  #DCFCE7;
+      --warning:        #D97706;
+      --warning-light:  #FEF9C3;
+      --purple:         #7C3AED;
+      --purple-light:   #EDE9FE;
+      --teal:           #0D9488;
+      --teal-light:     #CCFBF1;
+      --radius-card:    14px;
+      --radius-badge:   999px;
+      --shadow-sm:      0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:      0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+      --shadow-lg:      0 12px 32px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.05);
+      --font-body:      'Inter', sans-serif;
+      --font-heading:   'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--foreground);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ────────────────────────────────────────────────── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .logo-mark {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 18px; color: #fff; flex-shrink: 0;
+    }
+    .header-title { font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: var(--foreground); }
+    .header-subtitle { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 1px; }
+    .header-nav { display: flex; gap: 6px; }
+    .nav-link {
+      font-size: 12px; font-weight: 500; color: var(--muted);
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-badge); padding: 5px 12px;
+      cursor: pointer; text-decoration: none;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    .nav-link:hover { color: var(--primary); border-color: #C7D8FB; background: #f0f6ff; }
+    .claude-badge {
+      display: flex; align-items: center; gap: 7px;
+      background: linear-gradient(135deg, #f0f4ff, #e8f0fe);
+      border: 1px solid #c7d8fb;
+      border-radius: var(--radius-badge); padding: 6px 14px;
+      font-size: 12px; font-weight: 600; color: var(--primary);
+      letter-spacing: .01em;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 56px 32px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 600;
+      border-radius: var(--radius-badge); padding: 4px 14px;
+      letter-spacing: .04em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700; color: var(--foreground); line-height: 1.2; margin-bottom: 14px;
+    }
+    .hero-title span { color: var(--primary); }
+    .hero-desc { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .stats-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap; margin-top: 32px;
+    }
+    .stat-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-badge); padding: 10px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-pill .stat-num {
+      font-family: var(--font-heading); font-size: 22px; font-weight: 700;
+      color: var(--foreground); line-height: 1;
+    }
+    .stat-pill .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .stat-pill .stat-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      animation: blink 2s ease-in-out infinite;
+    }
+    .dot-blue { background: var(--primary); }
+    .dot-green { background: var(--success); }
+    .dot-orange { background: var(--accent); }
+    .dot-purple { background: var(--purple); }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 20px; margin-top: 48px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Project Grid ───────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .project-column-header {
+      font-family: var(--font-heading); font-size: 13px; font-weight: 700;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .col-badge {
+      font-size: 10px; font-weight: 600; border-radius: var(--radius-badge);
+      padding: 3px 8px;
+    }
+    .col-golden  { background: #FEF9C3; color: #92400E; }
+    .col-deploy  { background: var(--primary-light); color: var(--primary-dark); }
+    .col-archive { background: var(--border); color: var(--muted); }
+
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 18px;
+      box-shadow: var(--shadow-sm); margin-bottom: 12px;
+      transition: box-shadow .2s, border-color .2s, transform .2s;
+      animation: entry-in .35s ease both;
+    }
+    .project-card:hover {
+      box-shadow: var(--shadow-md); border-color: #C7D8FB; transform: translateY(-2px);
+    }
+    @keyframes entry-in {
+      from { opacity:0; transform: translateY(8px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .project-card:nth-child(2) { animation-delay: .05s; }
+    .project-card:nth-child(3) { animation-delay: .10s; }
+    .project-name {
+      font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+      color: var(--foreground); margin-bottom: 4px;
+    }
+    .project-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      font-size: 10px; color: var(--muted); background: var(--bg);
+      border: 1px solid var(--border); border-radius: 5px; padding: 2px 7px;
+    }
+    .tag-primary { background: var(--primary-light); color: var(--primary-dark); border-color: #BFDBFE; }
+    .tag-orange  { background: var(--accent-light); color: #9A3412; border-color: #FED7AA; }
+    .tag-green   { background: var(--success-light); color: #14532D; border-color: #BBF7D0; }
+    .tag-purple  { background: var(--purple-light); color: #4C1D95; border-color: #DDD6FE; }
+    .tag-muted   { background: var(--border); color: var(--muted); border-color: #CBD5E1; }
+
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600; border-radius: var(--radius-badge); padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+    .status-active  { background: var(--success-light); color: var(--success); }
+    .status-dev     { background: var(--primary-light);  color: var(--primary); }
+    .status-early   { background: var(--warning-light);  color: var(--warning); }
+    .status-archive { background: var(--border);          color: var(--muted); }
+
+    .ports-line {
+      font-size: 11px; color: var(--muted); margin-top: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .port-badge {
+      font-family: 'Courier New', monospace; font-size: 10px;
+      background: #F1F5F9; border: 1px solid #CBD5E1;
+      border-radius: 4px; padding: 1px 6px; color: var(--foreground);
+    }
+
+    /* ── Skills Grid ─────────────────────────────────────────────── */
+    .skills-custom-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px;
+    }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, border-color .2s, transform .2s;
+      animation: entry-in .35s ease both;
+    }
+    .skill-card:hover {
+      box-shadow: var(--shadow-md); border-color: #C7D8FB; transform: translateY(-2px);
+    }
+    .skill-card.accent-border { border-left: 3px solid var(--accent); }
+    .skill-card.primary-border { border-left: 3px solid var(--primary); }
+    .skill-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .skill-name { font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--foreground); }
+    .skill-command {
+      font-family: 'Courier New', monospace; font-size: 11px;
+      background: #F1F5F9; border: 1px solid #CBD5E1;
+      border-radius: 6px; padding: 3px 8px; color: var(--muted); flex-shrink: 0;
+    }
+    .skill-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+    .skill-detail {
+      font-size: 12px; background: var(--bg); border-radius: 8px;
+      padding: 8px 12px; color: var(--muted); border: 1px solid var(--border);
+    }
+    .skill-detail strong { color: var(--foreground); }
+
+    /* ── Turbo Grid ──────────────────────────────────────────────── */
+    .turbo-category { margin-bottom: 24px; }
+    .turbo-category-label {
+      font-size: 11px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .turbo-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .turbo-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-badge); padding: 7px 13px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, border-color .2s, transform .15s;
+      cursor: default;
+    }
+    .turbo-chip:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-1px);
+    }
+    .turbo-chip .chip-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .turbo-chip .chip-name { font-size: 12px; font-weight: 600; color: var(--foreground); }
+    .turbo-chip .chip-desc { font-size: 11px; color: var(--muted); }
+
+    .chip-meta  .chip-dot { background: #8B5CF6; }
+    .chip-agent .chip-dot { background: #0D9488; }
+    .chip-build .chip-dot { background: var(--primary); }
+    .chip-db    .chip-dot { background: #16A34A; }
+    .chip-ui    .chip-dot { background: var(--accent); }
+    .chip-doc   .chip-dot { background: #D97706; }
+    .chip-lib   .chip-dot { background: var(--muted); }
+
+    .chip-meta:hover  { border-color: #DDD6FE; }
+    .chip-agent:hover { border-color: #99F6E4; }
+    .chip-build:hover { border-color: #BFDBFE; }
+    .chip-db:hover    { border-color: #BBF7D0; }
+    .chip-ui:hover    { border-color: #FED7AA; }
+    .chip-doc:hover   { border-color: #FDE68A; }
+
+    /* ── Stack Grid ──────────────────────────────────────────────── */
+    .stack-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+    }
+    .stack-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .stack-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .stack-category {
+      font-size: 10px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .stack-items { display: flex; flex-direction: column; gap: 5px; }
+    .stack-item {
+      display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--foreground);
+    }
+    .stack-item::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0;
+    }
+
+    /* ── Automations ─────────────────────────────────────────────── */
+    .automations-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;
+    }
+    .automation-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .automation-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .automation-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .automation-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .auto-blue   { background: var(--primary-light); }
+    .auto-orange { background: var(--accent-light); }
+    .auto-green  { background: var(--success-light); }
+    .auto-purple { background: var(--purple-light); }
+    .automation-name { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: var(--foreground); }
+    .automation-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* ── Commands ─────────────────────────────────────────────────── */
+    .commands-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+    }
+    .command-block {
+      background: #0F172A; border: 1px solid #1E293B;
+      border-radius: var(--radius-card); padding: 16px 18px;
+      transition: box-shadow .2s; position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .command-block:hover { box-shadow: 0 4px 20px rgba(0,0,0,.2); }
+    .command-label {
+      font-size: 10px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: #64748B; margin-bottom: 8px;
+    }
+    .command-line {
+      font-family: 'Courier New', monospace; font-size: 13px;
+      color: #7DD3FC; line-height: 1.7;
+    }
+    .command-line .cmd-comment { color: #475569; }
+    .command-line .cmd-var { color: #FCD34D; }
+    .command-line .cmd-string { color: #86EFAC; }
+    .copy-btn {
+      position: absolute; top: 12px; right: 14px;
+      background: #1E293B; border: 1px solid #334155;
+      border-radius: 6px; padding: 3px 8px;
+      font-size: 10px; font-weight: 600; color: #94A3B8;
+      cursor: pointer; transition: background .15s, color .15s;
+    }
+    .copy-btn:hover { background: #334155; color: #CBD5E1; }
+    .copy-btn.copied { background: #14532D; border-color: #166534; color: #86EFAC; }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .footer {
+      text-align: center; padding: 32px;
+      font-size: 12px; color: var(--muted);
+      border-top: 1px solid var(--border); margin-top: 40px;
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-custom-grid { grid-template-columns: 1fr; }
+      .header-nav { display: none; }
+    }
+    @media (max-width: 640px) {
+      .header { padding: 14px 16px; }
+      .hero { padding: 40px 16px 28px; }
+      .main { padding: 0 16px 64px; }
+      .stats-row { gap: 8px; }
+      .stat-pill { padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-mark">TM</div>
+      <div>
+        <div class="header-title">TM Sempre Tecnologia</div>
+        <div class="header-subtitle">Guia Mestre do Ecossistema · Atualizado 19/04/2026</div>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a class="nav-link" href="#projetos">Projetos</a>
+      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-link" href="#stack">Stack</a>
+      <a class="nav-link" href="#automacoes">Automações</a>
+      <a class="nav-link" href="#comandos">Comandos</a>
+    </nav>
+    <div class="claude-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#EA580C" opacity=".15"/>
+        <path d="M8 12 Q12 6 16 12 Q12 18 8 12Z" fill="#EA580C"/>
+      </svg>
+      <span>Powered by Claude</span>
+    </div>
+  </header>
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-eyebrow">Referência Pessoal · Thiago Nascimento Barbosa</div>
+    <h1 class="hero-title">Seu <span>Ecossistema</span> Completo</h1>
+    <p class="hero-desc">
+      Mapa visual de todos os projetos, skills, workflows e automações do TM Dev Stack.
+      Use como referência rápida no dia a dia.
+    </p>
+    <div class="stats-row">
+      <div class="stat-pill">
+        <span class="stat-dot dot-blue"></span>
+        <span class="stat-num">6</span>
+        <span class="stat-label">Apps ativos</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-dot dot-green"></span>
+        <span class="stat-num">16</span>
+        <span class="stat-label">Turbo workflows</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-dot dot-orange"></span>
+        <span class="stat-num">2</span>
+        <span class="stat-label">Skills custom</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-dot dot-purple"></span>
+        <span class="stat-num">10</span>
+        <span class="stat-label">Hooks ativos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Main ───────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- PROJETOS -->
+    <div id="projetos" class="section-label">Mapa de Projetos</div>
+    <div class="projects-grid">
+
+      <!-- Coluna 01 -->
+      <div>
+        <div class="project-column-header">
+          <span>01 · Golden Apps</span>
+          <span class="col-badge col-golden">Uso Pessoal</span>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-active">● Ativo</span>
+          <div class="project-name">AutoRelatorio V1 Dev</div>
+          <div class="project-desc">Gerador automático de relatórios fotográficos. Lê imagens de uma pasta, monta um .docx formatado com tabelas e legendas.</div>
+          <div class="ports-line">Portas: <span class="port-badge">:5000</span> backend · <span class="port-badge">:3000</span> frontend</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-primary">Next.js 16</span>
+            <span class="tag tag-orange">FastAPI</span>
+            <span class="tag tag-orange">Python 3.13</span>
+            <span class="tag tag-primary">TypeScript</span>
+            <span class="tag">Tailwind</span>
+            <span class="tag">Framer Motion</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-dev">◐ Dev</span>
+          <div class="project-name">Squad Brainstorming</div>
+          <div class="project-desc">Workspace de ideação estruturada. Conecta o Obsidian a squads de IA para análise de ideias complexas.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-purple">CrewAI</span>
+            <span class="tag">Obsidian</span>
+            <span class="tag">Markdown</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-dev">◐ Dev</span>
+          <div class="project-name">Squad DocFactory</div>
+          <div class="project-desc">Fábrica de documentação técnica. Gera 25+ tipos de documentos via agentes IA com templates configuráveis.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-purple">CrewAI</span>
+            <span class="tag tag-orange">Gemini Flash</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 02 -->
+      <div>
+        <div class="project-column-header">
+          <span>02 · Golden Apps</span>
+          <span class="col-badge col-deploy">Deploy / SaaS</span>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-dev">◐ Dev</span>
+          <div class="project-name">AutoRelatorio SaaS</div>
+          <div class="project-desc">Versão cloud do gerador de relatórios. Multi-tenant, com autenticação e armazenamento em nuvem.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-primary">Next.js</span>
+            <span class="tag tag-green">Supabase</span>
+            <span class="tag tag-primary">TypeScript</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-dev">◐ Dev</span>
+          <div class="project-name">AutoLevantamento</div>
+          <div class="project-desc">App mobile-first para coleta de vistoria em campo. Formulários dinâmicos, upload de fotos, exportação de relatórios.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-primary">Next.js</span>
+            <span class="tag tag-primary">React</span>
+            <span class="tag">Mobile-first</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-early">◌ Early</span>
+          <div class="project-name">AutoGerenciador</div>
+          <div class="project-desc">Sistema de gestão de tarefas e ordens de serviço. Estrutura modular com agentes IA integrados.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-primary">Next.js</span>
+            <span class="tag tag-green">Supabase</span>
+            <span class="tag">Early stage</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 03 -->
+      <div>
+        <div class="project-column-header">
+          <span>03 · Arquivo Morto</span>
+          <span class="col-badge col-archive">Legado / Referência</span>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-archive">✓ Referência</span>
+          <div class="project-name">TM-Gerenciador-OS</div>
+          <div class="project-desc">Sistema de OS estilo WhatsApp. Arquitetura de referência para backend com Drizzle ORM + Neon DB.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag">Express</span>
+            <span class="tag">Drizzle ORM</span>
+            <span class="tag">Neon DB</span>
+            <span class="tag">Radix UI</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-archive">✓ Referência</span>
+          <div class="project-name">Sistema Gestão Preventivas</div>
+          <div class="project-desc">Gestão de manutenções preventivas. Referência de UI com modo TV e React completo.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag">Express</span>
+            <span class="tag">React</span>
+            <span class="tag">Drizzle ORM</span>
+            <span class="tag">Vite</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <span class="status-chip status-archive">✓ Arquivo</span>
+          <div class="project-name">Versões Legadas</div>
+          <div class="project-desc">Bot chat Next.js, TM Demandas, TM Extrator, TM Studio Relatório, TM Gerenciador V2. Prova de evolução.</div>
+          <div class="project-tags" style="margin-top:10px">
+            <span class="tag tag-muted">Next.js</span>
+            <span class="tag tag-muted">Histórico</span>
+            <span class="tag tag-muted">Somente leitura</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS CUSTOM -->
+    <div id="skills" class="section-label">Skills Customizadas</div>
+    <div class="skills-custom-grid">
+
+      <div class="skill-card accent-border">
+        <div class="skill-header">
+          <div class="skill-name">Auditora Fiscal</div>
+          <code class="skill-command">/auditora-fiscal</code>
+        </div>
+        <p class="skill-desc">
+          Mentor simulado de 25+ anos da SEFAZ-GO. Prepara para o concurso com 600 questões, simulados, caderno de erros automático e foco em LC 116/2003, Decretos SEFAZ-GO e jurisprudência CARF.
+        </p>
+        <div class="skill-detail">
+          <strong>Prova:</strong> 17/05/2026 · <strong>Meta:</strong> 600 questões · <strong>Split:</strong> 80% simulados + 20% revisão
+        </div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag tag-orange">SEFAZ-GO</span>
+          <span class="tag tag-orange">FCC</span>
+          <span class="tag tag-orange">LC 116/2003</span>
+          <span class="tag">CARF</span>
+          <span class="tag">Excel de erros</span>
+        </div>
+      </div>
+
+      <div class="skill-card primary-border">
+        <div class="skill-header">
+          <div class="skill-name">Relatório Preventivo</div>
+          <code class="skill-command">/relatorio-preventivo</code>
+        </div>
+        <p class="skill-desc">
+          Pipeline automatizado para relatórios fotográficos de vistoria preventiva (contratos Banco do Brasil). Processa .docx em 4 etapas: extração de itens, memorial final, verificação de divergências e validação de legendas.
+        </p>
+        <div class="skill-detail">
+          <strong>Deps:</strong> python-docx, openpyxl, lxml, pandoc · <strong>Output:</strong> Excel + Word formatado
+        </div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag tag-primary">python-docx</span>
+          <span class="tag tag-primary">openpyxl</span>
+          <span class="tag">Banco do Brasil</span>
+          <span class="tag">4 etapas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TURBO WORKFLOWS -->
+    <div class="section-label">Turbo Workflows — 16 disponíveis</div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">🎯 Metodologia</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-meta">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-gsd</div><div class="chip-desc">Get-Shit-Done · MVP rápido</div></div>
+        </div>
+        <div class="turbo-chip chip-meta">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-prevc</div><div class="chip-desc">5 fases · produção</div></div>
+        </div>
+        <div class="turbo-chip chip-meta">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-checkpoint</div><div class="chip-desc">Salva sessão · Git + Obsidian</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">🤖 Multi-Agentes</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-agent">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-crew</div><div class="chip-desc">CrewAI orquestrador</div></div>
+        </div>
+        <div class="turbo-chip chip-agent">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-opensquad</div><div class="chip-desc">Squads com dashboard</div></div>
+        </div>
+        <div class="turbo-chip chip-agent">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-pixel</div><div class="chip-desc">Visual agents VS Code</div></div>
+        </div>
+        <div class="turbo-chip chip-agent">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-brainstorm</div><div class="chip-desc">Ideação com Obsidian</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">⚡ Build &amp; Deploy</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-build">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-mono</div><div class="chip-desc">Turborepo monorepo</div></div>
+        </div>
+        <div class="turbo-chip chip-build">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-turbopack</div><div class="chip-desc">Rust bundler 700x faster</div></div>
+        </div>
+        <div class="turbo-chip chip-build">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-vercel</div><div class="chip-desc">Deploy infrastructure</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">🗄️ Backend &amp; DB</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-db">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-supabase</div><div class="chip-desc">Postgres + Auth + Realtime</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">🎨 UI &amp; Design</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-ui">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-ui</div><div class="chip-desc">Design system premium</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">📄 Documentação &amp; Memória</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-doc">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-docfactory</div><div class="chip-desc">28 templates · auto-docs</div></div>
+        </div>
+        <div class="turbo-chip chip-doc">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-vault</div><div class="chip-desc">Persiste no Obsidian</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turbo-category">
+      <div class="turbo-category-label">📚 Bibliotecas</div>
+      <div class="turbo-chips">
+        <div class="turbo-chip chip-lib">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-skills</div><div class="chip-desc">1.246+ prompts elite</div></div>
+        </div>
+        <div class="turbo-chip chip-lib">
+          <span class="chip-dot"></span>
+          <div><div class="chip-name">/turbo-anthropic</div><div class="chip-desc">Skills oficiais Anthropic</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STACK -->
+    <div id="stack" class="section-label">Stack Tecnológica</div>
+    <div class="stack-grid">
+
+      <div class="stack-card">
+        <div class="stack-category">Frontend</div>
+        <div class="stack-items">
+          <div class="stack-item">Next.js 16.1.6</div>
+          <div class="stack-item">React 19.2.3</div>
+          <div class="stack-item">TypeScript 5</div>
+          <div class="stack-item">Tailwind CSS 4.2</div>
+          <div class="stack-item">Framer Motion 12</div>
+          <div class="stack-item">Radix UI</div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-category">Backend</div>
+        <div class="stack-items">
+          <div class="stack-item">Python 3.13.7</div>
+          <div class="stack-item">FastAPI</div>
+          <div class="stack-item">Node.js (legado)</div>
+          <div class="stack-item">Express (legado)</div>
+          <div class="stack-item">python-docx</div>
+          <div class="stack-item">openpyxl</div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-category">Banco de Dados</div>
+        <div class="stack-items">
+          <div class="stack-item">Supabase (Postgres)</div>
+          <div class="stack-item">Neon DB (legado)</div>
+          <div class="stack-item">Drizzle ORM</div>
+          <div class="stack-item">Drizzle Kit</div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-category">IA &amp; Agentes</div>
+        <div class="stack-items">
+          <div class="stack-item">Claude Sonnet 4.6</div>
+          <div class="stack-item">CrewAI</div>
+          <div class="stack-item">Gemini Flash</div>
+          <div class="stack-item">Pixel Agents</div>
+          <div class="stack-item">OpenSquad</div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-category">Infra &amp; DevOps</div>
+        <div class="stack-items">
+          <div class="stack-item">Vercel (deploy)</div>
+          <div class="stack-item">Turborepo</div>
+          <div class="stack-item">Git poly-repo</div>
+          <div class="stack-item">GitHub Actions</div>
+          <div class="stack-item">Python venv</div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-category">Conhecimento</div>
+        <div class="stack-items">
+          <div class="stack-item">Obsidian (vault)</div>
+          <div class="stack-item">brain_obisidian/</div>
+          <div class="stack-item">CLAUDE.md files</div>
+          <div class="stack-item">Memory API (porta 27124)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTOMAÇÕES -->
+    <div id="automacoes" class="section-label">Automações &amp; Hooks</div>
+    <div class="automations-grid">
+
+      <div class="automation-card">
+        <div class="automation-header">
+          <div class="automation-icon auto-orange">🚀</div>
+          <div class="automation-name">run.py — Launcher Full-Stack</div>
+        </div>
+        <div class="automation-desc">Inicia backend (FastAPI :5000) + frontend (Next.js :3000) em paralelo. Limpa portas no Windows, monitora health do backend por 30s antes de liberar o frontend.</div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag">AutoRelatorioV1_Dev/run.py</span>
+          <span class="tag tag-orange">Python 3.13</span>
+        </div>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-header">
+          <div class="automation-icon auto-purple">👁️</div>
+          <div class="automation-name">Pixel Agents — 10 Hooks</div>
+        </div>
+        <div class="automation-desc">Cada ação do Claude dispara um hook HTTP para o servidor Pixel Agents (porta 59235). Monitora: SessionStart, SessionEnd, Stop, PreToolUse, PostToolUse, SubagentStart, SubagentStop e mais.</div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag tag-purple">~/.pixel-agents/hooks/</span>
+          <span class="tag">Porta 59235</span>
+          <span class="tag">VS Code</span>
+        </div>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-header">
+          <div class="automation-icon auto-blue">📄</div>
+          <div class="automation-name">Scripts Relatório (.docx)</div>
+        </div>
+        <div class="automation-desc">5 scripts Python para o pipeline de relatório fotográfico: extração de itens para Excel, geração de memorial Word, verificação de divergências e validação de legendas de fotos.</div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag tag-primary">relatorio-preventivo/scripts/</span>
+          <span class="tag">python-docx</span>
+          <span class="tag">openpyxl</span>
+        </div>
+      </div>
+
+      <div class="automation-card">
+        <div class="automation-header">
+          <div class="automation-icon auto-green">⚙️</div>
+          <div class="automation-name">GitHub Actions CI/CD</div>
+        </div>
+        <div class="automation-desc">Pipelines de CI (Node 20/22/24 × Ubuntu/Windows/macOS) e release automático (npm publish) para o TURBO DEV. Triggers em push de tags v*.</div>
+        <div class="project-tags" style="margin-top:10px">
+          <span class="tag tag-green">.github/workflows/ci.yml</span>
+          <span class="tag tag-green">.github/workflows/release.yml</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMANDOS -->
+    <div id="comandos" class="section-label">Comandos Rápidos</div>
+    <div class="commands-grid">
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Ambiente Python</div>
+        <div class="command-line">
+          <span class="cmd-comment"># Ativar venv (bash)</span><br>
+          source <span class="cmd-var">.venv/Scripts/activate</span><br><br>
+          <span class="cmd-comment"># Verificar versão</span><br>
+          python --version
+        </div>
+      </div>
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Rodar AutoRelatorio</div>
+        <div class="command-line">
+          <span class="cmd-comment"># Na raiz do projeto</span><br>
+          cd <span class="cmd-var">01_Golden_Apps_meu_uso/AutoRelatorioV1_Dev</span><br>
+          python <span class="cmd-string">run.py</span>
+        </div>
+      </div>
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Skills mais usadas</div>
+        <div class="command-line">
+          <span class="cmd-string">/turbo-gsd</span>       <span class="cmd-comment"># MVP rápido</span><br>
+          <span class="cmd-string">/turbo-prevc</span>      <span class="cmd-comment"># Produção</span><br>
+          <span class="cmd-string">/turbo-ui</span>         <span class="cmd-comment"># Design sistema</span><br>
+          <span class="cmd-string">/turbo-checkpoint</span> <span class="cmd-comment"># Salvar sessão</span>
+        </div>
+      </div>
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Squad completo</div>
+        <div class="command-line">
+          <span class="cmd-string">/turbo-crew</span>      <span class="cmd-comment"># Orquestrador</span><br>
+          <span class="cmd-string">/turbo-opensquad</span> <span class="cmd-comment"># Dashboard</span><br>
+          <span class="cmd-string">/turbo-pixel</span>     <span class="cmd-comment"># Visual agentes</span><br>
+          <span class="cmd-string">/turbo-checkpoint</span> <span class="cmd-comment"># Finalizar</span>
+        </div>
+      </div>
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Relatório preventivo</div>
+        <div class="command-line">
+          <span class="cmd-comment"># Abrir .docx e usar o skill</span><br>
+          <span class="cmd-string">/relatorio-preventivo</span><br><br>
+          <span class="cmd-comment"># Ou mencionar:</span><br>
+          <span class="cmd-var">"extrair itens do relatório"</span>
+        </div>
+      </div>
+
+      <div class="command-block">
+        <button class="copy-btn" onclick="copyCmd(this)">Copiar</button>
+        <div class="command-label">Git &amp; Branch</div>
+        <div class="command-line">
+          <span class="cmd-comment"># Branch atual</span><br>
+          git branch --show-current<br><br>
+          <span class="cmd-comment"># Status resumido</span><br>
+          git status -s
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <p>
+      TM Sempre Tecnologia · Guia gerado em 19 de Abril de 2026 ·
+      Co-pilotado por <a href="https://claude.ai" target="_blank">Claude Sonnet 4.6</a> ·
+      <a href="linha-do-tempo.html">← Linha do Tempo</a>
+    </p>
+  </footer>
+
+  <script>
+    function copyCmd(btn) {
+      const block = btn.closest('.command-block');
+      const lines = block.querySelectorAll('.command-line *');
+      let text = block.querySelector('.command-line').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>

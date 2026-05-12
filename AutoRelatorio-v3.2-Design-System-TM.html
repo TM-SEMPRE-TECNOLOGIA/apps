@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NX Relatórios SP — AutoRelatório V3.2 | TM Sempre Tecnologia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ═══ TOKENS DS TM v3 ═══════════════════════════════════ */
+    :root {
+      --TM-primary:             #C8541C;
+      --TM-primary-hover:       #A6451A;
+      --TM-primary-light:       #FBEDE3;
+      --TM-primary-light-alpha: rgba(200,84,28,.12);
+
+      --tm-bg:           #F5F4F1;
+      --tm-bg-card:      #FFFFFF;
+      --tm-bg-hover:     #ECEAE5;
+      --tm-bg-input:     #FFFFFF;
+      --tm-bg-sidebar:   #FAF9F6;
+      --tm-bg-secondary: #E8E5DE;
+      --tm-bg-accent:    #FBEDE3;
+      --tm-bg-muted:     #EFEDE8;
+
+      --tm-text:        #1A1A1A;
+      --tm-text-muted:  #5C5A55;
+      --tm-text-subtle: #8C8A85;
+
+      --tm-border:       #DAD7D0;
+      --tm-border-hover: #B8B5AD;
+      --tm-border-strong:#1A1A1A;
+
+      --tm-success:     #4F7A3A;
+      --tm-info:        #345878;
+      --tm-warning:     #C8541C;
+      --tm-destructive: #A33B2A;
+
+      --TM-chart-1: #C8541C;
+      --TM-chart-2: #8C5A2E;
+      --TM-chart-3: #5C5A55;
+      --TM-chart-4: #345878;
+      --TM-chart-5: #2B2B2B;
+
+      --TM-font-serif: "Roboto Slab", Georgia, serif;
+      --TM-font-sans:  "Inter", system-ui, sans-serif;
+      --TM-font-mono:  "JetBrains Mono", monospace;
+
+      --TM-radius-sm: 4px;
+      --TM-radius-md: 6px;
+      --TM-radius-lg: 8px;
+      --TM-radius-xl: 12px;
+
+      --TM-shadow-sm: 0 1px 0 rgba(26,26,26,.04), 0 1px 2px rgba(26,26,26,.04);
+      --TM-shadow-md: 0 2px 4px -1px rgba(26,26,26,.08), 0 1px 2px rgba(26,26,26,.04);
+      --TM-shadow-lg: 0 8px 16px -4px rgba(26,26,26,.10), 0 2px 4px -1px rgba(26,26,26,.06);
+      --TM-shadow-xl: 0 16px 24px -6px rgba(26,26,26,.12), 0 4px 8px -2px rgba(26,26,26,.06);
+
+      --tm-space-1:  4px;
+      --tm-space-2:  8px;
+      --tm-space-3:  12px;
+      --tm-space-4:  16px;
+      --tm-space-5:  24px;
+      --tm-space-6:  32px;
+      --tm-space-7:  48px;
+      --tm-space-8:  64px;
+    }
+
+    html.dark {
+      --TM-primary:             #E47A4A;
+      --TM-primary-hover:       #C8541C;
+      --TM-primary-light:       #2B2520;
+      --TM-primary-light-alpha: rgba(228,122,74,.18);
+
+      --tm-bg:           #161513;
+      --tm-bg-card:      #1F1E1B;
+      --tm-bg-hover:     #2A2926;
+      --tm-bg-input:     #1F1E1B;
+      --tm-bg-sidebar:   #1A1916;
+      --tm-bg-secondary: #2A2926;
+      --tm-bg-accent:    #2B2520;
+      --tm-bg-muted:     #232220;
+
+      --tm-text:        #EFEDE8;
+      --tm-text-muted:  #A8A6A0;
+      --tm-text-subtle: #6E6C66;
+
+      --tm-border:       #34322E;
+      --tm-border-hover: #4A4842;
+      --tm-border-strong:#EFEDE8;
+
+      --TM-shadow-sm: 0 1px 0 rgba(0,0,0,.40);
+      --TM-shadow-md: 0 2px 4px -1px rgba(0,0,0,.50);
+      --TM-shadow-lg: 0 8px 16px -4px rgba(0,0,0,.55);
+      --TM-shadow-xl: 0 16px 24px -6px rgba(0,0,0,.65);
+    }
+
+    /* ═══ RESET & BASE ═════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      background: var(--tm-bg);
+      transition: background .3s ease, color .3s ease;
+    }
+    body {
+      font-family: var(--TM-font-sans);
+      color: var(--tm-text);
+      background: var(--tm-bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+    :focus-visible { outline: 2px solid var(--TM-primary); outline-offset: 2px; }
+
+    /* ═══ TIPOGRAFIA ═══════════════════════════════════════ */
+    .tm-display  { font-family: var(--TM-font-serif); font-weight: 600; font-size: clamp(2rem,5vw,3rem); line-height: 1.1; letter-spacing: -.015em; color: var(--tm-text); }
+    .tm-h1       { font-family: var(--TM-font-serif); font-weight: 600; font-size: 26px; line-height: 1.25; letter-spacing: -.01em; color: var(--tm-text); }
+    .tm-h2       { font-family: var(--TM-font-serif); font-weight: 500; font-size: 19px; line-height: 1.35; color: var(--tm-text); }
+    .tm-h3       { font-family: var(--TM-font-sans);  font-weight: 600; font-size: 15px; line-height: 1.4; color: var(--tm-text); letter-spacing: .005em; }
+    .tm-body     { font-family: var(--TM-font-sans);  font-weight: 400; font-size: 14px; line-height: 1.6; color: var(--tm-text); }
+    .tm-body-m   { font-family: var(--TM-font-sans);  font-weight: 400; font-size: 14px; line-height: 1.6; color: var(--tm-text-muted); }
+    .tm-small    { font-family: var(--TM-font-sans);  font-size: 12px; color: var(--tm-text-muted); }
+    .tm-mono     { font-family: var(--TM-font-mono);  font-size: 13px; color: var(--tm-text); }
+    .tm-mono-lbl { font-family: var(--TM-font-mono);  font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-text-subtle); font-weight: 500; }
+
+    /* ═══ BOTÕES ═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; font-size: 14px; font-weight: 600;
+      font-family: var(--TM-font-sans); border-radius: var(--TM-radius-md);
+      cursor: pointer; border: 1px solid transparent;
+      letter-spacing: .005em; text-decoration: none;
+      transition: background .15s, border-color .15s, transform .15s, opacity .15s;
+    }
+    .btn:active { opacity: .92; transform: translateY(0) !important; }
+    .btn-primary   { background: var(--TM-primary); color: #fff; }
+    .btn-primary:hover { background: var(--TM-primary-hover); transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--tm-text); border-color: var(--tm-border-strong); }
+    .btn-secondary:hover { background: var(--tm-bg-hover); transform: translateY(-1px); }
+    .btn-outline   { background: var(--tm-bg-card); color: var(--tm-text); border-color: var(--tm-border); }
+    .btn-outline:hover { border-color: var(--tm-border-hover); transform: translateY(-1px); }
+    .btn-danger    { background: transparent; color: var(--tm-destructive); border-color: var(--tm-destructive); }
+    .btn-danger:hover { background: rgba(163,59,42,.06); }
+
+    /* ═══ BADGES ═══════════════════════════════════════════ */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; font-family: var(--TM-font-mono);
+      font-size: 10px; font-weight: 600; letter-spacing: .12em;
+      border-radius: var(--TM-radius-sm); border: 1px solid transparent;
+      text-transform: uppercase;
+    }
+    .badge-ok      { background: #EAF1E4; color: #3A5A2C; border-color: #C5D4B4; }
+    .badge-info    { background: #E2EBF2; color: #1F3D55; border-color: #B8CADB; }
+    .badge-warn    { background: var(--TM-primary-light); color: var(--TM-primary-hover); border-color: rgba(200,84,28,.3); }
+    .badge-danger  { background: #F5DCD7; color: var(--tm-destructive); border-color: #E5B5AB; }
+    .badge-dark    { background: var(--tm-text); color: var(--tm-bg-card); }
+
+    /* ═══ CARDS ════════════════════════════════════════════ */
+    .card {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-lg);
+      padding: 22px;
+      box-shadow: var(--TM-shadow-sm);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .card:hover { border-color: var(--tm-border-hover); box-shadow: var(--TM-shadow-md); transform: translateY(-2px); }
+
+    .stat-card {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-top: 3px solid var(--TM-primary);
+      border-radius: var(--TM-radius-lg);
+      padding: 20px;
+    }
+    .stat-label { font-family: var(--TM-font-mono); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-text-subtle); margin-bottom: 8px; }
+    .stat-value { font-family: var(--TM-font-serif); font-size: 2rem; font-weight: 600; color: var(--tm-text); letter-spacing: -.01em; line-height: 1; }
+    .stat-delta { font-family: var(--TM-font-mono); font-size: 11px; font-weight: 500; margin-top: 8px; color: var(--tm-success); }
+
+    /* ═══ HEADER FIXO ══════════════════════════════════════ */
+    .hdr {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--tm-bg-card);
+      border-bottom: 1px solid var(--tm-border);
+      box-shadow: var(--TM-shadow-sm);
+      height: 56px;
+      display: flex; align-items: center; gap: 18px;
+      padding: 0 24px;
+      transition: background .3s, border-color .3s;
+    }
+    .brand-sq   { width: 18px; height: 18px; background: var(--TM-primary); border-radius: 2px; }
+    .brand-name { font-family: var(--TM-font-serif); font-weight: 600; font-size: 16px; color: var(--tm-text); letter-spacing: -.005em; }
+    .brand-badge { font-family: var(--TM-font-mono); font-size: 10px; font-weight: 600; letter-spacing: .12em; padding: 2px 7px; border-radius: 3px; background: var(--tm-text); color: var(--tm-bg-card); }
+
+    .hdr-nav a { padding: 7px 13px; border-radius: 4px 4px 0 0; text-decoration: none; color: var(--tm-text-muted); font-weight: 500; font-size: 14px; transition: color .15s, background .15s; }
+    .hdr-nav a:hover { color: var(--tm-text); background: var(--tm-bg-hover); }
+    .hdr-nav a.act { background: var(--TM-primary-light); color: var(--TM-primary-hover); border-bottom: 2px solid var(--TM-primary); border-radius: 4px 4px 0 0; }
+
+    .btn-toggle {
+      background: transparent;
+      border: 1px solid var(--tm-border);
+      padding: 7px 12px;
+      border-radius: var(--TM-radius-md);
+      color: var(--tm-text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-toggle:hover { border-color: var(--tm-border-hover); background: var(--tm-bg-hover); }
+
+    /* ═══ LAYOUT PRINCIPAL ═════════════════════════════════ */
+    .app-wrapper {
+      display: grid;
+      grid-template-rows: 56px 1fr auto;
+      min-height: 100vh;
+      padding-top: 56px;
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      padding: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* ═══ SIDEBAR WIZARD ════════════════════════════════════ */
+    .sidebar {
+      background: var(--tm-bg-sidebar);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-lg);
+      padding: 20px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      position: sticky;
+      top: 80px;
+    }
+
+    .wizard-step {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--tm-border);
+    }
+    .wizard-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .step-number {
+      font-family: var(--TM-font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--tm-text-subtle);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .step-number .live-dot { width: 6px; height: 6px; }
+
+    .step-title {
+      font-family: var(--TM-font-serif);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--tm-text);
+      margin-bottom: 12px;
+    }
+
+    .step-input, .step-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-md);
+      background: var(--tm-bg-input);
+      color: var(--tm-text);
+      font-size: 13px;
+      font-family: var(--TM-font-sans);
+      transition: border-color .15s;
+      margin-bottom: 8px;
+    }
+    .step-input:focus, .step-select:focus { border-color: var(--TM-primary); outline: none; }
+
+    .step-button {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .step-info {
+      background: var(--TM-primary-light-alpha);
+      border: 1px solid rgba(200,84,28,.2);
+      border-radius: var(--TM-radius-md);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--tm-text);
+      margin-top: 8px;
+    }
+
+    /* ═══ PREVIEW AREA ═════════════════════════════════════ */
+    .preview-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-lg);
+    }
+
+    .eyebrow {
+      font-family: var(--TM-font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--tm-text-subtle);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--tm-success);
+      border-radius: 50%;
+      animation: pulse-dot 2.5s ease infinite;
+    }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      padding: 20px;
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-lg);
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .grid-item {
+      aspect-ratio: 1;
+      background: var(--tm-bg-muted);
+      border: 1px dashed var(--tm-border);
+      border-radius: var(--TM-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tm-text-subtle);
+      font-size: 11px;
+      text-align: center;
+      padding: 8px;
+      transition: border-color .2s, background .2s;
+      cursor: pointer;
+    }
+    .grid-item:hover { border-color: var(--tm-border-hover); background: var(--tm-bg-hover); }
+
+    /* ═══ CONSOLE FOOTER ════════════════════════════════════ */
+    .footer-console {
+      background: var(--tm-bg-card);
+      border-top: 1px solid var(--tm-border);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--tm-border);
+      background: var(--tm-bg-sidebar);
+    }
+
+    .console-label {
+      font-family: var(--TM-font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--tm-text-subtle);
+    }
+
+    .console-body {
+      flex: 1;
+      padding: 12px 16px;
+      overflow-y: auto;
+      font-family: var(--TM-font-mono);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .console-line {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      opacity: 0;
+      animation: fade-in .3s ease forwards;
+    }
+
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .log-prefix {
+      color: var(--tm-text-subtle);
+      flex-shrink: 0;
+      width: 8px;
+    }
+
+    .log-success { color: var(--tm-success); }
+    .log-error   { color: var(--tm-destructive); }
+    .log-info    { color: var(--tm-info); }
+    .log-process { color: var(--TM-primary); }
+
+    .log-msg { color: var(--tm-text); flex: 1; word-break: break-word; }
+
+    /* ═══ ANIMAÇÕES ════════════════════════════════════════ */
+    .anim-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .anim-in.visible { opacity: 1; transform: none; }
+
+    /* ═══ RESPONSIVIDADE ═══════════════════════════════════ */
+    @media (max-width: 900px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+      }
+      .sidebar {
+        max-height: auto;
+        position: static;
+      }
+      .preview-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- HEADER FIXO -->
+    <header class="hdr">
+      <div style="display: flex; align-items: center; gap: 3px;">
+        <div class="brand-sq"></div>
+        <span class="brand-name">NX Relatórios</span>
+        <span class="brand-badge">v2.1.0</span>
+      </div>
+
+      <nav class="hdr-nav" style="flex: 1; margin-left: 32px;">
+        <a href="#" class="act">Dashboard</a>
+      </nav>
+
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button class="btn btn-outline" style="font-size: 11px;">Abrir Saída</button>
+        <button class="btn btn-primary" style="font-size: 11px;">Baixar Relatório</button>
+        <button class="btn-toggle" id="dark-toggle">
+          <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg id="icon-sun" width="14" height="14" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Tema
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container anim-in">
+      <!-- SIDEBAR WIZARD -->
+      <aside class="sidebar">
+        <div class="eyebrow">
+          <span class="live-dot"></span>
+          01.00 · CONFIGURAÇÃO
+        </div>
+
+        <!-- STEP 1: DIRETÓRIO RAIZ -->
+        <div class="wizard-step anim-in">
+          <div class="step-number">
+            <span>01</span>
+          </div>
+          <div class="step-title">Diretório Raiz</div>
+          <input type="text" class="step-input" placeholder="Selecione a pasta com as fotos" value="C:\Projeto_Casa_001">
+          <button class="btn btn-secondary step-button" style="font-size: 12px;">Procurar...</button>
+          <div class="step-info">247 fotos encontradas</div>
+        </div>
+
+        <!-- STEP 2: MODELO -->
+        <div class="wizard-step anim-in">
+          <div class="step-number">
+            <span>02</span>
+          </div>
+          <div class="step-title">Modelo</div>
+          <select class="step-select">
+            <option>MODELO - 01 - CURITIBA</option>
+            <option>MODELO - 02 - SÃO PAULO</option>
+            <option>MODELO - 03 - RIO DE JANEIRO</option>
+          </select>
+          <div class="step-info">Templates carregados com sucesso</div>
+        </div>
+
+        <!-- STEP 3: DESCRIÇÃO -->
+        <div class="wizard-step anim-in">
+          <div class="step-number">
+            <span>03</span>
+          </div>
+          <div class="step-title">Descrição</div>
+          <select class="step-select">
+            <option>Descrição 1 - Padrão</option>
+            <option>Descrição 2 - Técnica</option>
+            <option>Descrição 3 - Comercial</option>
+            <option>Descrição 4 - Executiva</option>
+          </select>
+        </div>
+
+        <!-- STEP 4: AÇÕES -->
+        <div class="wizard-step anim-in">
+          <div class="step-number">
+            <span>04</span>
+          </div>
+          <div class="step-title">Ações</div>
+          <button class="btn btn-primary step-button" style="width: 100%; font-size: 12px;">Escanear Pasta</button>
+          <button class="btn btn-outline step-button" style="width: 100%; font-size: 12px;">Gerar Relatório</button>
+          <button class="btn btn-danger step-button" style="width: 100%; font-size: 12px;">Limpar Tudo</button>
+        </div>
+      </aside>
+
+      <!-- PREVIEW AREA -->
+      <section class="preview-section">
+        <div class="preview-header">
+          <div>
+            <div class="eyebrow">
+              <span class="live-dot"></span>
+              02.00 · PREVIEW
+            </div>
+            <div class="tm-h3">Conteúdo Carregado</div>
+          </div>
+          <div class="stat-card" style="padding: 12px 16px; border: none; border-top: 2px solid var(--TM-primary);">
+            <div class="stat-label" style="margin-bottom: 4px;">Total de Imagens</div>
+            <div class="stat-value" style="font-size: 1.5rem;">247</div>
+          </div>
+        </div>
+
+        <!-- GRID DE PREVIEW -->
+        <div class="preview-grid">
+          <div class="grid-item anim-in">Ambiente 01</div>
+          <div class="grid-item anim-in">Ambiente 02</div>
+          <div class="grid-item anim-in">Ambiente 03</div>
+          <div class="grid-item anim-in">Ambiente 04</div>
+          <div class="grid-item anim-in">Ambiente 05</div>
+          <div class="grid-item anim-in">Ambiente 06</div>
+          <div class="grid-item anim-in">Ambiente 07</div>
+          <div class="grid-item anim-in">Ambiente 08</div>
+          <div class="grid-item anim-in">Ambiente 09</div>
+          <div class="grid-item anim-in">Ambiente 10</div>
+          <div class="grid-item anim-in">Ambiente 11</div>
+          <div class="grid-item anim-in">Ambiente 12</div>
+          <div class="grid-item anim-in">+ 235 itens</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONSOLE FOOTER -->
+    <footer class="footer-console">
+      <div class="console-header">
+        <span class="console-label">
+          <span class="live-dot" style="margin-right: 6px;"></span>
+          Terminal de Saída · v2.1.0-STABLE
+        </span>
+        <button class="btn-toggle" style="font-size: 11px; padding: 5px 10px;">Reset</button>
+      </div>
+      <div class="console-body">
+        <div class="console-line" style="animation-delay: 0ms;">
+          <span class="log-prefix">></span>
+          <span class="log-success">✓</span>
+          <span class="log-msg">Sistema iniciado com sucesso. Versão do Motor: 2.1.0-STABLE</span>
+        </div>
+        <div class="console-line" style="animation-delay: 100ms;">
+          <span class="log-prefix">></span>
+          <span class="log-success">✓</span>
+          <span class="log-msg">Conexão com repositório de templates DOCX estabelecida.</span>
+        </div>
+        <div class="console-line" style="animation-delay: 200ms;">
+          <span class="log-prefix">></span>
+          <span class="log-info">i</span>
+          <span class="log-msg">Aguardando entrada do usuário no módulo 'Diretório Raiz'...</span>
+        </div>
+        <div class="console-line" style="animation-delay: 300ms;">
+          <span class="log-prefix">></span>
+          <span class="log-success">✓</span>
+          <span class="log-msg">Pasta raiz selecionada: C:\Projeto_Casa_001</span>
+        </div>
+        <div class="console-line" style="animation-delay: 400ms;">
+          <span class="log-prefix">></span>
+          <span class="log-process">◉</span>
+          <span class="log-msg">Iniciando varredura de pastas...</span>
+        </div>
+        <div class="console-line" style="animation-delay: 500ms;">
+          <span class="log-prefix">></span>
+          <span class="log-success">✓</span>
+          <span class="log-msg">Varredura concluída. 247 elementos encontrados.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* Dark Mode Toggle */
+    const html = document.documentElement;
+    const toggle = document.getElementById('dark-toggle');
+    const moon = document.getElementById('icon-moon');
+    const sun  = document.getElementById('icon-sun');
+
+    function applyTheme(dark) {
+      html.classList.toggle('dark', dark);
+      moon.style.display = dark ? 'none' : '';
+      sun.style.display  = dark ? ''     : 'none';
+      try { localStorage.setItem('tm-theme', dark ? 'dark' : 'light'); } catch(e) {}
+    }
+
+    (function() {
+      let saved;
+      try { saved = localStorage.getItem('tm-theme'); } catch(e) {}
+      applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    })();
+
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    /* Reveal Animation on Scroll */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.anim-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

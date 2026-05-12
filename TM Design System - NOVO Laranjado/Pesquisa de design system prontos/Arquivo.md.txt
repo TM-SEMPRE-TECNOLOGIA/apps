@@ -1,0 +1,151 @@
+# 🎨 Guia Passo a Passo: Utilizando um Design System Pronto no Figma
+
+## 📚 Referências e Links da Pesquisa
+
+### Atlassian Design System (ADS) — Foco deste guia
+- **ADS Components (Community Page):** https://www.figma.com/community/file/1527532229258392178/ads-components
+- **ADS Components (Arquivo de Design):** https://www.figma.com/design/bmWQgJHlsjiuXf5TlPsqll/ADS-Components--Community-
+- **ADS Iconography (Community):** https://www.figma.com/design/Ne8xJZBTIibJFRDP6NvVs4/ADS-Iconography--Community-
+
+### Outros Design Systems Recomendados
+- **Figma Community (busca geral):** https://www.figma.com/community
+- **Material Design 3 (Google):** https://m3.material.io/
+- **shadcn/ui (React/Next.js):** https://ui.shadcn.com/
+- **Untitled UI:** https://www.untitledui.com/
+- **Design Systems Repo (curador):** https://designsystemsrepo.com/
+
+---
+
+## ✅ Pré-requisitos
+
+- Conta no Figma (gratuita ou paga)
+- Acesso ao arquivo do Design System escolhido (ex: ADS Components)
+- Projeto criado no Figma onde o sistema será aplicado
+
+---
+
+## 🚀 Passo a Passo
+
+### Passo 1 — Escolher e acessar o Design System
+
+1. Acesse a [Figma Community](https://www.figma.com/community)
+2. Busque por **"ADS Components"** ou acesse diretamente pelo link acima
+3. Clique em **"Open in Figma"** para criar uma cópia local do arquivo
+4. O arquivo será salvo em seus **Drafts**
+
+> 💡 **Dica:** Verifique se o arquivo usa **Figma Variables** (não apenas Styles). Isso garante suporte nativo a temas Light/Dark.
+
+---
+
+### Passo 2 — Instalar as fontes localmente
+
+O ADS utiliza fontes proprietárias da Atlassian:
+
+1. Baixe e instale **Atlassian Sans** e **Atlassian Mono** localmente no seu sistema
+2. Reinicie o Figma para que as fontes sejam reconhecidas
+3. Verifique se os componentes estão renderizando corretamente
+
+---
+
+### Passo 3 — Publicar as bibliotecas necessárias
+
+Para usar os componentes no seu projeto, você precisa publicar duas bibliotecas:
+
+#### 3.1 — ADS Iconography
+1. Abra o arquivo **ADS Iconography (Community)**
+2. Vá em **Assets Panel → Publish Library**
+3. Publique a biblioteca
+
+#### 3.2 — ADS Components
+1. Abra o arquivo **ADS Components (Community)**
+2. Vá em **Assets Panel → Publish Library**
+3. Publique a biblioteca
+
+> ⚠️ **Atenção:** O arquivo de ícones precisa estar publicado **antes** dos componentes, pois o ADS Components depende da ADS Iconography Library.
+
+---
+
+### Passo 4 — Vincular as bibliotecas ao seu projeto
+
+1. Abra o **seu projeto** no Figma
+2. Acesse **Assets (painel lateral) → Libraries (ícone de livro)**
+3. Ative as bibliotecas:
+   - ✅ ADS Components (Community)
+   - ✅ ADS Iconography (Community)
+4. Clique em **"Add to file"** para cada uma
+
+---
+
+### Passo 5 — Usar os componentes no seu projeto
+
+1. No painel **Assets**, procure pelos componentes (ex: `Button`, `Modal`, `Tabs`)
+2. Arraste o componente desejado para o seu frame
+3. Use o painel **Design** à direita para:
+   - Trocar variantes (tamanho, estado, aparência)
+   - Alterar propriedades do componente
+   - Trocar ícones dentro do componente
+
+#### Componentes disponíveis no ADS (seleção):
+- `Button`, `Button Group`, `Split Button`
+- `Text Field`, `Select`, `Checkbox`, `Radio`, `Toggle`
+- `Modal Dialog`, `Drawer`, `Popup`
+- `Tabs`, `Breadcrumbs`, `Pagination`
+- `Lozenge` (Beta), `Badge`, `Tag`
+- `Spinner`, `Skeleton`, `Progress Bar`
+- `Empty State`, `Flag`, `Banner`, `Section Message`
+- `Layout`, `Side Nav`, `Top Nav`
+
+---
+
+### Passo 6 — Trabalhar com Variáveis e Temas
+
+1. Acesse o painel **Variables** no Figma (ícone de losango no painel Design)
+2. O ADS usa **Design Tokens** para cores, tipografia e espaçamento
+3. Para alternar entre **Light/Dark Mode**:
+   - Selecione o frame principal
+   - No painel Variables, troque o **Mode** de `Light` para `Dark`
+
+---
+
+### Passo 7 — Atualizar a biblioteca quando houver novas versões
+
+1. O Figma notifica automaticamente quando há atualizações nas bibliotecas
+2. Clique em **"Review Updates"** quando aparecer o aviso
+3. Revise as mudanças (especialmente componentes em **Beta** ou **Deprecated**)
+4. Aplique as atualizações seletivamente se necessário
+
+> ⚠️ **Atenção a componentes marcados como:**
+> - `USE WITH CAUTION` — `Atlassian Navigation`, `Page Layout`, `Side Navigation`
+> - `DEPRECATED` — `Onboarding Spotlight`, `Onboarding Benefits Modal`
+
+---
+
+### Passo 8 — Handoff para Desenvolvimento
+
+1. Ative o **Dev Mode** no Figma (ícone `</>` no canto superior direito)
+2. Selecione um componente para ver:
+   - Propriedades CSS geradas automaticamente
+   - Referências de tokens de design
+   - Especificações de espaçamento e tipografia
+3. Compartilhe o link do arquivo com a equipe de desenvolvimento
+
+---
+
+## 📌 Boas Práticas
+
+- **Use sempre a versão Community** para não modificar o arquivo original
+- **Prefira componentes `Beta`** aos `Legacy` para novos projetos
+- **Nunca detache um componente** sem necessidade — isso quebra o vínculo com a biblioteca
+- **Documente customizações** feitas acima do sistema base
+
+---
+
+## 🔗 Recursos Adicionais
+
+- Documentação oficial do ADS: https://atlassian.design/
+- Checklist de componentes (verificação de estados): https://www.checklist.design/
+- awesome-design-md (Design Systems em Markdown para IAs): https://github.com/awesome-design-md
+
+---
+
+*Guia criado com base na pesquisa realizada via Google Gemini — Design Systems: Repositórios e Ferramentas*

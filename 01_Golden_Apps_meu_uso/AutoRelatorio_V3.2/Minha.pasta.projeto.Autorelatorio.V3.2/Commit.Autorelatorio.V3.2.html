@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoRelatório V3.2 — Registro de Desenvolvimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0f0f0f;
+      --surface:   #161616;
+      --surface2:  #1e1e1e;
+      --border:    #2a2a2a;
+      --border2:   #333;
+      --text:      #e2e2e2;
+      --text-dim:  #888;
+      --text-faint:#444;
+      --accent:    #c8a96e;
+      --accent-dim:#8a6e3e;
+      --green:     #5a9e6f;
+      --red:       #9e5a5a;
+      --blue:      #5a7a9e;
+      --purple:    #8a6aae;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 32px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .sidebar-brand { border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+    .brand-tm { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+    .brand-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .brand-version { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+    .sidebar-section-title { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+
+    .stats-list { display: flex; flex-direction: column; gap: 8px; }
+    .stat-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .stat-label { color: var(--text-dim); }
+    .stat-val { font-family: var(--mono); font-size: 11px; color: var(--text); }
+    .stat-val.green { color: var(--green); }
+    .stat-val.accent { color: var(--accent); }
+    .stat-val.purple { color: var(--purple); }
+
+    .nav-list { display: flex; flex-direction: column; gap: 2px; }
+    .nav-item { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; color: var(--text-dim); transition: background 0.15s, color 0.15s; border: none; background: none; width: 100%; text-align: left; }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: var(--surface2); color: var(--accent); }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); flex-shrink: 0; transition: background 0.15s; }
+    .nav-item.active .nav-dot { background: var(--accent); }
+
+    .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); }
+    .dev-tag { font-family: var(--mono); font-size: 10px; color: var(--text-faint); line-height: 1.7; }
+
+    /* ── Main ── */
+    .main { display: flex; flex-direction: column; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 10; }
+    .topbar-title { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+    .topbar-actions { display: flex; gap: 8px; }
+
+    .btn { padding: 7px 14px; border-radius: 6px; font-size: 12px; font-family: var(--sans); font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid var(--border2); background: var(--surface2); color: var(--text-dim); }
+    .btn:hover { border-color: var(--accent-dim); color: var(--text); }
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: #0f0f0f; font-weight: 600; }
+    .btn-primary:hover { opacity: 0.9; }
+
+    .content { padding: 40px 32px; max-width: 1100px; width: 100%; }
+    .section { margin-bottom: 56px; }
+
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 28px; }
+    .section-title { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.3px; }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .section-tag { font-family: var(--mono); font-size: 10px; color: var(--text-faint); letter-spacing: 1px; }
+
+    /* ── Roadmap ── */
+    .roadmap-wrapper { overflow-x: auto; padding-bottom: 12px; }
+    .roadmap { display: flex; align-items: stretch; gap: 0; min-width: max-content; position: relative; }
+    .roadmap::before { content: ''; position: absolute; top: 38px; left: 0; right: 0; height: 1px; background: var(--border2); z-index: 0; }
+
+    .phase { display: flex; flex-direction: column; align-items: center; min-width: 155px; padding: 0 10px; cursor: pointer; position: relative; z-index: 1; transition: transform 0.2s; }
+    .phase:hover { transform: translateY(-2px); }
+
+    .phase-marker { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border2); background: var(--bg); transition: all 0.25s; margin-bottom: 16px; position: relative; z-index: 2; }
+    .phase.done .phase-marker { background: var(--green); border-color: var(--green); box-shadow: 0 0 10px rgba(90,158,111,0.3); }
+    .phase.active .phase-marker { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 14px rgba(200,169,110,0.35); transform: scale(1.4); }
+    .phase.planned .phase-marker { border-style: dashed; }
+    .phase.new .phase-marker { background: var(--purple); border-color: var(--purple); box-shadow: 0 0 10px rgba(138,106,174,0.4); }
+
+    .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; width: 134px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .phase:hover .phase-card { border-color: var(--border2); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .phase.active .phase-card { border-color: var(--accent-dim); }
+    .phase.new .phase-card { border-color: var(--purple); }
+
+    .phase-status { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .phase.done .phase-status { color: var(--green); }
+    .phase.active .phase-status { color: var(--accent); }
+    .phase.planned .phase-status { color: var(--text-faint); }
+    .phase.new .phase-status { color: var(--purple); }
+
+    .phase-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+    .phase-date { font-family: var(--mono); font-size: 10px; color: var(--text-faint); }
+
+    /* ── Detail panels ── */
+    .phase-detail { display: none; margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; animation: slideIn 0.2s ease; }
+    .phase-detail.visible { display: block; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .detail-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .detail-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .detail-badge { font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 4px; border: 1px solid var(--border2); color: var(--text-dim); letter-spacing: 1px; }
+    .detail-badge.sp2 { border-color: var(--purple); color: var(--purple); }
+
+    .detail-items { display: flex; flex-direction: column; gap: 8px; }
+    .detail-item { display: flex; gap: 10px; font-size: 13px; color: var(--text-dim); }
+    .detail-item .di-check { color: var(--green); font-size: 11px; margin-top: 2px; }
+    .detail-item .di-new { color: var(--purple); font-size: 11px; margin-top: 2px; }
+
+    /* ── Anotações ── */
+    .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+    .note-card:focus-within { border-color: var(--accent-dim); }
+    .note-card-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface2); }
+    .note-card-title { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+    .note-tag { font-family: var(--mono); font-size: 9px; padding: 2px 8px; border-radius: 3px; border: 1px solid var(--border2); color: var(--text-faint); }
+    .note-body { padding: 14px; min-height: 110px; font-size: 13px; color: var(--text); outline: none; line-height: 1.7; }
+    .note-body:empty::before { content: attr(data-placeholder); color: var(--text-faint); pointer-events: none; }
+    .note-body:focus::before { display: none; }
+    .note-card-wide { grid-column: 1 / -1; }
+
+    /* ── Log list ── */
+    .log-list { display: flex; flex-direction: column; gap: 1px; }
+    .log-entry { display: grid; grid-template-columns: 120px 80px 1fr; gap: 16px; padding: 10px 14px; border-radius: 6px; font-size: 12px; transition: background 0.15s; align-items: baseline; }
+    .log-entry:hover { background: var(--surface2); }
+    .log-date { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+    .log-tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border); text-align: center; }
+    .log-tag.backend { border-color: #3a5a3a; color: var(--green); }
+    .log-tag.frontend { border-color: #3a4a6a; color: var(--blue); }
+    .log-tag.setup { border-color: #5a4a2a; color: var(--accent); }
+    .log-tag.fix { border-color: #6a3a3a; color: var(--red); }
+    .log-tag.feat { border-color: #3a3a6a; color: #7a9ebe; }
+    .log-tag.stable { border-color: #3a5a3a; color: var(--green); }
+    .log-tag.docs { border-color: #4a4a4a; color: var(--text-dim); }
+    .log-tag.sp2 { border-color: #5a3a7a; color: var(--purple); }
+
+    .log-desc { color: var(--text-dim); line-height: 1.4; }
+
+    .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .content { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-tm">TM · Sempre Tecnologia</div>
+      <div class="brand-name">AutoRelatório V3.2</div>
+      <div class="brand-version">v3.2 · Stable + SP2 Active</div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-title">Status</div>
+      <div class="stats-list">
+        <div class="stat-row">
+          <span class="stat-label">Versão</span>
+          <span class="stat-val accent">3.2-stable</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Build</span>
+          <span class="stat-val green">Stable</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Backend</span>
+          <span class="stat-val">FastAPI :5000</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Frontend</span>
+          <span class="stat-val">Next.js :3000</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Modos</span>
+          <span class="stat-val">Trad · SP1 · SP2</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Templates</span>
+          <span class="stat-val">9 contratos</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">SP2 Contrato</span>
+          <span class="stat-val purple">1565 · SJR Preto</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-title">Seções</div>
+      <div class="nav-list">
+        <button class="nav-item active" onclick="navTo('roadmap', this)">
+          <span class="nav-dot"></span> Roadmap
+        </button>
+        <button class="nav-item" onclick="navTo('arquivos', this)">
+          <span class="nav-dot"></span> Arquivos do projeto
+        </button>
+        <button class="nav-item" onclick="navTo('sp2', this)">
+          <span class="nav-dot"></span> Modo SP2
+        </button>
+        <button class="nav-item" onclick="navTo('notas', this)">
+          <span class="nav-dot"></span> Anotações
+        </button>
+        <button class="nav-item" onclick="navTo('log', this)">
+          <span class="nav-dot"></span> Log de commits
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="dev-tag">
+        Desenvolvedor<br>
+        Thiago Nascimento Barbosa<br>
+        <span style="color: var(--text-faint)">2026 · TM Apps</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main">
+
+    <div class="topbar">
+      <span class="topbar-title">AutoRelatório V3.2 — REGISTRO DE DESENVOLVIMENTO</span>
+      <div class="topbar-actions">
+        <button class="btn" onclick="addCommit()">+ Commit</button>
+        <button class="btn btn-primary" onclick="saveHTML()">↓ Salvar HTML</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══ ROADMAP ══ -->
+      <div class="section" id="roadmap">
+        <div class="section-header">
+          <span class="section-title">Roadmap</span>
+          <span class="section-line"></span>
+          <span class="section-tag">FASES DO PROJETO</span>
+        </div>
+
+        <div class="roadmap-wrapper">
+          <div class="roadmap" id="roadmapTrack">
+
+            <div class="phase done" onclick="showPhase(0, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Concluído</div>
+                <div class="phase-name">V1 Legado</div>
+                <div class="phase-date">Mar 2026</div>
+              </div>
+            </div>
+
+            <div class="phase done" onclick="showPhase(1, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Concluído</div>
+                <div class="phase-name">Scaffold V2 → V3</div>
+                <div class="phase-date">19 Abr 2026</div>
+              </div>
+            </div>
+
+            <div class="phase done" onclick="showPhase(2, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Concluído</div>
+                <div class="phase-name">Backend Core</div>
+                <div class="phase-date">Abr 2026</div>
+              </div>
+            </div>
+
+            <div class="phase done" onclick="showPhase(3, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Concluído</div>
+                <div class="phase-name">Frontend Base</div>
+                <div class="phase-date">Abr 2026</div>
+              </div>
+            </div>
+
+            <div class="phase done" onclick="showPhase(4, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Concluído</div>
+                <div class="phase-name">Refinamento V3.2</div>
+                <div class="phase-date">24 Abr 2026</div>
+              </div>
+            </div>
+
+            <div class="phase new" onclick="showPhase(5, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Implementado</div>
+                <div class="phase-name">Modo SP2</div>
+                <div class="phase-date">28 Abr 2026</div>
+              </div>
+            </div>
+
+            <div class="phase active" onclick="showPhase(6, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Em progresso</div>
+                <div class="phase-name">Validação SP2</div>
+                <div class="phase-date">Mai 2026</div>
+              </div>
+            </div>
+
+            <div class="phase planned" onclick="showPhase(7, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Planejado</div>
+                <div class="phase-name">IA Integrada</div>
+                <div class="phase-date">—</div>
+              </div>
+            </div>
+
+            <div class="phase planned" onclick="showPhase(8, this)">
+              <div class="phase-marker"></div>
+              <div class="phase-card">
+                <div class="phase-status">Planejado</div>
+                <div class="phase-name">Distribuição</div>
+                <div class="phase-date">—</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="phaseDetails">
+
+          <div class="phase-detail" data-phase="0">
+            <div class="detail-top">
+              <span class="detail-title">V1 Legado — AutoRelatorio SP</span>
+              <span class="detail-badge">STABLE</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-check">✓</span><span>Gerador modo Tradicional e modo São Paulo (SP1)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Varredura hierárquica com regex de medidas (nome do arquivo)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Tabelas Word 5 colunas com formatação SP</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Launcher unificado (run.py + Rich)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Validado em campo: Vila Tatetuba (439 imagens)</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="1">
+            <div class="detail-top">
+              <span class="detail-title">Scaffold V2 → V3 — Migração de base</span>
+              <span class="detail-badge">SETUP</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-check">✓</span><span>Repositório V3.2 criado a partir do V1</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Estrutura APP/backend + APP/frontend organizada</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Next.js 16 + React 19 + Tailwind 4 configurados</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Frontend legado removido da raiz</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="2">
+            <div class="detail-top">
+              <span class="detail-title">Backend Core — FastAPI + Word</span>
+              <span class="detail-badge">BACKEND</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-check">✓</span><span>server.py com 20+ endpoints REST</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>generator.py (Tradicional) + generator_sp.py (SP1)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>word_utils.py e word_utils_sp.py</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>9 templates .docx disponíveis (contratos por região)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>llm_generator.py (scaffold de geração por IA)</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="3">
+            <div class="detail-top">
+              <span class="detail-title">Frontend Base — Interface V3</span>
+              <span class="detail-badge">FRONTEND</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-check">✓</span><span>page.tsx — state machine da sessão</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>SidebarWizard — seleção de modo + inputs</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>PreviewGrid — grade responsiva de imagens</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>ImageEditorModal — canvas Fabric.js (seta, texto, crop)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>ConsoleWatcher — logs em tempo real na UI</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="4">
+            <div class="detail-top">
+              <span class="detail-title">Refinamento V3.2 — Estabilização</span>
+              <span class="detail-badge">STABLE</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-check">✓</span><span>run.py e run.bat atualizados com atribuição de desenvolvedor</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Documentação interna refatorada (README, CHANGELOG, mapas)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>utils_sp.py — parser de medidas SP1 estabilizado</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>word_utils.py — tabela de cálculo MAFFENG + tabela de itens</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Correção tailwindcss: npm install no APP/frontend</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail visible" data-phase="5">
+            <div class="detail-top">
+              <span class="detail-title">Modo SP2 — Contrato 1565 · São José do Rio Preto</span>
+              <span class="detail-badge sp2">SP2 · NEW</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>utils_sp2.py</strong> — parser com faces, paredes nomeadas, croquis; mapeamento de 40+ itens do contrato 1565</span></div>
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>generator_sp2.py</strong> — scanner hierárquico com enunciado de item, memória de cálculo multi-linha, croquis</span></div>
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>word_utils_sp2.py</strong> — motor Word com tabela de memória separada, tabela de itens independente, croquis com legenda</span></div>
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>server.py</strong> — suporte a tipo_relatorio 'sp2' no /api/scan e /api/generate; campo meta_sp2 (cabeçalho institucional)</span></div>
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>SidebarWizard.tsx</strong> — botão SP2 no toggle de modo; badge informativo do contrato</span></div>
+              <div class="detail-item"><span class="di-new">✦</span><span><strong>CHANGELOG_SP2.md</strong> — documentação completa: comparativo 3 modos, estrutura de pastas, formatos de arquivo</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Suporte a fator de faces (× 2 para elementos metálicos)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Múltiplas paredes por tabela de cálculo (linhas nomeadas)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Enunciado textual "Item 17.X – desc..." antes de cada tabela</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Croquis com legenda centralizada (CROQUI 01 – desc)</span></div>
+              <div class="detail-item"><span class="di-check">✓</span><span>Substituição de placeholders do cabeçalho institucional (contrato, OS, agência, etc.)</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="6">
+            <div class="detail-top">
+              <span class="detail-title">Validação SP2 — Em andamento</span>
+              <span class="detail-badge">ACTIVE</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Teste real com estrutura de pastas do contrato 1565</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Validar template MODELO - 1565 - SAO JOSE DO RIO PRETO.docx com placeholders</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Formulário frontend para preenchimento de meta_sp2 (Contrato, OS, Agência…)</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Agrupamento consolidado de itens iguais em múltiplos ambientes</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="7">
+            <div class="detail-top">
+              <span class="detail-title">IA Integrada — Planejado</span>
+              <span class="detail-badge">PLANNED</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Editor de contexto dinâmico (super prompt)</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Geração de descrições via LLM (llm_generator.py)</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Múltiplos serviços por foto com contexto automático</span></div>
+            </div>
+          </div>
+
+          <div class="phase-detail" data-phase="8">
+            <div class="detail-top">
+              <span class="detail-title">Distribuição — Planejado</span>
+              <span class="detail-badge">PLANNED</span>
+            </div>
+            <div class="detail-items">
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Instalador Windows (.exe ou setup script)</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Documentação de usuário final</span></div>
+              <div class="detail-item" style="color: var(--text-faint)"><span style="font-size:11px;margin-top:2px">○</span><span>Versão para outros técnicos da equipe</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ══ ARQUIVOS DO PROJETO ══ -->
+      <div class="section" id="arquivos">
+        <div class="section-header">
+          <span class="section-title">Arquivos do projeto</span>
+          <span class="section-line"></span>
+          <span class="section-tag">APP/BACKEND · APP/FRONTEND</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+            <div style="padding:10px 14px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:1px;text-transform:uppercase;">Backend — APP/backend/</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-faint);">Python · FastAPI</span>
+            </div>
+            <div style="padding:14px;font-family:var(--mono);font-size:11px;line-height:2;color:var(--text-dim);">
+              <div><span style="color:var(--green);">●</span> server.py <span style="color:var(--text-faint);">— 20+ endpoints REST</span></div>
+              <div><span style="color:var(--green);">●</span> generator.py <span style="color:var(--text-faint);">— scanner Tradicional</span></div>
+              <div><span style="color:var(--green);">●</span> generator_sp.py <span style="color:var(--text-faint);">— scanner SP1</span></div>
+              <div><span style="color:var(--purple);">✦</span> generator_sp2.py <span style="color:var(--text-faint);">— scanner SP2 (novo)</span></div>
+              <div><span style="color:var(--green);">●</span> word_utils.py <span style="color:var(--text-faint);">— gerador Word Tradicional</span></div>
+              <div><span style="color:var(--green);">●</span> word_utils_sp.py <span style="color:var(--text-faint);">— gerador Word SP1</span></div>
+              <div><span style="color:var(--purple);">✦</span> word_utils_sp2.py <span style="color:var(--text-faint);">— gerador Word SP2 (novo)</span></div>
+              <div><span style="color:var(--green);">●</span> utils_sp.py <span style="color:var(--text-faint);">— parser SP1</span></div>
+              <div><span style="color:var(--purple);">✦</span> utils_sp2.py <span style="color:var(--text-faint);">— parser SP2 + mapa itens (novo)</span></div>
+              <div><span style="color:var(--green);">●</span> llm_generator.py <span style="color:var(--text-faint);">— IA (scaffold)</span></div>
+              <div><span style="color:var(--text-faint);">○</span> templates/ <span style="color:var(--text-faint);">— 9 contratos .docx</span></div>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+            <div style="padding:10px 14px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;">Frontend — APP/frontend/</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-faint);">Next.js 16 · React 19</span>
+            </div>
+            <div style="padding:14px;font-family:var(--mono);font-size:11px;line-height:2;color:var(--text-dim);">
+              <div><span style="color:var(--blue);">●</span> app/page.tsx <span style="color:var(--text-faint);">— state machine central</span></div>
+              <div><span style="color:var(--purple);">✦</span> components/SidebarWizard.tsx <span style="color:var(--text-faint);">— +botão SP2</span></div>
+              <div><span style="color:var(--blue);">●</span> components/PreviewGrid.tsx <span style="color:var(--text-faint);">— grade de fotos</span></div>
+              <div><span style="color:var(--blue);">●</span> components/ImageEditorModal.tsx <span style="color:var(--text-faint);">— Fabric.js</span></div>
+              <div><span style="color:var(--blue);">●</span> components/ConsoleWatcher.tsx <span style="color:var(--text-faint);">— logs UI</span></div>
+              <div><span style="color:var(--blue);">●</span> components/AmbienteSelector.tsx</div>
+              <div><span style="color:var(--blue);">●</span> data/ <span style="color:var(--text-faint);">— itens MAFFENG</span></div>
+              <div style="margin-top:8px;color:var(--text-faint);font-size:10px;">Stack: Tailwind 4 · Fabric.js 7 · Framer Motion · Lucide</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ══ MODO SP2 ══ -->
+      <div class="section" id="sp2">
+        <div class="section-header">
+          <span class="section-title">Modo SP2 — Referência rápida</span>
+          <span class="section-line"></span>
+          <span class="section-tag">CONTRATO 1565 · SÃO JOSÉ DO RIO PRETO</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+          <div style="background:var(--surface);border:1px solid var(--purple);border-radius:8px;padding:16px 18px;">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--purple);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Novos tipos de item no array conteudo</div>
+            <div style="font-family:var(--mono);font-size:11px;line-height:2;color:var(--text-dim);">
+              <div><span style="color:var(--purple);">enunciado_item</span> — "Item 17.X – desc..."</div>
+              <div><span style="color:var(--purple);">memoria_calculo</span> — tabela multi-linha</div>
+              <div><span style="color:var(--purple);">tabela_itens_sp2</span> — itens separados</div>
+              <div><span style="color:var(--purple);">croqui</span> — imagem + legenda</div>
+              <div><span style="color:var(--green);">imagem_fachada</span> — capa (herdado SP1)</div>
+              <div><span style="color:var(--green);">imagem</span> — foto normal (herdado)</div>
+              <div><span style="color:var(--green);">quebra_pagina</span> — (herdado)</div>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Formato de nome de arquivo</div>
+            <div style="font-family:var(--mono);font-size:11px;line-height:2;color:var(--text-dim);">
+              <div><span style="color:var(--accent);">01 - 6,50 x 3,00.jpg</span> → simples</div>
+              <div><span style="color:var(--accent);">01 - 6,50 x 3,00 - Desconto 1,89m².jpg</span></div>
+              <div><span style="color:var(--accent);">01 - 3,85 x 2,18 - Faces 2.jpg</span> → metálico</div>
+              <div><span style="color:var(--accent);">01 - 5,00 x 1,90 - Muro 1.jpg</span> → parede</div>
+              <div><span style="color:var(--accent);">CROQUI 01 - Laje.jpg</span> → croqui</div>
+              <div><span style="color:var(--text-faint);">02 - vista geral.jpg</span> → só imagem</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">Próximos passos do SP2</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:var(--text-dim);">
+            <div>○ Teste real com pastas do contrato 1565</div>
+            <div>○ Formulário meta_sp2 no frontend</div>
+            <div>○ Validar template 1565 com placeholders</div>
+            <div>○ Agrupamento consolidado de itens por contrato</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ══ ANOTAÇÕES ══ -->
+      <div class="section" id="notas">
+        <div class="section-header">
+          <span class="section-title">Anotações</span>
+          <span class="section-line"></span>
+          <span class="section-tag">PERSISTENTE · EDITÁVEL</span>
+        </div>
+
+        <div class="notes-grid" id="notesGrid">
+
+          <div class="note-card">
+            <div class="note-card-header">
+              <span class="note-card-title">Decisões técnicas</span>
+              <span class="note-tag">ARQUITETURA</span>
+            </div>
+            <div class="note-body" contenteditable="true" id="note-decisoes"
+                 data-placeholder="Registre aqui decisões de arquitetura, trade-offs, escolhas de stack..."></div>
+          </div>
+
+          <div class="note-card">
+            <div class="note-card-header">
+              <span class="note-card-title">Bugs conhecidos</span>
+              <span class="note-tag">ISSUES</span>
+            </div>
+            <div class="note-body" contenteditable="true" id="note-bugs"
+                 data-placeholder="Liste bugs conhecidos, comportamentos estranhos, coisas a investigar..."></div>
+          </div>
+
+          <div class="note-card">
+            <div class="note-card-header">
+              <span class="note-card-title">Próximas tarefas</span>
+              <span class="note-tag">BACKLOG</span>
+            </div>
+            <div class="note-body" contenteditable="true" id="note-tarefas"
+                 data-placeholder="O que falta fazer? Prioridades imediatas..."></div>
+          </div>
+
+          <div class="note-card">
+            <div class="note-card-header">
+              <span class="note-card-title">Observações gerais</span>
+              <span class="note-tag">MISC</span>
+            </div>
+            <div class="note-body" contenteditable="true" id="note-misc"
+                 data-placeholder="Qualquer coisa que não se encaixa nas outras categorias..."></div>
+          </div>
+
+          <div class="note-card note-card-wide">
+            <div class="note-card-header">
+              <span class="note-card-title">Diário de sessão</span>
+              <span class="note-tag">LIVRE</span>
+            </div>
+            <div class="note-body" contenteditable="true" id="note-diario" style="min-height: 140px;"
+                 data-placeholder="Registro livre de sessão — o que foi feito, o que aprendeu, como foi o uso no campo..."></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ══ LOG ══ -->
+      <div class="section" id="log">
+        <div class="section-header">
+          <span class="section-title">Log de commits</span>
+          <span class="section-line"></span>
+          <span class="section-tag">HISTÓRICO</span>
+        </div>
+
+        <div class="log-list" id="logList">
+
+          <div class="log-entry">
+            <span class="log-date">28 Abr 2026</span>
+            <span class="log-tag sp2">sp2</span>
+            <span class="log-desc">Modo SP2 implementado — utils_sp2.py, generator_sp2.py, word_utils_sp2.py criados; server.py e SidebarWizard.tsx atualizados; CHANGELOG_SP2.md documentado</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">28 Abr 2026</span>
+            <span class="log-tag fix">fix</span>
+            <span class="log-desc">Correção tailwindcss: npm install rodado em APP/frontend (resolução de módulo no Next.js 16 + Tailwind 4)</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">28 Abr 2026</span>
+            <span class="log-tag docs">docs</span>
+            <span class="log-desc">Análise comparativa SP1 vs SP2 a partir dos arquivos OS 250107393 (PDF) e Relatório Guariba (DOCX) — projeção da terceira lógica</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">24 Abr 2026</span>
+            <span class="log-tag stable">stable</span>
+            <span class="log-desc">V3.2 estabilizado — README, CHANGELOG e documentação interna atualizados</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">23 Abr 2026</span>
+            <span class="log-tag docs">docs</span>
+            <span class="log-desc">Refatoração da documentação interna — commit.html, mapa_edicao, setup_guia, analise_exploracao</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">23 Abr 2026</span>
+            <span class="log-tag fix">fix</span>
+            <span class="log-desc">Removida pasta /frontend legada da raiz do projeto</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">23 Abr 2026</span>
+            <span class="log-tag feat">feat</span>
+            <span class="log-desc">run.py e run.bat atualizados com atribuição de desenvolvedor</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">19 Abr 2026</span>
+            <span class="log-tag stable">stable</span>
+            <span class="log-desc">Scaffold V3.2 criado a partir do AutoRelatorioV1_Dev — estado da arte funcional</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">27 Mar 2026</span>
+            <span class="log-tag stable">stable</span>
+            <span class="log-desc">Checkpoint v1 — launcher integrado estabilizado, Turbopack desativado, TypeErrors corrigidos</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">09 Mar 2026</span>
+            <span class="log-tag feat">feat</span>
+            <span class="log-desc">Descrições dinâmicas — seletor dropdown com 4 opções, regex find/replace no Word</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">09 Mar 2026</span>
+            <span class="log-tag backend">backend</span>
+            <span class="log-desc">Ordenação perfeita — prioridade Vista Ampla, sufixo Detalhes, natural sort</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">Mar 2026</span>
+            <span class="log-tag backend">backend</span>
+            <span class="log-desc">Robustez os.walk — refatoração algoritmo, match de 439 imagens em Vila Tatetuba</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">Mar 2026</span>
+            <span class="log-tag frontend">frontend</span>
+            <span class="log-desc">Integração API/Frontend — toggle Tradicional vs SP, FastAPI routing core</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">Mar 2026</span>
+            <span class="log-tag backend">backend</span>
+            <span class="log-desc">Integrador Word — tabelas 5 colunas, parágrafos técnicos automáticos</span>
+          </div>
+
+          <div class="log-entry">
+            <span class="log-date">Mar 2026</span>
+            <span class="log-tag setup">setup</span>
+            <span class="log-desc">Setup inicial — duplicação do legado, log dev iniciado, estrutura de pastas</span>
+          </div>
+
+        </div>
+
+        <!-- Novo commit inline -->
+        <div id="newCommitForm" style="display:none; margin-top:16px;">
+          <div style="display:grid; grid-template-columns: 120px 90px 1fr 80px; gap:8px; align-items:center;">
+            <input id="nc-date" type="text" placeholder="Data" style="background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:7px 10px;color:var(--text);font-family:var(--mono);font-size:11px;outline:none;">
+            <select id="nc-tag" style="background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:7px 6px;color:var(--text-dim);font-family:var(--mono);font-size:11px;outline:none;">
+              <option value="feat">feat</option>
+              <option value="fix">fix</option>
+              <option value="backend">backend</option>
+              <option value="frontend">frontend</option>
+              <option value="setup">setup</option>
+              <option value="stable">stable</option>
+              <option value="docs">docs</option>
+              <option value="sp2">sp2</option>
+            </select>
+            <input id="nc-desc" type="text" placeholder="Descrição do commit..." style="background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:7px 10px;color:var(--text);font-size:12px;outline:none;">
+            <button onclick="confirmCommit()" class="btn btn-primary" style="height:100%;">Adicionar</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPhase(idx, el) {
+    document.querySelectorAll('.phase').forEach(p => p.classList.remove('active-sel'));
+    document.querySelectorAll('.phase-detail').forEach(d => d.classList.remove('visible'));
+    el.classList.add('active-sel');
+    const detail = document.querySelector(`.phase-detail[data-phase="${idx}"]`);
+    if (detail) detail.classList.add('visible');
+  }
+
+  function navTo(id, btn) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function addCommit() {
+    const form = document.getElementById('newCommitForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+      const now = new Date();
+      document.getElementById('nc-date').value =
+        `${now.getDate().toString().padStart(2,'0')} ${['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][now.getMonth()]} ${now.getFullYear()}`;
+      document.getElementById('nc-desc').focus();
+    }
+  }
+
+  function confirmCommit() {
+    const date = document.getElementById('nc-date').value.trim();
+    const tag  = document.getElementById('nc-tag').value;
+    const desc = document.getElementById('nc-desc').value.trim();
+    if (!desc) return;
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `
+      <span class="log-date">${date}</span>
+      <span class="log-tag ${tag}">${tag}</span>
+      <span class="log-desc">${desc}</span>
+    `;
+    document.getElementById('logList').prepend(entry);
+    document.getElementById('nc-desc').value = '';
+    document.getElementById('newCommitForm').style.display = 'none';
+  }
+
+  function saveHTML() {
+    const noteIds = ['note-decisoes','note-bugs','note-tarefas','note-misc','note-diario'];
+    const logEntries = document.getElementById('logList').innerHTML;
+    let saved = document.documentElement.outerHTML;
+    noteIds.forEach(id => {
+      const val = document.getElementById(id).innerHTML;
+      const re = new RegExp(`(<div[^>]*id="${id}"[^>]*>)([\\s\\S]*?)(<\\/div>)`, 'm');
+      saved = saved.replace(re, `$1${val}$3`);
+    });
+    saved = saved.replace(
+      /(<div class="log-list"[^>]*id="logList">)([\s\S]*?)(<\/div>\s*<!-- Novo commit)/m,
+      `$1${logEntries}$3`
+    );
+    const blob = new Blob([saved], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Commit.Autorelatorio.V3.2.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  const NOTE_IDS = ['note-decisoes','note-bugs','note-tarefas','note-misc','note-diario'];
+
+  function loadNotes() {
+    NOTE_IDS.forEach(id => {
+      const stored = localStorage.getItem('ar32_' + id);
+      if (stored) document.getElementById(id).innerHTML = stored;
+    });
+  }
+
+  function saveNotesLocal() {
+    NOTE_IDS.forEach(id => {
+      localStorage.setItem('ar32_' + id, document.getElementById(id).innerHTML);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadNotes();
+    NOTE_IDS.forEach(id => {
+      document.getElementById(id).addEventListener('input', saveNotesLocal);
+    });
+  });
+</script>
+
+</body>
+</html>

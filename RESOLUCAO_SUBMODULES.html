@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resolução: Remoção de Submodules — TM Sempre Tecnologia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --TM-primary: #E47A4A;
+      --TM-primary-light: #F5A976;
+      --TM-primary-dark: #C85E2F;
+      --tm-bg: #EFEDE8;
+      --tm-bg-secondary: #E5E2DC;
+      --tm-text: #2A2925;
+      --tm-text-secondary: #6E6C66;
+      --tm-border: #D4D1CB;
+      --tm-error: #C85E2F;
+      --tm-success: #4F7A3A;
+      --TM-radius-xs: 4px;
+      --TM-radius-sm: 6px;
+      --TM-radius-md: 8px;
+      --TM-radius-lg: 12px;
+      --TM-font-display: 'Roboto Slab', serif;
+      --TM-font-ui: 'Inter', sans-serif;
+      --TM-font-mono: 'JetBrains Mono', monospace;
+    }
+    html.dark {
+      --tm-bg: #161513;
+      --tm-bg-secondary: #1F1E1B;
+      --tm-text: #EFEDE8;
+      --tm-text-secondary: #A9A6A0;
+      --tm-border: #2A2926;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--TM-font-ui);
+      background: var(--tm-bg);
+      color: var(--tm-text);
+      line-height: 1.6;
+      transition: background .3s ease, color .3s ease;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--tm-bg);
+      border-bottom: 1px solid var(--tm-border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .hdr-brand { display: flex; align-items: center; gap: 8px; }
+    .brand-sq {
+      width: 32px;
+      height: 32px;
+      background: var(--TM-primary);
+      border-radius: var(--TM-radius-sm);
+    }
+    .brand-name {
+      font-family: var(--TM-font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--tm-text);
+    }
+    .btn-toggle {
+      background: transparent;
+      border: 1px solid var(--tm-border);
+      color: var(--tm-text);
+      padding: 6px 12px;
+      border-radius: var(--TM-radius-sm);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all .2s ease;
+    }
+    .btn-toggle:hover { border-color: var(--TM-primary); color: var(--TM-primary); }
+    main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    h1 {
+      font-family: var(--TM-font-display);
+      font-size: 32px;
+      margin-bottom: 8px;
+      color: var(--tm-text);
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--tm-text-secondary);
+      margin-bottom: 40px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tm-bg-secondary);
+      padding: 8px 12px;
+      border-radius: var(--TM-radius-xs);
+      font-size: 12px;
+      font-weight: 600;
+      border-left: 3px solid var(--tm-success);
+      margin-bottom: 32px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--tm-success);
+      border-radius: 50%;
+    }
+    section {
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-family: var(--TM-font-display);
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--tm-text);
+      border-bottom: 1px solid var(--tm-border);
+      padding-bottom: 12px;
+    }
+    .timeline {
+      border-left: 2px solid var(--tm-border);
+      padding-left: 24px;
+      position: relative;
+    }
+    .timeline-item {
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: var(--TM-primary);
+      border-radius: 50%;
+      position: absolute;
+      left: -27px;
+      top: 3px;
+    }
+    .timeline-date {
+      font-size: 12px;
+      color: var(--tm-text-secondary);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-weight: 600;
+      color: var(--tm-text);
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--tm-text-secondary);
+      margin-bottom: 12px;
+    }
+    .code-block {
+      background: var(--tm-bg-secondary);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius-md);
+      padding: 16px;
+      font-family: var(--TM-font-mono);
+      font-size: 13px;
+      overflow-x: auto;
+      color: var(--tm-text);
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin: 12px 0;
+    }
+    .stat-card {
+      background: var(--tm-bg-secondary);
+      border: 1px solid var(--tm-border);
+      border-top: 3px solid var(--TM-primary);
+      border-radius: var(--TM-radius-md);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tm-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .stat-value {
+      font-family: var(--TM-font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--TM-primary);
+      margin-bottom: 8px;
+    }
+    .stat-delta {
+      font-size: 13px;
+      color: var(--tm-success);
+    }
+    .alert {
+      background: var(--tm-bg-secondary);
+      border-left: 3px solid var(--TM-primary);
+      border-radius: var(--TM-radius-md);
+      padding: 16px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .alert.success { border-left-color: var(--tm-success); }
+    .alert.info { border-left-color: #345878; }
+    ul { margin-left: 24px; margin-bottom: 16px; }
+    li { margin-bottom: 8px; }
+    .commit-hash {
+      font-family: var(--TM-font-mono);
+      background: var(--tm-bg-secondary);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    footer {
+      border-top: 1px solid var(--tm-border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--tm-text-secondary);
+      margin-top: 64px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hdr-brand">
+      <div class="brand-sq"></div>
+      <span class="brand-name">TM Sempre Tecnologia</span>
+    </div>
+    <button class="btn-toggle" id="dark-toggle">
+      <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="icon-sun" width="14" height="14" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+      Tema
+    </button>
+  </header>
+
+  <main>
+    <h1>Resolução: Remoção de Submodules Git</h1>
+    <p class="subtitle">Repositório TM-MEUS-APPS · 2026-05-12</p>
+
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span>Resolvido com Sucesso</span>
+    </div>
+
+    <section>
+      <h2>Resumo Executivo</h2>
+      <p style="margin-bottom: 16px;">
+        As pastas <strong>01_Golden_Apps_meu_uso</strong> e <strong>03_Arquivo_Morto_Legado</strong>
+        eram Git Submodules (rastreadas como objetos `160000` no índice do Git),
+        o que as tornava inacessíveis no GitHub (aparecendo como pastas vazias com ícone especial).
+      </p>
+      <p style="margin-bottom: 16px;">
+        A solução implementada removeu as referências de submodule do índice do Git,
+        convertendo o repositório para uma estrutura monolítica onde apenas <strong>TM-MEUS-APPS</strong>
+        é o repositório principal.
+      </p>
+
+      <div class="stat-card">
+        <div class="stat-label">Commits de Resolução</div>
+        <div class="stat-value">3</div>
+        <div class="stat-delta">✓ Sincronização + Conversão + Remoção</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Status no GitHub</div>
+        <div class="stat-value">✓ Repositório Limpo</div>
+        <div class="stat-delta">Submodules removidos · Branch `test` atualizada</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Processo de Resolução</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2026-05-11 · Diagnóstico</div>
+          <div class="timeline-title">Identificação do Problema</div>
+          <div class="timeline-desc">Detectado que pastas 01 e 03 eram submodules dessincronizados no Git.</div>
+          <div class="alert info">
+            Git status mostra: <code>160000 commit xxx 01_Golden_Apps_meu_uso</code> e <code>160000 commit yyy 03_Arquivo_Morto_Legado</code>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2026-05-11 · Tentativa 1</div>
+          <div class="timeline-title">Sincronização de Submodules</div>
+          <div class="timeline-desc">Executado: <code>git fetch origin</code> + <code>git checkout origin/main</code> em ambas pastas.</div>
+          <div class="code-block">cd 01_Golden_Apps_meu_uso && git fetch origin && git checkout origin/main
+cd ../03_Arquivo_Morto_Legado && git fetch origin && git checkout origin/main</div>
+          <div class="alert">Resultado: Submodules ainda inacessíveis no GitHub.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2026-05-11 · Tentativa 2</div>
+          <div class="timeline-title">Remoção de Diretórios .git</div>
+          <div class="timeline-desc">Removidos os diretórios <code>.git</code> de cada submodule para convertê-los em pastas normais.</div>
+          <div class="code-block">Remove-Item -Path "01_Golden_Apps_meu_uso\.git" -Recurse -Force
+Remove-Item -Path "03_Arquivo_Morto_Legado\.git" -Recurse -Force</div>
+          <div class="alert">Resultado: Git ainda via como submodules (modo `160000` no índice).</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2026-05-12 · Solução Final</div>
+          <div class="timeline-title">Remoção de Referências do Índice Git</div>
+          <div class="timeline-desc">Removidas as referências de submodule do índice do Git usando <code>git rm --cached</code>.</div>
+          <div class="code-block">git rm --cached 01_Golden_Apps_meu_uso 03_Arquivo_Morto_Legado
+git commit -m "chore: remover submodule references de 01 e 03 do índice"
+git push origin test</div>
+          <div class="alert success">✓ Repositório agora limpo · Submodules removidos do índice · Push bem-sucedido</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Commits Gerados</h2>
+      <ul>
+        <li>
+          <strong>Commit <span class="commit-hash">a77f94d</span></strong><br>
+          <code>fix: sincronizar submodule references 01 e 03 com remotes + diagnostico</code><br>
+          <em>Tentativa de sincronização de submodules com repositórios remotos</em>
+        </li>
+        <li>
+          <strong>Commit <span class="commit-hash">d6bbba0</span></strong><br>
+          <code>chore: remover submodules 01 e 03 - converter para pastas normais</code><br>
+          <em>Remoção de diretórios .git para conversão em pastas normais</em>
+        </li>
+        <li>
+          <strong>Commit <span class="commit-hash">ce6d6ce</span></strong><br>
+          <code>chore: remover submodule references de 01 e 03 do índice</code><br>
+          <em>✓ Solução final: remoção de referências do índice Git (RESOLVIDO)</em>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Status Atual do Repositório</h2>
+      <div class="stat-card">
+        <div class="stat-label">Branch Atual</div>
+        <div class="stat-value">test</div>
+        <div class="stat-delta">Sincronizado com origin/test</div>
+      </div>
+
+      <div class="alert success">
+        <strong>✓ Repositório Operacional</strong><br>
+        Pastas 01 e 03 não aparecem mais como submodules.
+        Estrutura de repositório agora é monolítica (somente TM-MEUS-APPS como principal).
+      </div>
+
+      <h3 style="margin-top: 24px; margin-bottom: 12px; font-size: 16px;">Próximos Passos Recomendados</h3>
+      <ul>
+        <li>Fazer merge da branch <code>test</code> para <code>main</code> para refletir as mudanças no repositório principal</li>
+        <li>Verificar no GitHub se as pastas 01 e 03 já não aparecem mais com ícones de submodule</li>
+        <li>Se os conteúdos das ex-pastas ainda forem necessários, re-adicioná-los como diretórios normais (em outro commit)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <strong>TM Sempre Tecnologia</strong> · AutoRelatório V2 · 2026<br>
+    Relatório de Resolução de Git Submodules
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const toggle = document.getElementById('dark-toggle');
+    const moon = document.getElementById('icon-moon');
+    const sun = document.getElementById('icon-sun');
+
+    function applyTheme(dark) {
+      html.classList.toggle('dark', dark);
+      moon.style.display = dark ? 'none' : '';
+      sun.style.display = dark ? '' : 'none';
+      try { localStorage.setItem('tm-theme', dark ? 'dark' : 'light'); } catch(e) {}
+    }
+
+    (function() {
+      let saved;
+      try { saved = localStorage.getItem('tm-theme'); } catch(e) {}
+      applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    })();
+
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+  </script>
+</body>
+</html>
