@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #10b981; /* Verde Esmeralda Vibrante */
+  --color-brand-secondary: #0ea5e9; /* Sky Blue */
+  --color-brand-accent: #6366f1; /* Indigo */
+  --color-bg-dark: #0f172a;
+  --color-border-glass: rgba(255, 255, 255, 0.1);
+}
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --brand-primary: #10b981;
+  --brand-secondary: #0ea5e9;
+  --brand-accent: #6366f1;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', Arial, sans-serif;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(14, 165, 233, 0.03) 0%, transparent 40%);
+  background-attachment: fixed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom premium classes using @utility for v4 */
+@utility glass-panel {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
+}
+
+@utility premium-card {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.08), 0 8px 16px rgba(16, 185, 129, 0.04);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+}
+
+@utility glow-text {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility btn-primary {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  color: white;
+  font-weight: 800;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(16, 185, 129, 0.25);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-secondary {
+  background: white;
+  border: 1.5px solid rgba(14, 165, 233, 0.15);
+  color: #0ea5e9;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    background: rgba(14, 165, 233, 0.03);
+    border-color: rgba(14, 165, 233, 0.4);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+  }
+}
+
+@utility input-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.3s;
+
+  &:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    background: #ffffff;
+    transform: scale(1.01);
+  }
+}
+
+@utility status-badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-width: 1px;
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 197, 94, 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@utility animate-float {
+  animation: float 3s ease-in-out infinite;
+}

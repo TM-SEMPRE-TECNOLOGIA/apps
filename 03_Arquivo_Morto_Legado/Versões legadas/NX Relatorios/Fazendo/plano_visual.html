@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Mestre — Att_Nxapps Monorepo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2332;
+            --bg-accent: rgba(56, 189, 248, 0.08);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-amber: #fbbf24;
+            --accent-rose: #fb7185;
+            --accent-violet: #a78bfa;
+            --border: rgba(148, 163, 184, 0.1);
+            --glow-blue: 0 0 40px rgba(56, 189, 248, 0.15);
+            --glow-green: 0 0 40px rgba(52, 211, 153, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 80px 40px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .hero .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 12px;
+            font-weight: 300;
+            position: relative;
+        }
+        .badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 28px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid;
+        }
+        .badge.blue { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); color: var(--accent-blue); }
+        .badge.green { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.3); color: var(--accent-green); }
+        .badge.violet { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.3); color: var(--accent-violet); }
+        .badge.amber { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); color: var(--accent-amber); }
+
+        /* ─── CONTAINER ─── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            margin-bottom: 60px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .section-icon.blue { background: rgba(56,189,248,0.15); }
+        .section-icon.green { background: rgba(52,211,153,0.15); }
+        .section-icon.amber { background: rgba(251,191,36,0.15); }
+        .section-icon.rose { background: rgba(251,113,133,0.15); }
+        .section-icon.violet { background: rgba(167,139,250,0.15); }
+
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .section h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 24px 0 12px;
+        }
+
+        /* ─── CARDS ─── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(56, 189, 248, 0.2);
+            box-shadow: var(--glow-blue);
+            transform: translateY(-2px);
+        }
+
+        .card p, .explanation {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .card p strong, .explanation strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ─── SCORE TABLE ─── */
+        .score-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .score-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+        }
+        .score-label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .score-bar-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 300px;
+        }
+        .score-bar-bg {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .score-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1.2s ease;
+        }
+        .score-bar.red { background: linear-gradient(90deg, #ef4444, #fb7185); }
+        .score-bar.amber { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .score-bar.green { background: linear-gradient(90deg, #10b981, #34d399); }
+        .score-value {
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* ─── PROS CONS ─── */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        @media (max-width: 700px) {
+            .pros-cons { grid-template-columns: 1fr; }
+        }
+        .pro-item, .con-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .pro-item {
+            background: rgba(52, 211, 153, 0.04);
+            border-color: rgba(52, 211, 153, 0.15);
+        }
+        .con-item {
+            background: rgba(251, 191, 36, 0.04);
+            border-color: rgba(251, 191, 36, 0.15);
+        }
+        .pro-item .icon { color: var(--accent-green); font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+        .con-item .icon { color: var(--accent-amber); font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+        .pro-item .text, .con-item .text { font-size: 0.88rem; color: var(--text-secondary); }
+        .pro-item .text strong, .con-item .text strong { color: var(--text-primary); }
+
+        /* ─── FLOW DIAGRAM ─── */
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            overflow-x: auto;
+            padding: 24px 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 20px 16px;
+            min-width: 120px;
+        }
+        .flow-step .circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .flow-step:hover .circle { transform: scale(1.15); }
+        .flow-step .label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .flow-step .desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 130px;
+        }
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .circle.blue-bg { background: rgba(56,189,248,0.15); }
+        .circle.violet-bg { background: rgba(167,139,250,0.15); }
+        .circle.green-bg { background: rgba(52,211,153,0.15); }
+        .circle.amber-bg { background: rgba(251,191,36,0.15); }
+        .circle.rose-bg { background: rgba(251,113,133,0.15); }
+
+        /* ─── FOLDER TREE ─── */
+        .tree {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.82rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        .tree .folder { color: var(--accent-blue); }
+        .tree .file { color: var(--text-muted); }
+        .tree .comment { color: var(--accent-green); font-style: italic; }
+
+        /* ─── AGENTS ─── */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .agent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--glow-blue);
+        }
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 14px;
+        }
+        .agent-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .agent-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── ROADMAP ─── */
+        .roadmap {
+            position: relative;
+            padding-left: 40px;
+        }
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-green), var(--accent-amber));
+            border-radius: 2px;
+        }
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .roadmap-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(56,189,248,0.2);
+        }
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 2px solid var(--bg-primary);
+        }
+        .roadmap-item .step-num {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-blue);
+            margin-bottom: 6px;
+        }
+        .roadmap-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .roadmap-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ─── CALLOUT ─── */
+        .callout {
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .callout.info {
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .callout.warning {
+            background: rgba(251, 191, 36, 0.06);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .callout.success {
+            background: rgba(52, 211, 153, 0.06);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+        .callout .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+        .callout .text { font-size: 0.88rem; color: var(--text-secondary); }
+        .callout .text strong { color: var(--text-primary); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<header class="hero">
+    <h1>Plano Mestre — Att_Nxapps</h1>
+    <p class="subtitle">Organizando seus aplicativos com inteligência, velocidade e qualidade</p>
+    <div class="badges">
+        <span class="badge blue">📦 Turborepo</span>
+        <span class="badge green">🚀 PREVC</span>
+        <span class="badge violet">🤖 CrewAI</span>
+        <span class="badge amber">🎨 Ocean Breeze</span>
+    </div>
+</header>
+
+<main class="container">
+
+<!-- ═══════════════════════════ SEÇÃO 1: O QUE É ISSO? ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon blue">💡</div>
+        <h2>O que estamos fazendo aqui?</h2>
+    </div>
+    <div class="card">
+        <p>
+            Imagine que você tem uma <strong>gaveta com vários cadernos</strong> — cada caderno é um dos seus aplicativos 
+            (NX Relatórios, NX Conteúdos, e outros que virão). Hoje, cada caderno está solto, sem organização.
+        </p>
+        <br>
+        <p>
+            O que vamos fazer é colocar todos esses cadernos dentro de <strong>uma pasta organizada</strong> (chamamos de <strong>monorepo</strong>), 
+            com divisórias, índice e um sistema que te ajuda a encontrar tudo rapidamente. Além disso, vamos instalar um 
+            <strong>"motor turbo"</strong> que acelera o trabalho — ele sabe que se você não mexeu num caderno, 
+            não precisa reprocessá-lo. Isso vai <strong>economizar tempo e evitar erros</strong>.
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 2: AVALIAÇÃO DO REDESIGN ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon amber">🔍</div>
+        <h2>Avaliação do Plano de Redesign</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            Analisei o plano de redesign do <strong>NX Relatórios SP</strong>. 
+            Ele identifica 8 problemas na interface atual e propõe soluções organizadas em 4 fases de trabalho.
+            O veredito: <strong>o plano é sólido e inteligente</strong>. As prioridades estão certas.
+        </p>
+    </div>
+
+    <h3>Notas da Interface Atual</h3>
+    <p class="explanation" style="margin-bottom: 12px; color: var(--text-muted);">Quanto mais cheia a barra, melhor a nota — de 0 (péssimo) a 10 (excelente).</p>
+    
+    <div class="score-grid">
+        <div class="score-row">
+            <span class="score-label">Hierarquia visual</span>
+            <div class="score-bar-wrapper">
+                <div class="score-bar-bg"><div class="score-bar red" style="width: 35%"></div></div>
+                <span class="score-value" style="color: #fb7185;">3.5</span>
+            </div>
+        </div>
+        <div class="score-row">
+            <span class="score-label">Uso do espaço</span>
+            <div class="score-bar-wrapper">
+                <div class="score-bar-bg"><div class="score-bar red" style="width: 28%"></div></div>
+                <span class="score-value" style="color: #fb7185;">2.8</span>
+            </div>
+        </div>
+        <div class="score-row">
+            <span class="score-label">Feedback ao usuário</span>
+            <div class="score-bar-wrapper">
+                <div class="score-bar-bg"><div class="score-bar amber" style="width: 45%"></div></div>
+                <span class="score-value" style="color: #fbbf24;">4.5</span>
+            </div>
+        </div>
+        <div class="score-row">
+            <span class="score-label">Clareza do fluxo</span>
+            <div class="score-bar-wrapper">
+                <div class="score-bar-bg"><div class="score-bar amber" style="width: 55%"></div></div>
+                <span class="score-value" style="color: #fbbf24;">5.5</span>
+            </div>
+        </div>
+        <div class="score-row">
+            <span class="score-label">Identidade visual</span>
+            <div class="score-bar-wrapper">
+                <div class="score-bar-bg"><div class="score-bar green" style="width: 72%"></div></div>
+                <span class="score-value" style="color: #34d399;">7.2</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout success" style="margin-top: 20px;">
+        <span class="icon">✅</span>
+        <span class="text">
+            <strong>Parecer: Aprovado.</strong> O plano prioriza corretamente os 3 problemas graves (layout, console e sidebar). 
+            Sugiro adicionar animações suaves e aplicar o Design System Ocean Breeze para elevar a identidade de 7.2 para 9+.
+        </span>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 3: TURBOREPO ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon blue">📦</div>
+        <h2>Turborepo — Seu Motor de Velocidade</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            <strong>O que é:</strong> Pense no Turborepo como um <strong>gerente de obra inteligente</strong>. 
+            Ele olha para todos os seus projetos, entende quem depende de quem, e organiza o trabalho 
+            para que tudo aconteça da <strong>forma mais rápida possível</strong>. Se um pedreiro já terminou uma 
+            parede e ninguém mexeu nela, o gerente não manda refazer — ele <strong>pula para a próxima tarefa</strong>.
+        </p>
+        <br>
+        <p>
+            <strong>Como funciona na prática:</strong> Em vez de rodar o build de cada app manualmente, 
+            você roda <strong>um único comando</strong> (<code>turbo build</code>) e ele cuida de tudo — 
+            faz em paralelo quando pode, pula o que não mudou, e garante que tudo esteja na ordem certa.
+        </p>
+    </div>
+
+    <h3>Vantagens ✅</h3>
+    <div class="pros-cons" style="grid-template-columns: 1fr;">
+        <div class="pro-item">
+            <span class="icon">⚡</span>
+            <span class="text"><strong>Velocidade:</strong> Se você não mexeu num arquivo, ele não reprocessa. Isso pode economizar até 80% do tempo de build.</span>
+        </div>
+        <div class="pro-item">
+            <span class="icon">🔄</span>
+            <span class="text"><strong>Trabalho simultâneo:</strong> Roda testes e linting ao mesmo tempo em apps diferentes, como ter vários trabalhadores ao invés de um só.</span>
+        </div>
+        <div class="pro-item">
+            <span class="icon">📋</span>
+            <span class="text"><strong>Ordem automática:</strong> Sabe que um pacote compartilhado precisa ser compilado antes do app que usa ele. Você não precisa se preocupar com isso.</span>
+        </div>
+        <div class="pro-item">
+            <span class="icon">🧩</span>
+            <span class="text"><strong>Compartilhamento:</strong> Componentes visuais, configurações e funções úteis podem ser reutilizados entre todos os seus apps sem copiar e colar código.</span>
+        </div>
+        <div class="pro-item">
+            <span class="icon">📏</span>
+            <span class="text"><strong>Um comando só:</strong> <code>turbo dev</code> inicia TODOS os seus apps de uma vez. Sem abrir várias janelas de terminal.</span>
+        </div>
+        <div class="pro-item">
+            <span class="icon">📈</span>
+            <span class="text"><strong>Escala com você:</strong> Quando criar novos apps, é só jogar na pasta <code>apps/</code> e o Turborepo já reconhece automaticamente.</span>
+        </div>
+    </div>
+
+    <h3>Desvantagens ⚠️</h3>
+    <div class="pros-cons" style="grid-template-columns: 1fr;">
+        <div class="con-item">
+            <span class="icon">📚</span>
+            <span class="text"><strong>Curva de aprendizado:</strong> Tem alguns conceitos novos pra aprender, mas a documentação é excelente e o PREVC vai documentar tudo pra você.</span>
+        </div>
+        <div class="con-item">
+            <span class="icon">🐍</span>
+            <span class="text"><strong>Só funciona com Node.js:</strong> O backend Python (FastAPI) continua funcionando normalmente, mas roda separado pelo <code>run.bat</code> como já faz hoje. O Turborepo cuida só da parte JavaScript/TypeScript.</span>
+        </div>
+        <div class="con-item">
+            <span class="icon">🗑️</span>
+            <span class="text"><strong>Cache pode confundir:</strong> Às vezes ele usa uma versão em cache quando não deveria. Resolução simples: <code>turbo clean</code> limpa tudo.</span>
+        </div>
+    </div>
+
+    <div class="callout info">
+        <span class="icon">💡</span>
+        <span class="text">
+            Atualmente temos <strong>2 apps</strong> (NX Relatórios + Nx Conteúdos), mas o monorepo foi planejado para 
+            <strong>crescer com mais aplicativos no futuro</strong>. Cada novo app entra na pasta <code>apps/</code> e 
+            automaticamente faz parte do sistema.
+        </span>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 4: ESTRUTURA DE PASTAS ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon green">🗂️</div>
+        <h2>Como vai ficar organizado</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            Abaixo está a estrutura de pastas do seu repositório depois da reorganização. 
+            Cada app fica na pasta <code>apps/</code>, pacotes compartilhados em <code>packages/</code>, 
+            e a inteligência do projeto em <code>.context/</code> e <code>.crew/</code>.
+        </p>
+    </div>
+
+    <div class="tree">
+        <span class="folder">📁 Att_Nxapps/</span> <span class="comment">← Raiz do monorepo</span><br>
+        ├── <span class="file">⚙️ turbo.json</span> <span class="comment">← Configuração central do Turborepo</span><br>
+        ├── <span class="file">📄 package.json</span> <span class="comment">← Define os workspaces</span><br>
+        ├── <span class="file">📄 pnpm-workspace.yaml</span> <span class="comment">← Diz quais pastas são projetos</span><br>
+        │<br>
+        ├── <span class="folder">📁 .context/</span> <span class="comment">← 🚀 PREVC — Memória do projeto</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">planning/</span> <span class="comment">← Planos de cada sprint</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">review/</span> <span class="comment">← Revisões de código</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">execution/</span> <span class="comment">← Logs de execução</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">validation/</span> <span class="comment">← Resultados de testes</span><br>
+        │&nbsp;&nbsp; └── <span class="folder">confirmation/</span> <span class="comment">← Resumos finais</span><br>
+        │<br>
+        ├── <span class="folder">📁 .crew/</span> <span class="comment">← 🤖 CrewAI — Configuração dos auditores</span><br>
+        │&nbsp;&nbsp; ├── <span class="file">agents.yaml</span> <span class="comment">← Quem são os agentes</span><br>
+        │&nbsp;&nbsp; └── <span class="file">tasks.yaml</span> <span class="comment">← O que cada agente faz</span><br>
+        │<br>
+        ├── <span class="folder">📁 apps/</span> <span class="comment">← Seus aplicativos (crescendo!)</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">📁 nx-relatorios/</span> <span class="comment">← App principal</span><br>
+        │&nbsp;&nbsp; │&nbsp;&nbsp; ├── <span class="folder">frontend/</span> <span class="comment">← Next.js 16</span><br>
+        │&nbsp;&nbsp; │&nbsp;&nbsp; ├── <span class="folder">backend/</span> <span class="comment">← FastAPI (Python)</span><br>
+        │&nbsp;&nbsp; │&nbsp;&nbsp; └── <span class="file">run.bat</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">📁 nx-conteudos/</span> <span class="comment">← App de conteúdos</span><br>
+        │&nbsp;&nbsp; └── <span class="folder">📁 ... futuros apps/</span> <span class="comment">← Cada novo app vai aqui</span><br>
+        │<br>
+        ├── <span class="folder">📁 packages/</span> <span class="comment">← Código compartilhado entre apps</span><br>
+        │&nbsp;&nbsp; ├── <span class="folder">ui-shared/</span> <span class="comment">← Componentes visuais reutilizáveis</span><br>
+        │&nbsp;&nbsp; └── <span class="folder">config-tailwind/</span> <span class="comment">← Tema/cores Ocean Breeze</span><br>
+        │<br>
+        └── <span class="folder">📁 dev/</span> <span class="comment">← Documentação e screenshots</span><br>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 5: PREVC ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon green">🚀</div>
+        <h2>PREVC — Seu Método de Trabalho</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            O PREVC é como uma <strong>receita de bolo com 5 passos</strong> que seguimos toda vez que vamos fazer algo no projeto. 
+            Isso garante que nada seja esquecido e que cada mudança seja pensada, revisada e testada antes de ir pro ar.
+        </p>
+    </div>
+
+    <div class="flow">
+        <div class="flow-step">
+            <div class="circle blue-bg">🎯</div>
+            <span class="label" style="color: var(--accent-blue);">Planning</span>
+            <span class="desc">Planejar o que vai ser feito</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+            <div class="circle violet-bg">🔍</div>
+            <span class="label" style="color: var(--accent-violet);">Review</span>
+            <span class="desc">Revisar antes de começar</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+            <div class="circle amber-bg">⚡</div>
+            <span class="label" style="color: var(--accent-amber);">Execution</span>
+            <span class="desc">Mão na massa: codar</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+            <div class="circle green-bg">✅</div>
+            <span class="label" style="color: var(--accent-green);">Validation</span>
+            <span class="desc">Testar se funcionou</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+            <div class="circle rose-bg">📋</div>
+            <span class="label" style="color: var(--accent-rose);">Confirmation</span>
+            <span class="desc">Documentar e commitar</span>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 6: CREWAI ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon violet">🤖</div>
+        <h2>CrewAI — Sua Equipe de Auditoria</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            Imagine que você tem <strong>3 profissionais especializados</strong> olhando seu trabalho em cada etapa. 
+            Um escreve o código, outro garante que está bonito, e outro verifica se tudo está correto. 
+            Na prática, eles atuam como <strong>checklists automatizados</strong> que nunca esquecem de conferir nada.
+        </p>
+    </div>
+
+    <div class="agents-grid">
+        <div class="agent-card">
+            <div class="agent-avatar" style="background: rgba(56,189,248,0.15);">💻</div>
+            <h4 style="color: var(--accent-blue);">Coder</h4>
+            <p>Desenvolvedor líder. Escreve código limpo, rápido e acessível. Especialista em Next.js e TailwindCSS.</p>
+        </div>
+        <div class="agent-card">
+            <div class="agent-avatar" style="background: rgba(251,113,133,0.15);">🔍</div>
+            <h4 style="color: var(--accent-rose);">Auditor</h4>
+            <p>Revisor implacável. Verifica qualidade, segurança, acessibilidade e padrões do projeto. Nada escapa.</p>
+        </div>
+        <div class="agent-card">
+            <div class="agent-avatar" style="background: rgba(167,139,250,0.15);">🎨</div>
+            <h4 style="color: var(--accent-violet);">Designer</h4>
+            <p>Guardião da beleza. Garante que tudo siga o Design System Ocean Breeze. Sem placeholders, sem design genérico.</p>
+        </div>
+    </div>
+
+    <div class="callout info" style="margin-top: 20px;">
+        <span class="icon">🤖</span>
+        <span class="text">
+            A cada sprint do projeto, o <strong>Coder</strong> implementa, o <strong>Auditor</strong> verifica, 
+            e o <strong>Designer</strong> valida a parte visual. Se algo não passa, volta para correção. 
+            Isso garante qualidade consistente em <strong>cada entrega</strong>.
+        </span>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 7: ROADMAP ═══════════════════════════ -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-icon rose">🗺️</div>
+        <h2>Próximos Passos</h2>
+    </div>
+    
+    <div class="card">
+        <p>
+            Com sua aprovação, vou executar cada etapa abaixo. As <strong>4 primeiras</strong> são a preparação do terreno 
+            (organizar o repositório). Depois, começamos o <strong>redesign visual</strong> do NX Relatórios.
+        </p>
+    </div>
+
+    <div class="roadmap">
+        <div class="roadmap-item">
+            <div class="step-num">Etapa 1</div>
+            <h4>Montar a fundação</h4>
+            <p>Criar os arquivos do Turborepo (turbo.json, package.json, pnpm-workspace.yaml)</p>
+        </div>
+        <div class="roadmap-item">
+            <div class="step-num">Etapa 2</div>
+            <h4>Reorganizar as pastas</h4>
+            <p>Mover os apps para apps/, criar packages/ e dev/</p>
+        </div>
+        <div class="roadmap-item">
+            <div class="step-num">Etapa 3</div>
+            <h4>Ativar o PREVC</h4>
+            <p>Criar os diretórios .context/ com as 5 fases documentadas</p>
+        </div>
+        <div class="roadmap-item">
+            <div class="step-num">Etapa 4</div>
+            <h4>Configurar a equipe CrewAI</h4>
+            <p>Definir os 3 agentes (Coder, Auditor, Designer) e suas tarefas</p>
+        </div>
+        <div class="roadmap-item">
+            <div class="step-num">Etapa 5</div>
+            <h4>Ajustar e validar</h4>
+            <p>Corrigir caminhos nos scripts e verificar que tudo funciona</p>
+        </div>
+        <div class="roadmap-item" style="border-color: rgba(52,211,153,0.3);">
+            <div class="step-num" style="color: var(--accent-green);">Etapa 6 — Próxima Sessão</div>
+            <h4>Sprint 1 do Redesign</h4>
+            <p>Atacar os 3 problemas críticos de layout: sidebar, console e preview</p>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p><strong>TM — Sempre Tecnologia</strong> · Plano Mestre Att_Nxapps · Março de 2026</p>
+    <p style="margin-top: 6px;">Desenvolvido por Thiago Nascimento Barbosa ·
+        <a href="https://turborepo.dev" target="_blank">turborepo.dev</a>
+    </p>
+</footer>
+
+</body>
+</html>

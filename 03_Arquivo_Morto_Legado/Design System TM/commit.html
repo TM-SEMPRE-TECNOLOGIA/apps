@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Design System TM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --tm-bg: #f8faf9;
+            --tm-bg-card: #ffffff;
+            --tm-bg-hover: #f1f5f9;
+            --tm-bg-input: #ffffff;
+            --tm-bg-sidebar: #ffffff;
+
+            --tm-text: #1e293b;
+            --tm-text-muted: #64748b;
+            --tm-text-subtle: #94a3b8;
+
+            --tm-border: #e2e8f0;
+            --tm-border-hover: #cbd5e1;
+
+            --tm-primary: #22c55e;
+            --tm-primary-hover: #16a34a;
+            --tm-primary-light: #f0fdf4;
+            --tm-primary-light-alpha: rgba(34, 197, 94, 0.15);
+
+            --TM-primary: #22c55e;
+            --TM-primary-hover: #16a34a;
+            --TM-primary-light: #f0fdf4;
+
+            --tm-success: #22c55e;
+            --tm-info: #0ea5e9;
+
+            --tm-gradient: linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%);
+            --TM-gradient: linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%);
+
+            --TM-font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+            --TM-font-serif: 'Lora', Georgia, serif;
+            --TM-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+            --TM-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --TM-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --TM-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --TM-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+            --TM-radius-sm: 0.375rem;
+            --TM-radius-md: 0.5rem;
+            --TM-radius-lg: 0.75rem;
+            --TM-radius-xl: 1rem;
+        }
+
+        html.dark {
+            --tm-bg: #0f172a;
+            --tm-bg-card: #1e293b;
+            --tm-bg-hover: #19212e;
+            --tm-bg-input: #19212e;
+            --tm-bg-sidebar: #1e293b;
+
+            --tm-text: #d1d5db;
+            --tm-text-muted: #a1a1aa;
+            --tm-text-subtle: #6b7280;
+
+            --tm-border: #4b5563;
+            --tm-border-hover: #6b7280;
+
+            --tm-primary: #34d399;
+            --tm-primary-hover: #10b981;
+            --tm-primary-light: #374151;
+            --tm-primary-light-alpha: rgba(52, 211, 153, 0.15);
+
+            --TM-primary: #34d399;
+            --TM-primary-hover: #10b981;
+            --TM-primary-light: #374151;
+
+            --tm-success: #34d399;
+            --tm-info: #38bdf8;
+
+            --tm-gradient: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+            --TM-gradient: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+
+            --TM-shadow-sm: 0px 4px 8px -1px rgba(0, 0, 0, 0.35), 0px 1px 2px -2px rgba(0, 0, 0, 0.25);
+            --TM-shadow-md: 0px 4px 8px -1px rgba(0, 0, 0, 0.45), 0px 2px 4px -2px rgba(0, 0, 0, 0.30);
+            --TM-shadow-lg: 0px 4px 8px -1px rgba(0, 0, 0, 0.55), 0px 4px 6px -2px rgba(0, 0, 0, 0.40);
+            --TM-shadow-xl: 0px 4px 8px -1px rgba(0, 0, 0, 0.55), 0px 8px 10px -2px rgba(0, 0, 0, 0.45);
+        }
+
+        body {
+            font-family: var(--TM-font-sans);
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--tm-bg-card);
+            border-bottom: 1px solid var(--tm-border);
+            padding: 16px 24px;
+            box-shadow: var(--TM-shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-family: var(--TM-font-serif);
+            font-weight: 700;
+            color: var(--tm-text);
+        }
+
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--tm-primary-light-alpha);
+            color: var(--tm-primary);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-family: var(--TM-font-mono);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            overflow-x: auto;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: var(--TM-radius-md);
+            text-decoration: none;
+            color: var(--tm-text-muted);
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--tm-text);
+            background: var(--tm-bg-hover);
+        }
+
+        .nav-link.active {
+            background: var(--tm-primary-light-alpha);
+            color: var(--tm-primary);
+        }
+
+        .theme-toggle {
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            border: 1px solid var(--tm-border);
+            padding: 8px 16px;
+            border-radius: var(--TM-radius-md);
+            cursor: pointer;
+            font-family: var(--TM-font-sans);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--tm-primary);
+            color: var(--tm-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-family: var(--TM-font-serif);
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--tm-text);
+            border-bottom: 2px solid var(--tm-border);
+            padding-bottom: 12px;
+        }
+
+        .section-intro {
+            color: var(--tm-text-muted);
+            margin-bottom: 40px;
+            font-size: 16px;
+            max-width: 800px;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--tm-bg-card);
+            border: 1px solid var(--tm-border);
+            border-radius: var(--TM-radius-lg);
+            padding: 20px 24px;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: var(--TM-shadow-sm);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--TM-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--tm-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            scroll-behavior: smooth;
+            padding-top: 10px;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 20px 80px 0;
+            gap: 20px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: var(--tm-primary-light-alpha);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 160px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            border-radius: var(--TM-radius-md);
+            transition: all 0.2s;
+        }
+
+        .timeline-node:hover {
+            background: var(--tm-bg-hover);
+        }
+
+        .node-date {
+            font-size: 12px;
+            color: var(--tm-text-muted);
+            margin-bottom: 12px;
+            font-family: var(--TM-font-mono);
+        }
+
+        .node-dot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--tm-bg-card);
+            border: 3px solid var(--tm-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tm-text-muted);
+            transition: all 0.3s;
+            margin-bottom: 12px;
+            box-shadow: var(--TM-shadow-sm);
+        }
+
+        .timeline-node.active .node-dot,
+        .timeline-node:hover .node-dot {
+            border-color: var(--tm-primary);
+            color: var(--tm-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 0 4px var(--tm-primary-light-alpha);
+        }
+
+        .node-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tm-text);
+            text-align: center;
+        }
+
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+        }
+
+        .detail-card {
+            display: none;
+            background: var(--tm-bg-card);
+            border: 1px solid var(--tm-border);
+            border-radius: var(--TM-radius-xl);
+            padding: 32px;
+            box-shadow: var(--TM-shadow-lg);
+            animation: cardFade 0.3s ease-out;
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        @keyframes cardFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--tm-border);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-family: var(--TM-font-serif);
+            color: var(--tm-text);
+        }
+
+        .card-features {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .card-features li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--tm-text-muted);
+            align-items: flex-start;
+        }
+
+        .card-features li .check {
+            color: var(--tm-primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--tm-text-subtle);
+            font-size: 14px;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--TM-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="header-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--TM-primary)" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                <h1>Design System TM</h1>
+                <span class="version-badge">Ocean Breeze</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Histórico (Commits)</a>
+                <a href="#" class="nav-link">Componentes</a>
+            </nav>
+            <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                Tema
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Commits</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">v2.0</div>
+                <div class="stat-label">Versão Estável</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">Canônico</div>
+                <div class="stat-label">Status</div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Linha do Tempo de Design</h2>
+            <p class="section-intro">
+                Acompanhamento das transformações estruturais de identidade visual, acessibilidade e tokenização da
+                linguagem corporativa TM.
+            </p>
+
+            <div class="timeline-track-wrapper">
+                <div class="timeline-track">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-node" onclick="showCard(0, this)">
+                        <span class="node-date">Fev 2026</span>
+                        <div class="node-dot">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <line x1="3" y1="9" x2="21" y2="9" />
+                                <line x1="9" y1="21" x2="9" y2="9" />
+                            </svg>
+                        </div>
+                        <span class="node-label">Ocean Breeze v1.0</span>
+                    </div>
+
+                    <div class="timeline-node active" onclick="showCard(1, this)">
+                        <span class="node-date">08/03/2026</span>
+                        <div class="node-dot">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        <span class="node-label">Auditoria Premium v2.0</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="detail-card-area">
+
+                <div class="detail-card" data-card="0">
+                    <div class="card-header">
+                        <h2 class="card-title">Fundação Ocean Breeze v1.0</h2>
+                        <span class="version-badge">DS-01</span>
+                    </div>
+                    <ul class="card-features">
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Design System TM inicial, fundado nos pilares TM e paleta verde premium.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Implementação modular, suportando dark mode dinâmico global via .dark no :root.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="detail-card visible" data-card="1">
+                    <div class="card-header">
+                        <h2 class="card-title">Auditoria Premium e Redesign Estrutural</h2>
+                        <span class="version-badge">DS-02</span>
+                    </div>
+                    <p style="color: var(--tm-text); margin-bottom: 16px; font-size: 15px;">Atualização rigorosa para
+                        maximizar usabilidade avançada (hub-ocean-breeze-v2).</p>
+                    <ul class="card-features">
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            **Total SVG Compliance:** Todos os emojis no hub foram suprimidos e trocados por ícones SVG
+                            Lucide, garantindo redimensionamento vetorial imaculado entre Light e Dark modes.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            **Acessibilidade Elevada:** Inclusões mandatórias de focus-visible rings e labels analíticos
+                            via (role, tabindex, e aria-labels) tornando os apps usáveis integralmente via teclado.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            **Hub Premium Features:** Refatoração incluiu um novo Command Palette indexado por Ctrl+K
+                            engolfando toda navegação. Drawer slider nos cards de apps detalha features em uma visão
+                            micro estendida.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            **Design Padrão "Pages":** Todas as documentações HTML (Commits/Catálogo/UX) sofreram
+                            redesign para compartilhar o layout de Páginas unificado por header fixo no topo mantendo os
+                            Tokens TM originais.
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        TM Sempre Tecnologia &copy; 2026. Design System Premium TM.
+    </footer>
+
+    <script>
+        function showCard(index, node) {
+            document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+            document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.detail-card[data-card="${index}"]`).classList.add('visible');
+            node.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

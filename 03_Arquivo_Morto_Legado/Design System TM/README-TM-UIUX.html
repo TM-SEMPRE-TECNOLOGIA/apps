@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TM Design Workflow — UI UX Pro Max + Ocean Breeze</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --green: #22c55e;
+      --green-dark: #15803d;
+      --cyan: #06b6d4;
+      --ink: #0a0f1e;
+      --ink-mid: #1a2540;
+      --ink-soft: #2d3a56;
+      --muted: #64748b;
+      --subtle: #94a3b8;
+      --line: rgba(255, 255, 255, 0.07);
+      --card-bg: rgba(255, 255, 255, 0.035);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --mono: "DM Mono", monospace;
+      --sans: "DM Sans", sans-serif;
+      --display: "Syne", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: #e2e8f0;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── AMBIENT GLOW ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -40vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(34, 197, 94, 0.07) 0%, rgba(6, 182, 212, 0.04) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .hero {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 99px;
+      background: rgba(34, 197, 94, 0.06);
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+      }
+
+      50% {
+        opacity: 0.7;
+        box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-top: 1rem;
+      font-weight: 300;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .meta-value {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* ══════════════════════════════════
+       ALERTA PARA A IA
+    ══════════════════════════════════ */
+    .ai-notice {
+      margin: 3rem 0;
+      padding: 1.5rem 1.75rem;
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .ai-notice-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ai-notice p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .ai-notice strong {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    /* ══════════════════════════════════
+       SECTIONS
+    ══════════════════════════════════ */
+    section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      max-width: 120px;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: rgba(34, 197, 94, 0.5);
+      margin-right: 0.3rem;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.6rem;
+      margin-top: 1.8rem;
+    }
+
+    p {
+      font-size: 0.92rem;
+      color: #94a3b8;
+      line-height: 1.75;
+      margin-bottom: 0.8rem;
+    }
+
+    p strong {
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    p em {
+      color: var(--green);
+      font-style: normal;
+      font-family: var(--mono);
+      font-size: 0.85em;
+    }
+
+    /* ══════════════════════════════════
+       CODE BLOCKS
+    ══════════════════════════════════ */
+    .code-block {
+      background: #0d1525;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .code-block::before {
+      content: attr(data-label);
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom-left-radius: 6px;
+    }
+
+    .code-block pre {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: #7dd3a8;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-block .comment {
+      color: #4b6a8a;
+    }
+
+    .code-block .cmd {
+      color: #67e8f9;
+    }
+
+    .code-block .path {
+      color: #fbbf24;
+    }
+
+    .code-block .flag {
+      color: #a78bfa;
+    }
+
+    .code-block .str {
+      color: #86efac;
+    }
+
+    /* ══════════════════════════════════
+       FLOW DIAGRAM
+    ══════════════════════════════════ */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 2rem 0;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0 1.25rem;
+      position: relative;
+    }
+
+    .flow-step:not(:last-child) .flow-line {
+      position: absolute;
+      left: 1.15rem;
+      top: 2.6rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(34, 197, 94, 0.4), rgba(6, 182, 212, 0.1));
+    }
+
+    .flow-dot {
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: 50%;
+      background: var(--ink-mid);
+      border: 1.5px solid rgba(34, 197, 94, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .flow-content {
+      padding: 0 0 2rem 0;
+    }
+
+    .flow-title {
+      font-family: var(--display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.3rem;
+    }
+
+    .flow-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .flow-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.4rem;
+      margin-right: 0.3rem;
+    }
+
+    .tag-auto {
+      background: rgba(34, 197, 94, 0.12);
+      color: #86efac;
+    }
+
+    .tag-manual {
+      background: rgba(251, 191, 36, 0.12);
+      color: #fde68a;
+    }
+
+    .tag-once {
+      background: rgba(167, 139, 250, 0.12);
+      color: #c4b5fd;
+    }
+
+    /* ══════════════════════════════════
+       CARDS GRID
+    ══════════════════════════════════ */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.055);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+
+    .card-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .card h4 {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════
+       TABLE
+    ══════════════════════════════════ */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    th {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--subtle);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    td:first-child {
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    td code {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: #67e8f9;
+      background: rgba(103, 232, 249, 0.07);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ══════════════════════════════════
+       PROMPT EXAMPLE
+    ══════════════════════════════════ */
+    .prompt-box {
+      background: #0d1525;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      border-left: 3px solid #a78bfa;
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .prompt-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .prompt-box p {
+      font-size: 0.88rem;
+      color: #c4b5fd;
+      margin: 0;
+      font-family: var(--mono);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════
+       WARNING / INFO BOXES
+    ══════════════════════════════════ */
+    .warn {
+      background: rgba(251, 191, 36, 0.05);
+      border: 1px solid rgba(251, 191, 36, 0.18);
+      border-left: 3px solid #fbbf24;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.84rem;
+      color: #fde68a;
+      line-height: 1.65;
+    }
+
+    .info {
+      background: rgba(6, 182, 212, 0.05);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.84rem;
+      color: #67e8f9;
+      line-height: 1.65;
+    }
+
+    /* ══════════════════════════════════
+       STRUCTURE TREE
+    ══════════════════════════════════ */
+    .tree {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.9;
+      color: #64748b;
+      padding: 1.25rem 1.5rem;
+      background: #0d1525;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .tree .dir {
+      color: #fbbf24;
+    }
+
+    .tree .file {
+      color: #94a3b8;
+    }
+
+    .tree .key {
+      color: #86efac;
+    }
+
+    .tree .note {
+      color: #4b6a8a;
+    }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: #334155;
+      margin: 0;
+    }
+
+    /* ══════════════════════════════════
+       SCROLLBAR
+    ══════════════════════════════════ */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+
+    <!-- ════ HERO ════ -->
+    <header class="hero">
+      <div class="hero-eyebrow">Antigravity · Workflow Doc</div>
+      <h1>UI UX Pro Max<br><em>+ Ocean Breeze</em></h1>
+      <p class="hero-sub">
+        Documento de referência para a IA entender o contexto de design, os tokens do sistema
+        e o fluxo de trabalho correto ao gerar interfaces para os projetos TM.
+      </p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Empresa</span>
+          <span class="meta-value">TM Sempre Tecnologia</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Design System</span>
+          <span class="meta-value">Ocean Breeze v2.0</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Skill</span>
+          <span class="meta-value">ui-ux-pro-max</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Stack</span>
+          <span class="meta-value">Next.js · HTML · Tailwind</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ════ AVISO PARA A IA ════ -->
+    <div class="ai-notice">
+      <div class="ai-notice-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        Instruções para a IA — leia antes de qualquer tarefa de UI
+      </div>
+      <p>
+        <strong>Você está num projeto TM.</strong> Sempre que receber uma tarefa de UI/UX —
+        criar, refatorar, melhorar ou revisar interfaces — você deve:
+        <strong>(1)</strong> consultar a seção <em>§3 Tokens</em> deste documento para usar as variáveis CSS corretas,
+        <strong>(2)</strong> seguir o estilo <em>Ocean Breeze</em> descrito na <em>§4</em>,
+        <strong>(3)</strong> aplicar as diretrizes de UX da <em>§5</em> e
+        <strong>(4)</strong> usar SVG icons (Lucide/Phosphor) — nunca emojis como ícones de sistema.
+        Este documento tem precedência sobre preferências genéricas.
+      </p>
+    </div>
+
+    <!-- ════ §1 — O QUE É A SKILL ════ -->
+    <section id="skill">
+      <div class="section-label"><span class="section-num">§01</span> Contexto da Skill</div>
+      <h2>O que é o UI UX Pro Max</h2>
+      <p>
+        O <strong>ui-ux-pro-max</strong> é um banco de dados de inteligência de design para IAs.
+        Ele contém 57 estilos visuais, 95 paletas de cores, 56 combinações tipográficas,
+        24 tipos de gráficos, diretrizes para 8 stacks e 98 regras de UX.
+      </p>
+      <p>
+        No Antigravity, a skill está em <em>.agent/workflows/ui-ux-pro-max.md</em>
+        e é ativada automaticamente com o comando <em>/ui-ux-pro-max</em> ou quando você
+        faz tarefas de UI. Ela funciona como <strong>base de referência</strong>: a IA pesquisa
+        internamente o estilo, paleta e tipografia mais adequados ao contexto antes de gerar código.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <span class="card-icon">🎨</span>
+          <h4>57 Estilos UI</h4>
+          <p>Glassmorphism, Bento Grid, Neumorphism, Brutalism, Minimalism, Dark Mode e mais</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🎭</span>
+          <h4>95 Paletas</h4>
+          <p>Por segmento: SaaS, Engenharia, Fintech, Healthcare, E-commerce etc.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">✍️</span>
+          <h4>56 Tipografias</h4>
+          <p>Combinações curadas com imports do Google Fonts prontos para uso</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📐</span>
+          <h4>98 Regras UX</h4>
+          <p>Boas práticas, anti-patterns e acessibilidade documentados</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ §2 — FLUXO DE TRABALHO ════ -->
+    <section id="workflow">
+      <div class="section-label"><span class="section-num">§02</span> Fluxo de Trabalho</div>
+      <h2>Como usar no Antigravity</h2>
+      <p>
+        O fluxo tem <strong>duas fases</strong>: instalação única no projeto e uso cotidiano.
+        A skill é um arquivo Markdown que a IA lê como contexto de cada tarefa de UI.
+      </p>
+
+      <h3>Fase 1 — Instalação (uma vez por projeto)</h3>
+
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-dot">01</div>
+          <div class="flow-line"></div>
+          <div class="flow-content">
+            <div class="flow-title">Instalar o CLI globalmente</div>
+            <p class="flow-desc">Roda uma vez na máquina. Requer Node.js instalado.</p>
+            <div class="code-block" data-label="terminal">
+              <pre><span class="cmd">npm install -g uipro-cli</span></pre>
+            </div>
+            <span class="flow-tag tag-once">uma vez na máquina</span>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-dot">02</div>
+          <div class="flow-line"></div>
+          <div class="flow-content">
+            <div class="flow-title">Navegar até a pasta do projeto</div>
+            <p class="flow-desc">O comando de init cria os arquivos dentro do projeto atual.</p>
+            <div class="code-block" data-label="terminal">
+              <pre><span class="cmd">cd</span> <span class="path">/caminho/do/seu/projeto</span>
+<span class="comment"># Exemplo:</span>
+<span class="cmd">cd</span> <span class="path">~/projetos/TM-Hub</span></pre>
+            </div>
+            <span class="flow-tag tag-once">uma vez por projeto</span>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-dot">03</div>
+          <div class="flow-line"></div>
+          <div class="flow-content">
+            <div class="flow-title">Inicializar a skill para Antigravity</div>
+            <p class="flow-desc">Cria a pasta <em>.agent/workflows/</em> com o workflow da skill dentro do projeto.</p>
+            <div class="code-block" data-label="terminal">
+              <pre><span class="cmd">uipro init</span> <span class="flag">--ai antigravity</span></pre>
+            </div>
+            <span class="flow-tag tag-once">uma vez por projeto</span>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-dot">04</div>
+          <div class="flow-content">
+            <div class="flow-title">Copiar este README para a raiz do projeto</div>
+            <p class="flow-desc">
+              Coloque este arquivo (<em>README-TM-UIUX.html</em>) na raiz do projeto.
+              O Antigravity pode ser instruído a ler este documento como contexto
+              de design ao iniciar qualquer tarefa de UI.
+            </p>
+            <span class="flow-tag tag-once">uma vez por projeto</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Resultado — Estrutura criada no projeto</h3>
+      <div class="tree">
+        <span class="dir">seu-projeto/</span>
+        ├── <span class="dir">.agent/</span>
+        │ └── <span class="dir">workflows/</span>
+        │ └── <span class="key">ui-ux-pro-max.md</span> <span class="note"># ← skill principal (lida pela IA)</span>
+        ├── <span class="dir">.shared/</span>
+        │ └── <span class="dir">ui-ux-pro-max/</span>
+        │ ├── <span class="file">styles.md</span> <span class="note"># 57 estilos visuais</span>
+        │ ├── <span class="file">colors.md</span> <span class="note"># 95 paletas</span>
+        │ ├── <span class="file">typography.md</span> <span class="note"># 56 combinações tipográficas</span>
+        │ ├── <span class="file">charts.md</span> <span class="note"># 24 tipos de gráfico</span>
+        │ ├── <span class="file">ux-guidelines.md</span> <span class="note"># 98 regras de UX</span>
+        │ └── <span class="file">stacks.md</span> <span class="note"># Next.js, Vue, HTML+Tailwind...</span>
+        └── <span class="key">README-TM-UIUX.html</span> <span class="note"># ← este arquivo (contexto TM)</span>
+      </div>
+
+      <h3>Fase 2 — Uso cotidiano</h3>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-dot">A</div>
+          <div class="flow-line"></div>
+          <div class="flow-content">
+            <div class="flow-title">Invocar a skill no chat do Antigravity</div>
+            <p class="flow-desc">Use o comando slash para ativar. O Antigravity lê o workflow e pesquisa internamente o
+              melhor estilo para o contexto.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Exemplo de prompt</div>
+              <p>/ui-ux-pro-max Crie a tela de cadastro de ordem de serviço seguindo o Ocean Breeze e os tokens TM.
+                Stack Next.js.</p>
+            </div>
+            <span class="flow-tag tag-auto">skill ativada automaticamente</span>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-dot">B</div>
+          <div class="flow-line"></div>
+          <div class="flow-content">
+            <div class="flow-title">Para revisão de design existente</div>
+            <p class="flow-desc">Referencie este documento explicitamente para avaliações.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Exemplo de prompt</div>
+              <p>/ui-ux-pro-max Revise o componente CardOS.tsx segundo as diretrizes do README-TM-UIUX e os tokens Ocean
+                Breeze.</p>
+            </div>
+            <span class="flow-tag tag-manual">referência explícita</span>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-dot">C</div>
+          <div class="flow-content">
+            <div class="flow-title">Para novos projetos TM</div>
+            <p class="flow-desc">Repita o passo 02 e 03 da instalação no novo projeto e copie este README.</p>
+            <span class="flow-tag tag-once">por projeto</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ §3 — TOKENS OCEAN BREEZE ════ -->
+    <section id="tokens">
+      <div class="section-label"><span class="section-num">§03</span> Tokens do Design System</div>
+      <h2>Ocean Breeze — Variáveis CSS Canônicas</h2>
+      <p>
+        Todos os projetos TM usam estas variáveis. A IA deve <strong>sempre usar os tokens</strong>
+        abaixo ao gerar CSS — nunca hardcodar valores hexadecimais diretamente.
+        O sistema usa dual-layer: <em>--TM-</em> para tokens canônicos e <em>--tm-</em> para aliases de contexto.
+      </p>
+
+      <div class="code-block" data-label="CSS — tokens canônicos">
+        <pre><span class="comment">/* ── Marca ─────────────────────────────── */</span>
+<span class="str">--TM-primary</span>:        #22c55e;   <span class="comment">/* verde principal */</span>
+<span class="str">--TM-primary-hover</span>:  #16a34a;
+<span class="str">--TM-primary-light</span>:  #dcfce7;
+<span class="str">--TM-gradient</span>:       linear-gradient(135deg, #22c55e 0%, #06b6d4 100%);
+
+<span class="comment">/* ── Tipografia ─────────────────────────── */</span>
+<span class="str">--TM-font-sans</span>:      "DM Sans", sans-serif;
+<span class="str">--TM-font-serif</span>:     "Lora", serif;
+<span class="str">--TM-font-mono</span>:      "IBM Plex Mono", monospace;
+
+<span class="comment">/* ── Sombras (light mode com tint verde) ── */</span>
+<span class="str">--TM-shadow-sm</span>:  0px 4px 8px -1px rgba(34,197,94,0.08);
+<span class="str">--TM-shadow-md</span>:  0px 8px 16px -2px rgba(34,197,94,0.10);
+<span class="str">--TM-shadow-lg</span>:  0px 20px 40px -4px rgba(34,197,94,0.12);
+
+<span class="comment">/* ── Raios de borda ─────────────────────── */</span>
+<span class="str">--TM-radius-sm</span>:  4px;
+<span class="str">--TM-radius-md</span>:  8px;
+<span class="str">--TM-radius-lg</span>:  12px;
+<span class="str">--TM-radius-xl</span>:  16px;</pre>
+      </div>
+
+      <div class="code-block" data-label="CSS — dark mode (html.dark)">
+        <pre><span class="comment">/* Sobrescrever apenas os aliases --tm- no dark mode */</span>
+html.dark {
+  <span class="str">--tm-bg</span>:          #0f172a;
+  <span class="str">--tm-bg-card</span>:     #1e293b;
+  <span class="str">--tm-text</span>:        #d1d5db;
+  <span class="str">--tm-text-muted</span>:  #a1a1aa;
+  <span class="str">--tm-primary</span>:     #34d399;  <span class="comment">/* verde mais suave no dark */</span>
+  <span class="str">--tm-border</span>:      #4b5563;
+}</pre>
+      </div>
+
+      <div class="warn">
+        ⚠️ Nunca use <code style="color:#fde68a">#22c55e</code> direto no CSS. Sempre referencie via
+        <code style="color:#fde68a">var(--TM-primary)</code> ou <code style="color:#fde68a">var(--tm-primary)</code>.
+        Isso garante que o dark mode funcione automaticamente.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Uso correto</th>
+              <th>Nunca usar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cor de ação primária</td>
+              <td><code>var(--TM-primary)</code></td>
+              <td><code>#22c55e</code> direto</td>
+            </tr>
+            <tr>
+              <td>Botão primário (fundo)</td>
+              <td><code>var(--TM-gradient)</code> ou <code>var(--TM-primary-hover)</code></td>
+              <td><code>var(--TM-primary)</code> — contraste insuficiente com texto branco</td>
+            </tr>
+            <tr>
+              <td>Texto principal</td>
+              <td><code>var(--tm-text)</code></td>
+              <td><code>#0f172a</code> direto</td>
+            </tr>
+            <tr>
+              <td>Background de card</td>
+              <td><code>var(--tm-bg-card)</code></td>
+              <td><code>#ffffff</code> direto</td>
+            </tr>
+            <tr>
+              <td>Sombra de hover</td>
+              <td><code>var(--TM-shadow-md)</code></td>
+              <td>box-shadow hardcoded</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════ §4 — ESTILO OCEAN BREEZE ════ -->
+    <section id="style">
+      <div class="section-label"><span class="section-num">§04</span> Estilo Visual</div>
+      <h2>Identidade Ocean Breeze</h2>
+      <p>
+        O Ocean Breeze é um estilo <strong>Clean Professional</strong> com influências de
+        <strong>Dashboard Analytics</strong>. É o design system de todas as aplicações internas TM.
+        Ao gerar qualquer interface, a IA deve respeitar estas características:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimensão</th>
+              <th>Decisão TM</th>
+              <th>Racional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Estilo geral</td>
+              <td>Clean Professional · Dashboard</td>
+              <td>Equipe técnica de engenharia, uso diário intenso</td>
+            </tr>
+            <tr>
+              <td>Cor primária</td>
+              <td>Verde #22c55e → gradiente com ciano</td>
+              <td>Identidade TM, reforça sucesso/confirmação</td>
+            </tr>
+            <tr>
+              <td>Tipografia display</td>
+              <td>Lora (serif italic)</td>
+              <td>Personalidade refinada em títulos e hero</td>
+            </tr>
+            <tr>
+              <td>Tipografia UI</td>
+              <td>DM Sans</td>
+              <td>Alta legibilidade em tamanhos pequenos (labels, nav)</td>
+            </tr>
+            <tr>
+              <td>Tipografia técnica</td>
+              <td>IBM Plex Mono</td>
+              <td>Badges, status, valores numéricos, código</td>
+            </tr>
+            <tr>
+              <td>Ícones</td>
+              <td>SVG — Lucide Icons ou Phosphor</td>
+              <td>Herdam <code>currentColor</code>, funcionam no dark mode</td>
+            </tr>
+            <tr>
+              <td>Emojis</td>
+              <td>Apenas em microcopy informal (toasts, empty states)</td>
+              <td>Renderização inconsistente entre SOs; tom inadequado para engenharia</td>
+            </tr>
+            <tr>
+              <td>Animações</td>
+              <td>Sutis, com propósito (stagger, shimmer, hover)</td>
+              <td>Nunca animações longas ou distrativas</td>
+            </tr>
+            <tr>
+              <td>Dark mode</td>
+              <td>html.dark — tokens --tm- sobrescritos</td>
+              <td>Persistência via localStorage</td>
+            </tr>
+            <tr>
+              <td>Densidade</td>
+              <td>Media-alta — ferramenta interna, não landing page</td>
+              <td>Equipe usa o sistema horas por dia</td>
+            </tr>
+            <tr>
+              <td>Layout de Documentação</td>
+              <td>Modelo "Pages": Header fixo, nav central &lt;div class="container"&gt;</td>
+              <td>Páginas standalone como commit.html e catálogos devem seguir esse grid.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info">
+        💡 Contexto de produto: os apps TM são usados por uma equipe de relatórios de engenharia.
+        O tom visual deve transmitir <strong>precisão técnica e confiabilidade</strong> —
+        não leveza ou entretenimento. Prefira densidade de informação a espaço em branco excessivo.
+      </div>
+    </section>
+
+    <!-- ════ §5 — REGRAS UX ════ -->
+    <section id="ux">
+      <div class="section-label"><span class="section-num">§05</span> Regras UX Obrigatórias</div>
+      <h2>O que a IA deve sempre fazer</h2>
+      <p>Estas regras se aplicam a <strong>qualquer componente</strong> gerado para projetos TM:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Regra</th>
+              <th>Como implementar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Foco visível</td>
+              <td><code>:focus-visible { outline: 2px solid var(--TM-primary); outline-offset: 2px; }</code></td>
+            </tr>
+            <tr>
+              <td>Contraste de botão</td>
+              <td>Fundo do .btn-primary = <code>var(--TM-primary-hover)</code> (#16a34a), não a primária pura</td>
+            </tr>
+            <tr>
+              <td>Elementos interativos</td>
+              <td>Spans e divs clicáveis precisam de <code>role="button"</code> e <code>tabindex="0"</code></td>
+            </tr>
+            <tr>
+              <td>Ícone sem texto visível</td>
+              <td>Sempre adicionar <code>aria-label="descrição da ação"</code></td>
+            </tr>
+            <tr>
+              <td>Tamanho mínimo de fonte</td>
+              <td>Nenhum texto interativo abaixo de <code>0.75rem</code> (12px)</td>
+            </tr>
+            <tr>
+              <td>Empty states</td>
+              <td>Listas e grids vazios sempre exibem mensagem — nunca espaço em branco silencioso</td>
+            </tr>
+            <tr>
+              <td>Redução de movimento</td>
+              <td>Incluir <code>@media (prefers-reduced-motion: reduce)</code> em componentes com animação</td>
+            </tr>
+            <tr>
+              <td>Responsividade mínima</td>
+              <td>Stats grids 4 col → 2 col abaixo de 900px → 1 col abaixo de 600px</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Anti-patterns — nunca fazer</h3>
+
+      <div class="code-block" data-label="❌ errado">
+        <pre><span class="comment">/* Texto branco em verde puro — contraste insuficiente (3.1:1) */</span>
+.btn { background: <span class="str">#22c55e</span>; color: white; }
+
+<span class="comment">/* Cor hardcoded — quebra o dark mode */</span>
+.card { background: <span class="str">#ffffff</span>; color: <span class="str">#0f172a</span>; }
+
+<span class="comment">/* Emoji como ícone de navegação */</span>
+&lt;span class="nav-icon"&gt;<span class="str">📊</span>&lt;/span&gt;
+
+<span class="comment">/* Span clicável sem role */</span>
+&lt;span onclick="filter()"&gt;Todos&lt;/span&gt;</pre>
+      </div>
+
+      <div class="code-block" data-label="✅ correto">
+        <pre><span class="comment">/* Contraste adequado com primary-hover */</span>
+.btn { background: <span class="str">var(--TM-primary-hover)</span>; color: white; }
+
+<span class="comment">/* Tokens — dark mode automático */</span>
+.card { background: <span class="str">var(--tm-bg-card)</span>; color: <span class="str">var(--tm-text)</span>; }
+
+<span class="comment">/* SVG com currentColor */</span>
+&lt;svg aria-hidden="true"&gt;...&lt;/svg&gt; <span class="comment">+ texto visível ou aria-label</span>
+
+<span class="comment">/* Role correto */</span>
+&lt;span role="button" tabindex="0" onclick="filter()"&gt;Todos&lt;/span&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ════ §6 — APPS DO ECOSSISTEMA ════ -->
+    <section id="apps">
+      <div class="section-label"><span class="section-num">§06</span> Ecossistema TM</div>
+      <h2>Apps Ativos</h2>
+      <p>
+        Estes são os apps do portfólio TM. Ao referenciar ou integrar com qualquer um,
+        usar os tokens Ocean Breeze e manter consistência visual entre eles.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>App</th>
+              <th>Categoria</th>
+              <th>Stack</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TM Hub</td>
+              <td>Navegação central</td>
+              <td>HTML · Ocean Breeze</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Relatorio</td>
+              <td>Documentos</td>
+              <td>Next.js</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Relatorio SP</td>
+              <td>Documentos</td>
+              <td>Next.js</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Extrator</td>
+              <td>Documentos</td>
+              <td>Next.js (migrado Vite)</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Studio Relatorio</td>
+              <td>UI Builder</td>
+              <td>Next.js (migrado)</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>Gerenciador de O.S. V2</td>
+              <td>Gestão</td>
+              <td>Next.js (migrado Vite)</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Pastas</td>
+              <td>Utilidades</td>
+              <td>Next.js</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>Bot Chat TM</td>
+              <td>IA</td>
+              <td>Next.js</td>
+              <td><code>ativo</code></td>
+            </tr>
+            <tr>
+              <td>TM Análise Dashboard</td>
+              <td>Análise</td>
+              <td>Next.js</td>
+              <td><code>ativo</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════ §7 — REFERÊNCIA RÁPIDA ════ -->
+    <section id="quick">
+      <div class="section-label"><span class="section-num">§07</span> Referência Rápida</div>
+      <h2>Cheat Sheet para a IA</h2>
+
+      <div class="code-block" data-label="Prompt padrão — nova tela">
+        <pre>/ui-ux-pro-max [descreva a tela]
+Use o Design System Ocean Breeze (tokens --TM- e --tm-).
+Stack: Next.js · Tailwind.
+Ícones: Lucide React (não emojis).
+Dark mode obrigatório via html.dark.
+Contexto: ferramenta interna para equipe de engenharia.</pre>
+      </div>
+
+      <div class="code-block" data-label="Prompt padrão — revisão">
+        <pre>/ui-ux-pro-max Revise [componente/arquivo]
+Critérios: tokens Ocean Breeze, contraste WCAG AA,
+:focus-visible, aria-labels, sem emojis como ícones.</pre>
+      </div>
+
+      <div class="code-block" data-label="Prompt padrão — novo projeto">
+        <pre>Este projeto usa o Design System Ocean Breeze v2.0.
+Leia o README-TM-UIUX.html na raiz antes de qualquer tarefa de UI.
+Sempre use os tokens --TM- e --tm- definidos nele.</pre>
+      </div>
+
+      <div class="warn">
+        ⚠️ Se a skill <em>ui-ux-pro-max</em> não estiver instalada no projeto,
+        rode <code style="color:#fde68a">uipro init --ai antigravity</code> na raiz do projeto
+        antes de usar os comandos <em>/ui-ux-pro-max</em>.
+      </div>
+    </section>
+
+    <footer>
+      <p>TM Sempre Tecnologia · Ocean Breeze v2.0 · ui-ux-pro-max-skill · README gerado Março 2026</p>
+    </footer>
+
+  </div>
+</body>
+
+</html>

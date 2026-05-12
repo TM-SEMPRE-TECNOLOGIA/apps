@@ -1,0 +1,16 @@
+/**
+ * THEME: GITHUB DARK (Relatório Fotográfico)
+ */
+:root {
+    --color-primary: #58a6ff;
+    /* Azul */
+    --color-secondary: #3fb950;
+    /* Verde */
+    --color-accent: #d29922;
+    /* Amarelo */
+    --color-bg: #0d1117;
+    --color-bg-rgb: 13, 17, 23;
+    --color-text: #c9d1d9;
+    --color-text-dim: #8b949e;
+    --color-border: #30363d;
+}

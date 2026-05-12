@@ -1,0 +1,16 @@
+/**
+ * THEME: CYBER DARK (Gerador de Pastas)
+ */
+:root {
+    --color-primary: #00d4ff;
+    /* Cyan */
+    --color-secondary: #7b2cbf;
+    /* Purple */
+    --color-accent: #ffab00;
+    /* Orange */
+    --color-bg: #1a1a2e;
+    --color-bg-rgb: 26, 26, 46;
+    --color-text: #e0e0e0;
+    --color-text-dim: #888888;
+    --color-border: #30363d;
+}

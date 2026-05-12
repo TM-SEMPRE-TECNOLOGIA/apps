@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licitus Bot | Painel de Desenvolvimento (DEV)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-code text-brand-600 text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">DEV<span
+                            class="text-brand-600">Hub</span> | LicitusBot</span>
+                </div>
+                <div>
+                    <a href="../index.html"
+                        class="text-slate-500 hover:text-brand-600 transition flex items-center gap-2 text-sm font-medium">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar ao Site Principal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <div class="mb-10 text-center max-w-3xl mx-auto">
+            <h1 class="text-3xl font-extrabold text-slate-900 mb-4">Painel de Documentação e Recursos</h1>
+            <p class="text-slate-600">Acesse centralizadamente todos os artefatos, planejamentos e documentações
+                técnicas do sistema Licitus Bot.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+
+            <!-- Documentação e Planejamento -->
+            <div class="flex flex-col gap-6">
+                <!-- Planning -->
+                <a href="plan_th.html"
+                    class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-300 transition-all flex items-start gap-5 relative overflow-hidden">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">
+                            Planejamento (plan_th)</h3>
+                        <p class="text-sm text-slate-500">Acompanhe as fases de desenvolvimento, metas de curto e longo
+                            prazo e a visão geral de negócio.</p>
+                    </div>
+                </a>
+
+                <!-- Commits -->
+                <a href="commit.html"
+                    class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-300 transition-all flex items-start gap-5 relative overflow-hidden">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-timeline text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">
+                            Changelog (commit.html)</h3>
+                        <p class="text-sm text-slate-500">Histórico de mudanças, atualizações, novas funcionalidades e
+                            correções de bugs implementadas.</p>
+                    </div>
+                </a>
+
+                <!-- Tech Docs -->
+                <a href="tech_docs.html"
+                    class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-300 transition-all flex items-start gap-5 relative overflow-hidden">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-book-journal-whills text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">
+                            Documentação Técnica</h3>
+                        <p class="text-sm text-slate-500">Especificações de infraestrutura, arquitetura de software,
+                            endpoints de API e guias técnicos.</p>
+                    </div>
+                </a>
+
+                <!-- Planejamento Bot Preview Document -->
+                <a href="planejamento_bot_preview.md"
+                    class="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-300 transition-all flex items-start gap-5 relative overflow-hidden">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-file-contract text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">
+                            Planejamento Bot Preview</h3>
+                        <p class="text-sm text-slate-500">Documento Markdown contendo os requisitos de design e
+                            desenvolvimento do painel simulado em React.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Previews and Interactive Content -->
+            <div class="flex flex-col gap-6 h-full">
+                <!-- Bot Preview (React App) -->
+                <div
+                    class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-1 relative overflow-hidden h-full flex flex-col shadow-xl">
+                    <div class="absolute inset-0 bg-brand-500/10 mix-blend-overlay"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/20 blur-3xl rounded-full"></div>
+
+                    <div
+                        class="bg-slate-900/90 backdrop-blur-sm rounded-2xl p-8 h-full flex flex-col justify-between border border-slate-700/50 z-10 relative">
+                        <div>
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 border border-brand-500/30 text-brand-400 text-xs font-bold mb-6 tracking-wider uppercase">
+                                <span class="flex h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
+                                Live Preview
+                            </div>
+
+                            <h3 class="text-3xl font-extrabold text-white mb-3">Licitus Bot <span
+                                    class="text-brand-500">Web Dashboard</span></h3>
+                            <p class="text-slate-400 mb-8 leading-relaxed">
+                                Acesse a simulação funcional em React do painel de controle do robô. Desenvolvido com
+                                Vite e TailwindCSS, reproduz fielmente a interface de monitoramento e envio de lances
+                                automáticos.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div
+                                class="bg-slate-800/80 rounded-lg p-4 font-mono text-sm text-slate-300 border border-slate-700 flex items-center justify-between">
+                                <div>
+                                    <span class="text-brand-400">></span> npm run dev
+                                </div>
+                                <div class="text-xs text-slate-500">React + Vite</div>
+                            </div>
+
+                            <a href="http://localhost:5173" target="_blank"
+                                class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-6 py-4 rounded-xl font-bold transition shadow-lg shadow-brand-500/20 mt-4 group">
+                                <i
+                                    class="fa-brands fa-react text-xl group-hover:rotate-180 transition-transform duration-500"></i>
+                                Acessar Bot Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
+            <p>Menu de Desenvolvimento (DEV) - Licitus Bot © 2026. Acesso restrito à equipe técnica.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

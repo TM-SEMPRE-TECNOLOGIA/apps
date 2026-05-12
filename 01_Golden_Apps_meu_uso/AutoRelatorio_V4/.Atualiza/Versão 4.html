@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TM · AutoRelatório V4.1 — Manifesto de Engenharia</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Icons (Lucide via CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       TM CONSTRUTORA — DESIGN SYSTEM TOKENS (v3 · NOVO Laranjado)
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --TM-primary:        #C8541C;
+      --TM-primary-hover:  #A6451A;
+      --TM-primary-light:  #FBEDE3;
+      --tm-bg:             #F5F4F1;
+      --tm-bg-card:        #FFFFFF;
+      --tm-bg-sidebar:     #161513;
+      --tm-text:           #1A1A1A;
+      --tm-text-muted:     #5C5A55;
+      --tm-text-subtle:    #8C8A85;
+      --tm-border:         #DAD7D0;
+      --TM-font-serif: "Roboto Slab", serif;
+      --TM-font-sans:  "Inter", sans-serif;
+      --TM-font-mono:  "JetBrains Mono", monospace;
+      --TM-radius: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      background: var(--tm-bg);
+      color: var(--tm-text);
+      font-family: var(--TM-font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── HEADER / HERO ── */
+    .hero {
+      padding: 120px 0 80px 0;
+      border-bottom: 1px solid var(--tm-border);
+      background: var(--tm-bg-card);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--TM-primary);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--TM-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--TM-primary);
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .hero-title {
+      font-family: var(--TM-font-serif);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--tm-text);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--tm-text-muted);
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-family: var(--TM-font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--tm-text-subtle);
+    }
+
+    .stat-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tm-text);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-family: var(--TM-font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--TM-primary);
+      border-radius: 2px;
+    }
+
+    /* ── CARDS GRID ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius);
+      padding: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--TM-primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--TM-primary-light);
+      color: var(--TM-primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justifyContent: center;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: var(--TM-font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--tm-text-muted);
+    }
+
+    /* ── VERTICAL TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 1px;
+      background: var(--tm-border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 48px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -36px; top: 8px; width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--TM-primary);
+      border: 2px solid var(--tm-bg);
+      z-index: 2;
+    }
+
+    .timeline-date {
+      font-family: var(--TM-font-mono);
+      font-size: 11px;
+      color: var(--tm-text-subtle);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .timeline-content {
+      background: var(--tm-bg-card);
+      border: 1px solid var(--tm-border);
+      border-radius: var(--TM-radius);
+      padding: 24px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    /* ── TECH SPECS ── */
+    .tech-specs {
+      background: var(--tm-bg-sidebar);
+      color: #fff;
+      padding: 100px 0;
+    }
+
+    .tech-specs .section-title {
+      color: #fff;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .spec-group-title {
+      font-family: var(--TM-font-mono);
+      font-size: 11px;
+      color: var(--tm-text-subtle);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spec-list li {
+      font-family: var(--TM-font-mono);
+      font-size: 13px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .spec-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--TM-primary);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid var(--tm-border);
+      text-align: center;
+      background: var(--tm-bg-card);
+    }
+
+    .footer-brand {
+      font-family: var(--TM-font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--TM-primary);
+      margin-bottom: 12px;
+    }
+
+    .footer-dev {
+      font-size: 12px;
+      color: var(--tm-text-subtle);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 40px; }
+      .feature-grid, .spec-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Engenharia Civil Sóbria · TM v4.1</span>
+      <h1 class="hero-title">AutoRelatório V4.1</h1>
+      <p class="hero-desc">
+        A evolução sênior do gerador de relatórios técnicos. Menos interface, mais precisão e um design system industrial focado em performance.
+      </p>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-label">STATUS</span>
+          <span class="stat-value" style="color: #4F7A3A">● ESTÁVEL</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">MODOS ATIVOS</span>
+          <span class="stat-value">TRAD · SP1 · SP2</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">ULTIMA ATUALIZAÇÃO</span>
+          <span class="stat-value">MAIO / 2026</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Pilares do V4.1</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="card-icon"><i data-lucide="layers"></i></div>
+          <h3 class="card-title">Arquitetura de Modos</h3>
+          <p class="card-body">Suporte nativo para Maffeng (Tradicional) e contratos São Paulo (SJ Rio Preto 1565). Troca dinâmica sem recarregar o sistema.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon"><i data-lucide="terminal"></i></div>
+          <h3 class="card-title">Drawer Terminal</h3>
+          <p class="card-body">Monitoramento em tempo real via gaveta integrada ao rodapé. Microinterações de push-up que não obstruem a produtividade.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon"><i data-lucide="layout"></i></div>
+          <h3 class="card-title">Design System v3</h3>
+          <p class="card-body">Pivô visual para "Laranja Construção". Grid industrial, hairlines de 1px e tipografia Slab Arquitetônica.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon"><i data-lucide="zap"></i></div>
+          <h3 class="card-title">Launcher START_V4.1</h3>
+          <p class="card-body">Automação de inicialização via script .bat. Limpeza de portas, health-check e logs unificados em uma única janela.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH SPECS (DARK) -->
+  <section class="tech-specs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Especificações Técnicas</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="spec-grid">
+        <div>
+          <h4 class="spec-group-title">Frontend Stack</h4>
+          <ul class="spec-list">
+            <li><span class="spec-dot"></span> Next.js 16 (Turbopack)</li>
+            <li><span class="spec-dot"></span> React 19 / TypeScript</li>
+            <li><span class="spec-dot"></span> Zustand (Global State)</li>
+            <li><span class="spec-dot"></span> Tailwind 4 (CSS-Only)</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="spec-group-title">Backend Stack</h4>
+          <ul class="spec-list">
+            <li><span class="spec-dot"></span> FastAPI (Python 3.12)</li>
+            <li><span class="spec-dot"></span> Uvicorn :5000</li>
+            <li><span class="spec-dot"></span> Python-Docx (Word Engine)</li>
+            <li><span class="spec-dot"></span> OpenCV / Pillow</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="spec-group-title">Infra & Portas</h4>
+          <ul class="spec-list">
+            <li><span class="spec-dot"></span> Port 5000 (API Backend)</li>
+            <li><span class="spec-dot"></span> Port 3000 (UI Frontend)</li>
+            <li><span class="spec-dot"></span> Launcher: run.py (Rich)</li>
+            <li><span class="spec-dot"></span> Docs: /api/docs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Jornada de Desenvolvimento</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <span class="timeline-date">Maio 2026</span>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Lançamento V4.1 — O Salto Industrial</h3>
+            <p class="card-body">Refatoração completa do layout para o padrão "NOVO LARANJADO". Implementação do Drawer Footer, Launcher unificado e limpeza de legado.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-date">Abril 2026</span>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Modo SP2 — SJ Rio Preto (1565)</h3>
+            <p class="card-body">Implementação da lógica hierárquica complexa para o contrato 1565. Memória de cálculo multi-linha e suporte a croquis técnicos.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-date">Abril 2026</span>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Migração V3.2 — React 19</h3>
+            <p class="card-body">Adoção do Next.js 16 e React 19. Mudança para o Turbopack e estabilização do ImageEditor via Fabric.js.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <span class="timeline-date">Março 2026</span>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Origem V1 — Vila Tatetuba</h3>
+            <p class="card-body">Validação do motor de varredura em campo com 439 imagens. Nascimento da lógica de pastas e automação de Word.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-brand">TM SEMPRE TECNOLOGIA</div>
+      <p class="footer-dev">Desenvolvido por Thiago Nascimento Barbosa</p>
+      <p class="footer-dev" style="margin-top: 8px; font-family: var(--TM-font-mono); font-size: 10px;">AUTO-RELATÓRIO · PROJETO V4.1 · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>

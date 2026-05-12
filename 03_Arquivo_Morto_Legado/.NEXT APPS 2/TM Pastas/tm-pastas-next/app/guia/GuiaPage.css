@@ -1,0 +1,237 @@
+/* GuiaPage styles */
+
+.guia {
+    min-height: 100vh;
+}
+
+/* Hero */
+.guia-hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    background:
+        radial-gradient(ellipse at top, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(123, 44, 191, 0.1) 0%, transparent 50%),
+        var(--bg-primary);
+    position: relative;
+}
+
+.guia-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient);
+}
+
+.guia-hero__icon {
+    font-size: 5rem;
+    margin-bottom: 30px;
+}
+
+.guia-hero h1 {
+    font-size: var(--font-size-5xl);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.guia-hero__subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.guia-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+}
+
+.guia-scroll-indicator span {
+    display: block;
+    width: 30px;
+    height: 50px;
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    position: relative;
+}
+
+.guia-scroll-indicator span::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 3px;
+    animation: scroll 2s infinite;
+}
+
+/* Section */
+.guia-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.guia-section--alt {
+    background: var(--bg-secondary);
+    max-width: 100%;
+    padding-left: calc((100% - 1200px) / 2 + 20px);
+    padding-right: calc((100% - 1200px) / 2 + 20px);
+}
+
+.guia-section__header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.guia-section__header h2 {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.guia-section__header p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+}
+
+/* Features Grid */
+.guia-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.guia-feature-card {
+    text-align: left;
+    transition: var(--transition-base);
+}
+
+.guia-feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.guia-feature-card__icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.guia-feature-card h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: 15px;
+}
+
+.guia-feature-card p {
+    color: var(--text-secondary);
+}
+
+/* Steps */
+.guia-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.guia-step {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+}
+
+.guia-step:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.guia-step__number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient);
+    border-radius: var(--radius-circle);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.guia-step__content {
+    flex: 1;
+}
+
+.guia-step__content h3 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: 12px;
+}
+
+.guia-step__content p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.guia-step__tip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(0, 200, 83, 0.1);
+    border: 1px solid rgba(0, 200, 83, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+}
+
+/* Requirements */
+.guia-requirements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.guia-requirement {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+}
+
+/* Footer */
+.guia-footer {
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .guia-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .guia-hero__subtitle {
+        font-size: 1rem;
+    }
+
+    .guia-step {
+        flex-direction: column !important;
+        gap: 20px;
+    }
+
+    .guia-section {
+        padding: 60px 20px;
+    }
+}

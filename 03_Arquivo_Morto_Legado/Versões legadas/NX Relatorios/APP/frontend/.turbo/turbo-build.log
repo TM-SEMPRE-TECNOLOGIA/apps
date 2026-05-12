@@ -1,0 +1,70 @@
+[6n[?9001h[?1004h[m]0;C:\Windows\system32\cmd.exe[?25h]0;npm]0;npm run build[?25l
+> nx-relatorios-sp@1.0.0 build
+> next build[6;1H[?25h]0;C:\Windows\system32\cmd.exe [33m[1m⚠[m Warning: Next.js inferred your workspace root, but it m
+[7;19Hmay not be correct. [8;1H
+ We detected multip
+[7;19Hple lockfiles and se
+[7;19Helected the director
+[7;19Hry of C:\Users\thiag
+[7;19Hg\Documents\GitHub\A
+[7;19HAtt_Nxapps\package-l
+[7;19Hlock.json as the roo
+[7;19Hot directory.       
+ To silence this wa
+[7;19Harning, set `turbopa
+[7;19Hack.root` in your Ne
+[7;19Hext.js config, or co
+[7;19Honsider removing one
+[7;19He of the lockfiles i
+[7;19Hif it's not needed. [8;1H
+   See https://next
+[7;19Htjs.org/docs/app/api
+[7;19Hi-reference/config/n
+[7;19Hnext-config-js/turbo
+[7;19Hopack#root-directory
+[7;19Hy for more informati
+[7;19Hion.
+ Detected additiona
+[7;19Hal lockfiles:       
+   * C:\Users\thiag
+[7;19Hg\Documents\GitHub\A
+[7;19HAtt_Nxapps\NX Relato
+[7;19Horios\APP\frontend\p
+[7;19Hpackage-lock.json   
+   * C:\Users\thiag
+[7;19Hg\Documents\GitHub\A
+[7;19HAtt_Nxapps\NX Relato
+[7;19Horios\package-lock.j
+[7;19Hjson
+
+[38;2;173;127;168m[1m▲ Next.js 16.1.6[m (T
+[7;19HTurbopack)
+
+[37m[1m [m Creating an optim
+[7;19Hmized production bui
+[7;19Hild ...
+[32m[1m✓[m Compiled successf
+[7;19Hfully in 4.1s       
+[?25l[37m[1m [m Running TypeScrip
+[7;19Hpt  [36m.[K[15C[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m...[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m.[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m...[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m.[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m...[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m.[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m...[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m.[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m...[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m.[m[K[19C[37m[1m[7;1H [m Running TypeScript  [36m..[m[K[19C[37m[1m[6;1H [m Finished TypeScri[32m[1m✓[m Finished TypeScript in 3.3s[K[?25h
+[37m[1m [m Collecting page d[?25l
+[7;19Hdata using 11 worker
+[7;19Hrs  [36m.[K[15C[m[K[19C[6;1H                                      [7;39H[37m[1m[6;1H [m Collecting page data using 11 workers  [36m..[m[K[19C[37m[1m[6;1H [m Collecting page data using 11 workers  [36m...[m[K[19C[37m[1m[6;1H [m Collecting page data using 11 workers  [36m.[m[K[19C[37m[1m[6;1H [m Collecting page data using 11 workers  [36m..[m[K[19C[37m[1m[6;1H [m Collecting page data using 11 worker[32m[1m✓[m Collecting page d[?25h
+[7;19Hdata using 11 worker
+[7;19Hrs in 878.0ms       
+[37m[1m [m Generating static[?25l
+[7;19Hc pages using 11 wor
+[7;19Hrkers (0/4)  [36m[    ] [m[8;1H[K[19C[37m[1m[5;1H [m Generating static pages using 11 workers (0/4)  [36m[=   ] [m[7;1H                   [7;39H[37m[1m[4;1H [m Generating static pages using 11 workers (0/4)  [36m[==  ] [m[6;1H                   [6;39H[37m[1m[3;1H [m Generating static pages using 11 workers (0/4)  [36m[=== ] [m[5;1H                   [5;39H[32m[1m[2;1H✓[m Generating static pages using 11 workers (4/4) in 680.0ms
+[?25h[37m[1m [m Finalizing page optimization  [36m.[?25l[m[37m[1m[5;1H [m Finalizing page optimization in 38.3[32m[1m✓[m Finalizing page optimization in 38.3[?25h
+[7;19H3ms
+
+[4mRoute (app)[24m
+┌ ○ /
+└ ○ /_not-found    
+
+
+○  (Static)  preren
+[7;19Hndered as static con
+[7;19Hntent
+
+⠙[K[?9001l[?1004l

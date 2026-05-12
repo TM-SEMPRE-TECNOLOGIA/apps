@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TM Gerador VBA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* TM Design System Inlined */
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --bg-input: rgba(255, 255, 255, 0.05);
+      --bg-input-focus: rgba(255, 255, 255, 0.08);
+      
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      
+      --accent: #00d4ff;
+      --accent-secondary: #7b2cbf;
+      --gradient: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+      
+      --success: #00c853;
+      --danger: #991b1b;
+      
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-accent: rgba(0, 212, 255, 0.3);
+      
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 50px;
+      
+      --transition-base: all 0.3s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 40px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media(min-width: 1024px) {
+      main { grid-template-columns: 350px 1fr; }
+    }
+
+    /* Panel */
+    .panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Form Elements */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: var(--transition-base);
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      background: var(--bg-input-focus);
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+    }
+
+    button {
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Results Area */
+    .results-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .textarea-container {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    textarea {
+      flex: 1;
+      width: 100%;
+      min-height: 400px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      color: #a3e635; /* Terminal green for code */
+      padding: 20px;
+      border-radius: var(--radius-md);
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--border-subtle);
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+    }
+
+    .btn-copy:hover {
+      background: var(--bg-card-hover);
+      box-shadow: none;
+    }
+
+    /* Status Message */
+    .status {
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .status.error { color: var(--danger); }
+    .status.success { color: var(--success); }
+
+    /* Summary Stats */
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      flex: 1;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">TM Gerador VBA</div>
+    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-left: auto;">
+      Word Macro Engine
+    </div>
+  </header>
+
+  <main>
+    <!-- Left Panel: Controls -->
+    <div class="panel">
+      <div class="panel-title">Configuração</div>
+      
+      <div class="form-group">
+        <label for="directory">Caminho da Pasta (Output)</label>
+        <input type="text" id="directory" placeholder="Ex: C:\Users\thiag\...\VILA TATETUBA">
+      </div>
+
+      <button id="btnGenerate">
+        <svg xmlns="http://www.w3.org/ प्रभावशाली/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Gerar Script VBA
+      </button>
+
+      <div id="statusMsg" class="status"></div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value" id="countPhotos">0</div>
+          <div class="stat-label">Fotos c/ Legenda</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="countShapes">0</div>
+          <div class="stat-label">Caixas Geradas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Results -->
+    <div class="panel results-area">
+      <div class="panel-title" style="display: flex; justify-content: space-between; align-items: center;">
+        <span>Código VBA Gerado</span>
+        <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-secondary);">Cole isso no Microsoft Word (Alt + F11)</span>
+      </div>
+      
+      <div class="textarea-container">
+        <button class="btn-copy" id="btnCopy">Copiar Script</button>
+        <textarea id="vbaOutput" readonly placeholder="O script VBA aparecerá aqui..."></textarea>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const btnGenerate = document.getElementById('btnGenerate');
+    const inputDir = document.getElementById('directory');
+    const outputArea = document.getElementById('vbaOutput');
+    const statusMsg = document.getElementById('statusMsg');
+    const btnCopy = document.getElementById('btnCopy');
+    const countPhotos = document.getElementById('countPhotos');
+    const countShapes = document.getElementById('countShapes');
+
+    btnGenerate.addEventListener('click', async () => {
+      const dirPath = inputDir.value.trim();
+      if (!dirPath) {
+        showStatus('Por favor, informe o caminho da pasta.', 'error');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ directory: dirPath })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          outputArea.value = data.vba;
+          showStatus('Script VBA gerado com sucesso!', 'success');
+          
+          // Calcular estatísticas
+          let totalShapes = 0;
+          data.legendas.forEach(l => {
+            totalShapes += l.textos.length;
+          });
+          
+          countPhotos.textContent = data.legendas.length;
+          countShapes.textContent = totalShapes;
+        } else {
+          showStatus(`Erro: ${data.detail}`, 'error');
+          outputArea.value = '';
+        }
+      } catch (err) {
+        showStatus('Erro de conexão com o servidor. O backend Python está rodando?', 'error');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    btnCopy.addEventListener('click', () => {
+      if (!outputArea.value) return;
+      outputArea.select();
+      document.execCommand('copy');
+      
+      const originalText = btnCopy.textContent;
+      btnCopy.textContent = 'Copiado!';
+      setTimeout(() => { btnCopy.textContent = originalText; }, 2000);
+    });
+
+    function showStatus(msg, type) {
+      statusMsg.textContent = msg;
+      statusMsg.className = `status ${type}`;
+    }
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        btnGenerate.disabled = true;
+        btnGenerate.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_aj0A{transform-origin:center;animation:spinner_O5wK 2s linear infinite}.spinner_oXPr{stroke-linecap:round;animation:spinner_Z12u 1.5s ease-in-out infinite}@keyframes spinner_O5wK{100%{transform:rotate(360deg)}}@keyframes spinner_Z12u{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g class="spinner_aj0A"><circle cx="12" cy="12" r="9.5" fill="none" class="spinner_oXPr" stroke="currentColor" stroke-width="3"></circle></g></svg> Analisando Pastas...';
+        showStatus('', '');
+      } else {
+        btnGenerate.disabled = false;
+        btnGenerate.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Gerar Script VBA';
+      }
+    }
+  </script>
+</body>
+</html>

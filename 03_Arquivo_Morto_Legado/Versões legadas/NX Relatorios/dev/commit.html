@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit Log — Sprint 2</title>
+    <style>
+        :root {
+            --TM-primary: #10b981;
+            --TM-secondary: #0ea5e9;
+            --TM-bg: #f8fafc;
+            --TM-card: #ffffff;
+            --TM-text: #1e293b;
+            --TM-text-muted: #64748b;
+            --TM-radius: 1rem;
+            --font-main: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--TM-bg);
+            color: var(--TM-text);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--TM-primary);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .card {
+            background: var(--TM-card);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--TM-radius);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        }
+
+        .commit-msg {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 0 1rem 0;
+            color: #0f172a;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 12px;
+            color: var(--TM-text-muted);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .summary {
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .summary h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--TM-primary);
+            margin-bottom: 1rem;
+        }
+
+        .summary ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .summary li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .summary li::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--TM-secondary);
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .media-item {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+        }
+
+        .media-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 10px;
+            color: var(--TM-text-muted);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="badge">Session Checkpoint</span>
+            <span style="font-size: 12px; font-weight: 700; color: #94a3b8;">2026-03-21</span>
+        </div>
+
+        <div class="card">
+            <h1 class="commit-msg">feat: redesign visual premium e componentização do nx-relatórios (ocean breeze)</h1>
+            
+            <div class="meta">
+                <span>By Antigravity AI</span>
+                <span>Sprint 2 Delivery</span>
+                <span>Branch: main</span>
+            </div>
+
+            <div class="summary">
+                <h4>O que foi entregue</h4>
+                <ul>
+                    <li>Refatoração completa do <code>page.tsx</code> monolítico para arquitetura modular.</li>
+                    <li>Criação dos componentes <code>SidebarWizard</code>, <code>PreviewGrid</code> e <code>ConsoleWatcher</code>.</li>
+                    <li>Implementação do Design System <strong>Ocean Breeze</strong> (Teal Premium).</li>
+                    <li>Ajustes finos de UX: Botão de Varredura dedicado e limpeza estética do Grid.</li>
+                    <li>Paridade total com referências Mobile e Desktop.</li>
+                </ul>
+            </div>
+
+            <div class="media-grid">
+                <div class="media-item">
+                    <img src="https://raw.githubusercontent.com/TM-SEMPRE-TECNOLOGIA/Att_Nxapps/main/NX%20Relatorios/Fazendo/sprint2_preview_desktop.png" alt="Desktop View" onerror="this.src='https://placehold.co/400x300/f8fafc/10b981?text=Preview+Desktop'">
+                </div>
+                <div class="media-item">
+                    <img src="https://raw.githubusercontent.com/TM-SEMPRE-TECNOLOGIA/Att_Nxapps/main/NX%20Relatorios/Fazendo/sprint2_preview_mobile.png" alt="Mobile View" onerror="this.src='https://placehold.co/400x300/f8fafc/0ea5e9?text=Preview+Mobile'">
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            TM SEMPRE TECNOLOGIA • AGENTIC WORKFLOW 2026
+        </div>
+    </div>
+</body>
+</html>

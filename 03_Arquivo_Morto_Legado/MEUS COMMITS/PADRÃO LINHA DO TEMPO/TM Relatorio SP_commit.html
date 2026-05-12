@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Desenvolvimento - TM Relatório SP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #58a6ff;
+            --color-secondary: #7b2cbf;
+            --color-accent: #bc8cff;
+            --color-success: #3fb950;
+            --color-danger: #f85149;
+            --color-bg: #0d1117;
+            --color-text: #e6edf3;
+            --color-text-dim: #7d8590;
+            --color-border: #30363d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--color-bg); color: var(--color-text); min-height: 100vh; overflow-x: hidden; }
+        .bg-particles { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .bg-particles::before, .bg-particles::after { content: ''; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.08; animation: floatParticle 25s ease-in-out infinite; }
+        .bg-particles::before { width: 700px; height: 700px; background: var(--color-primary); top: -200px; right: -150px; }
+        .bg-particles::after { width: 600px; height: 600px; background: var(--color-accent); bottom: -150px; left: -100px; animation-delay: -12s; }
+        @keyframes floatParticle { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -60px) scale(1.1); } 66% { transform: translate(-30px, 30px) scale(0.9); } }
+        .hero { position: relative; z-index: 1; text-align: center; padding: 60px 20px 40px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 100px; padding: 8px 20px; font-size: 0.8rem; font-weight: 500; color: var(--color-primary); margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 16px; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-primary) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 4s ease-in-out infinite; }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+        .hero-subtitle { font-size: 1.05rem; color: var(--color-text-dim); max-width: 600px; margin: 0 auto 12px; line-height: 1.6; }
+        .hero-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--color-text); }
+        .hero-brand .company { color: var(--color-primary); font-weight: 600; }
+        .stats-bar { position: relative; z-index: 1; display: flex; justify-content: center; gap: 40px; padding: 0 20px 50px; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { font-size: 0.75rem; color: var(--color-text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+        .timeline-section { position: relative; z-index: 1; padding: 0 20px; max-width: 1400px; margin: 0 auto; }
+        .timeline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding: 0 10px; }
+        .timeline-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--color-text-dim); font-weight: 600; }
+        .timeline-nav { display: flex; gap: 8px; }
+        .timeline-nav button { background: rgba(255, 255, 255, 0.05); border: 1px solid #30363d; color: var(--color-text); width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .timeline-track-wrapper { position: relative; overflow-x: auto; padding-bottom: 30px; scroll-behavior: smooth; }
+        .timeline-track { display: flex; align-items: flex-start; position: relative; min-width: max-content; padding: 20px 80px 0; }
+        .timeline-line { position: absolute; top: 50px; left: 80px; right: 80px; height: 3px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary)); border-radius: 2px; z-index: 0; opacity: 0.6; }
+        .timeline-node { display: flex; flex-direction: column; align-items: center; min-width: 160px; cursor: pointer; position: relative; z-index: 1; }
+        .node-date { font-size: 0.65rem; color: var(--color-text-dim); margin-bottom: 12px; }
+        .node-dot { width: 40px; height: 40px; border-radius: 50%; background: #161b22; border: 3px solid #30363d; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.4s; }
+        .timeline-node:hover .node-dot, .timeline-node.active .node-dot { border-color: var(--color-primary); transform: scale(1.25); box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+        .detail-card-area { position: relative; z-index: 1; max-width: 850px; margin: 40px auto 0; padding: 0 20px; min-height: 250px; }
+        .detail-card { display: none; background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(24px); border: 1px solid #30363d; border-radius: 16px; padding: 32px; animation: cardFadeIn 0.5s; }
+        .detail-card.visible { display: block; }
+        @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .card-title { font-size: 1.3rem; color: #fff; }
+        .card-badge { background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; color: var(--color-primary); }
+        .card-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .card-features li { display: flex; gap: 10px; font-size: 0.9rem; color: var(--text-muted); }
+        .card-features li .check { color: var(--color-primary); }
+        .footer { text-align: center; padding: 40px 20px; color: var(--color-text-dim); }
+    </style>
+</head>
+<body>
+    <div class="bg-particles"></div>
+    <section class="hero">
+        <div class="hero-badge">📍 Registro de Desenvolvimento</div>
+        <h1>TM Relatório SP</h1>
+        <p class="hero-subtitle">Gerador de relatórios técnicos especializados para São Paulo.</p>
+        <div class="hero-brand"><span class="company">TM - Sempre Tecnologia</span> | <span>Thiago Nascimento Barbosa</span></div>
+    </section>
+    <div class="stats-bar">
+        <div class="stat-item"><div class="stat-value">8</div><div class="stat-label">Commits</div></div>
+        <div class="stat-item"><div class="stat-value">v1.1</div><div class="stat-label">Versão</div></div>
+        <div class="stat-item"><div class="stat-value">Stable</div><div class="stat-label">Status</div></div>
+        <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Concluído</div></div>
+    </div>
+    <section class="timeline-section">
+        <div class="timeline-header"><span class="timeline-title">Jornada de Desenvolvimento</span></div>
+        <div class="timeline-track-wrapper" id="timelineWrapper">
+            <div class="timeline-track"><div class="timeline-line"></div>
+                
+        <div class="timeline-node" onclick="showCard(0, this)">
+            <span class="node-date">01</span>
+            <div class="node-dot">🚀</div>
+            <span class="node-label">Setup Inicial</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(1, this)">
+            <span class="node-date">02</span>
+            <div class="node-dot">📏</div>
+            <span class="node-label">Extração de Medidas SP</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(2, this)">
+            <span class="node-date">03</span>
+            <div class="node-dot">📂</div>
+            <span class="node-label">Varredura Hierárquica</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(3, this)">
+            <span class="node-date">04</span>
+            <div class="node-dot">📝</div>
+            <span class="node-label">Integrador Word</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(4, this)">
+            <span class="node-date">05</span>
+            <div class="node-dot">⚡</div>
+            <span class="node-label">Integração API/Frontend</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(5, this)">
+            <span class="node-date">06</span>
+            <div class="node-dot">✅</div>
+            <span class="node-label">Validação Vila Tatetuba</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(6, this)">
+            <span class="node-date">07</span>
+            <div class="node-dot">🔄</div>
+            <span class="node-label">Robustez os.walk</span>
+        </div>
+        <div class="timeline-node" onclick="showCard(7, this)">
+            <span class="node-date">08</span>
+            <div class="node-dot">💎</div>
+            <span class="node-label">Refinamento Estético</span>
+        </div>
+            </div>
+        </div>
+    </section>
+    <div class="detail-card-area">
+        <div class="detail-card" data-card="0">
+            <div class="card-header">
+                <h2 class="card-title">Setup Inicial</h2>
+                <span class="card-badge">SETUP</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Duplicação do legado Relatório</li><li><span class="check">✓</span>Iniciação do log dev</li></ul>
+        </div>
+        <div class="detail-card" data-card="1">
+            <div class="card-header">
+                <h2 class="card-title">Extração de Medidas SP</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Regex em nomes de arquivos</li><li><span class="check">✓</span>Cálculo Largura/Altura/Desconto</li></ul>
+        </div>
+        <div class="detail-card" data-card="2">
+            <div class="card-header">
+                <h2 class="card-title">Varredura Hierárquica</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Agrupamento Foto x Detalhes</li><li><span class="check">✓</span>Modelo JSON descritivo</li></ul>
+        </div>
+        <div class="detail-card" data-card="3">
+            <div class="card-header">
+                <h2 class="card-title">Integrador Word</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Tabelas Word 5 colunas</li><li><span class="check">✓</span>Parágrafos técnicos automáticos</li></ul>
+        </div>
+        <div class="detail-card" data-card="4">
+            <div class="card-header">
+                <h2 class="card-title">Integração API/Frontend</h2>
+                <span class="card-badge">FRONTEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Toggle Tradicional vs SP</li><li><span class="check">✓</span>FastAPI routing core</li></ul>
+        </div>
+        <div class="detail-card" data-card="5">
+            <div class="card-header">
+                <h2 class="card-title">Validação Vila Tatetuba</h2>
+                <span class="card-badge">VERIF</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Sincronização de fotos</li><li><span class="check">✓</span>Emparelhamento garantido</li></ul>
+        </div>
+        <div class="detail-card" data-card="6">
+            <div class="card-header">
+                <h2 class="card-title">Robustez os.walk</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Refatoração algoritmo original</li><li><span class="check">✓</span>Match de 439 imagens</li></ul>
+        </div>
+        <div class="detail-card" data-card="7">
+            <div class="card-header">
+                <h2 class="card-title">Refinamento Estético</h2>
+                <span class="card-badge">FINAL</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features"><li><span class="check">✓</span>Tabelas fidelidade (Subtotal)</li><li><span class="check">✓</span>Destaque medidas em vermelho</li><li><span class="check">✓</span>Item 13.12 integrado</li></ul>
+        </div></div>
+    <footer class="footer">
+        <p>TM - Sempre Tecnologia</p>
+        <p>Março 2026</p>
+    </footer>
+    <script>
+        function showCard(index, node) {
+            document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+            document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.detail-card[data-card="${index}"]`).classList.add('visible');
+            node.classList.add('active');
+        }
+        // Auto select last node
+        window.onload = () => {
+            const nodes = document.querySelectorAll('.timeline-node');
+            if(nodes.length > 0) nodes[nodes.length-1].click();
+        };
+    </script>
+</body>
+</html>

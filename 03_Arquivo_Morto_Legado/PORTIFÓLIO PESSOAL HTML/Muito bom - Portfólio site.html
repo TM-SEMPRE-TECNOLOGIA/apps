@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNB // SYSTEM COMMAND</title>
+    <meta name="description" content="Engenharia Deep Tech - Arquitetura de Sistemas e Integrações de IA">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-base: #070709;
+            --bg-surface: #0f0f13;
+            --bg-panel: rgba(15, 15, 19, 0.6);
+
+            --neon-green: #00ff9d;
+            --neon-blue: #00e5ff;
+            --neon-purple: #9d00ff;
+            --neon-orange: #ffaa00;
+            --neon-red: #ff3366;
+
+            --text-main: #e2e8f0;
+            --text-muted: #8b949e;
+            --text-dim: #484f58;
+
+            --border-glow: rgba(0, 255, 157, 0.2);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 157, 0.02) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.02) 0%, transparent 40%);
+        }
+
+        /* Ambient scanline grid */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background:
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 100% 2px, 40px 40px, 40px 40px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(7, 7, 9, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .logo {
+            color: var(--neon-green);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .logo::before {
+            content: "root@";
+            color: var(--text-muted);
+        }
+
+        .logo::after {
+            content: "~#";
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .sys-status {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--neon-green);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: scale(1.5);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* --- Global Structural Elements --- */
+        .section-container {
+            padding: 10rem 12%;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .section-index {
+            position: absolute;
+            top: 3rem;
+            left: 4rem;
+            font-family: var(--font-mono);
+            font-size: 3rem;
+            color: var(--text-dim);
+            opacity: 0.2;
+            font-weight: 800;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            max-width: 800px;
+        }
+
+        .tag-line {
+            font-family: var(--font-mono);
+            color: var(--neon-blue);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 12%;
+            position: relative;
+        }
+
+        .terminal-block {
+            font-family: var(--font-mono);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 2rem;
+            max-width: 900px;
+            margin-bottom: 4rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .terminal-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+        }
+
+        .term-header-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .term-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-dim);
+        }
+
+        .term-dot:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .term-dot:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .term-dot:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .term-line {
+            display: flex;
+            margin-bottom: 0.75rem;
+            opacity: 0;
+            animation: fadeIn 0.1s forwards;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .prompt {
+            color: var(--neon-green);
+            margin-right: 1rem;
+            user-select: none;
+        }
+
+        .sys-info {
+            color: var(--text-muted);
+        }
+
+        .term-line:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .term-line:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .term-line:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .term-line:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+
+        .term-line:nth-child(6) {
+            animation-delay: 1.5s;
+        }
+
+        .term-line:nth-child(7) {
+            animation-delay: 1.8s;
+        }
+
+        .term-line:nth-child(8) {
+            animation-delay: 2.2s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .type-effect-container {
+            margin-top: 1.5rem;
+            border-top: 1px dashed var(--border-subtle);
+            padding-top: 1.5rem;
+        }
+
+        .typing-effect {
+            border-right: 2px solid var(--neon-green);
+            white-space: nowrap;
+            overflow: hidden;
+            color: var(--neon-blue);
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+            animation-delay: 2.5s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: var(--neon-green);
+            }
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #fff;
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+            animation-delay: 4.5s;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc-large {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+            animation-delay: 4.7s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Architecture Deep Dive (Matrix Grid) --- */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .arch-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .arch-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 1px transparent;
+            transition: all 0.4s ease;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-8px);
+            background: rgba(20, 20, 25, 0.9);
+        }
+
+        .arch-card:hover::after {
+            box-shadow: inset 0 0 0 1px var(--hover-color);
+        }
+
+        .arch-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-subtle);
+            color: var(--hover-color);
+        }
+
+        .arch-icon-wrapper svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .arch-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .arch-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-main);
+        }
+
+        /* --- Detailed Timeline (The Dev Evolution) --- */
+        .timeline-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--border-subtle) 5%, var(--border-subtle) 95%, transparent);
+            transform: translateX(-50%);
+        }
+
+        .time-node {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .time-node:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .node-content {
+            width: calc(50% - 4rem);
+            position: relative;
+        }
+
+        .node-marker {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-base);
+            border: 4px solid var(--node-color);
+            z-index: 10;
+            box-shadow: 0 0 20px var(--node-color);
+        }
+
+        .node-date {
+            position: absolute;
+            /* place below the circular marker, centered horizontally */
+            top: calc(100% + 0.6rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            /* keep contrast and readable if variable fails */
+            color: var(--node-color, #fff);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            white-space: nowrap;              /* prevent wrapping */
+            z-index: 2;                       /* above the timeline line */
+        }
+
+        .time-node:nth-child(odd) .node-date,
+        .time-node:nth-child(even) .node-date {
+            /* horizontal centering handled by base rule;
+               remove side-specific offsets and text alignment */
+            left: 50%;
+            right: auto;
+            text-align: center;
+            max-width: none;
+        }
+
+        .node-card-inner {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .node-card-inner::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            width: 4rem;
+            height: 2px;
+            background: var(--border-subtle);
+        }
+
+        .time-node:nth-child(odd) .node-card-inner::before {
+            right: -4rem;
+        }
+
+        .time-node:nth-child(even) .node-card-inner::before {
+            left: -4rem;
+        }
+
+        .node-phase {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--node-color);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .node-title {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .node-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--node-color);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-icon {
+            color: var(--node-color);
+        }
+
+        .project-item h4 {
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+        }
+
+        .project-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Deep Dive Modules (Detailed Sections) --- */
+        .module-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 8rem;
+            padding: 4rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+
+        .module-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .module-info h3 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .module-info p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .module-features {
+            list-style: none;
+        }
+
+        .module-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .module-features li svg {
+            color: var(--neon-blue);
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .code-window {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            overflow-x: auto;
+            color: #c9d1d9;
+        }
+
+        .code-comment {
+            color: #8b949e;
+        }
+
+        .code-keyword {
+            color: #ff7b72;
+        }
+
+        .code-string {
+            color: #a5d6ff;
+        }
+
+        .code-func {
+            color: #d2a8ff;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 6rem 12%;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: var(--bg-surface);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-brand h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-family: var(--font-mono);
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .sys-log {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .sys-log p {
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-terminal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 1rem 2rem;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn-terminal:hover {
+            background: rgba(0, 255, 157, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* --- Responsive --- */
+        @media(max-width: 1200px) {
+            .time-node {
+                flex-direction: column !important;
+                align-items: flex-start;
+                margin-bottom: 4rem;
+                padding-left: 3rem;
+            }
+
+            .node-content {
+                width: 100%;
+            }
+
+            .timeline-line {
+                left: 0;
+            }
+
+            .node-marker {
+                left: 0;
+            }
+
+            .time-node .node-date {
+                position: relative;
+                top: 0;
+                left: 0 !important;
+                right: auto !important;
+                transform: none;
+                text-align: left !important;
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .time-node .node-card-inner::before {
+                display: none;
+            }
+
+            .module-row {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 2.5rem;
+            }
+        }
+
+        @media(max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-container {
+                padding: 6rem 5%;
+            }
+
+            .hero {
+                padding: 0 5%;
+                margin-top: 6rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .arch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 3rem;
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">TNB</a>
+        <div class="nav-links">
+            <a href="#arquitetura">Arquitetura</a>
+            <a href="#modulos">Módulos Core</a>
+            <a href="#linha-do-tempo">Evolução</a>
+        </div>
+        <div class="sys-status">
+            <div class="status-dot"></div>
+            SISTEMA ONLINE
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="terminal-block">
+            <div class="term-header-dots">
+                <div class="term-dot"></div>
+                <div class="term-dot"></div>
+                <div class="term-dot"></div>
+            </div>
+            <div class="term-line">
+                <span class="prompt">root@tnb-dev:~#</span>
+                <span class="cmd type-effect-fast">./iniciar_kernel_portfolio.sh</span>
+            </div>
+            <div class="term-line sys-info">Carregando módulos base de engenharia........ <span
+                    style="color:var(--neon-green)">[SUCESSO]</span></div>
+            <div class="term-line sys-info">Estabelecendo conexões com PostgreSQL & Next.js... <span
+                    style="color:var(--neon-green)">[ESTÁVEL]</span></div>
+            <div class="term-line sys-info">Iniciando pipelines RAG e Vectordb......... <span
+                    style="color:var(--neon-purple)">[AGUARDANDO PROMPT]</span></div>
+
+            <div class="type-effect-container term-line">
+                <span class="prompt">root@tnb-dev:~#</span>
+                <span class="typing-effect">echo "Engenharia de Software Profunda"</span>
+            </div>
+        </div>
+
+        <h1 class="hero-title">Thiago N. Barbosa</h1>
+        <p class="hero-desc-large">
+            Engenheiro Deep Tech na interseção entre <strong>Inteligência Artificial</strong> e <strong>Sistemas
+                Full-Stack Massivos</strong>. Projetando ecossistemas unificados, orquestração de agentes autônomos e
+            APIs de alta performance.
+        </p>
+    </section>
+
+    <!-- ARQUITETURA -->
+    <section id="arquitetura" class="section-container">
+        <div class="section-index">01</div>
+        <div class="section-header">
+            <span class="tag-line">Topologia do Sistema</span>
+            <h2 class="section-title">Arquitetura de Aplicações</h2>
+            <p class="section-desc">O stack tecnológico selecionado para garantir escalabilidade extrema, processamento
+                assíncrono profundo e interfaces reativas de nível de produção.</p>
+        </div>
+
+        <div class="arch-grid">
+
+            <div class="arch-card" style="--hover-color: var(--neon-blue);">
+                <div class="arch-icon-wrapper"><i data-lucide="server"></i></div>
+                <h3 class="arch-title">Motor Backend Assíncrono</h3>
+                <p class="arch-desc">Desenvolvimento de APIs RESTful ultrarrápidas utilizando <strong>FastAPI
+                        (Python)</strong>. Implementação de injeção de dependências complexa, roteamento modular,
+                    validação rigorosa de dados com Pydantic e processadores em background paralelos para manipulação
+                    massiva de arquivos (PDFs, Excel complexos, DOCX).</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">FastAPI</span><span class="tech-tag">Python 3.11+</span><span
+                        class="tech-tag">Pydantic</span><span class="tech-tag">AsyncIO</span>
+                </div>
+            </div>
+
+            <div class="arch-card" style="--hover-color: var(--neon-green);">
+                <div class="arch-icon-wrapper"><i data-lucide="layout-template"></i></div>
+                <h3 class="arch-title">Frontend React & Next.js</h3>
+                <p class="arch-desc">Construção da camada de apresentação utilizando <strong>Next.js (App
+                        Router)</strong>. Foco em Server-Side Rendering (SSR) e Static Site Generation (SSG).
+                    Gerenciamento de estado global altamente otimizado com <strong>Zustand</strong>, permitindo
+                    interfaces "Cyber-Dark" dinâmicas e dashboards imersivos sem gargalos de renderização.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Next.js 14</span><span class="tech-tag">React</span><span
+                        class="tech-tag">Zustand</span><span class="tech-tag">Tailwind CSS</span>
+                </div>
+            </div>
+
+            <div class="arch-card" style="--hover-color: var(--neon-purple);">
+                <div class="arch-icon-wrapper"><i data-lucide="bot"></i></div>
+                <h3 class="arch-title">Orquestração de IA & RAG</h3>
+                <p class="arch-desc">Engenharia de pipelines de Inteligência Artificial para processamento semântico.
+                    Desenvolvimento de arquiteturas <strong>RAG (Retrieval-Augmented Generation)</strong> "closed-book"
+                    para extrair informações determinísticas de contratos gigantescos. Orquestração de agentes autônomos
+                    para curadoria de conhecimento e análise técnica.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">LLMs</span><span class="tech-tag">Vector DBs</span><span
+                        class="tech-tag">LangChain</span><span class="tech-tag">NLP</span>
+                </div>
+            </div>
+
+            <div class="arch-card" style="--hover-color: var(--neon-orange);">
+                <div class="arch-icon-wrapper"><i data-lucide="database"></i></div>
+                <h3 class="arch-title">Camada de Persistência</h3>
+                <p class="arch-desc">Modelagem de bancos de dados relacionais complexos utilizando
+                    <strong>PostgreSQL</strong> via <strong>Drizzle ORM</strong>. Migrações tipadas end-to-end com
+                    TypeScript. Estruturação de schemas para multi-tenancy, sistemas de auditoria log-based e índices
+                    otimizados para consultas pesadas de relatórios e ordens de serviço.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">PostgreSQL</span><span class="tech-tag">Drizzle ORM</span><span
+                        class="tech-tag">TypeScript</span><span class="tech-tag">Redis (Cache)</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MÓDULOS DEEP DIVE -->
+    <section id="modulos" class="section-container" style="background: rgba(10,10,12,0.4);">
+        <div class="section-index">02</div>
+        <div class="section-header">
+            <span class="tag-line">Especificações Técnicas</span>
+            <h2 class="section-title">Análise de Módulos Críticos</h2>
+            <p class="section-desc">Um mergulho profundo na lógica de negócios e estruturação de dados de sistemas
+                desenvolvidos recentemente.</p>
+        </div>
+
+        <div class="module-row">
+            <div class="module-info">
+                <h3>O Hub Unificado (TM Ecossistema)</h3>
+                <p>Uma plataforma centralizadora que consolida 9 ferramentas críticas corporativas em uma única
+                    interface. A arquitetura exige um roteamento dinâmico sem fricção e isolamento de estado por
+                    sub-aplicação.</p>
+                <ul class="module-features">
+                    <li><i data-lucide="shield-check"></i> Controle de acesso unificado e sistema global de favoritos
+                        mantido via Zustand com persistência local.</li>
+                    <li><i data-lucide="layers"></i> Containerização frontend das ferramentas: Ordens de Serviço,
+                        Comparador de Dados Financeiros, e Gerador Documental SP.</li>
+                    <li><i data-lucide="zap"></i> Comunicação assíncrona multiplexada com múltiplos endpoints FastAPI
+                        rodando processos intensivos de I/O em background.</li>
+                </ul>
+            </div>
+            <div class="code-window">
+                <div class="code-header">
+                    <span>store/useHubStore.ts</span>
+                    <span>TypeScript</span>
+                </div>
+                <div class="code-content">
+                    <pre><code><span class="code-keyword">import</span> { create } <span class="code-keyword">from</span> <span class="code-string">'zustand'</span>;
+<span class="code-keyword">import</span> { persist } <span class="code-keyword">from</span> <span class="code-string">'zustand/middleware'</span>;
+
+<span class="code-keyword">interface</span> HubState {
+  activeModule: <span class="code-string">string</span> | <span class="code-keyword">null</span>;
+  favorites: <span class="code-string">string[]</span>;
+  <span class="code-func">setActive</span>: (moduleId: <span class="code-string">string</span>) => <span class="code-keyword">void</span>;
+  <span class="code-func">toggleFavorite</span>: (appId: <span class="code-string">string</span>) => <span class="code-keyword">void</span>;
+}
+
+<span class="code-keyword">export const</span> useHubStore = <span class="code-func">create</span>&lt;HubState&gt;()(
+  <span class="code-func">persist</span>(
+    (set) => ({
+      activeModule: <span class="code-keyword">null</span>,
+      favorites: [],
+      <span class="code-func">setActive</span>: (id) => set({ activeModule: id }),
+      <span class="code-func">toggleFavorite</span>: (id) => 
+        set((state) => ({
+          favorites: state.favorites.includes(id) 
+            ? state.favorites.filter(x => x !== id) 
+            : [...state.favorites, id]
+        }))
+    }),
+    { name: <span class="code-string">'tm-hub-storage'</span> }
+  )
+);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="module-row" style="direction: rtl;">
+            <div class="module-info" style="direction: ltr;">
+                <h3>Engenharia Documental (TM Extrator & DOCX)</h3>
+                <p>O coração da automação inicial que evoluiu para o 'TM Relatório SP'. Sistemas Python capazes de ler
+                    metadados, manipular tabelas word, inserir imagens em templates complexos e recalcular somatórios
+                    matemáticos em tempo real direto nos nós XML do documento Word.</p>
+                <ul class="module-features">
+                    <li><i data-lucide="file-code-2"></i> Manipulação via `python-docx` para ancoragem precisa de
+                        imagens mantendo "Vistas Amplas" em alta resolução sem quebrar a paginação.</li>
+                    <li><i data-lucide="calculator"></i> Motor de cálculo acoplado (Subtotal, Descontos) injetando
+                        strings formatadas e destacando dados críticos em vermelho.</li>
+                    <li><i data-lucide="braces"></i> Regex avançado para parsing de dezenas de colunas do Excel
+                        transformando-as instantaneamente em Parágrafos DOCX consolidados.</li>
+                </ul>
+            </div>
+            <div class="code-window" style="direction: ltr;">
+                <div class="code-header">
+                    <span>core/docx_engine.py</span>
+                    <span>Python</span>
+                </div>
+                <div class="code-content">
+                    <pre><code><span class="code-keyword">def</span> <span class="code-func">insert_financial_table</span>(doc, data_frame):
+    <span class="code-comment"># Parse DF and inject into template</span>
+    table = doc.add_table(rows=<span class="code-keyword">len</span>(data_frame)+1, cols=4)
+    <span class="code-comment"># ... header definitions ...</span>
+    
+    total = 0.0
+    <span class="code-keyword">for</span> i, row <span class="code-keyword">in</span> data_frame.iterrows():
+        <span class="code-comment"># Injecting item logic</span>
+        cell = table.cell(i+1, 3)
+        val = <span class="code-func">float</span>(row[<span class="code-string">'Value'</span>])
+        total += val
+        
+        <span class="code-comment"># Apply conditional formatting</span>
+        p = cell.paragraphs[0]
+        run = p.add_run(f<span class="code-string">"R$ {val:,.2f}"</span>)
+        <span class="code-keyword">if</span> val &lt; 0:
+            run.font.color.rgb = RGBColor(255, 0, 0)
+            run.bold = <span class="code-keyword">True</span>
+            
+    <span class="code-func">append_summary_row</span>(table, total)
+    <span class="code-keyword">return</span> doc</code></pre>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- LINHA DO TEMPO CRONOLÓGICA -->
+    <section id="linha-do-tempo" class="section-container">
+        <div class="section-index">03</div>
+        <div class="section-header" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <span class="tag-line">Registro Histórico do /DEV</span>
+            <h2 class="section-title">Evolução do Sistema</h2>
+            <p class="section-desc" style="max-width: 600px; margin: 0 auto;">Uma linha do tempo técnica traçando a
+                evolução contínua dos projetos do ambiente de desenvolvimento. Da primeira linha de script à arquitetura
+                Cloud-Native.</p>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div class="timeline-line"></div>
+
+            <!-- FASE 1: Automação -->
+            <div class="time-node" style="--node-color: var(--text-dim);">
+                <div class="node-date">Outubro 2025</div>
+                <div class="node-marker"></div>
+                <div class="node-content">
+                    <div class="node-card-inner">
+                        <span class="node-phase">Fase 1 - O Nascimento via Scripts</span>
+                        <h3 class="node-title">Automação de Raiz (Python)</h3>
+                        <p class="node-desc">Foco total em produtividade braçal. O código existia para resolver gargalos
+                            físicos operacionais: estruturação de pastas em rede corporativa (File System) e os
+                            primeiros esboços de extração de dados estáticos.</p>
+
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-header"><i data-lucide="folder-cog" class="project-icon"></i>
+                                    <h4>tecnologia_pastas & automação</h4>
+                                </div>
+                                <p>Scripts rodando cronjobs operando na biblioteca de SO do Python para padronizar
+                                    estruturas complexas de metadados em diretórios locais.</p>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">os</span><span class="tech-tag">shutil</span><span
+                                        class="tech-tag">CLI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 2: Era dos Bots -->
+            <div class="time-node" style="--node-color: var(--neon-purple);">
+                <div class="node-date">Novembro 2025</div>
+                <div class="node-marker"></div>
+                <div class="node-content">
+                    <div class="node-card-inner">
+                        <span class="node-phase">Fase 2 - Cognição em Código</span>
+                        <h3 class="node-title">A Era dos Agentes de IA</h3>
+                        <p class="node-desc">Introdução da semântica. Os sistemas deixaram de ser apenas lógicos
+                            (if/else) e passaram a "entender" contexto. Construção de RAGs profundos para evitar
+                            alucinações de LLMs ao ler documentos governamentais e contratos extensos.</p>
+
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-header"><i data-lucide="brain-circuit" class="project-icon"></i>
+                                    <h4>BOT RAG + Orquestração (Closed-book)</h4>
+                                </div>
+                                <p>Implementação massiva usando Vector Databases para ingerir milhares de páginas de
+                                    PDF, orquestrando sub-agentes para responder apenas com base no contexto
+                                    (Zero-hallucination tolerance).</p>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">RAG</span><span class="tech-tag">Embeddings</span><span
+                                        class="tech-tag">LangChain</span>
+                                </div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-header"><i data-lucide="message-square-text"
+                                        class="project-icon"></i>
+                                    <h4>BOT GPT Curador Técnico</h4>
+                                </div>
+                                <p>Tuning de prompts avançado para auxiliar processos jurídicos e fluxos de estudos de
+                                    alta complexidade (Concurseiro).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 3: Ecossistema Base -->
+            <div class="time-node" style="--node-color: var(--neon-blue);">
+                <div class="node-date">Dezembro 2025</div>
+                <div class="node-marker"></div>
+                <div class="node-content">
+                    <div class="node-card-inner">
+                        <span class="node-phase">Fase 3 - Agregação Funcional</span>
+                        <h3 class="node-title">Semente da Plataforma</h3>
+                        <p class="node-desc">O choque de percepção: scripts avulsos não escalam. Iniciou-se a agregação
+                            dolorosa, porém necessária, de todas as ferramentas desenvolvidas sob uma mesma base,
+                            forçando a criação dos primeiros padrões de design e comunicação de dados.</p>
+
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-header"><i data-lucide="boxes" class="project-icon"></i>
+                                    <h4>TM - ECOSSISTEMA COMPLETO v1</h4>
+                                </div>
+                                <p>Refatoração intensa. Scripts soltos viraram módulos importáveis. O nascimento
+                                    empírico de um Design System visual primitivo para as interfaces internas.</p>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Software Architecture</span><span
+                                        class="tech-tag">Modularization</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 4: O Presente -->
+            <div class="time-node" style="--node-color: var(--neon-green);">
+                <div class="node-date">Início de 2026</div>
+                <div class="node-marker"></div>
+                <div class="node-content">
+                    <div class="node-card-inner">
+                        <span class="node-phase">Fase 4 - Engenharia Moderna Base (Atual)</span>
+                        <h3 class="node-title">Maturidade Full-Stack Next.js</h3>
+                        <p class="node-desc">A consolidação definitiva. Sistemas antigos em Vite/React puro abandonados
+                            em favor da Edge-architecture do Next.js. O código agora possui tipagem forte (TS), banco de
+                            dados real-time e interfaces "Cyber-Dark" dignas de ferramentas SaaS Premium.</p>
+
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-header"><i data-lucide="terminal-square" class="project-icon"></i>
+                                    <h4>O Novo Ecossistema DEV (Hub Final)</h4>
+                                </div>
+                                <p>Apps como: <strong>TM Ordens</strong> (Sistemas O.S complexos com Dashboard),
+                                    <strong>TM Comparador</strong> (análise financeira crua Excel vs DB), <strong>TM
+                                        Relatório SP</strong> (Layout Word robusto).</p>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Next.js 14</span><span class="tech-tag">FastAPI</span><span
+                                        class="tech-tag">TypeScript</span><span class="tech-tag">TailwindCSS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="footer-brand">
+            <h2>TNB // ROOT_ACCESS</h2>
+            <p>Engenharia implacável para resolver os problemas reais. Da extração de bytes ao render final da
+                interface.</p>
+            <a href="mailto:contato@example.com" class="btn-terminal">
+                <i data-lucide="send"></i> Iniciar Handshake
+            </a>
+        </div>
+
+        <div style="flex-grow: 1; min-width: 300px; display: flex; justify-content: flex-end;">
+            <div class="sys-log">
+                <p><span style="color:var(--neon-green)">[INFO]</span> Último deploy de arquitetura: FEIT</p>
+                <p><span style="color:var(--neon-green)">[INFO]</span> Uptime estimado: 99.99%</p>
+                <p><span style="color:var(--neon-purple)">[TRACE]</span> Monitorando conexões gRPC...</p>
+                <p style="margin-top: 2rem;">© 2026 // TM Sempre Tecnologia. Base: Goiânia, BR.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                    // Remove if you want animation every scroll
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        // Apply slide-up logic
+        const animTargets = [
+            ...document.querySelectorAll('.arch-card'),
+            ...document.querySelectorAll('.time-node'),
+            ...document.querySelectorAll('.module-row')
+        ];
+
+        animTargets.forEach((el, i) => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(40px)";
+            el.style.transition = "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)";
+
+            // Stagger siblings horizontally if they are in a grid
+            const siblingDelay = (i % 2) * 0.15;
+            el.style.transitionDelay = `${siblingDelay}s`;
+
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

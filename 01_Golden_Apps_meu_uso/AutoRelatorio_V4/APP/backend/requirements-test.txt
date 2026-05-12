@@ -1,0 +1,23 @@
+# Requirements para testes
+
+# Testes
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Mocking e fixtures
+requests-mock==1.11.0
+responses==0.24.1
+
+# Utilitários
+faker==20.1.0
+
+# Linting e formatting
+black==23.12.1
+flake8==6.1.0
+isort==5.13.2
+mypy==1.7.1
+
+# Documentação
+pytest-html==4.1.1
