@@ -1,0 +1,32 @@
+{
+  "customAmbientes": [
+    "Telhado",
+    "Corredor de acesso",
+    "Casa de máquinas",
+    "Recepção",
+    "Garagem",
+    "Almoxarifado",
+    "Sala online",
+    "Corredor interno",
+    "Banheiro PNE feminino",
+    "Banheiro PNE masculino",
+    "Sala de acesso a tesouraria",
+    "DML",
+    "Sala dos vigilantes"
+  ],
+  "customServicos": [
+    "Alarme de emergência",
+    "Pintura de piso",
+    "Substituição de telhas",
+    "Substituição de rufo",
+    "Fita de piso",
+    "Luminária de emergência",
+    "Manutenção em quadro elétrico",
+    "Ajuste de piso elevado",
+    "Dispenser de sabão",
+    "Válvula de mictório",
+    "Tampa cega"
+  ],
+  "customSubpastas": [],
+  "customDetalhes": []
+}

@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "fonte": "RELATORIO FOTOGRAFICO - SANTA ADELIA - LEVANTAMENTO PREVENTIVO.docx",
+    "modo": "SP2",
+    "contrato": "1565",
+    "versao": "0.1.0",
+    "data": "2026-05-14"
+  },
+  "narrativas": {
+    "17.4_pintura_externa_parede": "Durante o levantamento na área externa, constatamos a presença de manchas de sujeira nas paredes, comprometendo a estética do ambiente. Será necessário a aplicação de pintura acrílica para restaurar a aparência do ambiente. (Item 17.4 do contrato)",
+    "17.4_pintura_mureta_amarela": "Durante o levantamento na área externa, constatamos a presença de manchas de sujeira na mureta amarela, comprometendo a estética do ambiente. Será necessário a aplicação de pintura acrílica para restaurar a aparência do ambiente. (Item 17.4 do contrato)",
+    "17.4_pintura_mureta_calcada": "Durante o levantamento na área externa, constatamos a presença de manchas de sujeira na mureta da calçada, comprometendo a estética do ambiente. Será necessário a aplicação de pintura acrílica para restaurar a aparência do ambiente. (Item 17.4 do contrato)",
+    "17.9_pintura_automotiva_fachada": "Durante o levantamento constatamos que a fachada se encontra com sinais de desgaste e manchas de sujeiras, afetando diretamente a estética do ambiente e a durabilidade da superfície. Será necessário a aplicação de pintura automotiva. (Item 17.9 do contrato)",
+    "17.1_pintura_metalica_portao": "Durante o levantamento constatamos que a pintura do portal lateral da área externa se encontra danificado, com ferrugem e desgaste, comprometendo a durabilidade e a estética do ambiente. Será necessário a aplicação de pintura esmalte metálica. (Item 17.1 do contrato)",
+    "17.1_pintura_metalica_escada": "Durante o levantamento constatamos que a pintura da escada lateral da área externa se encontra danificado, com ferrugem e desgaste, comprometendo a durabilidade e a estética do ambiente. Será necessário a aplicação de pintura esmalte metálica. (Item 17.1 do contrato)",
+    "17.1_pintura_metalica_grade_janela_curta": "A grade lateral das janelas se encontra danificado, com ferrugem e desgaste, será necessário a aplicação de pintura esmalte metálica (Item 17.1 do contrato)",
+    "17.1_pintura_metalica_grade_janela_longa": "Durante o levantamento constatamos que a grade lateral das janelas se encontra danificado, com ferrugem e desgaste, será necessário a aplicação de pintura esmalte metálica (Item 17.1 do contrato)",
+    "17.8_pintura_piso_resina": "Devido ao desgaste e o desbotamento da pintura. Será necessário a pintura de resina em piso. (Item 17.8 do contrato)",
+    "17.6_pintura_interna_saa": "Durante o levantamento na SAA sala de autoatendimento, constatamos manchas de sujeiras nas paredes, comprometendo a estética do ambiente, sendo necessário a aplicação de pintura acrílica para restaurar a aparência do ambiente. (Item 17.6 do contrato)",
+    "17.6_pintura_interna_generica": "Durante o levantamento, constatamos a presença de manchas de sujeira nas paredes, comprometendo a estética do ambiente. Será necessário a aplicação de pintura acrílica para restaurar a aparência do ambiente. (Item 17.6 do contrato)",
+    "2.12_29.6_piso_tatil": "Durante o levantamento, verificamos a manutenção/instalação de {qtd}un de piso tátil que se encontra arrancado no local de entrada da SAA, comprometendo a visibilidade e a segurança dos clientes. Será necessário a substituição. (Itens 2.12 e 29.6 do contrato)",
+    "12.10_2.18_forro_fibra_mineral": "Durante o levantamento foi constatado que o forro de fibra mineral se encontra com manchas de sujeiras e pontos com umidade. Será necessário a substituição de {qtd}Un de placas do forro. (Itens 12.10 e 2.18 do contrato)",
+    "19.80_luminaria_led": "Durante o levantamento constatamos que será necessário a substituição de {qtd}Un de luminária em LED, para restaurar a estética do ambiente. (Item 19.80 do contrato)",
+    "19.80_luminaria_baixa": "Durante o levantamento constatamos que {qtd}un luminária está com a luminosidade baixa/fraca. Sendo assim necessário à sua substituição para restaurar a aparência do ambiente. (Item 19.80 do contrato)",
+    "15.13_fechadura_porta_vidro": "Durante o levantamento constatamos que será necessário a substituição da fechadura da porta de vidro, pois a mesma não está trancando. (Item 15.13 do contrato)",
+    "17.6_17.2_gesso_acartonado": "Durante o levantamento constatamos que será necessário a substituição do gesso acartonado, a pintura acrílica e seu emassamento. Para restaurar a estética do ambiente. Informamos que as manchas de umidade serão corrigidas conforme o tópico 3.1. (Itens 17.6 e 17.2 do contrato)",
+    "19.18_luminaria_led_padrao": "Durante o levantamento constatamos que será necessário a substituição de {qtd}Un de luminária em LED. (Item 19.18 do contrato)",
+    "17.6_17.2_pintura_forro": "Durante o levantamento, constatamos a presença de manchas de sujeira no forro do ambiente, comprometendo a estética do ambiente. Será necessário a aplicação de pintura acrílica e emassamento para restaurar a aparência do ambiente. (Itens 17.6 e 17.2 do contrato)",
+    "19.1_ponto_eletrico": "Será necessario a manutenção de {qtd}un dos pontos eletricos. (Item 19.1 do contrato)",
+    "19.8_ponto_logico": "Será necessário a manutenção de {qtd}un dos pontos lógicos. (Item 19.8 do contrato)",
+    "8.7_vedacao_calha_pu": "Durante o levantamento constatamos que será necessário a aplicação poliuretano (P.U) nas emendas da calha com a platibanda, visto que as mesmas se encontram vãos e permitem a passagem de água para a área interna. (Item 8.7 do contrato)"
+  },
+  "detalhes": {
+    "17.4_parede": "Detalhes de manchas de sujeiras na parede. (Item 17.4)",
+    "17.4_parede_evidente": "Detalhe de marcas evidentes de manchas de sujeiras na parede da fachada frontal da agência. (Itens 17.4)",
+    "17.4_mureta_amarela": "Detalhes de desgaste e mancha de sujeira na mureta amarela. (item 17.4)",
+    "17.4_mureta_amarela_alt": "Detalhes de manchas de sujeiras na mureta amarela. (Item 17.4)",
+    "17.4_mureta": "Detalhes de manchas de sujeiras na mureta. (Item 17.4)",
+    "17.9_manchas": "Detalhes de marcas de presença de manchas de sujeiras. (Item 17.9)",
+    "17.1_grades": "Detalhes de desgaste e mancha de sujeira nas grandes. (item 17.1)",
+    "17.6_paredes": "Detalhes de manchas de sujeiras nas paredes. (Item 17.6)",
+    "17.6_parede": "Detalhes de manchas de sujeiras na parede (Item 17.6)",
+    "12.10_2.18_forro": "Detalhes de manchas no forro (Itens 12.10 e 2.18)",
+    "17.6_17.2_gesso": "Detalhes de manchas de umidade no gesso acartonado. Informamos que a correção da infiltração está levantada no tópico “3.1 – Vedação em Calhas” (Itens 17.6 e 17.2)",
+    "8.7_calha": "Detalhes dos vãos nas emendas da calha com a platibanda, sendo necessário a aplicação de PU (Item 8.7 do contrato)",
+    "17.6_17.2_infiltracao": "Infiltrações no corredor de abastecimento (Item 17.6 e 17.2 do contrato)"
+  },
+  "capa": "Foto 1 – AGÊNCIA {num_ag} – {endereco} – {cidade} - {uf}",
+  "descricao_vistoria": "Nosso técnico visitou a agência e realizou o serviço de levantamento preventivo. A visita foi acompanhada pela gerente {nome_gerente} – Matrícula N° {matricula}"
+}

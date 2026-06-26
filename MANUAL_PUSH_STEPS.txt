@@ -1,0 +1,108 @@
+===============================================
+INSTRUÇÕES PARA PUSH MANUAL - GIT
+===============================================
+
+Você já fez:
+✓ Commit 314ffdf com relatórios e instruções
+
+Faltam as pastas 01 e 03.
+
+EXECUTE ESTES COMANDOS UM POR UM:
+(Abra Command Prompt ou PowerShell e cole cada linha)
+
+===============================================
+PASSO 1: Navigate para a pasta
+===============================================
+
+cd C:\Users\thiag\Desktop\TM-MEUS-APPS
+
+
+===============================================
+PASSO 2: Remover lock (se existir)
+===============================================
+
+del .git\index.lock
+
+
+===============================================
+PASSO 3: Adicionar pasta 01
+(AGUARDE 2-3 MINUTOS - NÃO FECHE A JANELA)
+===============================================
+
+git add "01_Golden_Apps_meu_uso/"
+
+
+===============================================
+PASSO 4: Adicionar pasta 03
+(AGUARDE 2-3 MINUTOS - NÃO FECHE A JANELA)
+===============================================
+
+git add "03_Arquivo_Morto_Legado/"
+
+
+===============================================
+PASSO 5: Verificar status
+===============================================
+
+git status --short
+
+
+Você deve ver algo como:
+A  01_Golden_Apps_meu_uso/...
+A  03_Arquivo_Morto_Legado/...
+
+
+===============================================
+PASSO 6: Commit das pastas
+===============================================
+
+git commit -m "chore: adicionar conteudo das pastas 01 e 03"
+
+
+===============================================
+PASSO 7: Push para GitHub
+===============================================
+
+git push origin test -v
+
+
+===============================================
+PASSO 8: Verificar sucesso
+===============================================
+
+git log --oneline -3
+
+Você deve ver:
+- commit com "adicionar conteudo das pastas 01 e 03"
+- commit 314ffdf "adicionar relatorios..."
+- e mais um
+
+
+===============================================
+FEITO!
+===============================================
+
+Acesse seu GitHub para verificar:
+https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS/tree/test
+
+Você deve ver:
+✓ 01_Golden_Apps_meu_uso com todos os arquivos
+✓ 03_Arquivo_Morto_Legado com todos os arquivos
+✓ Sem ícone azul de submodule
+✓ Tudo como pastas normais
+
+===============================================
+SE FICAR PRESO NO GIT ADD:
+===============================================
+
+Se parecer que travou no passo 3 ou 4:
+- Aguarde 5-10 minutos
+- Não feche a janela
+- Git está processando muitos arquivos
+
+Dicas:
+- Tenha paciência
+- Verifique sua conexão internet
+- Não interrompa o processo
+
+===============================================

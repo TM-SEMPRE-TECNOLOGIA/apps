@@ -1,0 +1,41 @@
+# TM Chat — Expansão Concluída
+
+A expansão do aplicativo Next.js (TM Chat) foi implementada com sucesso. O app agora conta com recursos avançados de Base de Conhecimento (RAG) para leitura de documentos DOCX e PDF, Histórico Privado de Conversas e Configurações.
+
+## Mudanças Realizadas
+
+*   **Base de Conhecimento (RAG Local)**:
+    *   Criada a pasta `knowledge-base/` para armazenar PDFs e DOCX.
+    *   Nova página `/knowledge` implementada: permite arrastar e soltar (drag & drop) arquivos para o servidor, listar os disponíveis e excluir.
+    *   Nova API `/api/documents` (GET, POST, DELETE) cuida do gerenciamento dos arquivos no disco.
+    *   Nova biblioteca [src/lib/knowledge.ts](file:///c:/Users/thiag/Desktop/TESTE/nextjs-chat/src/lib/knowledge.ts) implementada: usa `mammoth` para ler `.docx` e `pdf-parse` para ler `.pdf`. O texto extraído é quebrado em blocos (chunks), e os trechos mais relevantes à pergunta do usuário são injetados diretamente no contexto da IA antes da chamada para a API do OpenRouter.
+*   **Histórico de Conversas**:
+    *   Nova lib [src/lib/history.ts](file:///c:/Users/thiag/Desktop/TESTE/nextjs-chat/src/lib/history.ts) para gerenciar as conversas no `localStorage`.
+    *   Nova página `/history` que lista as conversas salvas com o nome do assistente, modelo utilizado e resumo.
+    *   Adicionado um botão para **Restaurar Conversas**. Quando ativado, ele carrega a conversa completa na interface do chat principal novamente.
+*   **Configurações**:
+    *   Nova página `/settings` adicionada para modificar o Modelo padrão a ser utilizado nas conversas, o Nome do Assistente Principal, e ativar/desativar o salvamento automático de conversas. Há também um botão "Danger Zone" para limpar todos os dados.
+*   **Chat Principal (Atualizado)**:
+    *   O cabeçalho (header) foi reescrito. Ele agora inclui o seletor da Base de Conhecimento. Você pode clicar e marcar quais arquivos de DOCX/PDF deseja que a IA consulte para responder àquela conversa.
+    *   A API [/api/chat/route.ts](file:///c:/Users/thiag/Desktop/TESTE/nextjs-chat/src/app/api/chat/route.ts) captura esses `activeDocuments` e realiza a injeção do contexto usando RAG simplificado (TF-IDF keyword score).
+    *   Ícones adicionados ao header para navegação rápida entre `/history`, `/settings` e `/personas`.
+    *   Removido vazamento dinâmico de libs Server-Side (`mammoth` e `pdf-parse`) configurando `serverExternalPackages` no [next.config.ts](file:///c:/Users/thiag/Desktop/TESTE/nextjs-chat/next.config.ts).
+
+## Plano de Verificação Manual (Para o Usuário)
+
+Como o app roda localmente na sua máquina, sugiro fazer os seguintes testes acessando \`http://localhost:3000\`:
+
+1.  **Testar Upload de Documentos**:
+    *   Acesse a nova página no header ou vá para \`/knowledge\`.
+    *   Arraste um PDF ou DOCX para a área pontilhada e verifique se o arquivo aparece na base.
+2.  **Testar Respostas com RAG**:
+    *   Vá para a página inicial (chat).
+    *   No alto da tela, clique no ícone de "Base de Conhecimento" e marque o arquivo que você subiu.
+    *   Faça perguntas específicas sobre o conteúdo do seu documento e veja se a IA responde utilizando esses dados.
+3.  **Testar o Histórico de Conversas**:
+    *   Converse um pouco no chat e clique no ícone de disquete (Salvar) na área de digitação (ou ative o Auto-Save em configurações).
+    *   Acesse \`/history\`, visualize sua conversa e clique no botão **Restaurar** para trazê-la de volta.
+4.  **Configurações Personalizadas**:
+    *   Acesse \`/settings\` e mude o modelo de IA padrão ou limpe o histórico.
+
+O sistema manteve toda a qualidade visual (_glassmorphism_ / _tailwind_) requisitada e adiciona uma flexibilidade gigantesca sem a necessidade de expor arquivos confidenciais da empresa.

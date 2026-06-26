@@ -1,0 +1,25 @@
+{
+  "hooks": [
+    {
+      "name": "tm-commit-session-end",
+      "event": "SessionEnd",
+      "description": "Ao fim da sessão, mostrar resumo de mudanças e oferecer opções de commit/push",
+      "prompt": "O usuário está finalizando a sessão. Verifique mudanças no repositório TM-MEUS-APPS usando `/tm-commit status`. Se houver mudanças, mostre um resumo formatado com:\n\n📋 Resumo da Sessão - TM-MEUS-APPS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📁 Arquivos criados: [n]\n✏️ Arquivos modificados: [n]\n🗑️ Arquivos deletados: [n]\n💾 Tamanho total: [tamanho]\n\nE ofereça 3 opções:\n[1] Sim, fazer auto-commit + push\n[2] Não, deixar para depois\n[3] Revisar mudanças primeiro\n\nNÃO pergunte nada se não houver mudanças.",
+      "triggers": ["session-end"]
+    },
+    {
+      "name": "tm-commit-file-created",
+      "event": "FileCreated",
+      "description": "Quando arquivo é criado em pasta monitorada, notificar e oferecer opções",
+      "prompt": "Um arquivo foi criado em uma pasta monitorada do TM-MEUS-APPS. Use `/tm-commit status` para verificar. Se detectar mudanças, mostre:\n\n📁 Mudança detectada em [pasta]/\n[arquivo] ([tamanho])\n\nApós validar segurança (avisar se houver credenciais suspeitas), ofereça 3 opções:\n\n[1] Apenas notificar (só mostrar status)\n[2] Perguntar se quer fazer staging\n[3] Auto-commit sem perguntar\n\nA opção ativa depende da configuração do usuário em `/tm-commit settings`.",
+      "triggers": ["file-created"]
+    },
+    {
+      "name": "tm-commit-session-start",
+      "event": "SessionStart",
+      "description": "Ao iniciar sessão, fazer git pull e mostrar status",
+      "prompt": "Ao iniciar uma nova sessão, execute `/tm-commit status` para mostrar o estado atual do repositório. Se houver mudanças não sincronizadas, informe o usuário. Mensagem recomendada:\n\n🔄 Sincronizando repositório TM-MEUS-APPS...\nStatus: [tudo atualizado ✓ / X mudanças não commitadas]\n\nNÃO faça push automático — apenas informe o status.",
+      "triggers": ["session-start"]
+    }
+  ]
+}

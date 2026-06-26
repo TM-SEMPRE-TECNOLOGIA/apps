@@ -18235,3 +18235,145 @@ Sessão iniciada em 2026-05-05T18:55:10.749471
  GET / [32m200[39m in 7.1s[2m (compile: 5.9s, render: 1177ms)[22m
  GET / [32m200[39m in 1376ms[2m (compile: 150ms, render: 1226ms)[22m
  GET / [32m200[39m in 10.2s[2m (compile: 3.9s, render: 6.3s)[22m
+
+============================================================
+Sessão iniciada em 2026-05-12T16:41:02.694619
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 10.7s
+ GET / [32m200[39m in 3.8s[2m (compile: 3.5s, render: 277ms)[22m
+^C^C
+
+============================================================
+Sessão iniciada em 2026-05-13T00:52:21.696586
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 6.5s
+ GET / [32m200[39m in 3.5s[2m (compile: 2.9s, render: 596ms)[22m
+[?25h
+
+============================================================
+Sessão iniciada em 2026-05-15T09:54:20.800625
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 2.5s
+[37m[1m○[22m[39m Compiling / ...
+ GET / [32m200[39m in 11.8s[2m (compile: 11.6s, render: 226ms)[22m
+
+============================================================
+Sessão iniciada em 2026-05-18T17:16:04.218096
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 1837ms
+ GET / [32m200[39m in 3.4s[2m (compile: 2.8s, render: 576ms)[22m
+^C^C
+
+============================================================
+Sessão iniciada em 2026-05-19T13:54:02.617033
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 3.3s
+ GET / [32m200[39m in 3.3s[2m (compile: 2.2s, render: 1063ms)[22m
+^C
+
+============================================================
+Sessão iniciada em 2026-05-24T20:15:28.943492
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 2.9s
+ GET / [32m200[39m in 1823ms[2m (compile: 1273ms, render: 549ms)[22m
+
+============================================================
+Sessão iniciada em 2026-05-24T20:39:13.437902
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 2.6s
+ GET / [32m200[39m in 1018ms[2m (compile: 746ms, render: 273ms)[22m
+^C
+
+============================================================
+Sessão iniciada em 2026-06-20T15:14:14.039347
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+Failed to benchmark file I/O: O sistema não pode encontrar o caminho especificado. (os error 3)
+[32m[1m✓[22m[39m Ready in 7s
+[37m[1m○[22m[39m Compiling / ...
+ GET / [32m200[39m in 9.1s[2m (compile: 8.8s, render: 351ms)[22m
+^C^C
+
+============================================================
+Sessão iniciada em 2026-06-20T23:32:24.174597
+============================================================
+
+> nx-relatorios-sp@1.0.0 dev
+> next dev --port 3000
+[1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://54.232.189.113:3000
+- Environments: .env.local
+[32m[1m✓[22m[39m Starting...
+[32m[1m✓[22m[39m Ready in 2.4s
+ GET / [32m200[39m in 1206ms[2m (compile: 982ms, render: 224ms)[22m
+ GET /meta.json [33m404[39m in 1827ms[2m (compile: 1639ms, render: 188ms)[22m
+ GET /meta.json [33m404[39m in 858ms[2m (compile: 638ms, render: 220ms)[22m
+ GET /meta.json [33m404[39m in 159ms[2m (compile: 26ms, render: 133ms)[22m
+ GET /meta.json [33m404[39m in 137ms[2m (compile: 9ms, render: 128ms)[22m
+ GET /meta.json [33m404[39m in 98ms[2m (compile: 15ms, render: 83ms)[22m
+ GET /meta.json [33m404[39m in 48ms[2m (compile: 8ms, render: 39ms)[22m
+^C^C

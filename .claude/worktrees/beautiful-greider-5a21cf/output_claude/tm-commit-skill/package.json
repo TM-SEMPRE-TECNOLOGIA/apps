@@ -1,0 +1,154 @@
+{
+  "name": "tm-commit",
+  "version": "1.0.0",
+  "description": "Git automation skill para TM-MEUS-APPS - Detecta mudanças, cria commits estruturados e sincroniza com GitHub",
+  "author": "Claude AI",
+  "license": "MIT",
+  "type": "skill",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS"
+  },
+  "main": "tm-commit.js",
+  "commands": {
+    "tm-commit": {
+      "description": "Git automation para repositório TM-MEUS-APPS",
+      "usage": "/tm-commit <comando> [opções]",
+      "aliases": ["git-commit", "commit", "push-to-github"],
+      "subcommands": {
+        "status": {
+          "description": "Ver status e mudanças do repositório",
+          "usage": "/tm-commit status"
+        },
+        "add": {
+          "description": "Fazer staging de arquivos modificados",
+          "usage": "/tm-commit add"
+        },
+        "commit": {
+          "description": "Criar commit com mensagem estruturada",
+          "usage": "/tm-commit commit 'tipo(escopo): descrição'"
+        },
+        "push": {
+          "description": "Fazer push para GitHub main branch",
+          "usage": "/tm-commit push"
+        },
+        "sync": {
+          "description": "Sincronizar completo: git pull + add + commit + push",
+          "usage": "/tm-commit sync"
+        },
+        "log": {
+          "description": "Ver histórico de commits",
+          "usage": "/tm-commit log [n]"
+        },
+        "clean": {
+          "description": "Limpar branches antigas",
+          "usage": "/tm-commit clean"
+        },
+        "help": {
+          "description": "Mostra ajuda e exemplos",
+          "usage": "/tm-commit help"
+        }
+      }
+    }
+  },
+  "config": {
+    "repository": {
+      "path": "C:\\Users\\thiag\\Desktop\\TM-MEUS-APPS",
+      "branch": "main",
+      "github": "https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS"
+    },
+    "rules": {
+      "location": ".agent/rules/TM-COMMIT-RULES.md",
+      "enforced": true,
+      "autoLoad": true
+    },
+    "monitoring": {
+      "enabled": true,
+      "checkpointInterval": 10,
+      "autoCommit": {
+        "enabled": true,
+        "askBeforePush": true
+      },
+      "folders": [
+        "01_Golden_Apps_meu_uso",
+        "03_Arquivo_Morto_Legado",
+        "output_claude",
+        "Obisidian",
+        "TM Design System - NOVO Laranjado",
+        "TM Marketing",
+        "Monetizacao_com_IA",
+        "Meus Plugins e Skills"
+      ],
+      "ignored": [
+        ".agent",
+        ".claude",
+        ".venv",
+        ".vs",
+        "node_modules",
+        ".DS_Store",
+        "*.log",
+        "*.swp"
+      ]
+    },
+    "commitConvention": {
+      "type": "conventional",
+      "enforced": true,
+      "allowedTypes": [
+        "feat",
+        "fix",
+        "docs",
+        "refactor",
+        "chore",
+        "test",
+        "perf",
+        "ci"
+      ]
+    },
+    "security": {
+      "blockCredentials": true,
+      "blockLargeFiles": true,
+      "maxFileSizeMB": 100,
+      "checkSecrets": true,
+      "blockedPatterns": [
+        ".env",
+        "*.key",
+        "*.secret",
+        "secrets.json",
+        "config.prod.json"
+      ]
+    }
+  },
+  "keywords": [
+    "git",
+    "github",
+    "automation",
+    "commits",
+    "versionamento",
+    "tm-meus-apps",
+    "skill",
+    "cowork"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "cowork": ">=1.0.0"
+  },
+  "scripts": {
+    "test": "node tm-commit.js --test",
+    "install": "echo 'tm-commit skill instalado com sucesso'",
+    "start": "node tm-commit.js"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "cowork": {
+    "type": "skill",
+    "category": "git-automation",
+    "enabled": true,
+    "invokeAutomatically": true,
+    "invokeOn": [
+      "session-start",
+      "file-created",
+      "session-end",
+      "checkpoint"
+    ]
+  }
+}

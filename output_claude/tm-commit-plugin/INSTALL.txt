@@ -1,0 +1,185 @@
+🚀 TM-COMMIT PLUGIN v1.0.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INSTALAÇÃO RÁPIDA (3 passos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣ EXTRAIR PLUGIN
+   Extraia a pasta tm-commit-plugin para:
+   C:\Users\[seu-user]\AppData\Roaming\Claude\plugins\
+
+2️⃣ REINICIAR COWORK
+   Feche e reabra o Cowork Desktop
+
+3️⃣ TESTAR
+   Em um novo chat, execute:
+   /tm-commit status
+
+   Se vir status ✅, está funcionando!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARQUIVOS PRINCIPAIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ .claude-plugin/plugin.json
+   → Metadados do plugin (versão, nome, author)
+
+✅ skills/tm-commit/SKILL.md
+   → Documentação completa (8 comandos, exemplos, fluxos)
+
+✅ hooks/hooks.json
+   → Auto-triggers (session-start, file-created, session-end)
+
+✅ docs/SETUP.md
+   → Guia passo a passo de instalação
+
+✅ docs/USAGE.md
+   → Exemplos práticos de uso
+
+✅ docs/TROUBLESHOOTING.md
+   → Soluções de problemas comuns
+
+✅ docs/FAQ.md
+   → Perguntas frequentes e respostas
+
+✅ README.md
+   → Visão geral do plugin
+
+✅ ARQUITETURA.md
+   → Diagramas e fluxos técnicos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SEUS 3 MODOS (ESCOLHA 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[1] APENAS NOTIFICAR (Máximo Controle)
+    📁 Mudança detectada
+    → Você decide o que fazer
+
+[2] PERGUNTAR SEMPRE (Recomendado)
+    📁 Mudança detectada
+    Deseja fazer staging? [Sim/Não]
+    → Balanço entre controle e automação
+
+[3] AUTO-COMMIT (Máxima Automação)
+    📁 Mudança detectada
+    🤖 Auto-commit + push (sem perguntar)
+    → Máxima automação
+
+Configure com: /tm-commit settings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMANDOS DISPONÍVEIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/tm-commit status     Ver mudanças
+/tm-commit add        Fazer staging
+/tm-commit commit     Criar commit
+/tm-commit push       Fazer push
+/tm-commit sync       Pull + push completo
+/tm-commit log [n]    Ver últimos n commits
+/tm-commit clean      Limpar branches antigas
+/tm-commit help       Ver ajuda
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMPORTAMENTO AUTOMÁTICO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 INÍCIO DA SESSÃO (Session-Start)
+   → Sincroniza repositório
+   → Mostra status
+
+📁 AO CRIAR ARQUIVO (File-Created)
+   → Detecta mudança
+   → Executa sua opção escolhida (1, 2 ou 3)
+
+📋 FIM DA SESSÃO (Session-End)
+   → Mostra resumo de mudanças
+   → Oferece 3 opções: [Sim] [Não] [Revisar]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SUGESTÃO DE COMMITS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O plugin sugere baseado nos arquivos mudados:
+
+feat(output_claude): criar novo dashboard
+docs(readme): atualizar documentação
+fix(gitignore): adicionar .venv
+chore: sincronizar checkpoint
+
+Você pode:
+✅ Aceitar sugestão
+✏️ Editar e customizar
+❌ Cancelar
+
+NUNCA commita sem sua aprovação!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SEGURANÇA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ BLOQUEADO (com aviso):
+   - .env, *.key, secrets.json
+   - Padrões: API_KEY, PASSWORD, TOKEN
+   - Arquivos > 100 MB
+
+✅ PERMITIDO:
+   - Qualquer arquivo em pastas monitoradas
+   - Respeita .gitignore automaticamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASTAS MONITORADAS (8)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ 01_Golden_Apps_meu_uso/
+✅ 03_Arquivo_Morto_Legado/
+✅ output_claude/        (IA-generated)
+✅ Obisidian/           (Knowledge base)
+✅ TM Design System - NOVO Laranjado/
+✅ TM Marketing/
+✅ Monetizacao_com_IA/
+✅ Meus Plugins e Skills/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DOCUMENTAÇÃO COMPLETA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 SKILL.md              Especificação técnica completa
+📦 SETUP.md              Instalação passo a passo
+📚 USAGE.md              Exemplos práticos
+🔧 TROUBLESHOOTING.md    Problemas comuns + soluções
+❓ FAQ.md                Perguntas frequentes
+🏗️ ARQUITETURA.md        Diagramas e fluxos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRÓXIMOS PASSOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Instale seguindo os 3 passos acima
+2. Reinicie o Cowork
+3. Execute: /tm-commit status
+4. Escolha seu modo com: /tm-commit settings
+5. Veja exemplos em: docs/USAGE.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VERSÃO: 1.0.0
+STATUS: ✅ Pronto para uso
+DATA: 2026-05-13
+
+GitHub: https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS
+Repo: C:\Users\thiag\Desktop\TM-MEUS-APPS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 Pronto para começar!

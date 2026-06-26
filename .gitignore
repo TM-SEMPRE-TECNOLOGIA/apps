@@ -10,13 +10,14 @@ node_modules/
 .env.local
 .env
 
+# Python
+__pycache__/
+*.pyc
+.venv/
+
 # System
 .DS_Store
 Thumbs.db
-
-# Claude/Cowork
-.claude/
-.agent/
 
 # Build
 dist/

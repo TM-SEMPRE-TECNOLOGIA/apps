@@ -1,0 +1,134 @@
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparativo de Ordenação de Pastas - TM Relatório</title>
+        <style>
+            :root {
+                --primary: #2563eb;
+                --bg: #f8fafc;
+                --card-bg: #ffffff;
+                --text: #1e293b;
+                --border: #e2e8f0;
+            }
+            body { 
+                font-family: 'Inter', sans-serif; 
+                background: var(--bg); 
+                color: var(--text); 
+                margin: 0; 
+                padding: 40px; 
+            }
+            .container { max-width: 1200px; margin: 0 auto; }
+            h1 { color: #0f172a; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+            .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+            h2 { margin-top: 0; color: var(--primary); }
+            .grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+            .list-box { background: #f1f5f9; padding: 15px; border-radius: 8px; }
+            .list-box h3 { margin-top: 0; font-size: 0.9rem; text-transform: uppercase; color: #64748b; }
+            ul { list-style: none; padding: 0; margin: 0; }
+            li { padding: 8px 12px; background: #fff; border: 1px solid #e2e8f0; margin-bottom: 4px; border-radius: 4px; font-family: monospace; font-size: 0.85rem;}
+            .highlight-va { border-left: 4px solid #10b981; background: #f0fdf4; } 
+            .highlight-det { border-left: 4px solid #f59e0b; background: #fffbeb; } 
+            .highlight-num { border-left: 4px solid #3b82f6; background: #eff6ff; }
+            .footer { margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; }
+            .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; margin-left: 5px; }
+            .badge-va { background: #dcfce7; color: #166534; }
+            .badge-det { background: #fef3c7; color: #92400e; }
+            .badge-num { background: #dbeafe; color: #1e40af; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Comparativo de Ordenação (Leitor de Pastas)</h1>
+            <p>Comparando o modo atual (Tradicional), o Legado, e a Nova Proposta Perfeita.</p>
+    
+        <div class="card">
+            <h2>Cenário 1: Subpastas internas</h2>
+            <div class="grid">
+                <div class="list-box">
+                    <h3>Entrada sem ordem</h3>
+                    <ul><li>01.02 - Elétrica</li><li>01.01 - Pintura</li><li>- Vista ampla</li><li>- Detalhes</li></ul>
+                </div>
+                
+                <div class="list-box">
+                    <h3>Modo Legado</h3>
+                    <ul><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01.01 - Pintura <span class='badge badge-num'>SRV</span></li><li class="highlight-num">01.02 - Elétrica <span class='badge badge-num'>SRV</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Dependia do Windows (ordem alfabética): hífen vem antes de número. Logo 'Detalhes' vinha antes da pintura também!</em></p>
+                </div>
+
+                <div class="list-box">
+                    <h3>Tradicional (Atual)</h3>
+                    <ul><li class="highlight-num">01.01 - Pintura <span class='badge badge-num'>SRV</span></li><li class="highlight-num">01.02 - Elétrica <span class='badge badge-num'>SRV</span></li><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Problema atual: Joga 'Vista ampla' e 'Detalhes' pro fim (ambos sem número).</em></p>
+                </div>
+
+                <div class="list-box" style="background: #e0f2fe; border: 1px solid #bae6fd;">
+                    <h3 style="color: #0369a1;">Nova Proposta Perfeita</h3>
+                    <ul><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01.01 - Pintura <span class='badge badge-num'>SRV</span></li><li class="highlight-num">01.02 - Elétrica <span class='badge badge-num'>SRV</span></li><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #0369a1; margin-top: 10px;"><em>Garante: Vista Ampla -> Serviços Numerados -> Outros -> Detalhes.</em></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Cenário 2: Subpastas internas</h2>
+            <div class="grid">
+                <div class="list-box">
+                    <h3>Entrada sem ordem</h3>
+                    <ul><li>Escadaria</li><li>02 - Cozinha</li><li>- Vista ampla</li><li>01 - Garagem</li></ul>
+                </div>
+                
+                <div class="list-box">
+                    <h3>Modo Legado</h3>
+                    <ul><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01 - Garagem <span class='badge badge-num'>SRV</span></li><li class="highlight-num">02 - Cozinha <span class='badge badge-num'>SRV</span></li><li class="">Escadaria </li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Dependia do Windows (ordem alfabética): hífen vem antes de número. Logo 'Detalhes' vinha antes da pintura também!</em></p>
+                </div>
+
+                <div class="list-box">
+                    <h3>Tradicional (Atual)</h3>
+                    <ul><li class="highlight-num">01 - Garagem <span class='badge badge-num'>SRV</span></li><li class="highlight-num">02 - Cozinha <span class='badge badge-num'>SRV</span></li><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="">Escadaria </li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Problema atual: Joga 'Vista ampla' e 'Detalhes' pro fim (ambos sem número).</em></p>
+                </div>
+
+                <div class="list-box" style="background: #e0f2fe; border: 1px solid #bae6fd;">
+                    <h3 style="color: #0369a1;">Nova Proposta Perfeita</h3>
+                    <ul><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01 - Garagem <span class='badge badge-num'>SRV</span></li><li class="highlight-num">02 - Cozinha <span class='badge badge-num'>SRV</span></li><li class="">Escadaria </li></ul>
+                    <p style="font-size: 0.75rem; color: #0369a1; margin-top: 10px;"><em>Garante: Vista Ampla -> Serviços Numerados -> Outros -> Detalhes.</em></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Cenário 3: Subpastas internas</h2>
+            <div class="grid">
+                <div class="list-box">
+                    <h3>Entrada sem ordem</h3>
+                    <ul><li>- Vista ampla</li><li>- Detalhes</li><li>01.01 - Piso</li></ul>
+                </div>
+                
+                <div class="list-box">
+                    <h3>Modo Legado</h3>
+                    <ul><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01.01 - Piso <span class='badge badge-num'>SRV</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Dependia do Windows (ordem alfabética): hífen vem antes de número. Logo 'Detalhes' vinha antes da pintura também!</em></p>
+                </div>
+
+                <div class="list-box">
+                    <h3>Tradicional (Atual)</h3>
+                    <ul><li class="highlight-num">01.01 - Piso <span class='badge badge-num'>SRV</span></li><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;"><em>Problema atual: Joga 'Vista ampla' e 'Detalhes' pro fim (ambos sem número).</em></p>
+                </div>
+
+                <div class="list-box" style="background: #e0f2fe; border: 1px solid #bae6fd;">
+                    <h3 style="color: #0369a1;">Nova Proposta Perfeita</h3>
+                    <ul><li class="highlight-va">- Vista ampla <span class='badge badge-va'>VA</span></li><li class="highlight-num">01.01 - Piso <span class='badge badge-num'>SRV</span></li><li class="highlight-det">- Detalhes <span class='badge badge-det'>DET</span></li></ul>
+                    <p style="font-size: 0.75rem; color: #0369a1; margin-top: 10px;"><em>Garante: Vista Ampla -> Serviços Numerados -> Outros -> Detalhes.</em></p>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+    </body>
+    </html>
+    

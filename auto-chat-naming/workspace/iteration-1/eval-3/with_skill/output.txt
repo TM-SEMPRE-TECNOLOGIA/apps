@@ -1,0 +1,3 @@
+Implementar scanner e gerador do Word SP3 (CONTINUAR)
+Codificar modelo SP3 do AutoRelatório (CONTINUAR)
+Desenvolver componentes scanner e Word SP3

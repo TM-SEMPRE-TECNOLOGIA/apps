@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Atualizações - Design System TM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══ OCEAN BREEZE TOKENS ═══ */
+        :root {
+            --TM-primary: #22c55e;
+            --TM-primary-hover: #16a34a;
+            --TM-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            --TM-font-serif: 'Lora', Georgia, serif;
+            --TM-font-sans: 'DM Sans', system-ui, sans-serif;
+            --TM-font-mono: 'IBM Plex Mono', monospace;
+            --TM-radius-md: 8px;
+            --TM-radius-lg: 14px;
+            --TM-radius-xl: 20px;
+
+            --tm-bg: #f8faf9;
+            --tm-bg-card: #ffffff;
+            --tm-text: #1a2e1f;
+            --tm-text-muted: #4a5e50;
+            --tm-text-subtle: #7a8e80;
+            --tm-border: #d4e5da;
+            --tm-shadow: 0 2px 8px rgba(34, 197, 94, 0.06);
+            --tm-shadow-lg: 0 8px 24px rgba(34, 197, 94, 0.08);
+            --tm-shadow-xl: 0 16px 48px rgba(34, 197, 94, 0.12);
+            --tm-danger: #ef4444;
+            --tm-success: #22c55e;
+            --tm-info: #3b82f6;
+        }
+
+        html.dark {
+            --tm-bg: #0f1a13;
+            --tm-bg-card: #162119;
+            --tm-text: #e8f5ec;
+            --tm-text-muted: #a3c4ac;
+            --tm-text-subtle: #6b8f74;
+            --tm-border: #243d2c;
+            --tm-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --tm-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --tm-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--TM-font-sans);
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══ BACKGROUND ═══ */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-particles::before,
+        .bg-particles::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+            animation: floatParticle 30s ease-in-out infinite;
+        }
+
+        .bg-particles::before {
+            width: 800px;
+            height: 800px;
+            background: var(--TM-primary);
+            top: -200px;
+            right: -200px;
+        }
+
+        .bg-particles::after {
+            width: 700px;
+            height: 700px;
+            background: var(--TM-primary-hover);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -15s;
+        }
+
+        @keyframes floatParticle {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -70px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-40px, 40px) scale(0.9);
+            }
+        }
+
+        /* ═══ THEME TOGGLE ═══ */
+        .theme-toggle {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.5rem;
+            z-index: 100;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1.5px solid var(--tm-border);
+            background: var(--tm-bg-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tm-text-muted);
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--TM-primary);
+            color: var(--TM-primary);
+        }
+
+        .icon-sun,
+        .icon-moon {
+            display: flex;
+            align-items: center;
+        }
+
+        html.dark .icon-sun {
+            display: none;
+        }
+
+        html:not(.dark) .icon-moon {
+            display: none;
+        }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 100px;
+            padding: 8px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--TM-primary);
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--TM-font-mono);
+        }
+
+        .hero h1 {
+            font-family: var(--TM-font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: var(--TM-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--tm-text-muted);
+            max-width: 650px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .hero-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--tm-text);
+            padding: 10px 20px;
+            background: var(--tm-bg-card);
+            border-radius: 100px;
+            border: 1px solid var(--tm-border);
+        }
+
+        .hero-brand .company {
+            color: var(--TM-primary);
+            font-weight: 700;
+        }
+
+        /* ═══ STATS ═══ */
+        .stats-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 0 20px 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: var(--TM-font-serif);
+            background: var(--TM-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--TM-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 6px;
+            font-weight: 600;
+            font-family: var(--TM-font-mono);
+        }
+
+        /* ═══ TIMELINE ═══ */
+        .timeline-section {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding: 0 10px;
+            border-bottom: 1px solid var(--tm-border);
+            padding-bottom: 20px;
+        }
+
+        .timeline-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--tm-text-subtle);
+            font-weight: 700;
+            font-family: var(--TM-font-mono);
+        }
+
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 40px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--TM-primary) var(--tm-bg);
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-thumb {
+            background: var(--TM-primary);
+            border-radius: 10px;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 30px 100px 0;
+            gap: 120px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 60px;
+            left: 100px;
+            right: 100px;
+            height: 4px;
+            background: var(--TM-gradient);
+            border-radius: 2px;
+            z-index: 0;
+            opacity: 0.7;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        }
+
+        /* ═══ NODES ═══ */
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 180px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .node-date {
+            font-size: 0.75rem;
+            color: var(--tm-text-subtle);
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--TM-font-mono);
+        }
+
+        .node-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--tm-bg);
+            border: 4px solid var(--tm-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 0 4px var(--tm-bg);
+            color: var(--tm-text-subtle);
+        }
+
+        .timeline-node:hover .node-dot,
+        .timeline-node.active .node-dot {
+            border-color: var(--TM-primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.4), 0 0 0 6px rgba(34, 197, 94, 0.15);
+            background: var(--tm-bg-card);
+            color: var(--TM-primary);
+        }
+
+        .node-label {
+            font-size: 0.9rem;
+            color: var(--tm-text-subtle);
+            margin-top: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .timeline-node:hover .node-label,
+        .timeline-node.active .node-label {
+            color: var(--tm-text);
+        }
+
+        /* ═══ DETAIL CARD ═══ */
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+            min-height: 300px;
+        }
+
+        .detail-card {
+            display: none;
+            background: var(--tm-bg-card);
+            backdrop-filter: blur(20px);
+            border: 1.5px solid var(--tm-border);
+            border-radius: var(--TM-radius-xl);
+            padding: 40px;
+            box-shadow: var(--tm-shadow-xl);
+            animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--tm-border);
+            padding-bottom: 20px;
+        }
+
+        .card-title {
+            font-family: var(--TM-font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--tm-text);
+        }
+
+        .card-badge {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--TM-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: var(--TM-font-mono);
+        }
+
+        .card-desc {
+            font-size: 1.05rem;
+            color: var(--tm-text-muted);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .card-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .card-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--tm-text);
+            background: var(--tm-bg);
+            padding: 16px;
+            border-radius: var(--TM-radius-md);
+            border: 1px solid var(--tm-border);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .card-features li:hover {
+            transform: translateY(-2px);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .card-features li .check {
+            color: var(--tm-success);
+            flex-shrink: 0;
+        }
+
+        /* ═══ FOOTER ═══ */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--tm-text-subtle);
+            margin-top: 50px;
+            border-top: 1px solid var(--tm-border);
+        }
+
+        .footer-logo {
+            font-family: var(--TM-font-serif);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--TM-primary);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats-bar {
+                gap: 30px;
+            }
+
+            .detail-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ═══ REDUCED MOTION ═══ */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ═══ FOCUS VISIBLE ═══ */
+        :focus-visible {
+            outline: 2px solid var(--TM-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-particles"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
+        <span class="icon-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg></span>
+        <span class="icon-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg></span>
+    </button>
+
+    <section class="hero">
+        <div class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                    d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" />
+            </svg>
+            Design System
+        </div>
+        <h1>Design System TM</h1>
+        <p class="hero-subtitle">Histórico de evolução do sistema de design Ocean Breeze, tokens, componentes e
+            documentação visual.</p>
+        <div class="hero-brand">
+            <span class="company">TM - Sempre Tecnologia</span> | <span>Thiago Nascimento Barbosa</span>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Versões</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">v2.0</div>
+            <div class="stat-label">Ocean Breeze</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-label" style="color: var(--tm-success);">Ativo</div>
+        </div>
+    </div>
+
+    <section class="timeline-section">
+        <div class="timeline-header">
+            <span class="timeline-title">Evolução do Design System</span>
+        </div>
+        <div class="timeline-track-wrapper">
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-node" onclick="showCard(0, this)">
+                    <span class="node-date">Fev 2026</span>
+                    <div class="node-dot">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" />
+                        </svg>
+                    </div>
+                    <span class="node-label">Ocean Breeze v1.0</span>
+                </div>
+
+                <div class="timeline-node" onclick="showCard(1, this)">
+                    <span class="node-date">Março 2026</span>
+                    <div class="node-dot">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                        </svg>
+                    </div>
+                    <span class="node-label">Auditoria & Evolução v2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="detail-card-area">
+        <div class="detail-card" data-card="0">
+            <div class="card-header">
+                <h2 class="card-title">Ocean Breeze v1.0</h2>
+                <span class="card-badge">Fundação</span>
+            </div>
+            <p class="card-desc">Criação do Design System Ocean Breeze com identidade visual "Clean Professional",
+                tokens CSS, hub de ferramentas e documentação base.</p>
+            <ul class="card-features">
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Hub central com sidebar, dashboard e grid de ferramentas</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Tokens CSS completos (--TM-primary, --tm-*) com dark mode</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> README-TM-UIUX.html como documentação canônica</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Catálogo ocean-breeze-pages com tokens, componentes e dashboards</li>
+            </ul>
+        </div>
+
+        <div class="detail-card" data-card="1">
+            <div class="card-header">
+                <h2 class="card-title">Auditoria & Evolução v2</h2>
+                <span class="card-badge">Upgrade</span>
+            </div>
+            <p class="card-desc">Auditoria completa do hub-ocean-breeze contra as regras do README, correção de 19
+                violações, e adição de funcionalidades premium.</p>
+            <ul class="card-features">
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> 100% emojis substituídos por SVG icons (Lucide)</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Acessibilidade: aria-label, role, tabindex, :focus-visible</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Responsividade: breakpoints 900/768/600px + prefers-reduced-motion</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Command Palette (Ctrl+K), Card Drawer, Breadcrumbs dinâmicos</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> Correções CSS: fontes mínimas 0.75rem, sec-title duplicado</li>
+                <li><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg></span> commit.html do Design System seguindo Ocean Breeze</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">TM - SEMPRE TECNOLOGIA</div>
+        <p>Design System Ocean Breeze &copy; 2026</p>
+    </footer>
+
+    <script>
+        // Dark mode init
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') document.documentElement.classList.add('dark');
+        })();
+
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        function showCard(index, node) {
+            document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+            document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.detail-card[data-card="${index}"]`).classList.add('visible');
+            node.classList.add('active');
+        }
+
+        // Auto select last node
+        window.onload = () => {
+            const nodes = document.querySelectorAll('.timeline-node');
+            if (nodes.length > 0) nodes[nodes.length - 1].click();
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "eval_id": 3,
+  "eval_name": "continuar-implementacao-sp3",
+  "prompt": "Vou retomar a implementação do modelo SP3 do AutoRelatório. Já tenho a análise completa. Preciso começar a codificar o scanner e o gerador do Word. Estou continuando de um chat anterior.",
+  "assertions": [
+    {
+      "id": "count_suggestions",
+      "text": "Gerou exatamente 3 sugestões",
+      "passed": true
+    },
+    {
+      "id": "language_portuguese",
+      "text": "Todas as sugestões em português",
+      "passed": true
+    },
+    {
+      "id": "pattern_format",
+      "text": "Segue padrão [Verbo] [Descrição] ([Status])",
+      "passed": true
+    },
+    {
+      "id": "has_continuar_status",
+      "text": "Pelo menos 1 sugestão com status (CONTINUAR)",
+      "passed": true
+    }
+  ]
+}

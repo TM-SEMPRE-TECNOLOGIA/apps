@@ -1,0 +1,10 @@
+PROCESS LOG - Geração de Relatório via Web (FastAPI)
+
+Pasta raiz: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - Em andamento/1 - TORIXOREU - 1158
+Modelo: C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V4\APP\backend\templates\MODELO - 0908 - SÃO PAULO.docx
+Tipo: tradicional
+Saída: C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V4\APP\backend\output
+
+>>> Gerando relatório...
+[OK] Relatório salvo em: C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V4\APP\backend\output\RELATÓRIO FOTOGRÁFICO - 1 - TORIXOREU - 1158 - LEVANTAMENTO PREVENTIVO.docx
+[OK] Total de imagens inseridas: 533

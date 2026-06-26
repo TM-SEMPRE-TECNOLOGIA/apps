@@ -1,0 +1,367 @@
+/* ============================
+   COMPONENTES BASE — TM Pastas
+   Estilos reutilizáveis para botões, inputs, cards, etc.
+   ============================ */
+
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Botões ── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--gradient);
+    color: white;
+    box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-accent-hover);
+}
+
+.btn-success {
+    background: var(--success-dark);
+    color: white;
+    font-size: var(--font-size-lg);
+    padding: var(--space-lg) var(--space-2xl);
+}
+
+.btn-success:hover {
+    background: var(--success-hover);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+    font-size: var(--font-size-base);
+    padding: var(--space-lg) var(--space-2xl);
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+}
+
+.btn-ghost:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: var(--font-size-sm);
+}
+
+.btn-icon:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.btn-sm {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-size-sm);
+}
+
+/* ── Inputs ── */
+.input {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.input::placeholder {
+    color: var(--text-muted);
+}
+
+.input:focus {
+    background: var(--bg-input-focus);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+}
+
+.input-sm {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    height: 32px;
+}
+
+/* ── Cards ── */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl) var(--space-2xl);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-base);
+}
+
+.card:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+}
+
+.card-compact {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+}
+
+/* ── Checkboxes ── */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-input);
+    border-radius: 4px;
+    background: var(--bg-input);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.checkbox-wrapper label {
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+/* ── Toggle / Switch ── */
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.toggle-wrapper:hover {
+    background: var(--bg-card-hover);
+}
+
+/* ── Tabs ── */
+.tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 3px;
+}
+
+.tab {
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    flex: 1;
+    text-align: center;
+}
+
+.tab:hover {
+    color: var(--text-primary);
+}
+
+.tab.active {
+    background: var(--bg-secondary);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal-overlay);
+    animation: fadeIn 0.2s ease;
+}
+
+.modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    min-width: 400px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: var(--z-modal);
+    animation: fadeInScale 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+}
+
+.modal-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: var(--space-xs);
+    line-height: 1;
+    transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Utility ── */
+.text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

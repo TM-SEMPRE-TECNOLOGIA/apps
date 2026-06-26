@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Desenvolvimento - TM Ordens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           THEME: CYBER DARK (Cyan & Purple)
+           ═══════════════════════════════════════════ */
+        :root {
+            --color-primary: #00d4ff;
+            /* Cyan */
+            --color-secondary: #7b2cbf;
+            /* Purple */
+            --color-accent: #ffab00;
+            /* Orange */
+            --color-bg: #1a1a2e;
+            --color-bg-rgb: 26, 26, 46;
+            --color-text: #e0e0e0;
+            --color-text-dim: #888888;
+            --color-border: #30363d;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════════════════════════════════════
+           BACKGROUND PARTICLES (CSS only)
+           ═══════════════════════════════════════════ */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-particles::before,
+        .bg-particles::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: floatParticle 25s ease-in-out infinite;
+        }
+
+        .bg-particles::before {
+            width: 700px;
+            height: 700px;
+            background: var(--color-primary);
+            top: -200px;
+            right: -100px;
+        }
+
+        .bg-particles::after {
+            width: 600px;
+            height: 600px;
+            background: var(--color-secondary);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatParticle {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(40px, -60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO SECTION
+           ═══════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--color-text-dim);
+            max-width: 600px;
+            margin: 0 auto 12px;
+            line-height: 1.6;
+        }
+
+        .hero-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+
+        .hero-brand .company {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .hero-brand .separator {
+            color: #30363d;
+            margin: 0 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           STATS BAR
+           ═══════════════════════════════════════════ */
+        .stats-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 0 20px 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           TIMELINE SECTION
+           ═══════════════════════════════════════════ */
+        .timeline-section {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .timeline-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-text-dim);
+            font-weight: 600;
+        }
+
+        .timeline-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timeline-nav button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #30363d;
+            color: var(--color-text);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-nav button:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.05);
+        }
+
+        /* ═══════════════════════════════════════════
+           HORIZONTAL TIMELINE TRACK
+           ═══════════════════════════════════════════ */
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: visible;
+            padding-bottom: 30px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #30363d transparent;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 3px;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 20px 80px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           TIMELINE NODE
+           ═══════════════════════════════════════════ */
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 140px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .node-date {
+            font-size: 0.65rem;
+            color: var(--color-text-dim);
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .node-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #161b22;
+            border: 3px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-node:hover .node-dot,
+        .timeline-node.active .node-dot {
+            border-color: var(--color-primary);
+            transform: scale(1.25);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            background: #1a1a2e;
+        }
+
+        .timeline-node.active .node-dot {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 25px rgba(255, 171, 0, 0.35);
+        }
+
+        .node-label {
+            font-size: 0.7rem;
+            color: var(--color-text-dim);
+            margin-top: 12px;
+            text-align: center;
+            max-width: 120px;
+            font-weight: 500;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .timeline-node:hover .node-label,
+        .timeline-node.active .node-label {
+            color: var(--color-text);
+        }
+
+        /* ═══════════════════════════════════════════
+           DETAIL CARD (Expanded)
+           ═══════════════════════════════════════════ */
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            min-height: 250px;
+        }
+
+        .detail-card {
+            display: none;
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 32px;
+            animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 16px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .card-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--color-text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.94rem;
+        }
+
+        .card-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--color-text);
+            font-size: 0.9rem;
+        }
+
+        .card-features li .check {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 0.7rem;
+        }
+
+        .card-features li strong {
+            color: #fff;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--color-primary);
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-top: 40px;
+        }
+
+        .footer-divider {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+            margin: 0 auto 32px;
+        }
+
+        .footer-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 100px;
+            padding: 8px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-particles"></div>
+
+    <!-- ═══════════ HERO SECTION ═══════════ -->
+    <section class="hero">
+        <div class="hero-badge">📋 Registro de Desenvolvimento</div>
+        <h1>TM Ordens</h1>
+        <p class="hero-subtitle">
+            Gerenciador inteligente de Ordens de Serviço — União do TM Demandas com o TM G-2. Controle de fluxos,
+            status, e importação de planilhas de relatórios.
+        </p>
+        <div class="hero-brand">
+            <span class="company">TM - Sempre Tecnologia</span>
+            <span class="separator">|</span>
+            <span>Thiago Nascimento Barbosa</span>
+        </div>
+    </section>
+
+    <!-- ═══════════ STATS BAR ═══════════ -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="commitCount">4</div>
+            <div class="stat-label">Commits Totais</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">v1.0.0-alpha</div>
+            <div class="stat-label">Versão Atual</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">Dev</div>
+            <div class="stat-label">Status</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">Planning</div>
+            <div class="stat-label">Fase</div>
+        </div>
+    </div>
+
+    <!-- ═══════════ TIMELINE ═══════════ -->
+    <section class="timeline-section">
+        <div class="timeline-header">
+            <span class="timeline-title">Jornada de Desenvolvimento</span>
+            <div class="timeline-nav">
+                <button onclick="scrollTimeline(-1)">←</button>
+                <button onclick="scrollTimeline(1)">→</button>
+            </div>
+        </div>
+
+        <div class="timeline-track-wrapper" id="timelineWrapper">
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+
+                <!-- Nodes -->
+                <div class="timeline-node" onclick="showCard(0, this)">
+                    <span class="node-date">03/03</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">Início & Aprovação</span>
+                </div>
+
+                <div class="timeline-node" onclick="showCard(1, this)">
+                    <span class="node-date">03/03</span>
+                    <div class="node-dot">🏗️</div>
+                    <span class="node-label">Scaffold & Core Data</span>
+                </div>
+
+                <div class="timeline-node" onclick="showCard(2, this)">
+                    <span class="node-date">03/03</span>
+                    <div class="node-dot">📄</div>
+                    <span class="node-label">Interfaces Principais</span>
+                </div>
+
+                <div class="timeline-node active" onclick="showCard(3, this)">
+                    <span class="node-date">03/04</span>
+                    <div class="node-dot">⚙️</div>
+                    <span class="node-label">Integração e Exportação</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ DETAIL CARDS ═══════════ -->
+    <div class="detail-card-area">
+        <!-- Card 0 -->
+        <div class="detail-card" data-card="0">
+            <div class="card-header">
+                <h2 class="card-title">🚀 Início do Projeto e Aprovação</h2><span class="card-badge">Setup</span>
+            </div>
+            <p class="card-desc">Plano de desenvolvimento consolidado e aprovado. Início da Fase 1.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span><strong>Status OS:</strong> Sem "Mudança de Contrato", alinhado aos
+                    workflows exigidos.</li>
+                <li><span class="check">✓</span><strong>Design:</strong> Acordado manter padrão Cyber-Dark.</li>
+                <li><span class="check">✓</span><strong>Estrutura:</strong> Next.js (Porta 3002) + FastAPI (Porta 5002)
+                    e Bat Script Launcher.</li>
+            </ul>
+        </div>
+
+        <!-- Card 1 -->
+        <div class="detail-card" data-card="1">
+            <div class="card-header">
+                <h2 class="card-title">🏗️ Base de Dados, Layout e Dashboard</h2><span class="card-badge">Fase 2 &
+                    3</span>
+            </div>
+            <p class="card-desc">Estruturas core finalizadas, layout Cyber-Dark implementado e Assistente Inteligente de
+                Importação funcionando.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span><strong>Core Types & Stores:</strong> Interfaces em TypeScript e
+                    `useOSStore` via Zustand para centralizar o estado.</li>
+                <li><span class="check">✓</span><strong>Wizard de Importação:</strong> Processador de Excel com
+                    auto-mapping e preview.</li>
+                <li><span class="check">✓</span><strong>Dashboard:</strong> KPIs estáticos mapeados e gráficos
+                    `recharts` integrados.</li>
+            </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="detail-card" data-card="2">
+            <div class="card-header">
+                <h2 class="card-title">📄 Fluxo de Páginas UI (Next.js)</h2><span class="card-badge">Fase 4</span>
+            </div>
+            <p class="card-desc">Todas as visões principais estendidas com formulários flexíveis para controle de
+                vistorias.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span><strong>Listagem e Detalhes:</strong> Sistema com `Search` e view
+                    individual com checklist de etapas TM Demandas.</li>
+                <li><span class="check">✓</span><strong>Calendário de Vencimentos:</strong> Timeline visual e marcadores
+                    de limite com date-fns.</li>
+                <li><span class="check">✓</span><strong>Equipe e Configurações:</strong> Painéis criados e formatados em
+                    Cyber-Dark.</li>
+            </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="detail-card visible" data-card="3">
+            <div class="card-header">
+                <h2 class="card-title">⚙️ Backend e Geração de Exportações</h2><span class="card-badge">Fase 5 &
+                    6</span>
+            </div>
+            <p class="card-desc">Conexões estabelecidas entre o Frontend do Relatório e a API para extração rápida de
+                documentações processuais.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span><strong>Módulo PDF ReportLab:</strong> Criado endpoint `/api/export/pdf`
+                    na porta 5002 operando via Python.</li>
+                <li><span class="check">✓</span><strong>CSV Instantâneo:</strong> Downloader client-side gerando logs
+                    integrados da Data Layer (Zustand).</li>
+                <li><span class="check">✓</span><strong>Verificação Concluída:</strong> Interface aprovada sob
+                    diretrizes visuais Cyber-Dark Company.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer class="footer">
+        <div class="footer-divider"></div>
+        <div class="footer-status">🚀 Pipeline Ativa</div>
+        <div style="color: var(--color-text-dim); font-size: 0.85rem; margin-top: 15px;">
+            Ambiente de Desenvolvimento
+        </div>
+    </footer>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script>
+        // Lógica de scroll do timeline track
+        function scrollTimeline(direction) {
+            const wrapper = document.getElementById('timelineWrapper');
+            const scrollAmount = 300 * direction;
+            wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        // Lógica de exibição dos cards
+        function showCard(index, nodeElement) {
+            // Remove 'active' class from all nodes
+            document.querySelectorAll('.timeline-node').forEach(node => {
+                node.classList.remove('active');
+            });
+
+            // Add 'active' class to clicked node
+            nodeElement.classList.add('active');
+
+            // Hide all detail cards
+            document.querySelectorAll('.detail-card').forEach(card => {
+                card.classList.remove('visible');
+            });
+
+            // Show target card with animation reset
+            const targetCard = document.querySelector(`.detail-card[data-card="${index}"]`);
+            if (targetCard) {
+                // Force animation replay by briefly removing and un-hiding
+                targetCard.style.animation = 'none';
+                targetCard.offsetHeight; /* trigger reflow */
+                targetCard.style.animation = null;
+                targetCard.classList.add('visible');
+
+                // Scroll page slightly to make card more visible if on mobile
+                if (window.innerWidth <= 768) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        // Auto scroll para o último node ativo e exibi-lo
+        window.addEventListener('load', () => {
+            const wrapper = document.getElementById('timelineWrapper');
+            const activeNode = document.querySelector('.timeline-node.active');
+            if (wrapper && activeNode) {
+                const scrollPos = activeNode.offsetLeft - (wrapper.offsetWidth / 2) + (activeNode.offsetWidth / 2);
+                wrapper.scrollLeft = scrollPos > 0 ? scrollPos : 0;
+            }
+        });
+    </script>
+</body>
+
+</html>

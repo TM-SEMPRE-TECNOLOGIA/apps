@@ -1,0 +1,5 @@
+PROCESS LOG - Geração SP
+
+>>> Lendo estrutura de pastas e imagens (Modo Organizado SP)...
+>>> Leitura finalizada.
+[OK] Total de imagens: 618

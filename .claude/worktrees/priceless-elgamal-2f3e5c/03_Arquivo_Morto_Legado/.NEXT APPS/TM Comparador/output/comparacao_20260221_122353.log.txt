@@ -1,0 +1,32 @@
+COMPARAÇÃO DE ITENS (RELATÓRIO x ORÇAMENTO)
+Data/Hora: 2026-02-21 12:23:53
+Relatório: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - EM ANDAMENTO/ABRE CAMPO 1326 - Relatório pré-finalizado/- Envio portal/RELATÓRIO FOTOGRÁFICO - ABRE CAMPO - LEVANTAMENTO PREVENTIVO.docx
+Orçamento: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - EM ANDAMENTO/ABRE CAMPO 1326 - Relatório pré-finalizado/- Envio portal/PREVISÃO ORÇAMENTÁRIA PARA APROVAÇÃO - ABRE CAMPO - LEVANTAMENTO PREVENTIVO.xlsx
+
+RESUMO
+- Total de linhas comparadas: 18
+- Compatíveis: 16
+- Divergentes: 0
+- Só no orçamento (não citado no relatório): 2
+- Só no relatório (não previsto no orçamento): 0
+
+DETALHAMENTO
+Item	QtdRelatorio	QtdOrcamento	Diferenca	Status
+1.2		451,00		Não citado no relatório
+1.5		1,00		Não citado no relatório
+13.12	23,00	23,00	0,00	Compatível
+13.20	1,00	1,00	0,00	Compatível
+15.3	2,00	2,00	0,00	Compatível
+17.1	1,89	1,89	0,00	Compatível
+17.2	7,25	7,25	0,00	Compatível
+17.6	12,68	12,68	0,00	Compatível
+17.9	6,08	6,08	0,00	Compatível
+17.10	18,49	18,49	0,00	Compatível
+17.11	462,42	462,42	0,00	Compatível
+19.3	8,00	8,00	0,00	Compatível
+19.36	2,00	2,00	0,00	Compatível
+19.48	6,00	6,00	0,00	Compatível
+19.50	1,00	1,00	0,00	Compatível
+19.96	1,00	1,00	0,00	Compatível
+28.22	1,00	1,00	0,00	Compatível
+29.44	0,06	0,06	0,00	Compatível

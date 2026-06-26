@@ -1,0 +1,20 @@
+{
+  "name": "TM·Zap Inspeção",
+  "short_name": "TM·Zap",
+  "description": "App de inspeção predial — TM Construtora",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F4F1",
+  "theme_color": "#C8541C",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"]
+}

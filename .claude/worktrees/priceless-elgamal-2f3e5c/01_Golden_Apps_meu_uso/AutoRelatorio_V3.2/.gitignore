@@ -1,0 +1,26 @@
+# Node
+node_modules/
+.next/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+APP/backend/.venv/
+
+# Saídas geradas
+APP/backend/output/*.docx
+APP/backend/output_teste/
+
+# Arquivos temporários
+dump.json
+log_test.txt
+build_log.txt
+eslint_report.json
+
+# SO
+.DS_Store
+Thumbs.db

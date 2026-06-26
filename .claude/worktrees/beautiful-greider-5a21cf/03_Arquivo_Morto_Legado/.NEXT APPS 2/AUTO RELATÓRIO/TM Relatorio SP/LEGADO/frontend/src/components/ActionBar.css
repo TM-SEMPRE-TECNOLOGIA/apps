@@ -1,0 +1,46 @@
+.action-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-action {
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-preview {
+    background: var(--accent-yellow);
+    color: #000;
+}
+
+.btn-preview:hover:not(:disabled) {
+    background: #c08820;
+}
+
+.btn-generate {
+    background: var(--accent-green);
+    color: #000;
+}
+
+.btn-generate:hover:not(:disabled) {
+    background: #2ea043;
+}
+
+.btn-open {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.btn-open:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-secondary);
+}

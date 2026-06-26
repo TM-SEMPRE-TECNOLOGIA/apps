@@ -1,0 +1,199 @@
+gerar_plano_mestre:
+  description: >
+    Elabore 'O Plano Mestre 2.0'. Este é um documento estratégico detalhando a visão de alto nível e os objetivos gerais do projeto.
+    Deve incluir contexto de mercado, grande objetivo da ferramenta, KPIs esperados e visão em até 3 fases.
+    O sistema que está sendo concebido chama-se '{project_name}' (Descrição: {project_description}).
+  expected_output: >
+    Um arquivo Markdown completo estruturado com Headings, Bullet Points e visão estratégica, com pelo menos 5 seções bem detalhadas.
+  agent: strategist
+
+gerar_business_model_canvas:
+  description: >
+    Crie o Business Model Canvas em formato Markdown para o produto '{project_name}'.
+    Pense nos clientes, proposta de valor, canais, relacionamento, fluxos de receita, recursos principais, etc. 
+  expected_output: >
+    O Business Model Canvas detalhado e visualizado via Markdown tables com as 9 blocos preenchidos de forma sênior.
+  agent: strategist
+
+gerar_visao_objetivos:
+  description: >
+    Escreva a 'Visão e Objetivos' de longo prazo para o produto '{project_name}'. Qual o norte, o propósito e as metas reais e objetivas estabelecidas?
+  expected_output: >
+    Documento em Markdown com Visão do Produto, Metas de Longo Prazo e Objetivos Estratégicos Imediatos.
+  agent: strategist
+
+gerar_analise_mercado:
+  description: >
+    Faça uma profunda Análise de Mercado para '{project_name}'. Identifique concorrentes, oportunidades de inovação e barreiras de entrada no ecossistema atual.
+  expected_output: >
+    Relatório Markdown mapeando cenário atual, concorrência (tipos) e análise de tendências do setor.
+  agent: strategist
+
+gerar_matriz_swot:
+  description: >
+    Elabore uma Matriz SWOT (Forças, Fraquezas, Oportunidades, Ameaças) realista para a execução do '{project_name}'.
+  expected_output: >
+    Uma matriz detalhada em Markdown e recomendações estratégicas sobre como mitigar as Ameaças usando nossas Forças.
+  agent: strategist
+
+gerar_personas:
+  description: >
+    Crie três Personas diferentes e detalhe a Jornada do Usuário para o sistema '{project_name}'.
+  expected_output: >
+    Perfis aprofundados (com job-to-be-done) e a jornada do usuário passo-a-passo. Formato Markdown.
+  agent: ux_researcher
+
+gerar_analises_profissionais:
+  description: >
+    Elabore Análises Profissionais (Relatórios/Estudos Técnicos UX) embasando decisões de interface que farão o '{project_name}' ter alta adesão.
+  expected_output: >
+    Relatório de ergonomia cognitiva e heurísticas de acessibilidade propostas.
+  agent: ux_researcher
+
+gerar_design_system:
+  description: >
+    Descreva a especificação estrutural de nosso Design System para assegurar consistência visual. 
+    Lembre-se da referência global "Ocean Breeze e Turbo Dev UI".
+  expected_output: >
+    Documentação Markdown dos tokens de cor, tipografia, espaçamento e padronização (radiuses, grids).
+  agent: ux_researcher
+
+gerar_prd:
+  description: >
+    Crie o Product Requirements Document (PRD) de '{project_name}'. Reúna foco, funcionalidades macro e MVP definido.
+  expected_output: >
+    Especificação formal do Produto com escopo e priorização em Markdown.
+  agent: product_definer
+
+gerar_frd:
+  description: >
+    Baseado no PRD, crie o Documento de Requisitos Funcionais (FRD). O que o sistema EXATAMENTE deve Fazer? Mapeie módulos e inputs e outputs macro.
+  expected_output: >
+    Lista catalogada em Markdown de todos os Módulos e RFs (Requisitos Funcionais - Ex: RF01 Login).
+  agent: product_definer
+
+gerar_nfrd:
+  description: >
+    Crie o NFRD - Requisitos Não Funcionais. Especifique latência esperada, padrões de segurança, criptografia, up-time, acessibilidade mínima.
+  expected_output: >
+    Especificação em Markdown de todos os RNF agrupados por classe (Segurança, Performance, etc).
+  agent: product_definer
+
+gerar_backlog:
+  description: >
+    Estruture o Backlog de Produto Inicial focado no MVP. Divida os épicos mapeados no FRD em User Stories detalhadas.
+  expected_output: >
+    Tabela/Lista Markdown com Épicos, e as primeiras User Stories no formato "Como um [X], desejo [Y] para [Z]".
+  agent: product_definer
+
+gerar_dod:
+  description: >
+    Defina o Definition of Done de Elite (DoD). O que precisa existir no PR para a task ser fechada (cobertura de testes, lint, reviews, etc)?
+  expected_output: >
+    Checklist prático em Markdown de Aceitação Técnica e Operacional Global de PRs e Funcionalidades.
+  agent: product_definer
+
+gerar_der:
+  description: >
+    Esboce um DER (Diagrama de Entidade-Relacionamento) para as tabelas essenciais do banco de dados relacional (ex: PostgreSQL / Supabase) do projeto '{project_name}'. Use a sintaxe de diagramação em blocos.
+  expected_output: >
+    Schema do banco em linguagens de markup (tipo PlantUML ou DBML) exportadas em blocos de código dentro do Markdown, descrevendo o relacionamento.
+  agent: architect
+
+gerar_arquitetura:
+  description: >
+    Escreva o Documento de Arquitetura de Software. Aborde o stack (Next.js, Tailwind, Supabase/Vercel) e os padrões MVC/Repository/Clean onde aplicável.
+  expected_output: >
+    Arquitetura descrita em Markdown cobrindo Front, Back, Auth, Storage e APIs.
+  agent: architect
+
+gerar_diagrama_componentes:
+  description: >
+    Identifique em formato de documento e Mermaid Diagram a Arquitetura dos Componentes Cloud/App do '{project_name}'.
+  expected_output: >
+    Especificação de como o cliente fala via borda edge, banco de dados hospedado e serviços de 3os usando sintaxe `mermaid`.
+  agent: architect
+
+gerar_guia_componentes:
+  description: >
+    Desenvolva o Guia de Componentes Frontend (Botões, Form inputs, Modais) contendo estados a serem previstos (Hover, Focus, Disabled).
+  expected_output: >
+    Manual em Markdown para desenvolvedores Front com regras de comportamentos React de uso comum.
+  agent: frontend_engineer
+
+gerar_padroes_front:
+  description: >
+    Liste os Padrões de Código Frontend. Reforce hooks customizados obrigatórios e a proibição de complexidades não úteis. Qual o design de pattern?
+  expected_output: >
+    Guia de referências, convenções de pasta, nomeclatura de classes e ESLint rules prioritárias em Markdown.
+  agent: frontend_engineer
+
+gerar_testes_front:
+  description: >
+    Documente a estratégia de elaboração de Testes de Interface de Usuário (E2E / Cypress) para os caminhos felizes do '{project_name}'.
+  expected_output: >
+    Plano de testes de interação listando quais flows são obrigatórios estar sempre green_state. Markdown.
+  agent: frontend_engineer
+
+gerar_especificacao_apis:
+  description: >
+    Detalhe a Especificação de APIs - Pense num modelo OpenAPI ou Postman list para os cruds principais do '{project_name}'.
+  expected_output: >
+    Estrutura de API Routes (ex: /api/v1/auth) com request, payload body esperado, e reponse 200/400 (JSON schemas mockados).
+  agent: backend_engineer
+
+gerar_padroes_back:
+  description: >
+    Especifique os Padrões de Código Backend. Rest Server, injeção de dependências, tratamento de exceção centralizado em Middlewares?
+  expected_output: >
+    Guia de código limpo de Backend, lidando explicitamente com transações e try-catches. Markdown.
+  agent: backend_engineer
+
+gerar_testes_back:
+  description: >
+    Estratégia de Testes Backend. Foco crítico em Testes de Integração nas APIs core antes de TDD cego.
+  expected_output: >
+    Estratégia com ferramentas propostas documentadas em Markdown e alinhadas aos fluxos críticos de negócio.
+  agent: backend_engineer
+
+gerar_plano_testes:
+  description: >
+    Desenvolva um Plano Detalhado de Testes Master. Abordagens de regressão mestre, performance load testing e smoke test de deploy.
+  expected_output: >
+    Documentação global da QA em Markdown. Escopo, recursos e Cronograma do ciclo de teste.
+  agent: qa_specialist
+
+gerar_casos_teste:
+  description: >
+    Descreva o template mestre e pelo menos 3 Casos de Testes Complexos essenciais como base em formato Gherkin/BDD.
+  expected_output: >
+    Markdown listando as precondições, passos e post-conditions com cenário Given-When-Then.
+  agent: qa_specialist
+
+gerar_relatorios_qa:
+  description: >
+    Crie um formato de Template de Matriz e Relatórios Finais de QA (Quality Assurance) sumarizando os achados, para dar "green-light" para Deploy.
+  expected_output: >
+    Template Oficial de Liberação de Versão em Markdown com sumário executivo, bloqueadores e métricas.
+  agent: qa_specialist
+
+gerar_plano_deploy:
+  description: >
+    Desenvolver o Plano de Deploy. Procedimentos para mover de Staging para Prod on Vercel e geranciamento de variáveis de produção do Supabase.
+  expected_output: >
+    Pipeline Documentado de passos automáticos (Actions) e checks mecânicos prévios antes do rollback. Markdown.
+  agent: devops_engineer
+
+gerar_doc_infra:
+  description: >
+    Descrever a Arquitetura de Infraestrutura global de hospedagem. O que roda onde, e como o Edge cache da CDN e o Data center estão configurados?
+  expected_output: >
+    Mapa dos provedores, IP alloc, subdomínios, e custos previstos. Em Markdown descritivo.
+  agent: devops_engineer
+
+gerar_runbooks:
+  description: >
+    Especifique os Runbooks Operacionais (Manuais de Desastre). Se a API cair, como se debuga? Se o banco corromper, como restauro Snapshot?
+  expected_output: >
+    Procedimentos de emergência passo-a-passo (On-Call Guides) e Resolução. Markdown.
+  agent: devops_engineer

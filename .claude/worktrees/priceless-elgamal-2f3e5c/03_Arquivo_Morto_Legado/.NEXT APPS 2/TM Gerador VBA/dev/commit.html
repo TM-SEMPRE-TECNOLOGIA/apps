@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Desenvolvimento - TM Gerador VBA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #00d4ff;
+            --color-secondary: #7b2cbf;
+            --color-accent: #ffab00;
+            --color-bg: #0a0a0f;
+            --color-text: #ffffff;
+            --color-text-dim: #a0a0a0;
+            --color-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--color-text-dim);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--color-border);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+            text-transform: uppercase;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+            opacity: 0.3;
+        }
+
+        .commit-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .commit-item::before {
+            content: '';
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            box-shadow: 0 0 10px var(--color-primary);
+        }
+
+        .commit-date {
+            font-size: 0.8rem;
+            color: var(--color-text-dim);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .commit-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--color-border);
+            padding: 24px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .commit-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .commit-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .commit-features {
+            list-style: none;
+        }
+
+        .commit-features li {
+            display: flex;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .commit-features li::before {
+            content: '✓';
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 100px;
+            color: var(--color-text-dim);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>TM Gerador VBA</h1>
+            <p>Word Macro Engine — Registro de Desenvolvimento</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Commits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">v1.0.2</div>
+                <div class="stat-label">Versão Stable</div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <!-- Commit 3 -->
+            <div class="commit-item">
+                <div class="commit-date">10/03/2026 - 15:25</div>
+                <div class="commit-card">
+                    <div class="commit-title">v1.0.2 — Fix: Macro Performance</div>
+                    <ul class="commit-features">
+                        <li>Refatoração radical da geração de VBA para uso de sub-rotina auxiliar (helper).</li>
+                        <li>Eliminação do erro "Procedimento muito grande" ao processar relatórios massivos.</li>
+                        <li>Otimização da legibilidade do código VBA gerado para o usuário.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commit 2 -->
+            <div class="commit-item">
+                <div class="commit-date">10/03/2026 - 15:15</div>
+                <div class="commit-card">
+                    <div class="commit-title">Ajuste Documentação & Fix Log</div>
+                    <ul class="commit-features">
+                        <li>Criação do log de commits específico (commit.html) para isolamento do projeto.</li>
+                        <li>Configuração do registro de histórico conforme padrões TM.</li>
+                        <li>Remoção de lixo de documentação de outras aplicações no repositório.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Commit 1 -->
+            <div class="commit-item">
+                <div class="commit-date">10/03/2026 - 15:00</div>
+                <div class="commit-card">
+                    <div class="commit-title">v1.0.0 — Lançamento Oficial</div>
+                    <ul class="commit-features">
+                        <li>Motor Python Standalone com extração Regex Triplo (Dimensões/Descontos/Detalhes).</li>
+                        <li>Interface Premium com TM Design System (Glassmorphism & Dark Mode).</li>
+                        <li>Geração dinâmica de Macros VBA para Microsoft Word (Proporção 1:1).</li>
+                        <li>Arquitetura via Microservidor FastAPI local para alta performance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            TM Sempre Tecnologia &copy; 2026. Design System Premium TM.
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "relatorio-preventivo",
+  "version": "2.0.0",
+  "description": "Automatiza o processamento de relatórios fotográficos de vistoria preventiva (BB/CEF): gera memorial final, verifica divergências e valida sequência de legendas. Parser adaptativo — lê diretamente do .docx sem conversão.",
+  "author": {
+    "name": "Thiago Nascimento"
+  },
+  "keywords": ["relatorio", "preventivo", "memorial", "vistoria", "BB", "CEF", "docx"]
+}

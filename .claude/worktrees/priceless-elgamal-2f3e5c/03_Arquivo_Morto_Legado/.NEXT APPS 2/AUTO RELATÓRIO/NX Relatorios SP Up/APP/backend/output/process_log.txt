@@ -1,0 +1,8 @@
+PROCESS LOG - Geração de Relatório via Web (FastAPI)
+
+Pasta raiz: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - EM ANDAMENTO/ESTILO CASTEJON 8642 - PRIORIDADE
+Modelo: C:\Users\thiag\TM-MEUS-APPS\0 - NEXT APPS\TM Relatorio SP\APP\backend\templates\MODELO - 0908 - SAO PAULO - ATUALIZADO.docx
+Tipo: sp
+Saída: C:\Users\thiag\TM-MEUS-APPS\0 - NEXT APPS\TM Relatorio SP\APP\backend\output
+
+[OK] Instâncias e imagens inseridas (SP): 618

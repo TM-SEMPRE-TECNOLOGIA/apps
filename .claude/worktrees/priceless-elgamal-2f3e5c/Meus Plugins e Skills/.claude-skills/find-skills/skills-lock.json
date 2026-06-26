@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "logo-designer": {
+      "source": "luongnv89/skills",
+      "sourceType": "github",
+      "computedHash": "4df72a03d0211301da5d88fffe1333764d3de76ae1cdf8f0393c55daff667045"
+    }
+  }
+}

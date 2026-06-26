@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TM Construtora — AutoRelatório V2</title>
+
+<!-- Design System Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   TM CONSTRUTORA — DS TOKENS (inline, sem depender do arquivo externo)
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --TM-primary:             #C8541C;
+  --TM-primary-hover:       #A6451A;
+  --TM-primary-light:       #FBEDE3;
+  --TM-primary-light-alpha: rgba(200,84,28,.12);
+  --TM-accent-graphite:     #2B2B2B;
+
+  --tm-bg:           #F5F4F1;
+  --tm-bg-card:      #FFFFFF;
+  --tm-bg-hover:     #ECEAE5;
+  --tm-bg-secondary: #E8E5DE;
+  --tm-bg-accent:    #FBEDE3;
+  --tm-bg-muted:     #EFEDE8;
+  --tm-bg-sidebar:   #FAF9F6;
+
+  --tm-text:        #1A1A1A;
+  --tm-text-muted:  #5C5A55;
+  --tm-text-subtle: #8C8A85;
+
+  --tm-border:       #DAD7D0;
+  --tm-border-hover: #B8B5AD;
+  --tm-border-strong:#1A1A1A;
+
+  --tm-success:     #4F7A3A;
+  --tm-info:        #345878;
+  --tm-destructive: #A33B2A;
+
+  --TM-font-serif: "Roboto Slab", Georgia, serif;
+  --TM-font-sans:  "Inter", system-ui, sans-serif;
+  --TM-font-mono:  "JetBrains Mono", monospace;
+
+  --TM-radius-sm: 4px;
+  --TM-radius-md: 6px;
+  --TM-radius-lg: 8px;
+  --TM-radius-xl: 12px;
+
+  --TM-shadow-sm: 0 1px 0 rgba(26,26,26,.04), 0 1px 2px rgba(26,26,26,.04);
+  --TM-shadow-md: 0 2px 4px -1px rgba(26,26,26,.08), 0 1px 2px rgba(26,26,26,.04);
+  --TM-shadow-lg: 0 8px 16px -4px rgba(26,26,26,.10), 0 2px 4px -1px rgba(26,26,26,.06);
+  --TM-shadow-xl: 0 16px 24px -6px rgba(26,26,26,.12), 0 4px 8px -2px rgba(26,26,26,.06);
+}
+
+html.dark {
+  --TM-primary:             #E47A4A;
+  --TM-primary-hover:       #C8541C;
+  --TM-primary-light:       #2B2520;
+  --TM-primary-light-alpha: rgba(228,122,74,.18);
+
+  --tm-bg:           #161513;
+  --tm-bg-card:      #1F1E1B;
+  --tm-bg-hover:     #2A2926;
+  --tm-bg-secondary: #2A2926;
+  --tm-bg-accent:    #2B2520;
+  --tm-bg-muted:     #232220;
+  --tm-bg-sidebar:   #1A1916;
+
+  --tm-text:        #EFEDE8;
+  --tm-text-muted:  #A8A6A0;
+  --tm-text-subtle: #6E6C66;
+
+  --tm-border:       #34322E;
+  --tm-border-hover: #4A4842;
+  --tm-border-strong:#EFEDE8;
+
+  --TM-shadow-sm: 0 1px 0 rgba(0,0,0,.40);
+  --TM-shadow-md: 0 2px 4px -1px rgba(0,0,0,.50);
+  --TM-shadow-lg: 0 8px 16px -4px rgba(0,0,0,.55);
+  --TM-shadow-xl: 0 16px 24px -6px rgba(0,0,0,.65);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--tm-bg);
+  transition: background .3s ease, color .3s ease;
+}
+
+body {
+  font-family: var(--TM-font-sans);
+  color: var(--tm-text);
+  background: var(--tm-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════ */
+.hdr {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--tm-bg-card);
+  border-bottom: 1px solid var(--tm-border);
+  box-shadow: var(--TM-shadow-sm);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: background .3s ease, border-color .3s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.brand-sq {
+  width: 20px;
+  height: 20px;
+  background: var(--TM-primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  transition: background .3s ease;
+}
+.brand-name {
+  font-family: var(--TM-font-serif);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--tm-text);
+  letter-spacing: -.005em;
+}
+.brand-badge {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--tm-text);
+  color: var(--tm-bg-card);
+}
+
+.hdr-nav {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+.hdr-nav a {
+  padding: 7px 13px;
+  border-radius: 4px 4px 0 0;
+  text-decoration: none;
+  color: var(--tm-text-muted);
+  font-weight: 500;
+  font-size: 14px;
+  transition: color .15s, background .15s;
+}
+.hdr-nav a:hover { color: var(--tm-text); background: var(--tm-bg-hover); }
+.hdr-nav a.act {
+  background: var(--TM-primary-light);
+  color: var(--TM-primary-hover);
+  border-bottom: 2px solid var(--TM-primary);
+}
+
+.hdr-actions { display: flex; gap: 8px; align-items: center; }
+
+.btn-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: var(--TM-radius-md);
+  border: 1px solid var(--tm-border);
+  background: var(--tm-bg-card);
+  font-family: var(--TM-font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tm-text-muted);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.btn-toggle:hover { border-color: var(--tm-border-hover); color: var(--tm-text); }
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 24px 120px;
+}
+
+/* Grid de fundo técnico */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right,  rgba(26,26,26,.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26,26,26,.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+html.dark .hero-grid {
+  background-image:
+    linear-gradient(to right,  rgba(239,237,232,.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(239,237,232,.04) 1px, transparent 1px);
+}
+
+/* Detalhe de canto — linha técnica */
+.hero-corner {
+  position: absolute;
+  top: 80px; left: 40px;
+  width: 48px; height: 48px;
+  border-top: 2px solid var(--TM-primary);
+  border-left: 2px solid var(--TM-primary);
+  opacity: .5;
+  pointer-events: none;
+}
+.hero-corner-br {
+  top: auto; left: auto;
+  bottom: 120px; right: 40px;
+  border-top: none; border-left: none;
+  border-bottom: 2px solid var(--TM-primary);
+  border-right: 2px solid var(--TM-primary);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Eyebrow badge */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--TM-primary);
+  background: var(--TM-primary-light);
+  border: 1px solid rgba(200,84,28,.25);
+  padding: 5px 12px;
+  border-radius: var(--TM-radius-sm);
+  margin-bottom: 28px;
+  opacity: 0;
+}
+.hero-eyebrow .live-dot {
+  width: 7px; height: 7px;
+  background: var(--TM-primary);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .3; }
+}
+
+.hero-h1 {
+  font-family: var(--TM-font-serif);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--tm-text);
+  margin-bottom: 20px;
+  opacity: 0;
+}
+
+.hero-h1 span {
+  color: var(--TM-primary);
+  position: relative;
+}
+
+.hero-sub {
+  font-family: var(--TM-font-sans);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: var(--tm-text-muted);
+  max-width: 560px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+  opacity: 0;
+}
+
+/* Typewriter cursor */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--TM-primary);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink .9s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  opacity: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--TM-font-sans);
+  border-radius: var(--TM-radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  letter-spacing: .005em;
+  text-decoration: none;
+  transition: background .15s ease, border-color .15s ease, opacity .15s ease, transform .15s ease;
+}
+.btn:active { opacity: .92; transform: translateY(0) !important; }
+
+.btn-primary {
+  background: var(--TM-primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--TM-primary-hover); transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--tm-text);
+  border-color: var(--tm-border-strong);
+}
+.btn-secondary:hover { background: var(--tm-bg-hover); border-color: var(--tm-border-hover); transform: translateY(-1px); }
+
+/* Ícones sociais */
+.hero-socials {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  opacity: 0;
+}
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--tm-bg-secondary);
+  border: 1px solid var(--tm-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tm-text-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s, transform .15s;
+}
+.social-btn:hover {
+  background: var(--TM-primary);
+  color: #fff;
+  border-color: var(--TM-primary);
+  transform: translateY(-2px);
+}
+.social-btn:active { transform: scale(.95); }
+
+/* Scroll indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: float-cue 1.6s ease infinite;
+}
+@keyframes float-cue {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
+}
+.scroll-cue-line {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--TM-primary), transparent);
+}
+.scroll-cue-text {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tm-text-subtle);
+}
+
+/* ═══════════════════════════════════════════════════════
+   STATS
+   ═══════════════════════════════════════════════════════ */
+.stats-section {
+  background: var(--tm-bg-card);
+  border-top: 1px solid var(--tm-border);
+  border-bottom: 1px solid var(--tm-border);
+  padding: 48px 24px;
+}
+.stats-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.stats-eyebrow {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--tm-text-subtle);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  border-top: 3px solid var(--TM-primary);
+  border-radius: var(--TM-radius-lg);
+  padding: 20px;
+  transition: border-color .2s, box-shadow .2s;
+  opacity: 0;
+  transform: translateY(16px);
+}
+.stat-card:hover {
+  border-color: var(--tm-border-hover);
+  box-shadow: var(--TM-shadow-md);
+}
+.stat-label {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tm-text-subtle);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: var(--TM-font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--tm-text);
+  letter-spacing: -.01em;
+  line-height: 1;
+}
+.stat-delta {
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 8px;
+  color: var(--tm-success);
+}
+.stat-delta.neg { color: var(--tm-destructive); }
+
+/* ═══════════════════════════════════════════════════════
+   FEATURES
+   ═══════════════════════════════════════════════════════ */
+.features-section {
+  padding: 72px 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-eyebrow {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--TM-primary);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--TM-font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--tm-text);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 700px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feat-card {
+  background: var(--tm-bg-card);
+  border: 1px solid var(--tm-border);
+  border-radius: var(--TM-radius-lg);
+  padding: 28px;
+  box-shadow: var(--TM-shadow-sm);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.feat-card:hover {
+  border-color: var(--tm-border-hover);
+  box-shadow: var(--TM-shadow-md);
+  transform: translateY(-2px);
+}
+.feat-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--TM-radius-md);
+  background: var(--TM-primary-light);
+  color: var(--TM-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200,84,28,.2);
+  margin-bottom: 16px;
+}
+.feat-title {
+  font-family: var(--TM-font-sans);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--tm-text);
+  margin-bottom: 8px;
+}
+.feat-body {
+  font-size: 13px;
+  color: var(--tm-text-muted);
+  line-height: 1.65;
+}
+.feat-mono {
+  margin-top: 14px;
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  color: var(--TM-primary);
+  letter-spacing: .04em;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FLOW DIAGRAM — Hoje vs Futuro
+   ═══════════════════════════════════════════════════════ */
+.flow-section {
+  background: var(--tm-bg-card);
+  border-top: 1px solid var(--tm-border);
+  border-bottom: 1px solid var(--tm-border);
+  padding: 72px 24px;
+}
+.flow-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.flow-cols {
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  gap: 0;
+  align-items: center;
+  margin-top: 40px;
+}
+@media (max-width: 640px) {
+  .flow-cols { grid-template-columns: 1fr; }
+  .flow-arrow-col { display: none; }
+}
+
+.flow-col-label {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.flow-col-label.hoje { color: var(--tm-text-subtle); }
+.flow-col-label.futuro { color: var(--TM-primary); }
+
+.flow-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  border-radius: var(--TM-radius-md);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tm-text);
+  transition: border-color .2s;
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.flow-box.right { transform: translateX(12px); }
+.flow-box:hover { border-color: var(--tm-border-hover); }
+.flow-box .fbox-icon { color: var(--tm-text-muted); flex-shrink: 0; }
+.flow-box.active {
+  border-color: var(--TM-primary);
+  background: var(--TM-primary-light);
+}
+.flow-box.active .fbox-icon { color: var(--TM-primary); }
+
+.flow-arrow-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 24px;
+  opacity: 0;
+}
+.flow-arrow-svg { color: var(--TM-primary); }
+
+.flow-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid;
+  margin-top: 4px;
+}
+.flow-badge.hoje-badge {
+  background: var(--tm-bg-muted);
+  color: var(--tm-text-muted);
+  border-color: var(--tm-border);
+}
+.flow-badge.futuro-badge {
+  background: var(--TM-primary-light);
+  color: var(--TM-primary);
+  border-color: rgba(200,84,28,.3);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CTA FINAL
+   ═══════════════════════════════════════════════════════ */
+.cta-section {
+  padding: 80px 24px;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.cta-title {
+  font-family: var(--TM-font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--tm-text);
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(16px);
+}
+.cta-sub {
+  font-size: 14px;
+  color: var(--tm-text-muted);
+  margin-bottom: 28px;
+  line-height: 1.65;
+  opacity: 0;
+  transform: translateY(16px);
+}
+.cta-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--tm-border);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--tm-bg-card);
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-brand-sq {
+  width: 14px; height: 14px;
+  background: var(--TM-primary);
+  border-radius: 2px;
+}
+.footer-wordmark {
+  font-family: var(--TM-font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tm-text);
+}
+.footer-meta {
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  color: var(--tm-text-subtle);
+  letter-spacing: .04em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: rgba(79,122,58,.12);
+  color: var(--tm-success);
+  border: 1px solid rgba(79,122,58,.25);
+}
+.status-pill .dot {
+  width: 6px; height: 6px;
+  background: var(--tm-success);
+  border-radius: 50%;
+  animation: pulse-dot 2.5s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANIMATION UTILITIES
+   ═══════════════════════════════════════════════════════ */
+.anim-in {
+  transition: opacity .5s ease, transform .5s ease;
+}
+.visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Stagger delays para hero */
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .25s; }
+.d3 { transition-delay: .4s; }
+.d4 { transition-delay: .55s; }
+.d5 { transition-delay: .7s; }
+.d6 { transition-delay: .85s; }
+
+/* Focus global */
+:focus-visible {
+  outline: 2px solid var(--TM-primary);
+  outline-offset: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="hdr" id="hdr">
+  <a class="brand" href="#">
+    <span class="brand-sq"></span>
+    <span class="brand-name">TM Construtora</span>
+    <span class="brand-badge">v2.0</span>
+  </a>
+
+  <nav class="hdr-nav">
+    <a href="#hero" class="act">Início</a>
+    <a href="#features">Recursos</a>
+    <a href="#flow">Fluxo</a>
+    <a href="#cta">Contato</a>
+  </nav>
+
+  <div class="hdr-actions">
+    <button class="btn-toggle" id="dark-toggle" aria-label="Alternar tema">
+      <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg id="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+           style="display:none">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      Tema
+    </button>
+  </div>
+</header>
+
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-corner"></div>
+  <div class="hero-corner hero-corner-br"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow anim-in d1" id="eyebrow">
+      <span class="live-dot"></span>
+      01.00 · AutoRelatório V2 · Engenharia Civil
+    </div>
+
+    <h1 class="hero-h1 anim-in d2" id="hero-h1">
+      Relatórios técnicos<br>
+      <span>gerados em minutos,</span><br>
+      não em horas
+    </h1>
+
+    <p class="hero-sub anim-in d3">
+      <span id="typewriter-text"></span><span class="cursor"></span>
+    </p>
+
+    <div class="hero-ctas anim-in d4">
+      <a href="#features" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        Gerar Relatório
+      </a>
+      <a href="#flow" class="btn btn-secondary">
+        Ver o Fluxo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-socials anim-in d5">
+      <a class="social-btn" href="#" title="GitHub" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+      </a>
+      <a class="social-btn" href="#" title="LinkedIn" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      <a class="social-btn" href="mailto:thiagonascimento.barbosapro@gmail.com" title="E-mail" aria-label="E-mail">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-cue" id="scroll-cue">
+    <span class="scroll-cue-text">rolar</span>
+    <div class="scroll-cue-line"></div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+         stroke="var(--TM-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ══════════ STATS ══════════ -->
+<section class="stats-section" id="stats">
+  <div class="stats-inner">
+    <div class="stats-eyebrow">02.00 · Indicadores do Sistema</div>
+    <div class="stats-grid">
+      <div class="stat-card anim-in">
+        <div class="stat-label">Relatórios Gerados</div>
+        <div class="stat-value" data-target="1247" data-suffix="">0</div>
+        <div class="stat-delta">▲ +12% vs. mês passado</div>
+      </div>
+      <div class="stat-card anim-in">
+        <div class="stat-label">Redução de Tempo</div>
+        <div class="stat-value" data-target="89" data-suffix="%">0%</div>
+        <div class="stat-delta">▼ −38% vs. processo manual</div>
+      </div>
+      <div class="stat-card anim-in">
+        <div class="stat-label">SLA Cumprido</div>
+        <div class="stat-value" data-target="984" data-suffix="" data-decimal="true">0</div>
+        <div class="stat-delta">▲ +0.7% este mês</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FEATURES ══════════ -->
+<section class="features-section" id="features">
+  <div class="section-header">
+    <div class="section-eyebrow">03.00 · Recursos Principais</div>
+    <h2 class="section-title">Construído para a realidade de campo</h2>
+  </div>
+
+  <div class="features-grid">
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/>
+        </svg>
+      </div>
+      <div class="feat-title">Leitura de Pastas</div>
+      <div class="feat-body">Aponta para a pasta de fotos da vistoria. O sistema organiza, ordena e classifica as imagens automaticamente por código de item.</div>
+      <div class="feat-mono">MODO TRADICIONAL · MODO SÃO PAULO</div>
+    </div>
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <div class="feat-title">Geração de Word</div>
+      <div class="feat-body">Produz um arquivo `.docx` com tabelas de 5 colunas, legendas, cabeçalhos de contrato e memorial de itens. Norma MAFFENG aplicada.</div>
+      <div class="feat-mono">OUTPUT · .DOCX · TABELA 5 COLUNAS</div>
+    </div>
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div class="feat-title">Dashboard em Tempo Real</div>
+      <div class="feat-body">Acompanha progresso, erros de legenda e divergências entre corpo do relatório e memorial — tudo antes de gerar o arquivo final.</div>
+      <div class="feat-mono">LIVE · VERIFICAÇÃO AUTOMÁTICA</div>
+    </div>
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <div class="feat-title">Auditoria de Fotos</div>
+      <div class="feat-body">Verifica sequência e consistência das legendas fotográficas com as tabelas do contrato. Aponta divergências com número de linha.</div>
+      <div class="feat-mono">VERIFICAÇÃO · DIVERGÊNCIAS</div>
+    </div>
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </div>
+      <div class="feat-title">Modo São Paulo</div>
+      <div class="feat-body">Regex em nomes de arquivo para contratos SP. Extrai código, item e descrição diretamente do nome da pasta, sem configuração manual.</div>
+      <div class="feat-mono">REGEX · EXTRAÇÃO AUTOMÁTICA</div>
+    </div>
+
+    <div class="feat-card anim-in">
+      <div class="feat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+        </svg>
+      </div>
+      <div class="feat-title">Stack Moderna</div>
+      <div class="feat-body">FastAPI no backend, Next.js + Fabric.js no frontend. API REST documentada, pronta para integrar com sistemas de OS e contratos.</div>
+      <div class="feat-mono">FASTAPI · NEXT.JS · FABRIC.JS</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════ FLOW DIAGRAM ══════════ -->
+<section class="flow-section" id="flow">
+  <div class="flow-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">04.00 · Evolução do Fluxo</div>
+      <h2 class="section-title">De duas etapas para uma</h2>
+    </div>
+
+    <div class="flow-cols">
+
+      <!-- Hoje -->
+      <div>
+        <div class="flow-col-label hoje">HOJE <span class="flow-badge hoje-badge">EM USO</span></div>
+
+        <div class="flow-box anim-in" style="transition-delay:.05s">
+          <svg class="fbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          Windows Explorer
+          <small style="color:var(--tm-text-subtle);font-size:11px;margin-left:auto">organiza pastas</small>
+        </div>
+
+        <div class="flow-box anim-in" style="transition-delay:.15s">
+          <svg class="fbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <polyline points="19 12 12 19 5 12"/>
+          </svg>
+          <span style="color:var(--tm-text-subtle);font-size:12px">↓ passo manual</span>
+        </div>
+
+        <div class="flow-box anim-in active" style="transition-delay:.25s">
+          <svg class="fbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          AutoRelatório
+          <small style="font-size:11px;margin-left:auto">lê pastas → gera Word</small>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="flow-arrow-col anim-in" style="transition-delay:.3s">
+        <svg class="flow-arrow-svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+
+      <!-- Futuro -->
+      <div>
+        <div class="flow-col-label futuro">FUTURO <span class="flow-badge futuro-badge">EM ANÁLISE</span></div>
+
+        <div class="flow-box right anim-in active" style="transition-delay:.35s">
+          <svg class="fbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          AutoRelatório (tudo)
+          <small style="font-size:11px;margin-left:auto">organiza + gera Word</small>
+        </div>
+
+        <div style="margin-top:12px;font-size:13px;color:var(--tm-text-muted);line-height:1.6;padding:0 4px">
+          Um único passo — apontar a pasta de fotos brutas e receber o <code style="font-family:var(--TM-font-mono);font-size:12px;color:var(--TM-primary)">.docx</code> pronto.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ CTA FINAL ══════════ -->
+<section id="cta">
+  <div class="cta-section">
+    <div class="section-eyebrow" style="margin-bottom:12px">05.00 · Contato</div>
+    <h2 class="cta-title anim-in">Pronto para automatizar seu fluxo?</h2>
+    <p class="cta-sub anim-in" style="transition-delay:.15s">
+      O AutoRelatório V2 é desenvolvido sob demanda para contratos de manutenção predial.
+      Fale com Thiago Nascimento Barbosa para adaptar ao seu contrato.
+    </p>
+    <div class="cta-btns anim-in" style="transition-delay:.3s">
+      <a href="mailto:thiagonascimento.barbosapro@gmail.com" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Enviar Mensagem
+      </a>
+      <a href="#hero" class="btn btn-secondary">
+        Voltar ao Início
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="footer-brand">
+    <div class="footer-brand-sq"></div>
+    <span class="footer-wordmark">TM Construtora</span>
+  </div>
+  <div class="footer-meta">
+    <span>AutoRelatório V2 · 2026</span>
+    <span class="status-pill">
+      <span class="dot"></span>
+      ESTÁVEL
+    </span>
+  </div>
+</footer>
+
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+/* ─── Dark Mode ─────────────────────────────────────── */
+const html = document.documentElement;
+const toggle = document.getElementById('dark-toggle');
+const iconMoon = document.getElementById('icon-moon');
+const iconSun  = document.getElementById('icon-sun');
+
+function applyTheme(dark) {
+  html.classList.toggle('dark', dark);
+  iconMoon.style.display = dark ? 'none' : '';
+  iconSun.style.display  = dark ? ''     : 'none';
+  try { localStorage.setItem('tm-theme', dark ? 'dark' : 'light'); } catch(e) {}
+}
+
+(function() {
+  let saved;
+  try { saved = localStorage.getItem('tm-theme'); } catch(e) {}
+  applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+})();
+
+toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+/* ─── Hero Animations (stagger on load) ─────────────── */
+window.addEventListener('load', () => {
+  const heroEls = ['eyebrow','hero-h1'];
+  heroEls.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('anim-in', 'visible');
+  });
+
+  document.querySelectorAll('.hero-sub, .hero-ctas, .hero-socials').forEach(el => {
+    el.classList.add('visible');
+  });
+
+  setTimeout(() => {
+    const cue = document.getElementById('scroll-cue');
+    if (cue) cue.style.opacity = '1';
+  }, 900);
+});
+
+/* ─── Typewriter ─────────────────────────────────────── */
+const phrases = [
+  "Aponte a pasta de fotos. Receba o relatório.",
+  "Zero formatação manual. Zero tabelas no braço.",
+  "Compatível com contratos MAFFENG e norma SP.",
+  "De horas de trabalho para minutos de execução.",
+];
+let pi = 0, ci = 0, deleting = false;
+const tw = document.getElementById('typewriter-text');
+
+function typewrite() {
+  const phrase = phrases[pi];
+  if (!deleting) {
+    tw.textContent = phrase.slice(0, ci + 1);
+    ci++;
+    if (ci === phrase.length) { deleting = true; setTimeout(typewrite, 2200); return; }
+    setTimeout(typewrite, 42);
+  } else {
+    tw.textContent = phrase.slice(0, ci - 1);
+    ci--;
+    if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(typewrite, 400); return; }
+    setTimeout(typewrite, 22);
+  }
+}
+setTimeout(typewrite, 800);
+
+/* ─── IntersectionObserver — reveal + countup ───────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    el.classList.add('visible');
+
+    // Countup para stat-value
+    const sv = el.querySelector?.('.stat-value[data-target]') || (el.dataset.target ? el : null);
+    if (sv && sv.dataset.target) animCount(sv);
+
+    observer.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.anim-in').forEach(el => observer.observe(el));
+
+// Também observar stat-cards individualmente
+document.querySelectorAll('.stat-card').forEach(el => observer.observe(el));
+
+function animCount(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = el.dataset.decimal === 'true';
+  const duration = 1400;
+  const start = performance.now();
+
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(target * ease);
+    if (isDecimal) {
+      el.textContent = (val / 10).toFixed(1) + '%' + suffix;
+    } else {
+      el.textContent = val.toLocaleString('pt-BR') + suffix;
+    }
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ─── Nav active on scroll ───────────────────────────── */
+const sections = ['hero','features','flow','cta'];
+const navLinks = document.querySelectorAll('.hdr-nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 80) current = id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('act', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "modo": "SP2",
+    "contrato": "1565",
+    "fonte_extracao": "MAPA_RELATORIO_SP2_SANTA_ADELIA.md §5",
+    "data": "2026-05-14"
+  },
+  "itens": {
+    "2.12":  { "descricao": "Retirada de piso tátil com limpeza", "unidade": "m²" },
+    "2.18":  { "descricao": "Retirada de forro / fibra mineral", "unidade": "m²" },
+    "2.21":  { "descricao": "Andaime torre metálico (1,5 x 1,5 m) com piso metálico", "unidade": "m/mês" },
+    "8.7":   { "descricao": "Aplicação de PU em emendas (vedação calha/platibanda)", "unidade": "m" },
+    "12.5":  { "descricao": "Forro acessório/diverso", "unidade": "un" },
+    "12.10": { "descricao": "Placa de forro mineral", "unidade": "un" },
+    "13.12": { "descricao": "Deslocamento ou remanejamento de mobiliário dentro da agência", "unidade": "un" },
+    "15.13": { "descricao": "Fechadura — substituição (porta de vidro)", "unidade": "un" },
+    "17.1":  { "descricao": "Pintura em esmalte sintético standard em estrutura metálica com duas demãos", "unidade": "m²" },
+    "17.2":  { "descricao": "Emassamento parede/teto com massa corrida", "unidade": "m²" },
+    "17.4":  { "descricao": "Pintura em látex acrílica standard fosca sem emassamento, 3 demãos, com aplicação de selador para exterior", "unidade": "m²" },
+    "17.6":  { "descricao": "Pintura em látex acrílica premium fosca em paredes internas ou externas, exceto muros, com três demãos, sem emassamento, com aplicação de selador para alvenaria exterior", "unidade": "m²" },
+    "17.8":  { "descricao": "Pintura para piso a base de resina acrílica - piso, faixas de demarcação de vagas, PNE, carro forte e similares", "unidade": "m²" },
+    "17.9":  { "descricao": "Pintura Automotiva", "unidade": "m²" },
+    "17.10": { "descricao": "Pintura em látex acrílica econômica fosca, em muros, com duas demãos, sem emassamento, com aplicação de selador para alvenaria exterior", "unidade": "m²" },
+    "19.1":  { "descricao": "Ponto elétrico — manutenção", "unidade": "un" },
+    "19.8":  { "descricao": "Ponto lógico — manutenção", "unidade": "un" },
+    "19.18": { "descricao": "Luminária LED — substituição (modelo padrão)", "unidade": "un" },
+    "19.80": { "descricao": "Luminária LED — substituição (modelo específico)", "unidade": "un" },
+    "29.6":  { "descricao": "Piso tátil de borracha - direcional ou alerta (por placa)", "unidade": "un" }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "tarefa-bloqueante-placeholders",
+  "prompt": "Preciso inserir 7 placeholders em 9 templates Word diferentes. Essa tarefa bloqueia toda a implementação.",
+  "assertions": [
+    {
+      "id": "count_suggestions",
+      "text": "Gerou exatamente 3 sugestões",
+      "passed": true
+    },
+    {
+      "id": "language_portuguese",
+      "text": "Todas as sugestões em português (0% inglês)",
+      "passed": true
+    },
+    {
+      "id": "pattern_format",
+      "text": "Segue padrão [Verbo] [Descrição] ([Status])",
+      "passed": true
+    },
+    {
+      "id": "mentions_blocker",
+      "text": "Menciona (BLOQUEANTE) em todas as sugestões",
+      "passed": true
+    }
+  ]
+}

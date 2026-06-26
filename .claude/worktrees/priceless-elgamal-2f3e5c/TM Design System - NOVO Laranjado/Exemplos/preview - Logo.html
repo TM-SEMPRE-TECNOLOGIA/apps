@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TM Sempre Tecnologia</title>
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #121212;
+      --bg-soft: #1E1E1E;
+      --primary: #E47A4A;
+      --text: #E8E8E8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo-tm {
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 4px;
+
+      /* efeito leve de profundidade */
+      text-shadow:
+        0 2px 0 rgba(0,0,0,0.4),
+        0 6px 12px rgba(0,0,0,0.6);
+    }
+
+    .logo-text {
+      margin-top: 10px;
+      font-size: clamp(14px, 2.5vw, 28px);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 6px;
+    }
+
+    /* versão para header (opcional) */
+    .logo.horizontal {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo.horizontal .logo-tm {
+      font-size: 32px;
+    }
+
+    .logo.horizontal .logo-text {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Logo principal -->
+  <div class="logo">
+    <div class="logo-tm">TM</div>
+    <div class="logo-text">SEMPRE TECNOLOGIA</div>
+  </div>
+
+</body>
+</html>

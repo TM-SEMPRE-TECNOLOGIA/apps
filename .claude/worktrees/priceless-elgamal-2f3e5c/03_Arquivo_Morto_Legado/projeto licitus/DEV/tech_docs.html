@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs Técnicos (DEV) | Licitus Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0fdfa', 100: '#ccfbf1', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .badge-new { font-size: 0.6rem; padding: 1px 6px; border-radius: 9999px; background: #14b8a6; color: white; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300 font-sans antialiased">
+    <div class="py-6 bg-slate-950 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div>
+                <a href="../index.html" class="text-brand-400 hover:text-brand-300 text-sm flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Voltar para landing page</a>
+                <h1 class="text-2xl font-bold text-white mt-2"><i class="fa-solid fa-toolbox text-brand-500 mr-2"></i>Documentação Técnica (DEV)</h1>
+            </div>
+            <div class="text-sm text-slate-500">Apenas para desenvolvedores e investidores</div>
+        </div>
+    </div>
+    <!-- Tech Docs Section (PRD, NPRD, MVP, Logic) -->
+    <section id="documentacao" class="py-20 bg-slate-900 text-slate-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Documentação do Projeto</h2>
+                <p class="text-slate-400">Visão técnica e de negócios para investidores, desenvolvedores e stakeholders.
+                </p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="flex overflow-x-auto border-b border-slate-700 mb-8 hide-scrollbar gap-1">
+                <button onclick="openTab(event, 'prd')"
+                    class="tab-btn active px-5 py-3 text-sm font-medium text-brand-400 border-b-2 border-brand-500 whitespace-nowrap"><i
+                        class="fa-solid fa-file-lines mr-1"></i>PRD</button>
+                <button onclick="openTab(event, 'nprd')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-server mr-1"></i>Arquitetura</button>
+                <button onclick="openTab(event, 'mvp')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-rocket mr-1"></i>MVP</button>
+                <button onclick="openTab(event, 'logica')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-diagram-project mr-1"></i>Lógica</button>
+                <button onclick="openTab(event, 'negocio')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-chart-pie mr-1"></i>Negócio<span class="badge-new">NOVO</span></button>
+                <button onclick="openTab(event, 'roadmap')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-road mr-1"></i>Roadmap<span class="badge-new">NOVO</span></button>
+                <button onclick="openTab(event, 'riscos')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-shield-halved mr-1"></i>Riscos<span class="badge-new">NOVO</span></button>
+                <button onclick="openTab(event, 'glossario')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-book mr-1"></i>Glossário<span class="badge-new">NOVO</span></button>
+                <button onclick="openTab(event, 'faq')"
+                    class="tab-btn px-5 py-3 text-sm font-medium text-slate-400 border-b-2 border-transparent hover:text-slate-200 whitespace-nowrap"><i
+                        class="fa-solid fa-circle-question mr-1"></i>FAQ<span class="badge-new">NOVO</span></button>
+            </div>
+
+            <!-- Tabs Content -->
+            <div class="bg-slate-800 rounded-xl p-6 lg:p-10 border border-slate-700 shadow-2xl">
+
+                <!-- PRD -->
+                <div id="prd" class="tab-content active">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-file-lines text-brand-500 mr-2"></i>Product Requirements Document (PRD)
+                    </h3>
+                    <div class="space-y-8 text-sm">
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">1. Visão Geral</h4>
+                            <p>O <strong class="text-white">Licitus Bot</strong> é uma plataforma SaaS B2B que
+                                automatiza a participação em pregões eletrônicos no portal Compras.gov.br. Elimina a
+                                perda de licitações por lentidão humana, garantindo o melhor preço possível dentro da
+                                margem de lucro estipulada.</p>
+                            <div class="mt-3 bg-brand-900/20 border border-brand-500/20 rounded-lg p-4">
+                                <p class="text-brand-100 text-xs"><strong>Missão:</strong> Democratizar o acesso a
+                                    ferramentas de automação para PMEs, nivelando a competição com grandes fornecedores
+                                    que já utilizam soluções proprietárias.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">2. Problema</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Perda de pregões na fase de <strong class="text-yellow-400">"tempo
+                                        randômico"</strong> por lentidão humana.</li>
+                                <li>Erro humano ao calcular margem no calor da disputa → lances abaixo do custo <strong
+                                        class="text-red-400">(prejuízo)</strong>.</li>
+                                <li>Falta de monitoramento contínuo — pregoeiros que acompanham múltiplos itens perdem
+                                    oportunidades.</li>
+                                <li>Dependência de operador humano presente 100% do tempo durante o pregão.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">3. Personas</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <div class="flex items-center gap-2 mb-2"><i
+                                            class="fa-solid fa-user-tie text-brand-400"></i><strong
+                                            class="text-white">Carlos — Dono de PME</strong></div>
+                                    <p class="text-xs text-slate-400">52 anos, distribuidora de materiais. Participa de
+                                        10-15 pregões/mês. Já perdeu contratos por segundos de atraso.</p>
+                                </div>
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <div class="flex items-center gap-2 mb-2"><i
+                                            class="fa-solid fa-user-gear text-brand-400"></i><strong
+                                            class="text-white">Ana — Pregoeira Terceirizada</strong></div>
+                                    <p class="text-xs text-slate-400">34 anos, opera pregões para 5 empresas
+                                        simultaneamente. Precisa gerenciar múltiplos itens em paralelo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">4. User Stories</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3 bg-slate-700/30 p-3 rounded-lg"><span
+                                        class="bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded mt-0.5">US-01</span>
+                                    <div>
+                                        <p>Cadastrar <strong class="text-white">margem mínima</strong> para o bot parar
+                                            automaticamente.</p>
+                                        <p class="text-xs text-slate-500 mt-1">Critério: Parar 100% das vezes quando
+                                            lance calculado fica abaixo do mínimo.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-slate-700/30 p-3 rounded-lg"><span
+                                        class="bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded mt-0.5">US-02</span>
+                                    <div>
+                                        <p>Definir <strong class="text-white">decremento</strong> (ex: cobrir oferta em
+                                            R$ 0,05).</p>
+                                        <p class="text-xs text-slate-500 mt-1">Critério: Aceitar valores de R$ 0,01 até
+                                            R$ 100,00.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-slate-700/30 p-3 rounded-lg"><span
+                                        class="bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded mt-0.5">US-03</span>
+                                    <div>
+                                        <p><strong class="text-white">Dashboard tempo real</strong> com itens
+                                            ganhando/perdendo.</p>
+                                        <p class="text-xs text-slate-500 mt-1">Critério: Atualização visual a cada 2s
+                                            com status por item.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-slate-700/30 p-3 rounded-lg"><span
+                                        class="bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded mt-0.5">US-04</span>
+                                    <div>
+                                        <p><strong class="text-white">Alertas</strong> quando atingir margem mínima ou
+                                            pregão encerrar.</p>
+                                        <p class="text-xs text-slate-500 mt-1">Critério: Notificação via e-mail/push em
+                                            até 5 segundos.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-slate-700/30 p-3 rounded-lg"><span
+                                        class="bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded mt-0.5">US-05</span>
+                                    <div>
+                                        <p><strong class="text-white">Relatórios pós-pregão</strong> com histórico e
+                                            economia gerada.</p>
+                                        <p class="text-xs text-slate-500 mt-1">Critério: Exportável em PDF com gráficos
+                                            de performance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">5. KPIs & Métricas</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="text-center bg-slate-700/50 rounded-lg p-3 border border-slate-600">
+                                    <p class="text-2xl font-bold text-brand-400">&lt;300ms</p>
+                                    <p class="text-xs text-slate-400">Tempo de resposta</p>
+                                </div>
+                                <div class="text-center bg-slate-700/50 rounded-lg p-3 border border-slate-600">
+                                    <p class="text-2xl font-bold text-green-400">95%</p>
+                                    <p class="text-xs text-slate-400">Taxa de sucesso</p>
+                                </div>
+                                <div class="text-center bg-slate-700/50 rounded-lg p-3 border border-slate-600">
+                                    <p class="text-2xl font-bold text-yellow-400">0%</p>
+                                    <p class="text-xs text-slate-400">Lances abaixo da margem</p>
+                                </div>
+                                <div class="text-center bg-slate-700/50 rounded-lg p-3 border border-slate-600">
+                                    <p class="text-2xl font-bold text-blue-400">99.9%</p>
+                                    <p class="text-xs text-slate-400">Uptime</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NPRD -->
+                <div id="nprd" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2">Non-Product
+                        Requirements (N-PRD) & Arquitetura</h3>
+
+                    <div class="space-y-6 text-sm">
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">1. Requisitos de
+                                Desempenho</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Latência:</strong> O tempo de resposta entre a leitura de um novo lance
+                                    concorrente e o envio da contraproposta deve ser inferior a 500ms.</li>
+                                <li><strong>Disponibilidade:</strong> Uptime de 99.9% durante o horário comercial (08h
+                                    às 18h), período crítico de pregões.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">2. Requisitos de Segurança
+                            </h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Criptografia:</strong> As credenciais do usuário (Gov.br) devem ser
+                                    armazenadas com criptografia AES-256 no banco de dados.</li>
+                                <li><strong>Conexão:</strong> Toda a comunicação cliente-servidor deve ocorrer via TLS
+                                    1.3 (HTTPS).</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">3. Requisitos de
+                                Conformidade Legal</h4>
+                            <p>O bot não pode sobrecarregar os servidores do governo. Deve implementar "rate limiting"
+                                (ex: requisições a cada X segundos baseados na regra do portal) para não caracterizar
+                                ataque de negação de serviço (DDoS) ou fraude em licitação.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">4. Stack Tecnológica
+                                Sugerida</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Backend/Bot Worker:</strong> Python (Selenium/Playwright para scraping
+                                    complexo ou HTTPX para chamadas de API nativas).</li>
+                                <li><strong>Frontend (Dashboard):</strong> React.js ou Vue.js com TailwindCSS.</li>
+                                <li><strong>Banco de Dados:</strong> PostgreSQL para dados relacionais, Redis para fila
+                                    de lances em tempo real (Celery/RabbitMQ).</li>
+                                <li><strong>Infraestrutura:</strong> AWS (EC2/Fargate) com IPs rotativos (Proxies) se
+                                    necessário.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MVP -->
+                <div id="mvp" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2">Escopo do MVP (Minimum
+                        Viable Product)</h3>
+
+                    <div class="space-y-6 text-sm">
+                        <div class="bg-brand-900/30 border border-brand-500/30 p-4 rounded-lg">
+                            <p class="text-brand-100"><strong>Objetivo do MVP:</strong> Validar se a tecnologia consegue
+                                autenticar, ler o menor preço e enviar um lance válido mais rápido que um humano, apenas
+                                no portal mais popular (Compras.gov.br).</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-green-400 font-bold mb-2 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m4.5 12.75 6 6 9-13.5" />
+                                    </svg>
+                                    O que ENTRA no MVP
+                                </h4>
+                                <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                                    <li>Suporte exclusivo ao portal Compras.gov.br.</li>
+                                    <li>Modo de disputa: Apenas "Aberto".</li>
+                                    <li>Estratégia de Lance Única: Cobrir o primeiro colocado por um valor fixo (ex: R$
+                                        0,01 a menos).</li>
+                                    <li>Cadastro simples de item com: Número do Pregão, Item, Valor Limite Mínimo.</li>
+                                    <li>Botão de "Start/Stop" manual por item.</li>
+                                    <li>Script rodando localmente (Desktop App ou CLI em Python) para evitar custos
+                                        iniciais com servidores em nuvem.</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-red-400 font-bold mb-2 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                    O que FICA DE FORA (Backlog V2)
+                                </h4>
+                                <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                                    <li>Suporte a outros portais (Licitações-e, BLL, BEC).</li>
+                                    <li>Modo de disputa "Aberto e Fechado".</li>
+                                    <li>Estratégias avançadas (Lance percentual, Sniper de último segundo).</li>
+                                    <li>Plataforma SaaS 100% em nuvem (V1 será instalável ou script via terminal).</li>
+                                    <li>Envio automático de documentos de habilitação.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logica -->
+                <div id="logica" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2">Lógica e Fluxo de
+                        Decisão (Algoritmo)</h3>
+
+                    <div class="space-y-6 text-sm">
+                        <p class="mb-4">Este é o fluxograma interno do Worker (robô) que executa a automação dos lances.
+                        </p>
+
+                        <div
+                            class="bg-slate-900 p-6 rounded-lg font-mono text-xs overflow-x-auto border border-slate-700">
+                            <pre class="text-green-400">
+[INÍCIO]
+  |
+  +-- 1. Autenticar no Portal (Gov.br)
+  |      - Verifica sucesso. Se erro -> Alerta Usuário e Para.
+  |
+  +-- 2. Selecionar Pregão Ativo e Item (Fornecido pelo DB)
+  |
+  +-- 3. Carregar Parâmetros:
+  |      [VALOR_MINIMO_ACEITAVEL] = ex: R$ 100,00
+  |      [DECREMENTO] = ex: R$ 0,05
+  |
+  +-- [LOOP DE MONITORAMENTO] <--+
+         |                       |
+         +-- Ler Tela/API: Qual o atual [MENOR_LANCE]?
+         |
+         +-- Condição A: O [MENOR_LANCE] é MEU?
+         |      - SIM: Aguardar 2s. Retornar ao LOOP.
+         |      - NÃO: Seguir em frente.
+         |
+         +-- Condição B: O status do item é "ABERTO" para lances?
+         |      - NÃO: Sair do LOOP (Pregão pausado ou encerrado).
+         |      - SIM: Seguir em frente.
+         |
+         +-- Calcular: [NOVO_LANCE] = [MENOR_LANCE] - [DECREMENTO]
+         |
+         +-- Condição C: [NOVO_LANCE] >= [VALOR_MINIMO_ACEITAVEL]?
+         |      - NÃO: Bati na margem! Parar de dar lances. Notificar Usuário.
+         |      - SIM: Preparar envio!
+         |
+         +-- AÇÃO: Enviar Requisição HTTP POST de Lance com [NOVO_LANCE]
+         |
+         +-- Verificar resposta do servidor (Sucesso/Recusado)
+         |
+         +-- Aguardar X segundos (evitar rate limit).
+         |
+         +-----------------------+ (Reinicia o Loop)
+</pre>
+                        </div>
+                        <p class="text-slate-400 italic text-xs mt-2">* Nota: Esta lógica é a base do MVP. Sistemas
+                            avançados incluem tratativas assíncronas via WebSockets para evitar polling excessivo.</p>
+                    </div>
+                </div>
+
+                <!-- Modelo de Negócio -->
+                <div id="negocio" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-chart-pie text-brand-500 mr-2"></i>Modelo de Negócio</h3>
+                    <div class="space-y-8 text-sm">
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">1. Proposta de Valor</h4>
+                            <div class="bg-brand-900/20 border border-brand-500/20 rounded-lg p-4">
+                                <p class="text-brand-100">Transformar a participação em licitações de um processo
+                                    manual, lento e propenso a erros em uma <strong class="text-white">operação
+                                        automatizada, precisa e escalável</strong> — permitindo que empresas ganhem mais
+                                    contratos com menos esforço operacional.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">2. Modelo de Receita</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 text-center">
+                                    <p class="text-xs text-slate-400 uppercase mb-1">Starter</p>
+                                    <p class="text-2xl font-bold text-white">R$ 297<span
+                                            class="text-sm text-slate-400">/mês</span></p>
+                                    <ul class="text-xs text-slate-400 mt-3 space-y-1 text-left">
+                                        <li>• Até 5 itens simultâneos</li>
+                                        <li>• 1 usuário</li>
+                                        <li>• Suporte por e-mail</li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="bg-brand-900/30 rounded-lg p-4 border-2 border-brand-500 text-center relative">
+                                    <span
+                                        class="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-xs px-3 py-0.5 rounded-full font-bold">POPULAR</span>
+                                    <p class="text-xs text-slate-400 uppercase mb-1">Professional</p>
+                                    <p class="text-2xl font-bold text-white">R$ 797<span
+                                            class="text-sm text-slate-400">/mês</span></p>
+                                    <ul class="text-xs text-slate-400 mt-3 space-y-1 text-left">
+                                        <li>• Até 20 itens simultâneos</li>
+                                        <li>• 3 usuários</li>
+                                        <li>• Suporte prioritário</li>
+                                        <li>• Relatórios avançados</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 text-center">
+                                    <p class="text-xs text-slate-400 uppercase mb-1">Enterprise</p>
+                                    <p class="text-2xl font-bold text-white">Sob consulta</p>
+                                    <ul class="text-xs text-slate-400 mt-3 space-y-1 text-left">
+                                        <li>• Itens ilimitados</li>
+                                        <li>• Usuários ilimitados</li>
+                                        <li>• API dedicada</li>
+                                        <li>• SLA 99.99%</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">3. Análise de Mercado
+                                (TAM/SAM/SOM)</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="text-center bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <p class="text-xl font-bold text-brand-400">R$ 2.1 Bi</p>
+                                    <p class="text-xs text-slate-400"><strong>TAM</strong> — Total de pregões/ano no
+                                        Brasil</p>
+                                </div>
+                                <div class="text-center bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <p class="text-xl font-bold text-yellow-400">R$ 340 Mi</p>
+                                    <p class="text-xs text-slate-400"><strong>SAM</strong> — PMEs em Compras.gov.br</p>
+                                </div>
+                                <div class="text-center bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <p class="text-xl font-bold text-green-400">R$ 12 Mi</p>
+                                    <p class="text-xs text-slate-400"><strong>SOM</strong> — Meta ano 1 (2.400 clientes)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">4. Análise Competitiva
+                            </h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs">
+                                    <thead>
+                                        <tr class="border-b border-slate-600">
+                                            <th class="py-2 px-3 text-left text-slate-400">Critério</th>
+                                            <th class="py-2 px-3 text-center text-brand-400">Licitus Bot</th>
+                                            <th class="py-2 px-3 text-center text-slate-400">Concorrente A</th>
+                                            <th class="py-2 px-3 text-center text-slate-400">Manual</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-slate-300">
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Velocidade</td>
+                                            <td class="py-2 px-3 text-center text-green-400">~300ms</td>
+                                            <td class="py-2 px-3 text-center">~1s</td>
+                                            <td class="py-2 px-3 text-center text-red-400">3-10s</td>
+                                        </tr>
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Proteção de margem</td>
+                                            <td class="py-2 px-3 text-center text-green-400">✓ Automática</td>
+                                            <td class="py-2 px-3 text-center">✓ Manual</td>
+                                            <td class="py-2 px-3 text-center text-red-400">✗</td>
+                                        </tr>
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Relatórios</td>
+                                            <td class="py-2 px-3 text-center text-green-400">✓ PDF+Dashboard</td>
+                                            <td class="py-2 px-3 text-center">Básico</td>
+                                            <td class="py-2 px-3 text-center text-red-400">✗</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-3">Preço</td>
+                                            <td class="py-2 px-3 text-center text-green-400">A partir de R$197</td>
+                                            <td class="py-2 px-3 text-center">R$ 500+</td>
+                                            <td class="py-2 px-3 text-center">Gratuito</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roadmap -->
+                <div id="roadmap" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-road text-brand-500 mr-2"></i>Roadmap do Produto</h3>
+                    <div class="space-y-6 text-sm">
+                        <div class="relative pl-8 border-l-2 border-brand-500 space-y-8">
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[2.55rem] w-5 h-5 bg-brand-500 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-check text-white text-xs"></i>
+                                </div>
+                                <div class="bg-brand-900/20 border border-brand-500/30 rounded-lg p-4">
+                                    <h4 class="text-brand-400 font-bold">Fase 1 — MVP <span
+                                            class="text-xs text-slate-400 font-normal">(Mês 1-2)</span></h4>
+                                    <ul class="text-slate-300 text-xs mt-2 space-y-1">
+                                        <li>✅ Autenticação no Compras.gov.br</li>
+                                        <li>✅ Leitura de lances em tempo real</li>
+                                        <li>✅ Envio automatizado de contraproposta</li>
+                                        <li>✅ Proteção de margem mínima</li>
+                                        <li>✅ Interface CLI local</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[2.55rem] w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-code text-white text-xs"></i>
+                                </div>
+                                <div class="bg-slate-700/50 border border-slate-600 rounded-lg p-4">
+                                    <h4 class="text-yellow-400 font-bold">Fase 2 — V1.0 <span
+                                            class="text-xs text-slate-400 font-normal">(Mês 3-5)</span></h4>
+                                    <ul class="text-slate-300 text-xs mt-2 space-y-1">
+                                        <li>🔄 Dashboard web com monitoramento</li>
+                                        <li>🔄 Sistema de alertas (e-mail/push)</li>
+                                        <li>🔄 Relatórios pós-pregão em PDF</li>
+                                        <li>🔄 Multi-item simultâneo</li>
+                                        <li>🔄 Painel administrativo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[2.55rem] w-5 h-5 bg-slate-500 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-clock text-white text-xs"></i>
+                                </div>
+                                <div class="bg-slate-700/50 border border-slate-600 rounded-lg p-4">
+                                    <h4 class="text-slate-300 font-bold">Fase 3 — V2.0 <span
+                                            class="text-xs text-slate-400 font-normal">(Mês 6-9)</span></h4>
+                                    <ul class="text-slate-300 text-xs mt-2 space-y-1">
+                                        <li>⏳ Plataforma SaaS 100% em nuvem</li>
+                                        <li>⏳ Suporte multi-portal (BLL, BEC, Licitações-e)</li>
+                                        <li>⏳ Estratégias avançadas de lance</li>
+                                        <li>⏳ Modo disputa "Aberto e Fechado"</li>
+                                        <li>⏳ API pública para integrações</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[2.55rem] w-5 h-5 bg-slate-600 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-star text-white text-xs"></i>
+                                </div>
+                                <div class="bg-slate-700/50 border border-slate-600 rounded-lg p-4">
+                                    <h4 class="text-slate-300 font-bold">Fase 4 — V3.0 <span
+                                            class="text-xs text-slate-400 font-normal">(Mês 10-12)</span></h4>
+                                    <ul class="text-slate-300 text-xs mt-2 space-y-1">
+                                        <li>⏳ IA preditiva para sugestão de lances</li>
+                                        <li>⏳ Envio automático de habilitação</li>
+                                        <li>⏳ App mobile para acompanhamento</li>
+                                        <li>⏳ Marketplace de estratégias</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riscos & Compliance -->
+                <div id="riscos" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-shield-halved text-brand-500 mr-2"></i>Riscos & Compliance</h3>
+                    <div class="space-y-8 text-sm">
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-3 uppercase tracking-wide">1. Matriz de Riscos</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs">
+                                    <thead>
+                                        <tr class="border-b border-slate-600">
+                                            <th class="py-2 px-3 text-left text-slate-400">Risco</th>
+                                            <th class="py-2 px-3 text-center text-slate-400">Impacto</th>
+                                            <th class="py-2 px-3 text-center text-slate-400">Probabilidade</th>
+                                            <th class="py-2 px-3 text-left text-slate-400">Mitigação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-slate-300">
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Mudança na API do Compras.gov</td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-xs">Alto</span>
+                                            </td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-xs">Média</span>
+                                            </td>
+                                            <td class="py-2 px-3">Monitoramento contínuo + abstração de camada de
+                                                scraping</td>
+                                        </tr>
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Bloqueio de IP por rate limiting</td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-xs">Alto</span>
+                                            </td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-xs">Média</span>
+                                            </td>
+                                            <td class="py-2 px-3">Pool de IPs rotativos + respeito aos intervalos do
+                                                portal</td>
+                                        </tr>
+                                        <tr class="border-b border-slate-700">
+                                            <td class="py-2 px-3">Questionamento jurídico</td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-xs">Alto</span>
+                                            </td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded text-xs">Baixa</span>
+                                            </td>
+                                            <td class="py-2 px-3">Parecer jurídico preventivo + conformidade total com
+                                                regras do portal</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-3">Indisponibilidade do portal</td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-xs">Médio</span>
+                                            </td>
+                                            <td class="py-2 px-3 text-center"><span
+                                                    class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded text-xs">Média</span>
+                                            </td>
+                                            <td class="py-2 px-3">Retry automático + alertas ao usuário</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">2. Compliance Legal</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <div class="flex items-center gap-2 mb-2"><i
+                                            class="fa-solid fa-scale-balanced text-yellow-400"></i><strong
+                                            class="text-white">Lei de Licitações (14.133/21)</strong></div>
+                                    <p class="text-xs text-slate-400">O bot não interfere no processo licitatório em si
+                                        — apenas automatiza ações que o operador humano faria manualmente. A ferramenta
+                                        é de uso do licitante e não altera regras do certame.</p>
+                                </div>
+                                <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                                    <div class="flex items-center gap-2 mb-2"><i
+                                            class="fa-solid fa-lock text-blue-400"></i><strong class="text-white">LGPD
+                                            (Lei 13.709/18)</strong></div>
+                                    <p class="text-xs text-slate-400">Credenciais Gov.br armazenadas com AES-256. Dados
+                                        pessoais mínimos coletados. Consentimento explícito do usuário. Direito ao
+                                        esquecimento implementado.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-2 uppercase tracking-wide">3. Parecer Jurídico
+                                Resumido</h4>
+                            <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                                <p class="text-green-200 text-xs"><i class="fa-solid fa-circle-check mr-1"></i>
+                                    <strong>Conclusão:</strong> Não há dispositivo legal que proíba o uso de automação
+                                    pelo licitante no envio de lances em pregão eletrônico. A ferramenta opera dentro
+                                    dos limites do portal, sem exploração de vulnerabilidades ou manipulação indevida do
+                                    sistema. Recomenda-se manter rate limiting para evitar sobrecarga e parecer jurídico
+                                    atualizado anualmente.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Glossário -->
+                <div id="glossario" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-book text-brand-500 mr-2"></i>Glossário Técnico</h3>
+                    <div class="space-y-6 text-sm">
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-3 uppercase tracking-wide">Termos de Licitação</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">Pregão
+                                        Eletrônico</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Modalidade de licitação realizada
+                                        inteiramente online, onde fornecedores competem em tempo real.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">Tempo
+                                        Randômico</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Período aleatório (0-30min) ao final da fase
+                                        de lances onde o pregão pode encerrar a qualquer momento.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong
+                                        class="text-white">Decremento</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Valor mínimo de redução entre lances
+                                        consecutivos, definido no edital (ex: R$ 0,01).</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong
+                                        class="text-white">Habilitação</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Fase posterior aos lances onde o vencedor
+                                        comprova documentação legal, fiscal e técnica.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">UASG</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Unidade Administrativa de Serviços Gerais —
+                                        código que identifica cada órgão comprador do governo.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">SICAF</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Sistema de Cadastramento Unificado de
+                                        Fornecedores do Governo Federal.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-brand-400 font-bold mb-3 uppercase tracking-wide">Termos Técnicos</h4>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">Worker</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Processo em background que monitora e executa
+                                        os lances automaticamente.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">Rate
+                                        Limiting</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Controle de frequência de requisições para
+                                        evitar sobrecarga do servidor alvo.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">Scraping</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Técnica de extração de dados de páginas web
+                                        para leitura automatizada de informações.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong
+                                        class="text-white">WebSocket</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Protocolo de comunicação bidirecional em
+                                        tempo real entre cliente e servidor.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">AES-256</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Padrão de criptografia simétrica com chave de
+                                        256 bits, considerado inquebrável.</p>
+                                </div>
+                                <div class="bg-slate-700/30 rounded-lg p-3"><strong class="text-white">SaaS</strong>
+                                    <p class="text-xs text-slate-400 mt-1">Software como Serviço — modelo onde o
+                                        software é acessado pela internet via assinatura.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div id="faq" class="tab-content">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-2"><i
+                            class="fa-solid fa-circle-question text-brand-500 mr-2"></i>FAQ Técnico</h3>
+                    <div class="space-y-4 text-sm">
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                O bot é legal? Posso ser desclassificado?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">Sim, é legal. Não há legislação que proíba a
+                                automação de lances pelo licitante. O bot simula exatamente as ações que um humano
+                                faria, dentro das regras do portal. Diferente de fraude ou conluio, trata-se de uma
+                                ferramenta de eficiência operacional.</div>
+                        </details>
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                O que acontece se o portal mudar a interface?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">Nosso sistema possui uma camada de abstração
+                                que facilita adaptações rápidas. Monitoramos mudanças no portal diariamente.
+                                Atualizações são entregues em até 24h sem custo adicional.</div>
+                        </details>
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                Minhas credenciais do Gov.br estão seguras?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">Absolutamente. Utilizamos criptografia AES-256
+                                para armazenamento e TLS 1.3 para transmissão. As credenciais nunca são acessíveis em
+                                texto plano, nem mesmo por nossa equipe. Compliance total com LGPD.</div>
+                        </details>
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                Posso acompanhar múltiplos pregões ao mesmo tempo?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">Sim! O plano Professional permite até 20 itens
+                                simultâneos, e o Enterprise é ilimitado. Cada item opera de forma independente com seus
+                                próprios parâmetros de margem e decremento.</div>
+                        </details>
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                E se a internet cair durante o pregão?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">Na versão cloud (V2+), o bot opera em
+                                servidores com redundância e uptime de 99.9%. Mesmo que sua internet pessoal caia, o bot
+                                continua operando. Na versão local (MVP), o bot executa localmente e depende da sua
+                                conexão.</div>
+                        </details>
+                        <details class="bg-slate-700/30 rounded-lg border border-slate-600 group">
+                            <summary
+                                class="p-4 cursor-pointer font-medium text-white flex justify-between items-center hover:text-brand-400 transition">
+                                Qual a velocidade real de resposta do bot?<i
+                                    class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="px-4 pb-4 text-slate-400 text-xs">O tempo médio de detecção + envio de lance é
+                                inferior a 300ms. Um humano experiente leva entre 3 a 10 segundos. A diferença é crucial
+                                em disputas acirradas no tempo randômico.</div>
+                        </details>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Tab Logic Script -->
+    <script>
+        function openTab(evt, tabName) {
+            // Get all elements with class="tab-content" and hide them
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-btn" and remove the active styling
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("text-brand-400", "border-brand-500");
+                tablinks[i].classList.add("text-slate-400", "border-transparent");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.remove("text-slate-400", "border-transparent");
+            evt.currentTarget.classList.add("text-brand-400", "border-brand-500");
+        }
+    </script>
+
+</body>
+</html>

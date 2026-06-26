@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>AutoRelatorio V2 — UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--tm-bg); color: var(--tm-text); font-family: var(--TM-font-sans); }
+  .app { display: flex; flex-direction: column; height: 100vh; }
+  .main { display: flex; flex: 1; min-height: 0; }
+  @keyframes tmPulse {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+  @keyframes tmBlink { 50% { opacity: 0; } }
+  @keyframes tmFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="WizardSidebar.jsx"></script>
+<script type="text/babel" src="PhotoCard.jsx"></script>
+<script type="text/babel" src="PhotoGrid.jsx"></script>
+<script type="text/babel" src="EditorModal.jsx"></script>
+<script type="text/babel" src="Console.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const tones = ['#475569','#334155','#1e3a5f','#0f3a3a','#3a3a1e','#2d3748','#475569','#1e3a5f'];
+const initialPhotos = Array.from({ length: 8 }).map((_, i) => ({
+  id: i,
+  name: `IMG_${(2401 + i).toString().padStart(4,'0')}.jpg`,
+  tone: tones[i % tones.length],
+  desc: i % 4,
+  edited: i < 3,
+}));
+
+const initialLogs = [
+  { t: '14:32:01', level: 'INFO', msg: 'FastAPI uvicorn iniciado em :5000' },
+  { t: '14:32:02', level: 'OK',   msg: 'Backend health-check OK' },
+  { t: '14:32:18', level: 'INFO', msg: 'Scanner Tradicional · varrendo MAFFENG-Bloco-A/' },
+  { t: '14:32:19', level: 'OK',   msg: '12 imagens reconhecidas, 4 já editadas' },
+  { t: '14:33:04', level: 'INFO', msg: 'Aguardando edição do técnico...' },
+];
+
+function App() {
+  const [step, setStep] = useState(4);
+  const [mode, setMode] = useState('trad');
+  const [dark, setDark] = useState(false);
+  const [editing, setEditing] = useState(null);
+  const [photos] = useState(initialPhotos);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark);
+  }, [dark]);
+
+  return (
+    <div className="app">
+      <window.Header mode={mode} setMode={setMode} dark={dark} setDark={setDark} />
+      <div className="main">
+        <window.WizardSidebar step={step} onStep={setStep} />
+        <window.PhotoGrid photos={photos} onEdit={setEditing} />
+      </div>
+      <window.Console logs={initialLogs} />
+      {editing && <window.EditorModal photo={editing} onClose={() => setEditing(null)} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

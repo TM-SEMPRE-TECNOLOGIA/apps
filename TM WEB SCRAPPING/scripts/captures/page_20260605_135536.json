@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "url": "https://www.aicoders.academy/",
+    "title": "AI Coders Academy — Contexto é o novo código.",
+    "description": "Ensinamos harness engineering — contexto, spec e validation loop — para builders e times técnicos operarem qualquer ferramenta AI-first.",
+    "captured_at": "2026-06-05T13:55:50.576032",
+    "total_links": 18,
+    "total_sections": 0
+  },
+  "links": [
+    {
+      "text": "Login",
+      "href": "https://membros.aicoders.academy"
+    },
+    {
+      "text": "Ver planos →",
+      "href": "#planos"
+    },
+    {
+      "text": "Ver planos",
+      "href": "#planos"
+    },
+    {
+      "text": "Ver perguntas frequentes",
+      "href": "#faq"
+    },
+    {
+      "text": "LinkedIn",
+      "href": "https://www.linkedin.com/in/viniciuslanadepaula/"
+    },
+    {
+      "text": "YouTube",
+      "href": "https://www.youtube.com/@viniciuslana"
+    },
+    {
+      "text": "GitHub",
+      "href": "https://github.com/vinilana"
+    },
+    {
+      "text": "Twitter",
+      "href": "https://twitter.com/vinilana"
+    },
+    {
+      "text": "Ver no GitHub",
+      "href": "https://github.com/vinilana/dotcontext"
+    },
+    {
+      "text": "Documentação",
+      "href": "/context"
+    },
+    {
+      "text": "Matricular no Academy",
+      "href": "/pagamento?url=https%3A%2F%2Fpay.kiwify.com.br%2FRUQZGeM"
+    },
+    {
+      "text": "Matricular no Pro — recomendado",
+      "href": "/pagamento?url=https%3A%2F%2Fpay.kiwify.com.br%2Fh1nss2u"
+    },
+    {
+      "text": "Ver treinamentos in-company",
+      "href": "/in-company"
+    },
+    {
+      "text": "Ver treinamentos in-company →",
+      "href": "/in-company"
+    },
+    {
+      "text": "Ver planos — risco zero",
+      "href": "#planos"
+    },
+    {
+      "text": "Ler FAQ",
+      "href": "#faq"
+    },
+    {
+      "text": "Termos",
+      "href": "/terms"
+    },
+    {
+      "text": "Privacidade",
+      "href": "/privacy"
+    }
+  ],
+  "sections": [],
+  "full_text": "AI Coders Academy — Contexto é o novo código.LoginVer planos →SEC ·00/HEROSEC ·00/HEROBR · SAO · v5Y·360,0antihype+1.300 membros · ai codersExiste um jeito sériode aprender I.A.E se Claude Code cair amanhã?Você acabou de encontrar.Aprenda a desenvolver software com I.A. sem depender de ferramentas que mudam a cada semana — para profissionais de verdade, não curso de \"vire AI dev em 30 dias\".Ver planosVer perguntas frequentesSEC ·01/RISCOSEC ·01/RISCOX·01RISCO OPERACIONALSua stack precisa deplano B.Cinco cenários que já derrubaram time de produção. Você tem resposta pra cada um?// riscoFerramenta cai em produção.↳Equipe inteira parada.custoBLINDADO?// riscoAnthropic/OpenAI sobe o preço.↳Custos explodem no mês.custoPLANO B?// riscoModelo nerfado entre versões.↳Workflow inteiro quebra.custoDEPRECATED// riscoOpenAI muda a API.↳Refactor de emergência.custoRECODE// riscoCursor é comprado pela XAI, vão banir os outros LLMs?.↳Migração às pressas.custoRIP“Você não precisa depender deuma única ferramentaparater sucesso.”$Ferramentas são efêmeras.Fundamentos são eternos.SEC ·02/PROBLEMASEC ·02/PROBLEMAX·02O ProblemaSe você chegou até aqui, provavelmente……você já programa há anos, entrega bem, e mesmo assim tem sentido nos últimos meses uma coisa esquisita.Não é insegurança técnica — você sabe o que faz.É outra coisa. É a sensação de que ojeitode fazer software mudou enquanto ninguém parou pra te explicar direito.Você abre o LinkedIn e vê manchete de pânico. Abre o YouTube e encontra curso de \"10 prompts mágicos\". Pergunta no time e cada um responde uma coisa. Tenta aprender sozinho e cai num tutorial de Cursor que ensina a clicar em botão.Nada disso é à altura de quem você é tecnicamente.Você não precisa de motivação.Precisa de método.E é exatamente isso que falta no mercado hoje.SEC ·03/REALIDADESEC ·03/REALIDADEX·03A RealidadeO que mudou de verdadeTira o hype de cima e o que sobrou foi isto:01· RESOLVIDOCódigo virou commodityCursor, Claude Code, Codex, Replit — todos resolvem o problema antigo de \"como eu escrevo isso mais rápido\". Bem.02· GAP ATIVOO problema novo é outroÉ como você estrutura contexto pro modelo gerar código que sobrevive. Como define spec antes de prompt. Como audita, valida, sustenta. Isso é engenharia.03· RESPOSTAFalta literaturaA Academy formaliza o que a prática já provou — contexto, spec, harness — em trilha e currículo replicável.SEC ·04/METODOSEC ·04/METODOX·04harnessO MétodoMétodo > ferramenta.Seis camadas. Um harness. Ferramenta substituível — aqui é o sistema:01Contexto antes de promptEstruturar o que o modelo precisa saber antes de gerar — fugindo da tentativa e erro.02Engenharia de contextoOrganizar contexto pro LLM produzir código que você não precisa reescrever. O padrão .context/ que o mercado ainda vai descobrir.03Spec-driven developmentDefinir o que tem que existir antes de gerar código. Validar que existiu depois.04· ATIVOHarness engineeringA base que envolve o modelo: contexto, spec e validation loop. O que permanece quando a ferramenta troca.05PREVC workflowPlan → Review → Execute → Validate → Confirm. O ciclo que separa quem usa LLM como copiloto de quem usa como muleta.06Validation loopAuditar output, medir drift e fechar o ciclo antes do merge — engenharia, não vibe.SEC ·05/SPECSEC ·05/SPECX·05Exhibit · spec vs prompt// engenharia · dois outputsPrompt solto gera código. Spec gera PR verde.A diferença não é a ferramenta — écomo você delega antes de gerar.Não escala./vibe.shcase #001user · 14:02faz aí um login com google, salva o usuário no banco, manda pra dashboardai · 14:02Sure! Here's a complete authentication system…output412 linhas · 0 testesNão sabe qual banco você usa.Ignora a stack, instala libs duplicadas.Quebra no primeiro edge case real.PR Verde./spec.contextcase #002GOALAuth via Google OAuth.STACKNext.js 15 · Clerk · Neon.CONSTRAINTSRBAC + sessão refresh.TESTSe2e obrigatório no PR.output187 linhas · 14 testes ✓Aderente à stack — zero libs a mais.Cobre os edge cases que você apontou.Vem com testes; o PR abre verde.“O que separa vibe coding de AI-driven development é como você delega.”$output = model(context, spec, validation_loop)SEC ·06/CADENCIASEC ·06/CADENCIAX·06cadência · operacionalRitmo de engenharia.Não maratona de hype.Live semanal, shortclasses e trilhas — conteúdo que passa no PR, não no tweet.SEGUNDA · 09h./digest.mdCompilado da semana — Café com IA45min ao vivo com o Vini toda segunda-feira acompanhando as novidades da semana.↳Como Claude 4.7 se compara em relação ao Kimi K2.6?↳O que mudou no harness do Codex essa semana↳OpenClaw realmente funciona ou é puro hype?↳Qual melhor estratégia para escolher ferramentasformato45 MIN AO VIVOQUINTA · 20hao vivoMasterclass ao vivo.2h. Caso real. Código rodando na tela.↳Aula ao vivo: desenvolvimento guiado por specs (spec-driven development)↳Construção prática de harness e pipelines para IA↳Estratégias de arquitetura para agentes e automações em produção↳Demonstração de refino de specs, testes e deploy ao vivoformat"
+}

@@ -1,0 +1,36 @@
+COMPARAÇÃO DE ITENS (RELATÓRIO x ORÇAMENTO)
+Data/Hora: 2026-02-19 05:30:39
+Relatório: C:/Users/thiag/Desktop/000 - Minha Demanda/1 - AGUARDANDO CORREÇÃO/RAUL SOARES - 0378 - Aguardando correção/- Envio portal/RELATÓRIO FOTOGRÁFICO - RAUL SOARES - LEVANTAMENTO PREVENTIVO.docx
+Orçamento: C:/Users/thiag/Desktop/000 - Minha Demanda/1 - AGUARDANDO CORREÇÃO/RAUL SOARES - 0378 - Aguardando correção/- Envio portal/PREVISÃO ORÇAMENTÁRIA PARA APROVAÇÃO - RAUL SOARES - LEVANTAMENTO PREVENTIVO.xlsx
+
+RESUMO
+- Total de linhas comparadas: 22
+- Compatíveis: 20
+- Divergentes: 0
+- Só no orçamento (não citado no relatório): 2
+- Só no relatório (não previsto no orçamento): 0
+
+DETALHAMENTO
+Item	QtdRelatorio	QtdOrcamento	Diferenca	Status
+1.2		374,00		Não citado no relatório
+1.5		1,00		Não citado no relatório
+2.21	6,00	6,00	0,00	Compatível
+10.15	2,12	2,12	0,00	Compatível
+11.2	12,51	12,51	0,00	Compatível
+11.3	12,51	12,51	0,00	Compatível
+13.12	3,00	3,00	0,00	Compatível
+14.9	1,00	1,00	0,00	Compatível
+15.8	2,00	2,00	0,00	Compatível
+17.1	0,40	0,40	0,00	Compatível
+17.2	11,33	11,33	0,00	Compatível
+17.5	0,34	0,34	0,00	Compatível
+17.6	195,29	195,29	0,00	Compatível
+17.9	2,35	2,35	0,00	Compatível
+17.10	57,91	57,91	0,00	Compatível
+17.11	82,22	82,22	0,00	Compatível
+19.96	2,00	2,00	0,00	Compatível
+19.127	1,00	1,00	0,00	Compatível
+20.14	1,00	1,00	0,00	Compatível
+21.1	38,00	38,00	0,00	Compatível
+21.2	1,00	1,00	0,00	Compatível
+29.5	1,00	1,00	0,00	Compatível

@@ -1,0 +1,8 @@
+PROCESS LOG - Geração de Relatório via Web (FastAPI)
+
+Pasta raiz: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - EM ANDAMENTO/LORENA 0857 - (EM ATRASO - REFAZENDO)/- Área interna/1 - SAA (sala de autoatendimento)/1.1 - Pintura acrílica
+Modelo: C:\Users\thiag\TM-MEUS-APPS\.NEXT APPS\TM Relatorio SP\APP\backend\templates\MODELO - 0908 - SAO PAULO - ATUALIZADO.docx
+Tipo: sp
+Saída: C:\Users\thiag\TM-MEUS-APPS\.NEXT APPS\TM Relatorio SP\APP\backend\output
+
+[OK] Instâncias e imagens inseridas (SP): 76

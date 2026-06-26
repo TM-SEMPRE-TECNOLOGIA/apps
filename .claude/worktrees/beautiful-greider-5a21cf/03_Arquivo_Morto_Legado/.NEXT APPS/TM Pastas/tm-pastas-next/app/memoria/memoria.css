@@ -1,0 +1,318 @@
+/* ============================
+   PÁGINA MEMÓRIA E ITENS — TM Pastas
+   ============================ */
+
+.memoria-page {
+  min-height: 100vh;
+  padding: var(--space-2xl) var(--space-3xl);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.memoria-header {
+  margin-bottom: var(--space-2xl);
+}
+
+.memoria-header__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.memoria-header__title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.memoria-header__badge {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.memoria-header__subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Busca ── */
+.memoria-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.memoria-search__icon {
+  position: absolute;
+  left: var(--space-lg);
+  font-size: var(--font-size-base);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.memoria-search__input {
+  padding-left: 44px !important;
+  font-size: var(--font-size-base) !important;
+  height: 48px;
+  border-radius: var(--radius-lg) !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+.memoria-search__input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1), 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.memoria-search__clear {
+  position: absolute;
+  right: var(--space-md);
+  opacity: 0.6;
+}
+
+.memoria-search__clear:hover {
+  opacity: 1;
+}
+
+/* ── Categorias ── */
+.memoria-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.memoria-categoria {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.memoria-categoria:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.memoria-categoria__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-lg) var(--space-xl);
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: var(--transition-fast);
+}
+
+.memoria-categoria__header:hover {
+  background: var(--bg-card-hover);
+}
+
+.memoria-categoria__header--aberta {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.memoria-categoria__header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.memoria-categoria__emoji {
+  font-size: 1.2rem;
+}
+
+.memoria-categoria__titulo {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.memoria-categoria__count {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.memoria-categoria__arrow {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.memoria-categoria__arrow--aberta {
+  transform: rotate(180deg);
+}
+
+/* ── Body (conteúdo expandido) ── */
+.memoria-categoria__body {
+  padding: var(--space-lg) var(--space-xl);
+  animation: fadeIn 0.2s ease;
+}
+
+/* ── Grupos (Estáticos / Customizados) ── */
+.memoria-grupo {
+  margin-bottom: var(--space-lg);
+}
+
+.memoria-grupo__label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-xs);
+}
+
+/* ── Lista de Itens ── */
+.memoria-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.memoria-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.memoria-item:hover {
+  background: var(--bg-card-hover);
+}
+
+.memoria-item--custom {
+  border-left: 2px solid var(--accent);
+  margin-left: var(--space-xs);
+}
+
+.memoria-item__nome {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  flex: 1;
+  user-select: text;
+}
+
+.memoria-item__actions {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+/* ── Botão Copiar (texto) ── */
+.memoria-item__copiar-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 4px 16px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+  min-width: 72px;
+  text-align: center;
+}
+
+.memoria-item__copiar-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.memoria-item__copiar-btn--ok {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+
+.memoria-item__remover:hover {
+  background: rgba(153, 27, 27, 0.3) !important;
+  color: #ff6b6b !important;
+}
+
+/* ── Formulário Adicionar ── */
+.memoria-add {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.memoria-add__input {
+  flex: 1;
+}
+
+.btn-add-item {
+  background: var(--bg-card);
+  color: var(--accent);
+  border: 1px solid var(--border-accent);
+  white-space: nowrap;
+}
+
+.btn-add-item:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+.btn-add-item:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Estado Vazio ── */
+.memoria-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  padding: var(--space-xl);
+}
+
+.memoria-no-results {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  color: var(--text-muted);
+}
+
+.memoria-no-results__emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-md);
+  opacity: 0.4;
+}
+
+/* ── Animação ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsividade ── */
+@media (max-width: 768px) {
+  .memoria-page {
+    padding: var(--space-lg);
+  }
+}

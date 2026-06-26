@@ -1,0 +1,7 @@
+python-docx
+python-multipart
+Pillow
+fastapi
+uvicorn[standard]
+pydantic
+rich>=13.0.0

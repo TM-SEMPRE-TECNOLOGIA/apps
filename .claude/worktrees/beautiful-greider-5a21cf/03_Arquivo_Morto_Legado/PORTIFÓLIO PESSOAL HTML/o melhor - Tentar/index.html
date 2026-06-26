@@ -1,0 +1,304 @@
+'<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolução DEV | TM-MEUS-APPS</title>
+    <!-- SEO e Metatags -->
+    <meta name="description"
+        content="Portfólio Pessoal e Linha do Tempo de Desenvolvimento, da Automação de Dados ao Full-Stack Web.">
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Ícones - Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Thiago<span class="highlight">Nascimento</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#skills">Habilidades</a></li>
+                <li><a href="#timeline">Jornada</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#contact" class="btn-primary">Contato</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-content">
+                <div class="hero-badge">Construindo Ferramentas. Resolvendo Problemas.</div>
+                <h1 class="hero-title">
+                    Transformando ideias em <br>
+                    <span class="gradient-text type-effect">Soluções Robustas.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Uma jornada da automação em Python (Tkinter/Bots) até arquiteturas modernas de alta performance com
+                    Next.js e FastAPI. Construindo sistemas que impactam!
+                </p>
+                <div class="hero-actions">
+                    <a href="#timeline" class="btn-primary btn-large">Ver Minha Evolução <i
+                            class="ph ph-arrow-down-right"></i></a>
+                    <a href="#projects" class="btn-outline btn-large">Explorar Projetos</a>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <span>Rolar</span>
+            </div>
+        </section>
+
+        <!-- Seção: Habilidades (Skills) -->
+        <section id="skills" class="skills-section">
+            <div class="section-header">
+                <span class="section-tag">Stack Tecnológica</span>
+                <h2>Arsenal de <span class="highlight">Ferramentas</span></h2>
+            </div>
+
+            <div class="skills-grid">
+                <!-- Skill Card: Python -->
+                <div class="skill-card">
+                    <div class="skill-icon python-glow">
+                        <i class="ph ph-file-py"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>Automação de processos, extração de dados, geração de relatórios com 'python-docx' e frameworks
+                        modernos.</p>
+                </div>
+
+                <!-- Skill Card: FastAPI -->
+                <div class="skill-card">
+                    <div class="skill-icon fastapi-glow">
+                        <i class="ph ph-rocket"></i>
+                    </div>
+                    <h3>FastAPI</h3>
+                    <p>APIs RESTful de alta performance, assíncronas, completas com CORS e integração robusta com
+                        bibliotecas Python.</p>
+                </div>
+
+                <!-- Skill Card: Next.js -->
+                <div class="skill-card">
+                    <div class="skill-icon next-glow">
+                        <i class="ph ph-atom"></i>
+                    </div>
+                    <h3>Next.js (React)</h3>
+                    <p>Desenvolvimento Frontend moderno, interfaces com estado complexo (Zustand) e design premium.</p>
+                </div>
+
+                <!-- Skill Card: TypeScript -->
+                <div class="skill-card">
+                    <div class="skill-icon ts-glow">
+                        <i class="ph ph-file-ts"></i>
+                    </div>
+                    <h3>TypeScript</h3>
+                    <p>Tipagem estática garantindo software seguro, escalável e fácil de manter em ecossistemas de larga
+                        escala.</p>
+                </div>
+
+                <!-- Skill Card: Design UI/UX -->
+                <div class="skill-card">
+                    <div class="skill-icon ui-glow">
+                        <i class="ph ph-palette"></i>
+                    </div>
+                    <h3>Cyber-Dark UI</h3>
+                    <p>Criação de componentes ricos, "glassmorphism", animações focadas na experiência (UX) e design de
+                        impacto.</p>
+                </div>
+
+                <!-- Skill Card: Database/ORM -->
+                <div class="skill-card">
+                    <div class="skill-icon db-glow">
+                        <i class="ph ph-database"></i>
+                    </div>
+                    <h3>Bancos de Dados & ORM</h3>
+                    <p>Modelagem de dados moderna com Drizzle ORM, migrações seguras e gestão de informações escalável.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção: Linha do Tempo (Jornada) -->
+        <section id="timeline" class="timeline-section">
+            <div class="section-header center">
+                <span class="section-tag">A Evolução</span>
+                <h2>A <span class="highlight">Jornada</span> do Código</h2>
+                <p>Do primeiro script de automação ao ecossistema Full-Stack.</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Fase 1: O Início (Legado)</div>
+                        <h3 class="timeline-title">A Era da Automação (Python & Tkinter)</h3>
+                        <p class="timeline-desc">Foco na resolução de tarefas manuais repetitivas. Criação de geradores
+                            de relatórios e organização de pastas (TM Extrator, TM Demandas).</p>
+                        <div class="timeline-tags">
+                            <span>Python</span> <span>Tkinter</span> <span>Automação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Fase 2: Estruturação</div>
+                        <h3 class="timeline-title">Os Primeiros Bots e Sistemas Centrais</h3>
+                        <p class="timeline-desc">O surgimento de ferramentas mais complexas e sistemas de gestão
+                            unificados (TM Gerenciador V2, TM Central). Introdução das primeiras tentativas de
+                            interfaces complexas e o foco em tornar o processo do usuário mais fluido. Nascimento do
+                            LICITUS_BOT.</p>
+                        <div class="timeline-tags">
+                            <span>Bots</span> <span>Integrações</span> <span>Dados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Fase 3: Design e Web</div>
+                        <h3 class="timeline-title">Concepção do Design System</h3>
+                        <p class="timeline-desc">Percepção de que interfaces boas são essenciais. Criação do
+                            "TM-Design-System" e a transição do software de desktop focado em backend para a web. Foco
+                            na identidade "Cyber-Dark".</p>
+                        <div class="timeline-tags">
+                            <span>UI/UX</span> <span>HTML/CSS</span> <span>Design Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot highlight-node"></div>
+                    <div class="timeline-content highlight-content">
+                        <div class="timeline-date">Fase 4: O Presente</div>
+                        <h3 class="timeline-title">Maestria Full-Stack (Next.js + FastAPI)</h3>
+                        <p class="timeline-desc">A era atual (NEXT APPS). Arquiteturas desacopladas construindo o
+                            Frontend moderno em React/Next.js consumindo APIs ultra-rápidas feitas em FastAPI. Projetos
+                            robustos e elegantes como TM Ordens, TM Comparador, e TM Relatório SP, trazendo
+                            produtividade máxima e beleza visual.</p>
+                        <div class="timeline-tags">
+                            <span class="glow-tag">Next.js</span> <span class="glow-tag">FastAPI</span> <span
+                                class="glow-tag">Zustand</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção: Projetos Destaque -->
+        <section id="projects" class="projects-section">
+            <div class="section-header">
+                <span class="section-tag">Case Studies</span>
+                <h2>Sistemas em <span class="highlight">Ação</span></h2>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Projeto Central (DEV HUB) -->
+                <div class="project-card featured">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, rgba(3, 169, 244, 0.1), rgba(118, 56, 250, 0.1)); border: 1px solid rgba(118,56,250,0.3);">
+                        <i class="ph ph-planet"
+                            style="font-size: 5rem; color: #7638fa; opacity: 0.8; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>DEV HUB (Central Unificada)</h3>
+                        <p>O coração do ecossistema. Um hub integrado, centralizando o acesso a todos os aplicativos de
+                            produtividade e atuando como um "Painel de Comando" principal.</p>
+                        <div class="project-tags">
+                            <span>Next.js</span> <span>UI Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto (TM Ordens) -->
+                <div class="project-card">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 153, 255, 0.1)); border: 1px solid rgba(0,240,255,0.3);">
+                        <i class="ph ph-clipboard-text"
+                            style="font-size: 4rem; color: #00f0ff; opacity: 0.8; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>TM Ordens</h3>
+                        <p>Gerenciador completo de Ordens de Serviço (OS). Apresenta um Dashbaord complexo, sistema de
+                            importação de planilhas inteligentes e navegação em calendário dinâmico.</p>
+                        <div class="project-tags">
+                            <span>React</span> <span>FastAPI</span> <span>Upload</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto (TM Comparador) -->
+                <div class="project-card">
+                    <div class="project-image"
+                        style="background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1)); border: 1px solid rgba(233,30,99,0.3);">
+                        <i class="ph ph-arrows-merge"
+                            style="font-size: 4rem; color: #e91e63; opacity: 0.8; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>TM Comparador</h3>
+                        <p>Ferramenta poderosa para comparar milhares de relatórios e documentos simultâneamente contra
+                            bases de dados, apontando discrepâncias visualmente.</p>
+                        <div class="project-tags">
+                            <span>Data Analysis</span> <span>Backend</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <h2>Pronto para criar <span class="highlight">o próximo nível?</span></h2>
+                <p>O desenvolvimento nunca para, ele evolui.</p>
+                <a href="mailto:contato@example.com" class="btn-primary">Vamos Conversar <i
+                        class="ph ph-paper-plane-right"></i></a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">
+                    O<span class="highlight">Dev</span>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Github"><i class="ph ph-github-logo"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+                </div>
+                <div class="footer-copy">
+                    <p>&copy; 2026 Thiago (TM-MEUS-APPS). Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

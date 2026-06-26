@@ -1,0 +1,294 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.plan{padding:1rem 0}
+.plan-header{margin-bottom:20px}
+.plan-title{font-size:16px;font-weight:500;color:var(--color-text-primary)}
+.plan-sub{font-size:12px;color:var(--color-text-secondary);margin-top:4px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.kpi{background:var(--color-background-secondary);border-radius:8px;padding:10px 12px;text-align:center}
+.kpi-n{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.kpi-l{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
+.screen{border:0.5px solid var(--color-border-tertiary);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.screen-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;background:var(--color-background-primary)}
+.screen-hdr:hover{background:var(--color-background-secondary)}
+.screen-left{display:flex;align-items:center;gap:10px}
+.screen-num{font-size:10px;font-weight:500;font-family:monospace;color:var(--color-text-tertiary);background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:4px;padding:2px 6px;min-width:32px;text-align:center}
+.screen-title{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.screen-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:1px}
+.screen-badges{display:flex;gap:5px;align-items:center}
+.badge{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500}
+.badge-new{background:#e1f5ee;color:#085041}
+.badge-mod{background:#e6f1fb;color:#0c447c}
+.badge-keep{background:#f1efe8;color:#5f5e5a}
+.badge-tm{background:#faece7;color:#993c1d}
+.screen-arrow{font-size:10px;color:var(--color-text-tertiary);transition:transform 0.2s}
+.screen-arrow.open{transform:rotate(90deg)}
+.screen-body{padding:0}
+.screen-body.open{padding:12px 16px}
+.layout-preview{display:flex;gap:8px;margin-bottom:12px;background:var(--color-background-secondary);border-radius:8px;padding:10px;border:0.5px solid var(--color-border-tertiary)}
+.lp-sidebar{width:52px;border-radius:4px;background:#161513;display:flex;flex-direction:column;gap:3px;padding:6px 4px}
+.lp-dot{height:6px;border-radius:2px;background:#2a2926}
+.lp-dot.active{background:#c8541c}
+.lp-main{flex:1;border-radius:4px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);padding:6px;display:flex;flex-direction:column;gap:4px}
+.lp-topbar{height:14px;border-radius:3px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)}
+.lp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;flex:1}
+.lp-card{border-radius:3px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)}
+.lp-panel{width:90px;border-radius:4px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);padding:5px;display:flex;flex-direction:column;gap:3px}
+.lp-pline{height:5px;border-radius:2px;background:var(--color-background-secondary)}
+.lp-pcta{height:10px;border-radius:3px;background:#c8541c;margin-top:auto}
+.lp-cta{height:16px;border-radius:3px;background:#c8541c;margin-top:4px}
+.comp-list{display:flex;flex-direction:column;gap:6px}
+.comp-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.comp-row:last-child{border-bottom:none}
+.comp-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.comp-body{flex:1}
+.comp-name{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.comp-detail{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.5}
+.comp-file{font-size:10px;font-family:monospace;color:var(--color-text-tertiary);margin-top:3px;background:var(--color-background-secondary);display:inline-block;padding:1px 5px;border-radius:3px}
+.cta-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+</style>
+
+<div class="plan">
+  <div class="plan-header">
+    <div class="plan-title">AutoRelatório V4 — Plano de refatoração visual</div>
+    <div class="plan-sub">Baseado na inspiração + DS TM Sempre Tecnologia v3 · Extensão do V3.2</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-n">5</div><div class="kpi-l">Telas</div></div>
+    <div class="kpi"><div class="kpi-n">3</div><div class="kpi-l">Novos componentes</div></div>
+    <div class="kpi"><div class="kpi-n">8</div><div class="kpi-l">Modificados</div></div>
+    <div class="kpi"><div class="kpi-n">0</div><div class="kpi-l">Libs novas</div></div>
+  </div>
+
+  <div class="screen" id="s1">
+    <div class="screen-hdr" onclick="tog('s1')">
+      <div class="screen-left">
+        <div class="screen-num">01</div>
+        <div>
+          <div class="screen-title">Shell do app — sidebar + layout global</div>
+          <div class="screen-sub">Substitui o wizard de steps lateral atual</div>
+        </div>
+      </div>
+      <div class="screen-badges">
+        <span class="badge badge-new">Novo</span>
+        <span class="badge badge-tm">DS TM dark</span>
+        <span class="screen-arrow" id="arr-s1">▶</span>
+      </div>
+    </div>
+    <div class="screen-body" id="body-s1">
+      <div class="layout-preview">
+        <div class="lp-sidebar">
+          <div class="lp-dot active"></div>
+          <div class="lp-dot"></div>
+          <div class="lp-dot"></div>
+          <div class="lp-dot"></div>
+          <div class="lp-dot"></div>
+          <div class="lp-dot" style="margin-top:auto"></div>
+        </div>
+        <div class="lp-main">
+          <div class="lp-topbar"></div>
+          <div class="lp-grid">
+            <div class="lp-card"></div><div class="lp-card"></div><div class="lp-card"></div>
+            <div class="lp-card"></div><div class="lp-card"></div><div class="lp-card"></div>
+          </div>
+          <div class="lp-cta"></div>
+        </div>
+      </div>
+      <div class="comp-list">
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Sidebar vertical fixa (dark permanente)</div>
+            <div class="comp-detail">Fundo #161513 (dark do DS TM). Ícones SVG lucide-style. Itens: Dashboard, Organizar Fotos, Relatórios, Modelos, Configurações. Item ativo com borda esquerda laranja #C8541C.</div>
+            <div class="comp-file">AppShell.tsx — novo</div>
+          </div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Topbar por seção</div>
+            <div class="comp-detail">Título da seção ativa + ações contextuais à direita + toggle light/dark (só a área main muda, sidebar permanece dark).</div>
+            <div class="comp-file">Topbar.tsx — novo</div>
+          </div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#345878"></div>
+          <div class="comp-body">
+            <div class="comp-name">CTA "Gerar Relatório" fixo na base</div>
+            <div class="comp-detail">Botão laranja sólido de largura total na base da área de conteúdo. Igual à inspiração. Sempre visível, desabilitado até ter fotos + modelo selecionados.</div>
+            <div class="comp-file">CTABar.tsx — novo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s2">
+    <div class="screen-hdr" onclick="tog('s2')">
+      <div class="screen-left">
+        <div class="screen-num">02</div>
+        <div>
+          <div class="screen-title">Tela principal — Organizar Fotos</div>
+          <div class="screen-sub">Grid de fotos + menu de contexto + preview docx lateral</div>
+        </div>
+      </div>
+      <div class="screen-badges">
+        <span class="badge badge-mod">Refatorado</span>
+        <span class="screen-arrow" id="arr-s2">▶</span>
+      </div>
+    </div>
+    <div class="screen-body" id="body-s2">
+      <div class="layout-preview">
+        <div class="lp-sidebar">
+          <div class="lp-dot"></div><div class="lp-dot active"></div>
+          <div class="lp-dot"></div><div class="lp-dot"></div><div class="lp-dot"></div>
+        </div>
+        <div class="lp-main">
+          <div class="lp-topbar"></div>
+          <div class="lp-grid" style="grid-template-columns:repeat(4,1fr)">
+            <div class="lp-card" style="border-color:#c8541c"></div>
+            <div class="lp-card"></div><div class="lp-card"></div><div class="lp-card"></div>
+            <div class="lp-card"></div><div class="lp-card"></div><div class="lp-card"></div><div class="lp-card"></div>
+          </div>
+          <div class="lp-cta"></div>
+        </div>
+        <div class="lp-panel">
+          <div class="lp-pline" style="width:70%"></div>
+          <div class="lp-pline" style="width:50%"></div>
+          <div class="lp-pline"></div><div class="lp-pline"></div>
+          <div class="lp-pline" style="width:60%"></div>
+          <div class="lp-pcta"></div>
+        </div>
+      </div>
+      <div class="comp-list">
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Grid de fotos — estilo inspiração</div>
+            <div class="comp-detail">Cards de foto com número sequencial, legenda abaixo, botão "···" no canto. Foto selecionada: borda laranja. Clique direito abre ContextMenu com "Mover para ambiente".</div>
+            <div class="comp-file">PreviewGrid.tsx — refatorado</div>
+          </div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Menu de contexto (botão direito)</div>
+            <div class="comp-detail">Abre no clique direito. Submenu "Mover para..." com os ambientes. Funciona em seleção múltipla (Shift+clique). Construído em CSS puro + JS vanilla.</div>
+            <div class="comp-file">ContextMenu.tsx — novo</div>
+          </div>
+        </div>
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#345878"></div>
+          <div class="comp-body">
+            <div class="comp-name">Painel lateral — preview do .docx</div>
+            <div class="comp-detail">Painel direito ~300px mostrando simulação do Word gerado em tempo real conforme fotos são classificadas. Atualiza ao confirmar organização.</div>
+            <div class="comp-file">DocxPreviewPanel.tsx — novo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s3">
+    <div class="screen-hdr" onclick="tog('s3')">
+      <div class="screen-left">
+        <div class="screen-num">03</div>
+        <div>
+          <div class="screen-title">Tela — Relatórios gerados</div>
+          <div class="screen-sub">Histórico de arquivos .docx gerados</div>
+        </div>
+      </div>
+      <div class="screen-badges">
+        <span class="badge badge-new">Novo</span>
+        <span class="screen-arrow" id="arr-s3">▶</span>
+      </div>
+    </div>
+    <div class="screen-body" id="body-s3">
+      <div class="comp-list">
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Lista de relatórios com stat cards</div>
+            <div class="comp-detail">3 stat cards no topo (total gerados, último gerado, modelos usados) com border-top laranja — assinatura DS TM. Abaixo, lista de relatórios com data, agência, botão baixar.</div>
+            <div class="comp-file">RelatoriosView.tsx — novo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s4">
+    <div class="screen-hdr" onclick="tog('s4')">
+      <div class="screen-left">
+        <div class="screen-num">04</div>
+        <div>
+          <div class="screen-title">Tela — Modelos .docx</div>
+          <div class="screen-sub">Upload e gerenciamento de templates</div>
+        </div>
+      </div>
+      <div class="screen-badges">
+        <span class="badge badge-mod">Refatorado</span>
+        <span class="screen-arrow" id="arr-s4">▶</span>
+      </div>
+    </div>
+    <div class="screen-body" id="body-s4">
+      <div class="comp-list">
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#c8541c"></div>
+          <div class="comp-body">
+            <div class="comp-name">Grid de modelos com card visual</div>
+            <div class="comp-detail">Cada template como card com nome da agência, contrato, badge do tipo (tradicional/SP/SP2). Card selecionado: borda laranja. Zona de drop para upload de novo .docx.</div>
+            <div class="comp-file">ModelosView.tsx — refatorado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="s5">
+    <div class="screen-hdr" onclick="tog('s5')">
+      <div class="screen-left">
+        <div class="screen-num">05</div>
+        <div>
+          <div class="screen-title">Tela — Configurações + meta fields</div>
+          <div class="screen-sub">Substituí o SidebarWizard atual</div>
+        </div>
+      </div>
+      <div class="screen-badges">
+        <span class="badge badge-mod">Refatorado</span>
+        <span class="screen-arrow" id="arr-s5">▶</span>
+      </div>
+    </div>
+    <div class="screen-body" id="body-s5">
+      <div class="comp-list">
+        <div class="comp-row">
+          <div class="comp-dot" style="background:#345878"></div>
+          <div class="comp-body">
+            <div class="comp-name">Formulário de meta fields e descrição</div>
+            <div class="comp-detail">Os campos do SidebarWizard (pasta raiz, modelo, descrição, meta_fields) viram uma tela dedicada em Configurações. Inputs estilo DS TM, com save automático em localStorage.</div>
+            <div class="comp-file">ConfiguracoesView.tsx — refatorado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <button onclick="sendPrompt('Começar a construção do V4: primeiro a AppShell com sidebar dark fixa + Topbar + CTABar no layout global do Next.js.')">Construir shell do app ↗</button>
+    <button onclick="sendPrompt('Me mostra um mockup visual da tela principal do V4 com o grid de fotos estilo inspiração + painel lateral de preview docx, usando o DS TM.')">Ver mockup da tela principal ↗</button>
+  </div>
+</div>
+
+<script>
+function tog(id){
+  const body=document.getElementById('body-'+id);
+  const arr=document.getElementById('arr-'+id);
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  arr.classList.toggle('open',!open);
+  body.style.padding=open?'0':'12px 16px';
+}
+document.querySelectorAll('.screen-body').forEach(b=>{b.style.padding='0'});
+</script>

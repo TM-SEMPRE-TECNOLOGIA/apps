@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALOR ABSURDO | Dashboard de Operações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #1a1a1a, #000);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #ffd700;
+        }
+        .status-online {
+            width: 10px;
+            height: 10px;
+            background: #00ff88;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #00ff88;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-12">
+            <div>
+                <h1 class="text-4xl font-bold gradient-text">VALOR ABSURDO</h1>
+                <p class="text-gray-400">Comando Central de Operações I.A</p>
+            </div>
+            <div class="text-right">
+                <p class="text-sm text-gray-500">Sessão Ativa: <span class="status-online"></span> Antigravity v4.1</p>
+                <p class="text-[10px] text-blue-400 font-mono mt-1">META API: act_660776681378326 | CONNECTED</p>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Agentes -->
+            <div class="md:col-span-2">
+                <h2 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="mr-2">🎭</span> Esquadrão Ativo
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-bold text-lg">@Minerador</h3>
+                            <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">READY</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Especialista em Garimpo e Ads Library.</p>
+                        <button class="text-xs text-yellow-500 font-bold hover:underline">ATIVAR GARIMPO →</button>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-bold text-lg">@TikTok-Automator</h3>
+                            <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">STANDBY</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Automação de vídeos e mineração global.</p>
+                        <button class="text-xs text-yellow-500 font-bold hover:underline">ABRIR COWORK →</button>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-bold text-lg">@Franklim-MVP</h3>
+                            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">ACTIVE</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Desenvolvimento de LP e Bid Cap.</p>
+                        <button class="text-xs text-yellow-500 font-bold hover:underline">CONSTRUIR OFERTA →</button>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-bold text-lg">@Deep-Spy</h3>
+                            <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">IDLE</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-4">Engenharia Reversa e Escala LATAM.</p>
+                        <button class="text-xs text-yellow-500 font-bold hover:underline">ANALISAR CONCORRENTE →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arquivos Rápidos -->
+            <div>
+                <h2 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="mr-2">📁</span> Repositório
+                </h2>
+                <div class="space-y-3">
+                    <div class="glass p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-sm">Estratégias</span>
+                        <span class="text-xs text-gray-500">3 arquivos</span>
+                    </div>
+                    <div class="glass p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-sm">Projetos Ativos</span>
+                        <span class="text-xs text-gray-500">TikTok Shop, Valor Absurdo</span>
+                    </div>
+                    <div class="glass p-4 rounded-xl flex items-center justify-between">
+                        <span class="text-sm">Setup & Infra</span>
+                        <span class="text-xs text-gray-500">Configurado</span>
+                    </div>
+                    <div class="glass p-4 rounded-xl flex items-center justify-between border-l-4 border-yellow-500">
+                        <span class="text-sm font-bold">LOGS DE ROI</span>
+                        <span class="text-xs text-yellow-500">P.D.C.A</span>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="mt-8 p-6 bg-gradient-to-br from-blue-600 to-black rounded-2xl shadow-xl shadow-blue-900/20">
+                    <h3 class="font-bold mb-2">ESTÉTICA ATIVA:</h3>
+                    <p class="text-sm text-blue-100 mb-4">Híbrido: Tech Billionaire + Shadow Investor.</p>
+                    <div class="flex gap-2">
+                        <span class="bg-blue-400/30 px-2 py-1 rounded text-[10px] border border-blue-400">01 TECH ACTIVE</span>
+                        <span class="bg-yellow-400/30 px-2 py-1 rounded text-[10px] border border-yellow-400">02 SHADOW ACTIVE</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Monitor de Nichos -->
+        <div class="mt-12">
+            <h2 class="text-xl font-semibold mb-6 flex items-center">
+                <span class="mr-2">📊</span> Monitor de Nichos & Oportunidades
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="glass p-4 rounded-xl border-l-2 border-blue-500">
+                    <p class="text-xs text-gray-500 uppercase">Infoprodutos</p>
+                    <h3 class="font-bold">IA & Produtividade</h3>
+                    <p class="text-[10px] text-green-400 mt-1">WINNER: Packs de Prompts & Templates Notion</p>
+                </div>
+                <div class="glass p-4 rounded-xl border-l-2 border-orange-500">
+                    <p class="text-xs text-gray-500 uppercase">Educação</p>
+                    <h3 class="font-bold">Concursos Públicos</h3>
+                    <p class="text-[10px] text-orange-400 mt-1">WINNER: Mapas Mentais & Flashcards</p>
+                </div>
+                <div class="glass p-4 rounded-xl border-l-2 border-pink-500">
+                    <p class="text-xs text-gray-500 uppercase">Saúde/Beleza</p>
+                    <h3 class="font-bold">Dores Fortes (LTV)</h3>
+                    <p class="text-[10px] text-pink-400 mt-1">WINNER: Gummies & Sérum Capilar</p>
+                </div>
+                <div class="glass p-4 rounded-xl border-l-2 border-yellow-500">
+                    <p class="text-xs text-gray-500 uppercase">Dropshipping</p>
+                    <h3 class="font-bold">Gadgets Utilitários</h3>
+                    <p class="text-[10px] text-blue-400 mt-1">WINNER: Fatiador Mandoline & Colher Balança</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-16 text-center text-gray-600 text-xs">
+            &copy; 2026 VALOR ABSURDO - Operação de Elite via Antigravity & Claude Code
+        </footer>
+    </div>
+</body>
+</html>

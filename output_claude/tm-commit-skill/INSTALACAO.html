@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TM-COMMIT Skill - Guia de Instalação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1f1f1f;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #E47A4A;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #E47A4A;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .version {
+            display: inline-block;
+            background: #E47A4A;
+            color: #1f1f1f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #E47A4A;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        h3 {
+            color: #FFB48C;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            background: #262626;
+            border-left: 4px solid #E47A4A;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #E47A4A;
+            color: #1f1f1f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        code {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #4FD876;
+            font-size: 0.9em;
+        }
+
+        .command {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #4FD876;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-box {
+            background: #262626;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 3px solid #E47A4A;
+        }
+
+        .feature-box h4 {
+            color: #FFB48C;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-box p {
+            color: #bbb;
+            font-size: 0.95em;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .status.success {
+            background: rgba(79, 216, 118, 0.1);
+            border: 1px solid #4FD876;
+            color: #4FD876;
+        }
+
+        .status.warning {
+            background: rgba(228, 122, 74, 0.1);
+            border: 1px solid #E47A4A;
+            color: #E47A4A;
+        }
+
+        .status.info {
+            background: rgba(100, 150, 200, 0.1);
+            border: 1px solid #6496c8;
+            color: #6496c8;
+        }
+
+        .status-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .button {
+            display: inline-block;
+            background: #E47A4A;
+            color: #1f1f1f;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #FFB48C;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .file-item {
+            background: #262626;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 3px solid #E47A4A;
+        }
+
+        .file-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .file-name {
+            color: #FFB48C;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .file-desc {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background: rgba(228, 122, 74, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #FFB48C;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 TM-COMMIT Skill</h1>
+            <p class="subtitle">Git Automation para TM-MEUS-APPS</p>
+            <span class="version">Versão 1.0</span>
+        </header>
+
+        <!-- Arquivos do Skill -->
+        <section class="section">
+            <h2>📁 Arquivos do Skill</h2>
+            <p>O skill `/tm-commit` está localizado em:</p>
+            <code>output_claude/tm-commit-skill/</code>
+
+            <div class="gallery">
+                <div class="file-item">
+                    <div class="file-icon">📖</div>
+                    <div class="file-name">SKILL.md</div>
+                    <div class="file-desc">Documentação completa</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon">📦</div>
+                    <div class="file-name">package.json</div>
+                    <div class="file-desc">Metadados e configuração</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon">🔧</div>
+                    <div class="file-name">tm-commit.js</div>
+                    <div class="file-desc">Implementação do skill</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon">📚</div>
+                    <div class="file-name">README.md</div>
+                    <div class="file-desc">Quick start e exemplos</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon">🏗️</div>
+                    <div class="file-name">ARQUITETURA.md</div>
+                    <div class="file-desc">Fluxos e componentes</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opções de Instalação -->
+        <section class="section">
+            <h2>⚙️ Como Instalar</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>Opção 1: Como Skill do Cowork (Recomendado)</h3>
+                <p>Copie a pasta <code>tm-commit-skill</code> para:</p>
+                <div class="command">C:\Users\[seu-user]\AppData\Roaming\Claude\skills\</div>
+                <p style="margin-top: 10px; color: #999;">Ou procure por "tm-commit" na aba Skills do Cowork Dashboard</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Opção 2: Direto no Chat</h3>
+                <p>Basta invocar em qualquer sessão:</p>
+                <div class="command">/tm-commit status</div>
+                <p style="margin-top: 10px; color: #999;">O skill é auto-carregado no início de cada sessão</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>Opção 3: Via NPM (Se Configurado)</h3>
+                <div class="command">npm install tm-commit-skill
+npx tm-commit status</div>
+            </div>
+        </section>
+
+        <!-- Status -->
+        <section class="section">
+            <h2>✅ Status de Instalação</h2>
+
+            <div class="status success">
+                <span class="status-icon">✓</span>
+                Skill criado e versionado em <code>output_claude/tm-commit-skill/</code>
+            </div>
+
+            <div class="status success">
+                <span class="status-icon">✓</span>
+                Documentação completa (SKILL.md, README.md, ARQUITETURA.md)
+            </div>
+
+            <div class="status success">
+                <span class="status-icon">✓</span>
+                Implementação em JavaScript (tm-commit.js)
+            </div>
+
+            <div class="status success">
+                <span class="status-icon">✓</span>
+                Sincronizado com GitHub (commit 95c8dca0)
+            </div>
+
+            <div class="status info">
+                <span class="status-icon">ℹ️</span>
+                Regras do skill disponíveis em <code>.agent/rules/TM-COMMIT-RULES.md</code>
+            </div>
+        </section>
+
+        <!-- Funcionalidades -->
+        <section class="section">
+            <h2>🎯 Funcionalidades</h2>
+
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h4>🔄 Automação Git</h4>
+                    <p>Detecta mudanças, cria commits e faz push automático para GitHub</p>
+                </div>
+                <div class="feature-box">
+                    <h4>✓ Validação</h4>
+                    <p>Valida padrão de commits e regras de segurança antes de fazer push</p>
+                </div>
+                <div class="feature-box">
+                    <h4>📊 Monitoramento</h4>
+                    <p>Monitora 8 pastas do repositório e detecta mudanças em tempo real</p>
+                </div>
+                <div class="feature-box">
+                    <h4>🔒 Segurança</h4>
+                    <p>Bloqueia credenciais, secrets e arquivos suspeitosos automaticamente</p>
+                </div>
+                <div class="feature-box">
+                    <h4>📝 Conventional Commits</h4>
+                    <p>Força uso de Conventional Commits para histórico limpo e rastreável</p>
+                </div>
+                <div class="feature-box">
+                    <h4>📈 Relatórios</h4>
+                    <p>Gera relatórios de commits, arquivos alterados e sincronização</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comandos Rápidos -->
+        <section class="section">
+            <h2>⚡ Comandos Rápidos</h2>
+
+            <div class="command">/tm-commit status    # Ver mudanças
+/tm-commit push      # Fazer push
+/tm-commit sync      # Pull + Push
+/tm-commit log 5     # Ver 5 últimos commits
+/tm-commit help      # Mostra ajuda</div>
+        </section>
+
+        <!-- Próximas Etapas -->
+        <section class="section">
+            <h2>🚀 Próximas Etapas</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>Instale o Skill</h3>
+                <p>Copie a pasta <code>tm-commit-skill</code> para o diretório de skills do Cowork</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Reinicie o Cowork</h3>
+                <p>Feche e reabra o Cowork para o skill ser auto-carregado</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>Teste em um Chat</h3>
+                <div class="command">/tm-commit status</div>
+                <p>Você deve ver o status do repositório</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <h3>Use Automaticamente</h3>
+                <p>O skill será invocado automaticamente em cada sessão para monitorar mudanças</p>
+            </div>
+        </section>
+
+        <!-- Suporte -->
+        <section class="section">
+            <h2>📞 Suporte e Documentação</h2>
+
+            <div style="background: #262626; border-radius: 8px; padding: 20px; border-left: 3px solid #E47A4A;">
+                <p><strong>Documentação Completa:</strong></p>
+                <ul style="margin-top: 10px; color: #ccc;">
+                    <li><code>output_claude/tm-commit-skill/SKILL.md</code> - Documentação técnica completa</li>
+                    <li><code>output_claude/tm-commit-skill/README.md</code> - Quick start e exemplos</li>
+                    <li><code>output_claude/tm-commit-skill/ARQUITETURA.md</code> - Fluxos e componentes</li>
+                    <li><code>.agent/rules/TM-COMMIT-RULES.md</code> - Regras de comportamento</li>
+                    <li><code>MAPA_REPOSITORIO.md</code> - Estrutura do repositório</li>
+                    <li><code>CHEAT_SHEET.md</code> - Referência rápida</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- GitHub -->
+        <section class="section">
+            <h2>🌐 GitHub</h2>
+
+            <p>O skill está versionado no repositório:</p>
+            <div style="background: #262626; border-radius: 8px; padding: 20px; margin: 15px 0; border-left: 3px solid #4FD876;">
+                <p><strong>URL:</strong> <code>https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS</code></p>
+                <p style="margin-top: 10px; color: #999;"><strong>Branch:</strong> <code>main</code></p>
+                <p style="color: #999;"><strong>Pasta:</strong> <code>output_claude/tm-commit-skill/</code></p>
+                <p style="color: #999;"><strong>Último commit:</strong> <code>95c8dca0</code> - docs(tm-commit): adicionar documentação de arquitetura</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>TM-COMMIT Skill v1.0 | Criado em 2026-05-12 | Para TM-MEUS-APPS</p>
+            <p style="margin-top: 10px;">Documentação: <code>output_claude/tm-commit-skill/</code></p>
+        </footer>
+    </div>
+</body>
+</html>

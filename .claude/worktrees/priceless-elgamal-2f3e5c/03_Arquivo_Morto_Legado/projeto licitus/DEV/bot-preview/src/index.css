@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .glass-panel {
+        @apply bg-slate-900/60 backdrop-blur-xl border border-slate-800 shadow-2xl;
+    }
+
+    .glass-card {
+        @apply bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-xl relative overflow-hidden;
+    }
+}

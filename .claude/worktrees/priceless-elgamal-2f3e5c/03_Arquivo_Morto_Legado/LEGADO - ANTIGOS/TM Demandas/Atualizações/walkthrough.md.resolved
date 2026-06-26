@@ -1,0 +1,41 @@
+# Importação Inteligente de Demandas
+
+Implementamos uma nova funcionalidade de importação de planilhas Excel/CSV com mapeamento inteligente de colunas e validação prévia. O objetivo é permitir que o usuário tenha controle total sobre os dados importados, ajustando as colunas conforme necessário e visualizando erros antes da confirmação.
+
+## Funcionalidades Implementadas
+
+### 1. Wizard de Importação
+Substituímos a importação direta por um fluxo passo-a-passo:
+1.  **Upload**: Interface drag-and-drop para seleção de arquivos.
+2.  **Mapeamento**: O sistema detecta automaticamente as colunas (ex: "ID", "OS", "Contrato") e sugere o vínculo. O usuário pode alterar manualmente se a detecção falhar.
+3.  **Pré-visualização (Preview)**: Tabela interativa que mostra como os dados ficarão após a importação, validando linhas e destacando erros (ex: falta de contrato, data inválida).
+4.  **Confirmação**: Resumo final com contagem de novos itens, alertas e erros.
+
+### 2. Refatoração do Serviço de Importação ([importService.ts](file:///c:/Users/thiag/acompanha-demanda-red/importService.ts))
+O código monolítico foi quebrado em funções reutilizáveis:
+- [readExcelFile](file:///c:/Users/thiag/acompanha-demanda-red/importService.ts#121-161): Lê o arquivo e detecta cabeçalhos de forma inteligente, procurando por palavras-chave em várias linhas.
+    - *Fix*: Tratamento de colunas vazias ou "buracos" no Excel (sparse arrays) para evitar erros de leitura.
+- [autoMapColumns](file:///c:/Users/thiag/acompanha-demanda-red/importService.ts#162-188): Algoritmo de sugestão de colunas baseado em dicionário de sinônimos (ex: "UF" -> "Estado").
+- [processRows](file:///c:/Users/thiag/acompanha-demanda-red/importService.ts#189-253): Processa os dados brutos aplicando o mapeamento escolhido pelo usuário, gerando alertas e erros específicos por linha.
+
+### 3. Nova Interface ([ImportView.tsx](file:///c:/Users/thiag/acompanha-demanda-red/ImportView.tsx))
+Criamos um componente dedicado com visual moderno e integrado ao tema "Dark/Crimson" do sistema:
+- Uso de ícones `lucide-react` para feedback visual.
+- Badges coloridos para status.
+- Tabelas com sticky header para fácil visualização de grandes arquivos.
+- Feedback de "Loading" e animações de transição entre etapas.
+
+## Como Testar
+
+1.  Abra a aplicação e vá até a aba "Importar".
+2.  Arraste uma planilha Excel (ex: modelo padrão ou qualquer planilha de controle).
+3.  Verifique se o sistema detectou corretamente as colunas "Chamado", "Contrato", "Agência", etc.
+4.  Se necessário, altere uma coluna no dropdown para ver o efeito.
+5.  Clique em "Pré-visualizar". Verifique se os dados aparecem corretamente na tabela.
+6.  Linhas com erro (ícone vermelho) não serão importadas. Linhas com aviso (ícone amarelo) serão importadas com observações.
+7.  Clique em "Confirmar Importação" e veja os dados aparecerem na lista de Demandas.
+
+## Arquivos Modificados
+- [x] [importService.ts](file:///c:/Users/thiag/acompanha-demanda-red/importService.ts): Lógica de importação refatorada.
+- [x] [ImportView.tsx](file:///c:/Users/thiag/acompanha-demanda-red/ImportView.tsx): Novo componente de UI.
+- [x] [App.tsx](file:///c:/Users/thiag/acompanha-demanda-red/App.tsx): Integração da nova view.

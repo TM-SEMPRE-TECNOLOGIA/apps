@@ -1,0 +1,37 @@
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+.env.local
+.env
+
+# System
+.DS_Store
+Thumbs.db
+
+# Claude/Cowork
+.claude/
+.agent/
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Large binary files
+*.psd
+*.zip
+*.rar
+*.7z
+
+# Output Claude - MANTER NO GIT
+!output_claude/
+!output_claude/.gitkeep

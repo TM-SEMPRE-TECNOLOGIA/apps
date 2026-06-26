@@ -1,0 +1,68 @@
+# Walkthrough: Migração TM Pastas para Vite/React
+
+## O que foi feito
+
+Migração completa do **TM Pastas** de Python/CustomTkinter (1477 linhas em [app.py](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py)) para **Vite + React** com arquitetura modular.
+
+## Arquivos Criados
+
+### Projeto Vite/React (`tm-pastas-react/`)
+
+| Arquivo | Descrição |
+|---|---|
+| [App.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/App.jsx) | Roteador com 3 rotas (/, /guia, /changelog) |
+| [useFolderStore.js](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/stores/useFolderStore.js) | Zustand store com todo o estado + ações + ZIP |
+| [constants.js](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/data/constants.js) | Dados pré-definidos (áreas, ambientes, serviços) |
+
+### Design System (`src/design-system/`)
+
+| Arquivo | Descrição |
+|---|---|
+| [ReadmeDesign.md](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/ReadmeDesign.md) | Documentação do design system |
+| [tokens.css](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/tokens.css) | Variáveis CSS (cores, fontes, espaçamentos) |
+| [animations.css](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/animations.css) | Keyframes reutilizáveis |
+| [components.css](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/components.css) | Estilos base (botões, inputs, cards, modal) |
+| [layout.css](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/layout.css) | Layout, grid, responsividade |
+
+### Componentes Wizard (`src/components/Wizard/`)
+
+| Componente | Equivalente Python |
+|---|---|
+| [StepAccordion.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Wizard/StepAccordion.jsx) | [_criar_container_etapa](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#277-327) + [_alternar_etapa](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#328-346) |
+| [Step1Areas.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Wizard/Step1Areas.jsx) | [_criar_etapa_1](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#393-407) + [_popular_areas](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#408-432) |
+| [Step2Environments.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Wizard/Step2Environments.jsx) | [_criar_etapa_2](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#437-485) + [_popular_nivel2](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#486-520) |
+| [Step3Services.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Wizard/Step3Services.jsx) | [_criar_etapa_3](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#525-563) + [_popular_nivel3](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#564-601) |
+| [Step4Details.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Wizard/Step4Details.jsx) | [_criar_etapa_4](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#606-621) + [_popular_nivel4](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#622-642) |
+
+### Componentes Preview (`src/components/Preview/`)
+
+| Componente | Equivalente Python |
+|---|---|
+| [InteractivePreview.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Preview/InteractivePreview.jsx) | [_atualizar_preview](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#703-840) + [_selecionar_no_preview](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#841-880) |
+| [PreviewRow.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Preview/PreviewRow.jsx) | [_criar_linha_preview](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#996-1089) |
+| [EditModal.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/components/Preview/EditModal.jsx) | [_abrir_modal_editar](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/app.py#881-994) |
+
+### Páginas (`src/pages/`)
+
+| Página | Origem |
+|---|---|
+| [AppPage.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/pages/AppPage.jsx) | Layout principal do app.py |
+| [GuiaPage.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/pages/GuiaPage.jsx) | [guia.html](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/guia.html) |
+| [ChangelogPage.jsx](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/pages/ChangelogPage.jsx) | [dev/commit.html](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/dev/commit.html) |
+
+## Verificação
+
+- ✅ `npm run build` — compilação sem erros (5.23s, ~114KB gzipped)
+- ✅ Todas as dependências instaladas (zustand, react-router-dom, jszip, file-saver)
+- ✅ Design system separado em pasta própria com [ReadmeDesign.md](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/tm-pastas-react/src/design-system/ReadmeDesign.md)
+- ✅ [executar_app.bat](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/executar_app.bat) atualizado para Node.js/Vite
+
+## Como Executar
+
+```bash
+cd tm-pastas-react
+npm run dev
+# Abrir http://localhost:5173
+```
+
+Ou simplesmente execute o [executar_app.bat](file:///c:/Users/thiag/Desktop/TM%20Pastas%20-%20atualizando/executar_app.bat).

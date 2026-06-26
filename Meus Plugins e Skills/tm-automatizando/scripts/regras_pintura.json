@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "fonte": "MAFFENG - PINTURAS SOMENTE.html",
+    "data_extracao": "2026-05-14",
+    "principio": "Em cada contrato, o código de pintura usado DEVE seguir estas regras. A TM-Automatizando nunca pode trocar 17.4/17.6/17.10/17.11 fora do permitido pelo contrato."
+  },
+  "contratos": {
+    "2056_DIVINOPOLIS": {
+      "nome": "MINAS GERAIS – DIVINÓPOLIS",
+      "regras": [
+        { "codigo": "17.6",  "uso": "Teto, muros e paredes EXTERNAS" },
+        { "codigo": "17.11", "uso": "TODA a pintura INTERNA" }
+      ],
+      "assinatura": { "civil": "Luiza", "eletrica": "André Capanema" }
+    },
+    "2057_VARGINHA": {
+      "nome": "MINAS GERAIS – VARGINHA",
+      "regras": [
+        { "codigo": "17.6",  "uso": "Teto e paredes EXTERNAS" },
+        { "codigo": "17.10", "uso": "Toda pintura em muros (APENAS divisão com o terreno vizinho)" },
+        { "codigo": "17.11", "uso": "TODA a pintura INTERNA" }
+      ],
+      "restricoes_fiscal": "Fiscal Carol: EXTREMAMENTE exigente. Vinílico/porcelanato/carpete: trocar SÓ se realmente ruim; se não trocar, informar que está em bom estado."
+    },
+    "6122_MS": {
+      "nome": "MATO GROSSO DO SUL – CAMPO GRANDE E AQUIDAUANA",
+      "regras": [
+        { "codigo": "17.4",  "uso": "Todo o restante das paredes internas e externas. Pintura em FORRO (TETO) também." },
+        { "codigo": "17.10", "uso": "Pintura de muros" },
+        { "codigo": "17.11", "uso": "Pintura de paredes internas e/ou externas COLORIDAS (azul ou amarelo)" }
+      ],
+      "regra_remanejamento": "Indicar quantidade exata de cada item movimentado (X cadeiras, Y extintores, Z mesas)",
+      "assinatura": { "civil": "Ygor ou Felipe" }
+    },
+    "0908_SAOJOSEDOSCAMPOS": {
+      "nome": "SÃO PAULO – SÃO JOSÉ DOS CAMPOS",
+      "regras": [
+        { "codigo": "17.6", "uso": "Teto" },
+        { "codigo": "17.4", "uso": "Todo o restante das paredes internas e externas e MUROS" }
+      ],
+      "regra_layout": "Detalhes das paredes devem vir LOGO ABAIXO delas. NÃO colocar todos os detalhes no final do tópico.",
+      "regra_orcamento": "Planilha orçamentária SEPARADA por andar/setor."
+    },
+    "1565_SJRP_RIBEIRAO": {
+      "nome": "SÃO PAULO – SÃO JOSÉ DO RIO PRETO E RIBEIRÃO PRETO",
+      "familia": "SP2",
+      "regras": [
+        { "codigo": "17.10", "uso": "TODOS OS MUROS" },
+        { "codigo": "17.4",  "uso": "TODAS as paredes externas" },
+        { "codigo": "17.6",  "uso": "TODA a pintura acrílica INTERNA e em TETOS" }
+      ],
+      "regra_layout": "Detalhes das paredes LOGO ABAIXO delas. NÃO colocar todos os detalhes no final do tópico.",
+      "regra_orcamento": "Planilha orçamentária deverá ser separada por andar/setor.",
+      "unidades_conhecidas": ["2568 SANTA ADELIA", "4392 RIBEIRAO PRETO", "4585 GUARIBA"]
+    },
+    "1507_CUIABA": {
+      "nome": "MATO GROSSO – CUIABÁ",
+      "regras": [
+        { "codigo": "17.11", "uso": "Pintura colorida (azul ou amarelo)" },
+        { "codigo": "17.6",  "uso": "Teto" },
+        { "codigo": "17.4",  "uso": "Todo o restante das paredes internas e externas e MUROS" }
+      ],
+      "assinatura": { "civil": "Ygor", "eletrica": "André Luiz" }
+    },
+    "3575_TANGARA": {
+      "nome": "MATO GROSSO – TANGARÁ DA SERRA, SINOP E BARRA DO GARÇAS",
+      "regras": [
+        { "codigo": "17.11", "uso": "Pintura colorida (azul ou amarelo)" },
+        { "codigo": "17.6",  "uso": "Teto" },
+        { "codigo": "17.4",  "uso": "Todo o restante das paredes internas e externas e MUROS" }
+      ],
+      "assinatura": { "civil": "Ygor", "eletrica": "André Luiz" }
+    },
+    "2627_VALADARES": {
+      "nome": "MINAS GERAIS – GOVERNADOR VALADARES E JOAÍMA",
+      "regras": [
+        { "codigo": "17.6",  "uso": "Teto e paredes EXTERNAS" },
+        { "codigo": "17.10", "uso": "Toda pintura em muros (APENAS divisão com o terreno vizinho)" },
+        { "codigo": "17.11", "uso": "TODA a pintura INTERNA" }
+      ],
+      "restricoes_fiscal": "Fiscal Carol: EXTREMAMENTE exigente. Vinílico/porcelanato/carpete: trocar SÓ se realmente ruim."
+    },
+    "2626_SALINAS": {
+      "nome": "MINAS GERAIS – SALINAS E SÃO FRANCISCO",
+      "regras": [
+        { "codigo": "17.6",  "uso": "Teto, muros e paredes EXTERNAS" },
+        { "codigo": "17.11", "uso": "TODA a pintura INTERNA" }
+      ],
+      "assinatura": { "civil": "Ygor", "eletrica": "Mateus Drumond" }
+    }
+  },
+  "observacoes_gerais": {
+    "item_29_24": "O valor total deve ser dividido por 10, em seguida dividido por 2.",
+    "remanejamento_mobiliario": "Sempre quantificar exatamente o que foi movimentado.",
+    "ordem_detalhes": "Detalhes vêm logo abaixo da foto-narrativa correspondente, nunca agrupados no fim do tópico."
+  }
+}

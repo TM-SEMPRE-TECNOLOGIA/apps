@@ -1,0 +1,23 @@
+{
+  "skill_name": "auto-chat-naming",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Preciso inserir 7 placeholders ({{nr_os}}, {{data_elaboracao}}, etc) em 9 templates Word diferentes. São files de relatório que preciso atualizar manualmente. Essa tarefa bloqueia toda a implementação do sistema de preenchimento automático que planejei. Por onde começo?",
+      "expected_output": "3 sugestões de nome em PT-BR seguindo padrão [Verbo] [Descrição] ([Status]). A primeira sugestão deve mencionar que é BLOQUEANTE. Todas em português. Nenhuma em inglês.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Consegue revisar a qualidade do código do meu projeto? Quero entender se há duplicação, funções muito complexas, tratamento de erros inadequado, e se os testes cobrem os casos críticos. O repositório está em /app/backend/",
+      "expected_output": "3 sugestões de nome em PT-BR. Cada uma com um verbo diferente (não repetir). Focar em análise/revisão de código. Nenhuma sugestão em inglês ou com jargão técnico demais.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Vou retomar a implementação do modelo SP3 do AutoRelatório. Já tenho a análise completa e a estrutura de pastas definida. Preciso começar a codificar o scanner e o gerador do Word. Estou continuando de um chat anterior onde fiz o diagnóstico.",
+      "expected_output": "3 sugestões de nome em PT-BR. Pelo menos uma deve ter status (CONTINUAR). Descrever a ação (implementar, codificar). Claro que é continuação de trabalho anterior.",
+      "files": []
+    }
+  ]
+}

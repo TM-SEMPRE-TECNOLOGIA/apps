@@ -1,0 +1,369 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Busca todos os posts e ordena por data (mais recente primeiro)
+const allPosts = (await getCollection('blog')) as Array<{
+  id: string;
+  data: {
+    title: string;
+    pubDate: Date;
+    description?: string;
+    author: string;
+    tags: string[];
+  };
+}>;
+const posts = allPosts.sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+
+// Formatar data em PT-BR
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+---
+
+<BaseLayout
+  title="Blog — TM Sempre Tecnologia"
+  description="Artigos técnicos sobre engenharia de software, inteligência artificial e tecnologia aplicada ao mundo real."
+>
+  <div class="blog-layout">
+    <!-- Header -->
+    <header class="blog-header">
+      <p class="blog-eyebrow">Conhecimento em prática</p>
+      <h1 class="blog-heading">
+        Artigos <span>Técnicos</span>
+      </h1>
+      <p class="blog-sub">
+        Insights sobre engenharia de software, IA aplicada e as decisões que nos levam a construir soluções melhores.
+      </p>
+    </header>
+
+    <!-- Posts Grid -->
+    {posts.length === 0 ? (
+      <div class="empty-state">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <p>Nenhum artigo publicado ainda. Em breve!</p>
+      </div>
+    ) : (
+      <section class="posts-grid" aria-label="Lista de artigos">
+        {posts.map((post, i) => (
+          <article class="post-card" style={`animation-delay: ${i * 0.1}s`}>
+            <a href={`/blog/${post.id.replace(/\.md$/, '')}`} class="post-card-link" aria-label={`Ler: ${post.data.title}`}>
+              <!-- Card Number -->
+              <div class="post-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+
+              <!-- Meta -->
+              <div class="post-meta">
+                <time class="post-date" datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="post-tags" aria-label="Tags">
+                    {post.data.tags.slice(0, 3).map((tag: string) => (
+                      <span class="post-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <!-- Content -->
+              <h2 class="post-title">{post.data.title}</h2>
+              {post.data.description && (
+                <p class="post-desc">{post.data.description}</p>
+              )}
+
+              <!-- Footer -->
+              <div class="post-footer">
+                <span class="post-author">{post.data.author}</span>
+                <span class="post-cta" aria-hidden="true">
+                  Ler artigo
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </span>
+              </div>
+
+              <!-- Hover glow line -->
+              <div class="post-glow" aria-hidden="true"></div>
+            </a>
+          </article>
+        ))}
+      </section>
+    )}
+
+    <!-- Back to home -->
+    <div class="blog-back">
+      <a href="/" class="btn btn-ghost">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Voltar ao início
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-layout {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 120px 32px 100px;
+  }
+
+  /* ─── Header ─── */
+  .blog-header {
+    text-align: center;
+    margin-bottom: 72px;
+    animation: fadeInUp 0.7s ease 0.1s both;
+  }
+
+  .blog-eyebrow {
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--o);
+    margin-bottom: 20px;
+  }
+
+  .blog-heading {
+    font-family: var(--fs);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .blog-heading span {
+    color: var(--o);
+  }
+
+  .blog-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── Posts Grid ─── */
+  .posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 64px;
+  }
+
+  .post-card {
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .post-card-link {
+    display: block;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--brd);
+    position: relative;
+    transition: padding-left 0.3s ease;
+    overflow: hidden;
+  }
+
+  .post-card-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--o), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .post-card:first-child .post-card-link {
+    border-top: 1px solid var(--brd);
+  }
+
+  .post-card-link:hover {
+    padding-left: 20px;
+  }
+
+  .post-card-link:hover::before {
+    opacity: 1;
+  }
+
+  .post-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(232, 96, 16, 0.03) 0%, transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .post-card-link:hover .post-glow {
+    opacity: 1;
+  }
+
+  /* Post Number */
+  .post-num {
+    font-family: var(--fm);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--sub);
+    margin-bottom: 12px;
+  }
+
+  /* Meta */
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .post-date {
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--sub);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
+    font-family: var(--fm);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--o);
+    background: var(--acc);
+    border: 1px solid var(--bro);
+    border-radius: 100px;
+    padding: 2px 10px;
+  }
+
+  /* Title & Desc */
+  .post-title {
+    font-family: var(--fs);
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+
+  .post-card-link:hover .post-title {
+    color: var(--o);
+  }
+
+  .post-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+
+  /* Footer */
+  .post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .post-author {
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--sub);
+    text-transform: uppercase;
+  }
+
+  .post-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s, gap 0.2s;
+  }
+
+  .post-cta svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+  }
+
+  .post-card-link:hover .post-cta {
+    color: var(--o);
+    gap: 12px;
+  }
+
+  .post-card-link:hover .post-cta svg {
+    transform: translateX(4px);
+  }
+
+  /* Empty State */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 0;
+    text-align: center;
+    color: var(--sub);
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .empty-state svg {
+    width: 48px;
+    height: 48px;
+    color: var(--sub);
+    opacity: 0.5;
+  }
+
+  .empty-state p {
+    font-family: var(--fm);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Back */
+  .blog-back {
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 0.6s ease 0.4s both;
+  }
+
+  @media (max-width: 580px) {
+    .blog-layout {
+      padding: 100px 20px 80px;
+    }
+
+    .post-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

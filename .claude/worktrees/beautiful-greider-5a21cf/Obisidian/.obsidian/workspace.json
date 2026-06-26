@@ -1,0 +1,232 @@
+{
+  "main": {
+    "id": "1e1be0f768bf00bd",
+    "type": "split",
+    "children": [
+      {
+        "id": "e81a67df31cd1b6a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "78019e5de36754c5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Ideia desorganizada.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Ideia desorganizada"
+            }
+          },
+          {
+            "id": "c447c0614a9cf7f6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Reiniciando desenvolvimento com CLAUDE.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Reiniciando desenvolvimento com CLAUDE"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e74c2d98978fba11",
+    "type": "split",
+    "children": [
+      {
+        "id": "363686bec95d581f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dab7cf7a9fe900f4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "e65fd37cdd80e9b7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "60b669dcbd32e435",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "62bf479ce88582ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "902ea1d80bbceb18",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "72d474071002379e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos"
+            }
+          },
+          {
+            "id": "c39b6284ae5cfa83",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída"
+            }
+          },
+          {
+            "id": "b7f7e125eac85357",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "f07fecb71858b283",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "38950b187c8bdffc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "c447c0614a9cf7f6",
+  "lastOpenFiles": [
+    "Pasted image 20260413025223.png",
+    "Pasted image 20260413025218.png",
+    "Reiniciando desenvolvimento com CLAUDE.md",
+    "Ideia desorganizada.md",
+    "Pasted image 20260401023930.png",
+    "00 - Jarvis Brain/Knowledge/ATUALIZAR APP AUTO RELATORI.md",
+    "00 - Jarvis Brain/Knowledge/DocFactory_Final_Sync_Successful.md",
+    "00 - Jarvis Brain/Technical_Docs/Walkthrough_Memoria_Profunda_20260329.md",
+    "00 - Jarvis Brain/Logs/diario_de_dev_2026-03-31.md",
+    "Sem título 1.canvas",
+    "Sem título.canvas",
+    "Sem título.base",
+    "Sem título 2.base",
+    "Sem título 1.base",
+    "00 - Jarvis Brain/commit_history.md",
+    "00 - Jarvis Brain/next_steps.md",
+    "Lista de docs (primeiro projeto).md",
+    "Lista Padrão de Documentos Técnicos de Desenvolvimento.md",
+    "00 - Jarvis Brain/Mesa_de_Comando.md",
+    "00 - Jarvis Brain/regras_workflows.md",
+    "project-overview 1.html",
+    "project-overview.html",
+    "2026-03-31.md",
+    "00 - Jarvis Brain/Knowledge/Mapa_Arquitetura_AutoRelatorioV1.md",
+    "00 - Jarvis Brain/Knowledge/Arch_AutoRelatorioV1.md",
+    "00 - Jarvis Brain/Knowledge",
+    "Bem-vindo.md",
+    "01 - Meu uso (ferramentas diárias)/Aqui é onde eu guardo minhas ferramentas.md",
+    "00 - Jarvis Brain/Technical_Docs",
+    "00 - Jarvis Brain",
+    "01 - Meu uso (ferramentas diárias)"
+  ]
+}

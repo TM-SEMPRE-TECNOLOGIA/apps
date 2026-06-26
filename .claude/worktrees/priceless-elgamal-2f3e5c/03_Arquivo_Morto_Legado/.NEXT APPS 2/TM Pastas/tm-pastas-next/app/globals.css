@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* TM Design System Integration */
+@import "../design-system/tokens.css";
+@import "../design-system/layout.css";
+@import "../design-system/components.css";
+@import "../design-system/animations.css";
+
+/* Reset and overrides for Next.js */
+:root {
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global Nav Styles from original App.jsx */
+.global-nav {
+  display: flex;
+  gap: 15px;
+  padding: 10px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: center;
+}
+
+.global-nav__brand {
+  font-weight: bold;
+  margin-right: 20px;
+  color: var(--accent);
+}
+
+.btn-ghost {
+  text-decoration: none;
+}

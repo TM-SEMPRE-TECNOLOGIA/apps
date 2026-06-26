@@ -1,0 +1,59 @@
+# Walkthrough: Injeção de Caixas de Texto (Shapes) Reais
+
+Este walkthrough documenta a transição bem-sucedida das legendas baseadas em tabelas para **Caixas de Texto (Shapes)** reais no Word, garantindo o visual "Premium" solicitado sem interferir nos memoriais de cálculo.
+
+## 🚀 Melhorias Implementadas
+
+### 1. Legendagem via Shapes (XML Nativo)
+- **O que mudou**: Abandonamos o uso de micro-tabelas para legendas sob a imagem.
+- **Nova Técnica**: Agora injetamos o XML bruto de `wps:wsp` (Wordprocessing Shape), criando caixas de texto flutuantes reais.
+- **Visual**: Fundo vermelho vivo (#C00000), texto branco (#FFFFFF), fonte Arial 11 em negrito, com sombra sutil para efeito premium.
+
+### 2. Preservação de Memoriais
+- **Tabelas de Dados**: Conforme solicitado, os Memoriais de Cálculo (Pintura ITEM 17.4 e Mobiliário ITEM 13.12) continuam sendo gerados em tabelas estruturadas, que é o formato ideal para medições.
+
+### 3. Integração com Modelos
+- A lógica foi testada e validada usando o modelo oficial **DIVINOPOLIS** da pasta [templates](file:///C:/Users/thiag/TM-MEUS-APPS/0%20-%20NEXT%20APPS/TM%20Relatorio/server.py#46-54).
+
+## 📊 Resultados dos Testes (ITAMONTE)
+
+Realizamos uma geração completa para a pasta **ITAMONTE** com os seguintes resultados:
+
+- **Imagens Processadas**: 247
+- **Caixas de Texto Injetadas**: 113 (correspondentes às fotos com dimensões no nome)
+- **Status**: Sucesso total, sem erros de formatação.
+
+---
+
+## 🛠️ Detalhes Técnicos
+
+### Injeção de XML
+Foi implementada a função [inserir_textbox_vermelha](file:///C:/Users/thiag/TM-MEUS-APPS/0%20-%20NEXT%20APPS/TM%20Relatorio%20teste/APP/backend/word_utils_sp.py#29-116) que manipula o `wp:anchor` para permitir que a legenda "flutue" sobre a imagem de forma controlada:
+
+```python
+# Exemplo do XML injetado
+drawing_xml = f"""
+<w:drawing ...>
+  <wp:anchor ...>
+    <wps:wsp>
+      <wps:spPr>
+        <a:solidFill><a:srgbClr val="C00000"/></a:solidFill>
+      </wps:spPr>
+      <wps:txbx>
+        <w:r><w:t>{text}</w:t></w:r>
+      </wps:txbx>
+    </wps:wsp>
+  </wp:anchor>
+</w:drawing>
+"""
+```
+
+### Localização dos Arquivos
+- **Util SP**: [word_utils_sp.py](file:///C:/Users/thiag/TM-MEUS-APPS/0 - NEXT APPS/TM Relatorio teste/APP/backend/word_utils_sp.py)
+- **Util Tradicional**: [word_utils.py](file:///C:/Users/thiag/TM-MEUS-APPS/0 - NEXT APPS/TM Relatorio teste/APP/backend/word_utils.py)
+- **Output de Teste**: [output_test/](file:///C:/Users/thiag/TM-MEUS-APPS/0 - NEXT APPS/TM Relatorio teste/output_test/)
+
+---
+
+> [!TIP]
+> O relatório gerado em `TM Relatorio teste/output_test` está pronto para sua inspeção visual. Verifique se o posicionamento das caixas vermelhas atende à sua expectativa de "wow factor".

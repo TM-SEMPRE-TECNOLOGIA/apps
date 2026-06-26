@@ -1,0 +1,29 @@
+{
+  "name": "tm-commit",
+  "version": "1.0.0",
+  "description": "Git automation plugin para TM-MEUS-APPS — detecta mudanças, cria commits estruturados e sincroniza com GitHub automaticamente",
+  "author": {
+    "name": "Claude AI",
+    "email": "thiagonascimento.barbosapro@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TM-SEMPRE-TECNOLOGIA/TM-MEUS-APPS"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "automation",
+    "commits",
+    "versionamento",
+    "cowork"
+  ],
+  "cowork": {
+    "type": "plugin",
+    "category": "git-automation",
+    "enabled": true,
+    "autoLoad": true
+  }
+}

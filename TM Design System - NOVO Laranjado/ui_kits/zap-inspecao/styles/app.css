@@ -1,0 +1,550 @@
+/* TM·Zap Inspeção — App Styles */
+@import url('../../../colors_and_type.css');
+
+/* ── RESET MOBILE ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; padding: 0;
+  height: 100%;
+  font-family: var(--TM-font-sans);
+  background: var(--tm-bg);
+  color: var(--tm-text);
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+#app {
+  height: 100dvh;                           /* dynamic viewport height (mobile) */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── SAFE AREAS (notch / home indicator) ───────────── */
+.safe-top    { padding-top:    env(safe-area-inset-top,    0px); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ── CHAT SCROLL ────────────────────────────────────── */
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 8px;
+  scroll-behavior: smooth;
+}
+.chat-body::-webkit-scrollbar { display: none; }
+
+/* ── ANIMAÇÕES ──────────────────────────────────────── */
+@keyframes tmPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+@keyframes tmFadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes tmSlideIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── BUBBLE ANIMATE ─────────────────────────────────── */
+.bubble-in  { animation: tmFadeUp  0.18s ease both; }
+.bubble-out { animation: tmSlideIn 0.18s ease both; }
+
+/* ── TOUCH FEEDBACK ─────────────────────────────────── */
+button:active { opacity: 0.75; transform: scale(0.97); }
+.btn-action:active { transform: scale(0.96); }
+
+/* ── TELA DE INÍCIO (seleção de contrato) ───────────── */
+.screen-inicio {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--tm-bg);
+}
+.inicio-header {
+  padding: 20px 20px 16px;
+  padding-top: calc(20px + env(safe-area-inset-top, 0px));
+  background: var(--tm-bg-card);
+  border-bottom: 1px solid var(--tm-border);
+}
+.inicio-logo {
+  font-family: var(--TM-font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--TM-primary);
+  letter-spacing: -0.01em;
+}
+.inicio-sub {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  color: var(--tm-text-subtle);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.inicio-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contrato-card {
+  background: var(--tm-bg-card);
+  border: 1px solid var(--tm-border);
+  border-left: 3px solid var(--TM-primary);
+  border-radius: 6px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.contrato-card:active { background: var(--tm-bg-muted); }
+.contrato-code {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--TM-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.contrato-nome {
+  font-family: var(--TM-font-serif);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--tm-text);
+  letter-spacing: -0.005em;
+}
+.contrato-end {
+  font-size: 12px;
+  color: var(--tm-text-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── BOTÃO + NOVA OS ────────────────────────────────── */
+.btn-nova-os {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 9px 16px;
+  background: var(--TM-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--TM-font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  transition: background 0.12s;
+}
+.btn-nova-os:active { background: #a8411a; }
+
+/* ── CARD DE OS ─────────────────────────────────────── */
+.os-card {
+  background: var(--tm-bg-card);
+  border: 1px solid var(--tm-border);
+  border-left: 3px solid var(--TM-primary);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.os-card:active { background: var(--tm-bg-muted); }
+.os-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.os-estagio-badge {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--TM-primary);
+  letter-spacing: 0.1em;
+}
+.os-data {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  color: var(--tm-text-subtle);
+}
+.os-nome {
+  font-family: var(--TM-font-serif);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--tm-text);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.os-contrato {
+  font-size: 12px;
+  color: var(--tm-text-muted);
+  margin-top: 2px;
+}
+.os-tecnico {
+  font-size: 11px;
+  color: var(--tm-text-subtle);
+  margin-top: 4px;
+  font-family: var(--TM-font-mono);
+}
+
+/* ── ESTADO VAZIO ───────────────────────────────────── */
+.oss-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--tm-text-muted);
+}
+.oss-vazio p {
+  font-family: var(--TM-font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tm-text);
+  margin: 0;
+}
+.oss-vazio span {
+  font-size: 13px;
+  color: var(--tm-text-muted);
+}
+
+/* ── MODAL BASE ─────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 400;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.modal-nova-os,
+.modal-export {
+  background: var(--tm-bg-card);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-height: 90dvh;
+  overflow-y: auto;
+  animation: tmFadeUp 0.22s ease both;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--tm-border);
+  position: sticky;
+  top: 0;
+  background: var(--tm-bg-card);
+  z-index: 1;
+}
+.modal-title {
+  font-family: var(--TM-font-serif);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--tm-text);
+}
+.modal-fechar {
+  background: var(--tm-bg-muted);
+  border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  color: var(--tm-text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-body {
+  padding: 16px 20px 24px;
+}
+
+/* ── FORMULÁRIO ─────────────────────────────────────── */
+.form-label {
+  display: block;
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tm-text-subtle);
+  margin-bottom: 6px;
+}
+.form-select,
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  border-radius: 8px;
+  font-family: var(--TM-font-sans);
+  font-size: 14px;
+  color: var(--tm-text);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.form-select:focus,
+.form-input:focus {
+  border-color: var(--TM-primary);
+  box-shadow: 0 0 0 3px rgba(200, 84, 28, 0.12);
+}
+.btn-criar-os {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--TM-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--TM-font-sans);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.12s, opacity 0.12s;
+}
+.btn-criar-os:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-criar-os:not(:disabled):active { background: #a8411a; }
+
+/* ── EXPORT MODAL ───────────────────────────────────── */
+.export-preview {
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: var(--TM-font-mono);
+  font-size: 12px;
+  color: var(--tm-text-muted);
+  line-height: 1.7;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.export-info {
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  color: var(--tm-text-subtle);
+  text-align: center;
+  margin: 10px 0;
+  letter-spacing: 0.08em;
+}
+.export-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+.export-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--tm-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.export-bar-fill {
+  height: 100%;
+  background: var(--TM-primary);
+  border-radius: 999px;
+  transition: width 0.2s;
+}
+.export-pct {
+  font-family: var(--TM-font-mono);
+  font-size: 10px;
+  color: var(--TM-primary);
+  min-width: 28px;
+  text-align: right;
+}
+.export-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+.btn-export-zip {
+  width: 100%;
+  padding: 12px;
+  background: var(--TM-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--TM-font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-export-api {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--TM-primary);
+  border: 1px solid var(--TM-primary);
+  border-radius: 10px;
+  font-family: var(--TM-font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-export-zip:active { opacity: 0.8; }
+.btn-export-api:active { opacity: 0.8; }
+
+/* ── TOQUE LONGO / MENU DE CONTEXTO ─────────────────── */
+.bolha-selecionada {
+  filter: brightness(0.92);
+}
+
+/* ── CAMERA OVERLAY ─────────────────────────────────── */
+.camera-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.camera-video {
+  flex: 1;
+  width: 100%;
+  object-fit: cover;
+}
+.camera-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 24px 32px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  background: rgba(0,0,0,0.8);
+}
+.camera-shutter {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.camera-shutter:active { background: rgba(255,255,255,0.5); }
+.camera-cancel {
+  font-family: var(--TM-font-sans);
+  font-size: 14px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+}
+
+/* ── FOTO PREVIEW NO CHAT ───────────────────────────── */
+.photo-sending {
+  opacity: 0.6;
+  position: relative;
+}
+.photo-sending::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--TM-primary);
+  animation: tmProgress 1.5s ease-in-out infinite;
+}
+@keyframes tmProgress {
+  0%   { transform: scaleX(0); transform-origin: left; }
+  50%  { transform: scaleX(1); transform-origin: left; }
+  51%  { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+
+/* ── TOAST NOTIFICATION ─────────────────────────────── */
+.toast {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--tm-text);
+  color: var(--tm-bg);
+  font-family: var(--TM-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  z-index: 200;
+  animation: tmFadeUp 0.2s ease both;
+  white-space: nowrap;
+}
+
+/* ── LOADING SPINNER ────────────────────────────────── */
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--tm-border);
+  border-top-color: var(--TM-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── INSTALL BANNER ─────────────────────────────────── */
+.install-banner {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 12px; right: 12px;
+  background: var(--tm-bg-card);
+  border: 1px solid var(--tm-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--TM-shadow-lg);
+  z-index: 150;
+  animation: tmFadeUp 0.25s ease both;
+}
+.install-banner-icon {
+  width: 40px; height: 40px;
+  background: var(--TM-primary);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.install-banner-text { flex: 1; min-width: 0; }
+.install-banner-title {
+  font-family: var(--TM-font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--tm-text);
+}
+.install-banner-sub {
+  font-size: 11px;
+  color: var(--tm-text-muted);
+  margin-top: 1px;
+}
+.install-btn {
+  background: var(--TM-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: var(--TM-font-sans);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}

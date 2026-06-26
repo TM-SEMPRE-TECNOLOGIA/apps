@@ -1,0 +1,89 @@
+{
+  "skill_name": "auto-chat-naming",
+  "iteration": 1,
+  "timestamp": "2026-05-12T15:30:00Z",
+  "summary": {
+    "total_evals": 3,
+    "with_skill": {
+      "pass_rate": "100%",
+      "avg_time_seconds": 5.39,
+      "avg_tokens": 86100,
+      "details": "Todas as 3 sugestões de nome geradas com sucesso em PT-BR, seguindo padrão obrigatório"
+    },
+    "assertions_breakdown": [
+      {
+        "assertion": "count_suggestions",
+        "description": "Gerou exatamente 3 sugestões",
+        "pass_rate": "100%",
+        "passed": 3,
+        "total": 3
+      },
+      {
+        "assertion": "language_portuguese",
+        "description": "100% em português (0% inglês)",
+        "pass_rate": "100%",
+        "passed": 3,
+        "total": 3
+      },
+      {
+        "assertion": "pattern_format",
+        "description": "Segue padrão [Verbo] [Descrição] ([Status])",
+        "pass_rate": "100%",
+        "passed": 3,
+        "total": 3
+      },
+      {
+        "assertion": "different_verbs",
+        "description": "Verbos variados quando múltiplas sugestões",
+        "pass_rate": "100%",
+        "passed": 2,
+        "total": 2
+      },
+      {
+        "assertion": "appropriate_status",
+        "description": "Status adequado ao contexto (BLOQUEANTE, CONTINUAR, etc)",
+        "pass_rate": "100%",
+        "passed": 3,
+        "total": 3
+      }
+    ]
+  },
+  "test_results": [
+    {
+      "eval_id": 1,
+      "eval_name": "tarefa-bloqueante-placeholders",
+      "status": "PASSED",
+      "all_assertions_passed": true,
+      "assertions": [
+        {"id": "count_suggestions", "passed": true},
+        {"id": "language_portuguese", "passed": true},
+        {"id": "pattern_format", "passed": true},
+        {"id": "mentions_blocker", "passed": true}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "code-review-quality-analysis",
+      "status": "PASSED",
+      "all_assertions_passed": true,
+      "assertions": [
+        {"id": "count_suggestions", "passed": true},
+        {"id": "language_portuguese", "passed": true},
+        {"id": "different_verbs", "passed": true},
+        {"id": "pattern_format", "passed": true}
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "continuar-implementacao-sp3",
+      "status": "PASSED",
+      "all_assertions_passed": true,
+      "assertions": [
+        {"id": "count_suggestions", "passed": true},
+        {"id": "language_portuguese", "passed": true},
+        {"id": "pattern_format", "passed": true},
+        {"id": "has_continuar_status", "passed": true}
+      ]
+    }
+  ]
+}

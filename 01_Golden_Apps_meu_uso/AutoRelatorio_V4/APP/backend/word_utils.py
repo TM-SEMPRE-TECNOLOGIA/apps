@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 PLACEHOLDER_PATTERN = r'\{\{([a-zA-Z_][a-zA-Z0-9_]*)\}\}'
 
 # Constantes para compatibilidade com word_utils_sp e word_utils_sp2
-ALTURA_PADRAO = 6.0  # cm
+ALTURA_PADRAO = 7.0  # cm - ajustado de 6.0 para 7.0
 LARGURA_MAX_3_COL = 15.0  # cm
 LARGURA_MAX_2_COL = 16.0  # cm
 
@@ -503,7 +503,7 @@ def inserir_conteudo(
                                 for col in range(2):
                                     cell_p = table.cell(0, col).paragraphs[0]
                                     cell_p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-                                    cell_p.add_run().add_picture(grupo[sub_i + col], width=Cm(7.2))
+                                    cell_p.add_run().add_picture(grupo[sub_i + col], width=Cm(7.0))
                                     contador_imagens += 1
                                 doc.paragraphs[paragrafo_insercao_index]._element.addbefore(table._element)
                                 sub_i += 2
@@ -511,7 +511,7 @@ def inserir_conteudo(
                         p = doc.paragraphs[paragrafo_insercao_index].insert_paragraph_before('')
                         p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                         w, h = analisar_imagem(grupo[sub_i])
-                        tw = 14.5 if w > h else 9.5
+                        tw = 10.0 if w > h else 7.0
                         p.add_run().add_picture(grupo[sub_i], width=Cm(tw))
                         contador_imagens += 1
                         sub_i += 1

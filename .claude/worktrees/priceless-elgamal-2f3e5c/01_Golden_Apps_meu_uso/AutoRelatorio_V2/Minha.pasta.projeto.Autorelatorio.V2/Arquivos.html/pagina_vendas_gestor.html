@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRelatorio V2 — Para Gestores | TM Sempre Tecnologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0e27;
+            --dark-card: #111830;
+            --dark-border: #1a1f3a;
+            --accent: #c8a96e;
+            --accent-light: #d9b97d;
+            --accent-dark: #b8945a;
+            --text-primary: #ffffff;
+            --text-secondary: #b4b9c8;
+            --text-dim: #8a8f9e;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── HEADER PREMIUM ─────────────────────────────── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 14, 39, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+            padding: 1.2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            min-width: 280px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--dark-bg);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(200, 169, 110, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .logo-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Nav Menu */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Action Buttons */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(200, 169, 110, 0.1);
+            border: 1px solid rgba(200, 169, 110, 0.25);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .badge::before {
+            content: '●';
+            color: var(--success);
+            font-size: 0.6rem;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.75rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(200, 169, 110, 0.35);
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ─── HERO ─────────────────────────────────────── */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #161d42 50%, var(--dark-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200, 169, 110, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(200, 169, 110, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(200, 169, 110, 0.1);
+            border: 1px solid rgba(200, 169, 110, 0.3);
+            border-radius: 20px;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .accent {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1.1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(200, 169, 110, 0.25);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(200, 169, 110, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-secondary {
+            padding: 1.1rem 2.5rem;
+            border: 2px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(200, 169, 110, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 0;
+        }
+
+        .stat {
+            padding: 2rem;
+            background: rgba(200, 169, 110, 0.08);
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(200, 169, 110, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ─── SECTION ──────────────────────────────────── */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        /* ─── BEFORE/AFTER ─────────────────────────────── */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .before-card, .after-card {
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--dark-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .before-card {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .before-card:hover {
+            border-color: rgba(239, 68, 68, 0.4);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.15);
+        }
+
+        .after-card {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .after-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .before-card .card-title {
+            color: var(--danger);
+        }
+
+        .after-card .card-title {
+            color: var(--success);
+        }
+
+        .card-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .card-item span:first-child {
+            min-width: 24px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ─── SCREENSHOT ─────────────────────────────────– */
+        .screenshot-section {
+            margin-bottom: 3rem;
+        }
+
+        .screenshot-container {
+            background: linear-gradient(135deg, var(--dark-card) 0%, #1a1f40 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-container:hover {
+            border-color: var(--accent);
+            box-shadow: 0 24px 64px rgba(200, 169, 110, 0.15);
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            margin: 1px;
+        }
+
+        .screenshot-caption {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--dark-border);
+            background: rgba(200, 169, 110, 0.04);
+        }
+
+        /* ─── HOW IT WORKS ────────────────────────────────– */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(200, 169, 110, 0.06) 0%, rgba(200, 169, 110, 0.02) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(200, 169, 110, 0.15);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(200, 169, 110, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .step:hover {
+            border-color: rgba(200, 169, 110, 0.3);
+            box-shadow: 0 16px 48px rgba(200, 169, 110, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transform: translateY(-6px);
+            backdrop-filter: blur(16px);
+        }
+
+        .step:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step:hover::after {
+            opacity: 1;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 6px 16px rgba(200, 169, 110, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ─── NUMBERS ──────────────────────────────────── */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric {
+            padding: 2.2rem;
+            background: linear-gradient(135deg, rgba(17, 24, 48, 0.6) 0%, rgba(26, 31, 64, 0.4) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(200, 169, 110, 0.15);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(200, 169, 110, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .metric:hover {
+            border-color: rgba(200, 169, 110, 0.4);
+            box-shadow: 0 16px 48px rgba(200, 169, 110, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transform: translateY(-6px) scale(1.02);
+            backdrop-filter: blur(16px);
+        }
+
+        .metric:hover::before {
+            opacity: 1;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ─── CASE STUDY ───────────────────────────────── */
+        .case-study {
+            background: linear-gradient(135deg, rgba(200, 169, 110, 0.06) 0%, rgba(200, 169, 110, 0.02) 100%);
+            backdrop-filter: blur(14px);
+            border: 2px solid rgba(200, 169, 110, 0.2);
+            border-radius: 16px;
+            padding: 3.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 12px 48px rgba(200, 169, 110, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study:hover {
+            border-color: rgba(200, 169, 110, 0.35);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 16px 64px rgba(200, 169, 110, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .case-study h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .case-study > p {
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .case-results, .case-value {
+            margin-bottom: 2.5rem;
+        }
+
+        .case-results h4, .case-value h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .case-results ul, .case-value ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .case-results li, .case-value li {
+            padding: 0.75rem 0 0.75rem 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .case-results li:before, .case-value li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ─── FEATURES ─────────────────────────────────── */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(200, 169, 110, 0.08) 0%, rgba(200, 169, 110, 0.02) 100%);
+            border: 1px solid rgba(200, 169, 110, 0.15);
+            border-radius: 12px;
+            display: flex;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(200, 169, 110, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--dark-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .feature h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .feature p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ─── FOOTER ───────────────────────────────────── */
+        .footer-cta {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .footer-cta h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+
+        .footer-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 2.5rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ─── LIQUID GLASS ANIMATIONS ───────────────── */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes liquidMorph {
+            0%, 100% {
+                border-radius: 12px;
+                filter: blur(0px);
+            }
+            50% {
+                border-radius: 16px;
+                filter: blur(0.5px);
+            }
+        }
+
+        @keyframes glassFlow {
+            0% {
+                backdrop-filter: blur(8px);
+                background: rgba(200, 169, 110, 0.05);
+            }
+            50% {
+                backdrop-filter: blur(12px);
+                background: rgba(200, 169, 110, 0.08);
+            }
+            100% {
+                backdrop-filter: blur(8px);
+                background: rgba(200, 169, 110, 0.05);
+            }
+        }
+
+        @keyframes smoothFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        section, .screenshot-container, .step, .feature {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .step {
+            animation: fadeInUp 0.6s ease-out forwards, liquidMorph 6s ease-in-out infinite;
+        }
+
+        .feature {
+            animation: fadeInUp 0.6s ease-out forwards, glassFlow 5s ease-in-out infinite;
+        }
+
+        .metric:hover {
+            animation: smoothFloat 2s ease-in-out infinite !important;
+        }
+
+        section:nth-child(n+4) {
+            animation-delay: 0.1s;
+        }
+
+        section:nth-child(n+5) {
+            animation-delay: 0.2s;
+        }
+
+        /* ─── RESPONSIVE ───────────────────────────────── */
+        @media (max-width: 1024px) {
+            nav {
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-wrapper {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                gap: 1rem;
+                flex-direction: column;
+                font-size: 0.85rem;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.75rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .before-after {
+                gap: 1.5rem;
+            }
+
+            .case-study {
+                padding: 1.5rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER PREMIUM -->
+    <header>
+        <div class="header-wrapper">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Gradient Premium -->
+                            <linearGradient id="tmPremium" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#c8a96e;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#d9b97d;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#b8945a;stop-opacity:1" />
+                            </linearGradient>
+
+                            <!-- Glow effect -->
+                            <filter id="tmGlowPremium">
+                                <feGaussianBlur stdDeviation="0.5" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+
+                            <!-- Glass effect -->
+                            <filter id="tmGlass">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="0.3"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Fundo dark com border translúcido -->
+                        <rect width="40" height="40" fill="#0a0e27" rx="10"/>
+                        <rect width="40" height="40" fill="none" rx="10" stroke="url(#tmPremium)" stroke-width="1.2" opacity="0.4"/>
+
+                        <!-- T - Geometric Left -->
+                        <path d="M 8 6 L 18 6 L 18 12 L 12 12 L 12 30 L 8 30 Z" fill="url(#tmPremium)" filter="url(#tmGlowPremium)"/>
+
+                        <!-- M - Geometric Right -->
+                        <g filter="url(#tmGlowPremium)">
+                            <path d="M 22 6 L 26 6 L 30 14 L 34 6 L 38 6 L 38 30 L 34 30 L 34 14 L 30 26 L 26 14 L 26 30 L 22 30 Z" fill="url(#tmPremium)"/>
+                        </g>
+
+                        <!-- Accent line (subtle connector) -->
+                        <line x1="19" y1="5" x2="21" y2="5" stroke="url(#tmPremium)" stroke-width="1" opacity="0.6"/>
+                        <line x1="19" y1="9" x2="21" y2="9" stroke="url(#tmPremium)" stroke-width="0.8" opacity="0.3"/>
+
+                        <!-- Corner crystals (premium detail) -->
+                        <circle cx="9" cy="7" r="0.8" fill="url(#tmPremium)" opacity="0.7"/>
+                        <circle cx="35" cy="29" r="0.8" fill="url(#tmPremium)" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-main">TM Sempre</div>
+                    <div class="logo-sub">AutoRelatorio</div>
+                </div>
+            </div>
+
+            <nav>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#impacto">Impacto</a>
+                <a href="#caso-real">Caso Real</a>
+                <a href="#features">Características</a>
+            </nav>
+
+            <div class="header-actions">
+                <span class="badge">Online - Pronto para Demo</span>
+                <button class="cta-button">Solicitar Demo</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Solução Profissional • v2.0 Estável</div>
+            <h1>De <span class="accent">Horas</span> para <span class="accent">Minutos</span></h1>
+            <p>Transforme fotos em relatórios técnicos profissionais. Automação inteligente que economiza 80% do tempo e elimina erros de digitação.</p>
+            <div class="hero-cta">
+                <button class="btn-primary">Solicitar Demo Gratuita →</button>
+                <button class="btn-secondary">Saiba Mais</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Economia de tempo</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Erros validados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Templates inclusos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Modos de operação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O IMPACTO REAL -->
+    <section>
+        <h2>O Impacto Real nos Números</h2>
+        <div class="before-after">
+            <div class="before-card">
+                <div class="card-title">❌ Processo Tradicional</div>
+                <div class="card-item">
+                    <span>4h</span>
+                    <span>Digitação manual de cada detalhe</span>
+                </div>
+                <div class="card-item">
+                    <span>❌</span>
+                    <span>Fotos desorganizadas e dispersas</span>
+                </div>
+                <div class="card-item">
+                    <span>❌</span>
+                    <span>Variação entre documentos</span>
+                </div>
+                <div class="card-item">
+                    <span>❌</span>
+                    <span>Retrabalho e correções</span>
+                </div>
+                <div class="card-item">
+                    <span>❌</span>
+                    <span>Cliente aguarda dias úteis</span>
+                </div>
+            </div>
+            <div class="after-card">
+                <div class="card-title">✓ Com AutoRelatorio</div>
+                <div class="card-item">
+                    <span>45min</span>
+                    <span>Geração completamente automática</span>
+                </div>
+                <div class="card-item">
+                    <span>✓</span>
+                    <span>Sistema reconhece estrutura sozinho</span>
+                </div>
+                <div class="card-item">
+                    <span>✓</span>
+                    <span>Padrão profissional garantido</span>
+                </div>
+                <div class="card-item">
+                    <span>✓</span>
+                    <span>Zero erros de validação</span>
+                </div>
+                <div class="card-item">
+                    <span>✓</span>
+                    <span>Pronto em minutos para entregar</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOT 1 -->
+    <section class="screenshot-section" id="como-funciona">
+        <h2>Interface Intuitiva e Poderosa</h2>
+        <div class="screenshot-container">
+            <img src="./Minha pasta sobre o aplicativo/Imagens do projeto/Tela Principal/Tela console recuado.png" alt="Dashboard principal do AutoRelatorio V2 - Painel de controle">
+            <div class="screenshot-caption">Dashboard inteligente: selecione a pasta e a análise acontece em tempo real com feedback visual</div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section>
+        <h2>3 Passos Simples</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Fotografia no Local</h3>
+                <p>Técnico tira fotos com câmera ou smartphone e organiza em pasta com estrutura clara</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Processa Automaticamente</h3>
+                <p>Abre o app, seleciona a pasta e o sistema processa fotos + descrições em tempo real</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Download Instantâneo</h3>
+                <p>Relatório Word profissional, formatado e validado — pronto para enviar ao cliente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOT 2 -->
+    <section class="screenshot-section">
+        <h2>Processamento em Tempo Real</h2>
+        <div class="screenshot-container">
+            <img src="./Minha pasta sobre o aplicativo/Imagens do projeto/Configurar origem/Tela quando seleciono pasta, exibe no console.png" alt="Console mostrando processamento em tempo real com logs coloridos">
+            <div class="screenshot-caption">Console avançado: acompanhe cada etapa com logs detalhados e feedback instantâneo</div>
+        </div>
+    </section>
+
+    <!-- NÚMEROS E IMPACTO -->
+    <section id="impacto">
+        <h2>Números que Falam por Si</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">80%</div>
+                <div class="metric-label">Redução de tempo por relatório</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">4h → 45min</div>
+                <div class="metric-label">Antes vs Depois (caso real)</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">5</div>
+                <div class="metric-label">Templates profissionais</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">2</div>
+                <div class="metric-label">Modos: Tradicional + SP</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0%</div>
+                <div class="metric-label">Erros de formatação</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Pronto para produção</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASO REAL -->
+    <section id="caso-real">
+        <h2>Caso Real: Inspeção São Paulo (MAFFENG)</h2>
+        <div class="case-study">
+            <h3>📊 Relatório Fotográfico Hierárquico — 50+ Imagens</h3>
+            <p>Contrato MAFFENG com tabelas dinâmicas, especificações técnicas e validações de São Paulo</p>
+
+            <div class="case-results">
+                <h4>✓ Resultados Comprovados</h4>
+                <ul>
+                    <li>Tempo reduzido de 4 horas para 45 minutos (3h 15min economizados)</li>
+                    <li>Zero erros de digitação e formatação Word</li>
+                    <li>Tabelas com cálculos automáticos e subtotais</li>
+                    <li>Formato profissional consistente em 100% dos documentos</li>
+                    <li>Cliente recebe em minutos, não em dias úteis</li>
+                </ul>
+            </div>
+
+            <div class="case-value">
+                <h4>💰 Valor Gerado para Negócio</h4>
+                <ul>
+                    <li>Economizar 3h 15min × valor hora técnico = R$ por relatório</li>
+                    <li>Capacidade aumenta: 2× mais relatórios no mesmo tempo</li>
+                    <li>Redução de custos operacionais significativa</li>
+                    <li>Aumento de qualidade = satisfação do cliente = mais contratos</li>
+                    <li>ROI comprovado em cada novo projeto</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section id="features">
+        <h2>Características Principais</h2>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">✎</div>
+                <div>
+                    <h4>Editor Visual Avançado</h4>
+                    <p>Anotações diretas nas fotos: setas, texto customizado, crop e marcações</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚙</div>
+                <div>
+                    <h4>2 Modos de Operação</h4>
+                    <p>Tradicional (simples) ou São Paulo (hierárquico com regex)</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📋</div>
+                <div>
+                    <h4>Tabelas Inteligentes</h4>
+                    <p>Word com 5 colunas, cálculos automáticos e subtotais MAFFENG</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div>
+                    <h4>Console em Tempo Real</h4>
+                    <p>Acompanhe cada etapa com logs detalhados e coloridos</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <div>
+                    <h4>Geração IA (Em Desenvolvimento)</h4>
+                    <p>Descrições automáticas com contexto e inteligência técnica</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <div>
+                    <h4>Validação Completa</h4>
+                    <p>Verificação automática antes de gerar o documento final</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="footer-cta">
+        <h2>Pronto para Transformar seus Relatórios?</h2>
+        <p>Solicite uma demo gratuita e veja na prática como o AutoRelatorio economiza tempo, aumenta qualidade e melhora seu faturamento</p>
+        <div class="footer-buttons">
+            <button class="btn-primary">Solicitar Demo Gratuita →</button>
+            <button class="btn-secondary">Documentação Técnica</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 TM Sempre Tecnologia. AutoRelatorio V2 — Desenvolvedor: Thiago Nascimento Barbosa</p>
+        <p>Solução profissional para geração automática de relatórios fotográficos técnicos</p>
+    </footer>
+</body>
+</html>

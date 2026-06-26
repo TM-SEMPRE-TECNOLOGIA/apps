@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #58a6ff;
+  --color-brand-secondary: #3fb950;
+  --color-brand-accent: #8957e5;
+  --color-bg-dark: #010409;
+  --color-bg-card: rgba(13, 17, 23, 0.7);
+}
+
+:root {
+  --background: #010409;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom premium classes using @utility for v4 */
+@utility glass-panel {
+  background-color: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility premium-card {
+  background-color: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+@utility glow-text {
+  background: linear-gradient(to right, var(--color-brand-primary), var(--color-brand-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility btn-primary {
+  background: linear-gradient(to right, var(--color-brand-primary), #1f6feb);
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.2);
+}
+
+@utility btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+}
+
+@utility input-field {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: white;
+  outline: none;
+}
+
+@utility status-badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-width: 1px;
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@utility animate-float {
+  animation: float 3s ease-in-out infinite;
+}

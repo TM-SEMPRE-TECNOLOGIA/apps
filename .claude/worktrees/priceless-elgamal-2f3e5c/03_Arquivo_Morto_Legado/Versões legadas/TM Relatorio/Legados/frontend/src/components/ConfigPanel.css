@@ -1,0 +1,61 @@
+.config-panel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.config-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-row {
+    display: flex;
+    gap: 12px;
+}
+
+.input-row input[type="text"],
+.input-row select {
+    flex: 1;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.input-row input[type="text"]:focus,
+.input-row select:focus {
+    border-color: var(--accent-blue);
+}
+
+.btn-upload {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-upload:hover {
+    border-color: var(--border);
+    background: rgba(255, 255, 255, 0.05);
+}

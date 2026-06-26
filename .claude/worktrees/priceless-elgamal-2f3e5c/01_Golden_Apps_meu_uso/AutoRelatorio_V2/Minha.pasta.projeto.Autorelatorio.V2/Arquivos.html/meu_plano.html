@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Plano — AutoRelatorio V2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #0f0f0f;
+      --surface:     #161616;
+      --surface2:    #1e1e1e;
+      --surface3:    #242424;
+      --border:      #2a2a2a;
+      --border2:     #333;
+      --text:        #e2e2e2;
+      --text-dim:    #888;
+      --text-faint:  #444;
+      --accent:      #c8a96e;
+      --accent-dim:  #8a6e3e;
+      --accent-glow: rgba(200,169,110,0.12);
+      --green:       #5a9e6f;
+      --green-dim:   #1e3a27;
+      --green-glow:  rgba(90,158,111,0.15);
+      --red:         #9e5a5a;
+      --red-dim:     #3a1e1e;
+      --red-glow:    rgba(158,90,90,0.15);
+      --blue:        #5a7a9e;
+      --blue-dim:    #1e2a3a;
+      --blue-glow:   rgba(90,122,158,0.15);
+      --purple:      #7a5a9e;
+      --purple-dim:  #261e3a;
+      --yellow:      #9e8a5a;
+      --yellow-dim:  #2a2412;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 0;
+    }
+
+    .header-brand { }
+    .brand-eyebrow {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-family: var(--sans);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid var(--border2);
+      background: var(--surface2);
+      color: var(--text-dim);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface3); }
+    .btn-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0f0f0f;
+      font-weight: 600;
+    }
+    .btn-accent:hover { opacity: 0.88; color: #0f0f0f; background: var(--accent); }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex;
+      gap: 28px;
+      padding: 14px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-val {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-val.red    { color: var(--red); }
+    .stat-val.accent { color: var(--accent); }
+    .stat-val.green  { color: var(--green); }
+    .stat-val.dim    { color: var(--text-dim); }
+
+    .stat-info { }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.2;
+    }
+    .stat-sub {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-sep {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      padding: 14px 0 0;
+      border-top: 1px solid var(--border);
+      margin-top: 14px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      user-select: none;
+    }
+
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .tab-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: var(--text-faint);
+      transition: background 0.15s;
+    }
+
+    .tab.active .tab-badge {
+      background: var(--accent-glow);
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ── Main ── */
+    .main { padding: 32px; }
+
+    .view { display: none; }
+    .view.active { display: block; animation: viewIn 0.2s ease; }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Kanban (Priority view) ── */
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .kanban-col { }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .col-header-left { display: flex; align-items: center; gap: 8px; }
+
+    .col-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .col-dot.red    { background: var(--red); box-shadow: 0 0 8px var(--red-glow); }
+    .col-dot.accent { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+    .col-dot.dim    { background: var(--text-faint); }
+
+    .col-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .col-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 60px;
+    }
+
+    /* ── Task card ── */
+    .task-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      animation: cardIn 0.25s ease;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .task-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+
+    .task-card.done {
+      opacity: 0.45;
+    }
+
+    .task-card.done .task-title {
+      text-decoration: line-through;
+      color: var(--text-dim);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--border2);
+      background: var(--surface2);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .task-card.done .card-check {
+      background: var(--green);
+      border-color: var(--green);
+      color: #0f0f0f;
+    }
+
+    .task-title {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .card-delete {
+      opacity: 0;
+      font-size: 14px;
+      color: var(--text-faint);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 2px;
+      line-height: 1;
+      transition: opacity 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .task-card:hover .card-delete { opacity: 1; }
+    .card-delete:hover { color: var(--red); }
+
+    .card-meta {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      border: 1px solid;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .tag.frontend  { color: var(--blue);   border-color: var(--blue-dim);   background: var(--blue-dim); }
+    .tag.backend   { color: var(--green);  border-color: var(--green-dim);  background: var(--green-dim); }
+    .tag.docs      { color: var(--text-dim); border-color: var(--border2); background: var(--surface2); }
+    .tag.dist      { color: var(--purple); border-color: var(--purple-dim); background: var(--purple-dim); }
+    .tag.ia        { color: var(--yellow); border-color: var(--yellow-dim); background: var(--yellow-dim); }
+    .tag.critico   { color: var(--red);    border-color: var(--red-dim);    background: var(--red-dim); }
+    .tag.importante { color: var(--accent); border-color: #3a2e1a; background: #1e180a; }
+    .tag.someday   { color: var(--text-faint); border-color: var(--border); background: transparent; }
+
+    .card-notes {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .task-card.expanded .card-notes { display: block; }
+
+    .notes-input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-family: var(--sans);
+      color: var(--text-dim);
+      resize: vertical;
+      outline: none;
+      line-height: 1.5;
+      min-height: 60px;
+      transition: border-color 0.15s;
+    }
+
+    .notes-input:focus { border-color: var(--accent-dim); }
+
+    /* ── Area view ── */
+    .area-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .area-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .area-section:hover { border-color: var(--border2); }
+
+    .area-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .area-header-left { display: flex; align-items: center; gap: 10px; }
+
+    .area-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .area-icon.frontend  { background: var(--blue-dim); }
+    .area-icon.backend   { background: var(--green-dim); }
+    .area-icon.docs      { background: var(--surface2); }
+    .area-icon.dist      { background: var(--purple-dim); }
+    .area-icon.ia        { background: var(--yellow-dim); }
+
+    .area-name { font-size: 13px; font-weight: 600; color: var(--text); }
+
+    .area-progress-bar {
+      height: 3px;
+      background: var(--border2);
+      margin: 0;
+    }
+
+    .area-progress-fill {
+      height: 100%;
+      border-radius: 0;
+      transition: width 0.4s ease;
+    }
+
+    .area-progress-fill.frontend  { background: var(--blue); }
+    .area-progress-fill.backend   { background: var(--green); }
+    .area-progress-fill.docs      { background: var(--text-dim); }
+    .area-progress-fill.dist      { background: var(--purple); }
+    .area-progress-fill.ia        { background: var(--yellow); }
+
+    .area-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .area-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      transition: border-color 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .area-card:hover {
+      border-color: var(--border2);
+      transform: translateX(3px);
+    }
+
+    .area-card.done { opacity: 0.4; }
+    .area-card.done .area-card-title { text-decoration: line-through; }
+
+    .area-card-check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      transition: all 0.15s;
+    }
+
+    .area-card.done .area-card-check {
+      background: var(--green);
+      border-color: var(--green);
+      color: #0f0f0f;
+    }
+
+    .area-card-title {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .area-add-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+      background: transparent;
+      color: var(--text-faint);
+      font-size: 11px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      width: 100%;
+      font-family: var(--sans);
+    }
+    .area-add-btn:hover { border-color: var(--border2); color: var(--text-dim); }
+
+    /* ── Free view ── */
+    .free-wrap {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .free-editor-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .free-editor-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .free-editor-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .free-editor-textarea {
+      width: 100%;
+      background: var(--surface);
+      border: none;
+      padding: 20px;
+      font-size: 13px;
+      font-family: var(--mono);
+      color: var(--text-dim);
+      resize: none;
+      outline: none;
+      line-height: 1.8;
+      min-height: 420px;
+    }
+
+    .free-editor-textarea::placeholder { color: var(--text-faint); }
+
+    .free-preview-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      position: sticky;
+      top: 160px;
+    }
+
+    .free-preview-top {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .free-preview-body {
+      padding: 20px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      min-height: 200px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .free-preview-body h1, .free-preview-body h2, .free-preview-body h3 {
+      color: var(--text);
+      margin: 12px 0 6px;
+      font-size: 14px;
+    }
+    .free-preview-body h1 { font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .free-preview-body strong { color: var(--text); font-weight: 600; }
+    .free-preview-body ul { padding-left: 16px; }
+    .free-preview-body li { margin-bottom: 4px; }
+    .free-preview-body code { font-family: var(--mono); font-size: 11px; background: var(--surface2); border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; color: var(--accent); }
+    .free-preview-empty { color: var(--text-faint); font-size: 12px; font-style: italic; }
+
+    /* ── Add task modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open { display: flex; animation: overlayIn 0.15s; }
+
+    @keyframes overlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 28px;
+      width: 480px;
+      max-width: 95vw;
+      animation: modalIn 0.2s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    .field-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .field input, .field textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 7px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: var(--sans);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field input:focus, .field textarea:focus { border-color: var(--accent-dim); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-faint); }
+
+    .select-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 7px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: var(--sans);
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23444' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+    }
+
+    .field select:focus { border-color: var(--accent-dim); }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    /* ── Empty state ── */
+    .empty-col {
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 12px;
+    }
+
+    /* ── Floating add ── */
+    .fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      color: #0f0f0f;
+      font-size: 22px;
+      font-weight: 300;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(200,169,110,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 20;
+    }
+
+    .fab:hover {
+      transform: scale(1.08) rotate(90deg);
+      box-shadow: 0 6px 28px rgba(200,169,110,0.4);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    @media (max-width: 900px) {
+      .kanban { grid-template-columns: 1fr; }
+      .area-grid { grid-template-columns: 1fr; }
+      .free-wrap { grid-template-columns: 1fr; }
+      .header { padding: 0 16px; }
+      .main { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-top">
+    <div class="header-brand">
+      <div class="brand-eyebrow">AutoRelatorio V2</div>
+      <div class="brand-title">Meu Plano</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn" onclick="exportMD()">↓ Exportar .md</button>
+      <button class="btn" onclick="exportHTML()">↓ Salvar HTML</button>
+      <button class="btn btn-accent" onclick="openModal()">+ Nova tarefa</button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-val red" id="stat-critico">0</div>
+      <div class="stat-info">
+        <div class="stat-label">Críticas</div>
+        <div class="stat-sub">Urgente</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-val accent" id="stat-importante">0</div>
+      <div class="stat-info">
+        <div class="stat-label">Importantes</div>
+        <div class="stat-sub">Em fila</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-val dim" id="stat-someday">0</div>
+      <div class="stat-info">
+        <div class="stat-label">Someday</div>
+        <div class="stat-sub">Futuro</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <div class="stat-val green" id="stat-done">0</div>
+      <div class="stat-info">
+        <div class="stat-label">Concluídas</div>
+        <div class="stat-sub">Total</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('priority', this)">
+      Prioridade <span class="tab-badge" id="badge-priority">0</span>
+    </div>
+    <div class="tab" onclick="switchTab('area', this)">
+      Por Área <span class="tab-badge" id="badge-area">0</span>
+    </div>
+    <div class="tab" onclick="switchTab('free', this)">
+      Campo Livre
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- ── Priority view ── -->
+  <div class="view active" id="view-priority">
+    <div class="kanban">
+
+      <div class="kanban-col" id="col-critico">
+        <div class="col-header">
+          <div class="col-header-left">
+            <div class="col-dot red"></div>
+            <span class="col-name">Crítico</span>
+          </div>
+          <span class="col-count" id="count-critico">0</span>
+        </div>
+        <div class="card-list" id="list-critico"></div>
+      </div>
+
+      <div class="kanban-col" id="col-importante">
+        <div class="col-header">
+          <div class="col-header-left">
+            <div class="col-dot accent"></div>
+            <span class="col-name">Importante</span>
+          </div>
+          <span class="col-count" id="count-importante">0</span>
+        </div>
+        <div class="card-list" id="list-importante"></div>
+      </div>
+
+      <div class="kanban-col" id="col-someday">
+        <div class="col-header">
+          <div class="col-header-left">
+            <div class="col-dot dim"></div>
+            <span class="col-name">Someday</span>
+          </div>
+          <span class="col-count" id="count-someday">0</span>
+        </div>
+        <div class="card-list" id="list-someday"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Area view ── -->
+  <div class="view" id="view-area">
+    <div class="area-grid">
+
+      <div class="area-section">
+        <div class="area-header">
+          <div class="area-header-left">
+            <div class="area-icon frontend">🖥</div>
+            <div class="area-name">Frontend</div>
+          </div>
+          <span class="col-count" id="acount-frontend">0</span>
+        </div>
+        <div class="area-progress-bar"><div class="area-progress-fill frontend" id="aprog-frontend" style="width:0%"></div></div>
+        <div class="area-body" id="alist-frontend">
+          <button class="area-add-btn" onclick="openModal('frontend')">+ adicionar tarefa</button>
+        </div>
+      </div>
+
+      <div class="area-section">
+        <div class="area-header">
+          <div class="area-header-left">
+            <div class="area-icon backend">⚙</div>
+            <div class="area-name">Backend</div>
+          </div>
+          <span class="col-count" id="acount-backend">0</span>
+        </div>
+        <div class="area-progress-bar"><div class="area-progress-fill backend" id="aprog-backend" style="width:0%"></div></div>
+        <div class="area-body" id="alist-backend">
+          <button class="area-add-btn" onclick="openModal('backend')">+ adicionar tarefa</button>
+        </div>
+      </div>
+
+      <div class="area-section">
+        <div class="area-header">
+          <div class="area-header-left">
+            <div class="area-icon docs">📄</div>
+            <div class="area-name">Documentação</div>
+          </div>
+          <span class="col-count" id="acount-docs">0</span>
+        </div>
+        <div class="area-progress-bar"><div class="area-progress-fill docs" id="aprog-docs" style="width:0%"></div></div>
+        <div class="area-body" id="alist-docs">
+          <button class="area-add-btn" onclick="openModal('docs')">+ adicionar tarefa</button>
+        </div>
+      </div>
+
+      <div class="area-section">
+        <div class="area-header">
+          <div class="area-header-left">
+            <div class="area-icon dist">📦</div>
+            <div class="area-name">Distribuição</div>
+          </div>
+          <span class="col-count" id="acount-dist">0</span>
+        </div>
+        <div class="area-progress-bar"><div class="area-progress-fill dist" id="aprog-dist" style="width:0%"></div></div>
+        <div class="area-body" id="alist-dist">
+          <button class="area-add-btn" onclick="openModal('dist')">+ adicionar tarefa</button>
+        </div>
+      </div>
+
+      <div class="area-section" style="grid-column: 1 / -1;">
+        <div class="area-header">
+          <div class="area-header-left">
+            <div class="area-icon ia">✦</div>
+            <div class="area-name">IA / LLM</div>
+          </div>
+          <span class="col-count" id="acount-ia">0</span>
+        </div>
+        <div class="area-progress-bar"><div class="area-progress-fill ia" id="aprog-ia" style="width:0%"></div></div>
+        <div class="area-body" id="alist-ia">
+          <button class="area-add-btn" onclick="openModal('ia')">+ adicionar tarefa</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Free view ── -->
+  <div class="view" id="view-free">
+    <div class="free-wrap">
+      <div class="free-editor-wrap">
+        <div class="free-editor-top">
+          <span class="free-editor-label">Campo livre — markdown</span>
+          <button class="btn" onclick="exportMD()" style="padding:5px 12px; font-size:11px;">↓ Baixar .md</button>
+        </div>
+        <textarea class="free-editor-textarea" id="freeText"
+          placeholder="# Meu Plano&#10;&#10;Escreva livremente aqui. Suporta Markdown básico:&#10;&#10;## Seção&#10;&#10;- item da lista&#10;- outro item&#10;&#10;**negrito**, _itálico_, `código`"
+          oninput="renderPreview(); saveFree()"></textarea>
+      </div>
+      <div class="free-preview-wrap">
+        <div class="free-preview-top">Preview</div>
+        <div class="free-preview-body" id="freePreview">
+          <span class="free-preview-empty">Comece a escrever para ver o preview...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Floating add button ── -->
+<button class="fab" onclick="openModal()" title="Nova tarefa">+</button>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalIfOutside(event)">
+  <div class="modal">
+    <div class="modal-title">Nova tarefa</div>
+    <div class="field">
+      <label class="field-label">Título</label>
+      <input type="text" id="m-title" placeholder="O que precisa ser feito?" onkeydown="if(event.key==='Enter') confirmTask()">
+    </div>
+    <div class="select-group">
+      <div class="field">
+        <label class="field-label">Prioridade</label>
+        <select id="m-priority">
+          <option value="critico">Crítico</option>
+          <option value="importante" selected>Importante</option>
+          <option value="someday">Someday</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Área</label>
+        <select id="m-area">
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="docs">Documentação</option>
+          <option value="dist">Distribuição</option>
+          <option value="ia">IA / LLM</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Notas (opcional)</label>
+      <textarea id="m-notes" placeholder="Detalhes, links, observações..." style="min-height:70px; resize:vertical;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-accent" onclick="confirmTask()">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ────────────────────────────────────────────────────────
+const STORE = 'ar2_plano';
+let tasks = [];
+let freeText = '';
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORE);
+    if (raw) {
+      const data = JSON.parse(raw);
+      tasks    = data.tasks    || [];
+      freeText = data.freeText || '';
+    }
+  } catch(e) { tasks = []; freeText = ''; }
+}
+
+function saveData() {
+  localStorage.setItem(STORE, JSON.stringify({ tasks, freeText }));
+}
+
+function uid() {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+// ── Tabs ────────────────────────────────────────────────────────
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('view-' + name).classList.add('active');
+}
+
+// ── Render ──────────────────────────────────────────────────────
+const AREA_LABELS  = { frontend:'Frontend', backend:'Backend', docs:'Documentação', dist:'Distribuição', ia:'IA / LLM' };
+const PRIO_LABELS  = { critico:'Crítico', importante:'Importante', someday:'Someday' };
+
+function areaTag(a) { return `<span class="tag ${a}">${AREA_LABELS[a]||a}</span>`; }
+function prioTag(p) { return `<span class="tag ${p}">${PRIO_LABELS[p]||p}</span>`; }
+
+function renderAll() {
+  renderPriority();
+  renderArea();
+  updateStats();
+}
+
+function renderPriority() {
+  ['critico','importante','someday'].forEach(p => {
+    const list = document.getElementById('list-' + p);
+    const items = tasks.filter(t => t.priority === p);
+    if (items.length === 0) {
+      list.innerHTML = `<div class="empty-col">Nenhuma tarefa aqui</div>`;
+    } else {
+      list.innerHTML = items.map(t => cardHTML(t)).join('');
+    }
+    document.getElementById('count-' + p).textContent = items.filter(t => !t.done).length;
+  });
+}
+
+function renderArea() {
+  const areas = ['frontend','backend','docs','dist','ia'];
+  areas.forEach(a => {
+    const body  = document.getElementById('alist-' + a);
+    const items = tasks.filter(t => t.area === a);
+    const done  = items.filter(t => t.done).length;
+    const pct   = items.length ? Math.round((done / items.length) * 100) : 0;
+
+    document.getElementById('aprog-' + a).style.width = pct + '%';
+    document.getElementById('acount-' + a).textContent = `${done}/${items.length}`;
+
+    const cards = items.map(t => `
+      <div class="area-card ${t.done ? 'done' : ''}" onclick="toggleDone('${t.id}')">
+        <div class="area-card-check">${t.done ? '✓' : ''}</div>
+        <span class="area-card-title">${esc(t.title)}</span>
+        ${prioTag(t.priority)}
+      </div>
+    `).join('');
+
+    body.innerHTML = cards + `<button class="area-add-btn" onclick="openModal('${a}')">+ adicionar tarefa</button>`;
+  });
+}
+
+function cardHTML(t) {
+  return `
+    <div class="task-card ${t.done ? 'done' : ''} ${t._expanded ? 'expanded' : ''}" id="card-${t.id}">
+      <div class="card-top">
+        <div class="card-check" onclick="event.stopPropagation(); toggleDone('${t.id}')">${t.done ? '✓' : ''}</div>
+        <div class="task-title" onclick="toggleExpand('${t.id}')">${esc(t.title)}</div>
+        <button class="card-delete" onclick="event.stopPropagation(); deleteTask('${t.id}')">×</button>
+      </div>
+      <div class="card-meta">
+        ${areaTag(t.area)}
+      </div>
+      <div class="card-notes">
+        <textarea class="notes-input" placeholder="Notas..." oninput="updateNotes('${t.id}', this.value)" onclick="event.stopPropagation()">${esc(t.notes||'')}</textarea>
+      </div>
+    </div>
+  `;
+}
+
+function esc(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Actions ─────────────────────────────────────────────────────
+function toggleDone(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  t.done = !t.done;
+  saveData();
+  renderAll();
+}
+
+function toggleExpand(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  t._expanded = !t._expanded;
+  renderAll();
+}
+
+function updateNotes(id, val) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  t.notes = val;
+  saveData();
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  saveData();
+  renderAll();
+}
+
+// ── Stats ────────────────────────────────────────────────────────
+function updateStats() {
+  const active = tasks.filter(t => !t.done);
+  document.getElementById('stat-critico').textContent    = active.filter(t => t.priority === 'critico').length;
+  document.getElementById('stat-importante').textContent = active.filter(t => t.priority === 'importante').length;
+  document.getElementById('stat-someday').textContent    = active.filter(t => t.priority === 'someday').length;
+  document.getElementById('stat-done').textContent       = tasks.filter(t => t.done).length;
+  document.getElementById('badge-priority').textContent  = active.length;
+  document.getElementById('badge-area').textContent      = active.length;
+}
+
+// ── Modal ────────────────────────────────────────────────────────
+function openModal(area) {
+  if (area) document.getElementById('m-area').value = area;
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('m-title').focus(), 80);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('m-title').value = '';
+  document.getElementById('m-notes').value = '';
+}
+
+function closeModalIfOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function confirmTask() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) { document.getElementById('m-title').focus(); return; }
+  tasks.push({
+    id:       uid(),
+    title,
+    notes:    document.getElementById('m-notes').value,
+    area:     document.getElementById('m-area').value,
+    priority: document.getElementById('m-priority').value,
+    done:     false,
+  });
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+// ── Free text ────────────────────────────────────────────────────
+function saveFree() {
+  freeText = document.getElementById('freeText').value;
+  saveData();
+}
+
+function renderPreview() {
+  const raw = document.getElementById('freeText').value;
+  if (!raw.trim()) {
+    document.getElementById('freePreview').innerHTML = `<span class="free-preview-empty">Comece a escrever para ver o preview...</span>`;
+    return;
+  }
+  // Minimal markdown render
+  let html = raw
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,  '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,   '<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/_(.+?)_/g,       '<em>$1</em>')
+    .replace(/`(.+?)`/g,       '<code>$1</code>')
+    .replace(/^[-*] (.+)$/gm,  '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  document.getElementById('freePreview').innerHTML = `<p>${html}</p>`;
+}
+
+// ── Export ────────────────────────────────────────────────────────
+function exportMD() {
+  const lines = [];
+  lines.push('# Meu Plano — AutoRelatorio V2\n');
+  lines.push(`> Exportado em ${new Date().toLocaleDateString('pt-BR')}\n`);
+
+  ['critico','importante','someday'].forEach(p => {
+    const items = tasks.filter(t => t.priority === p && !t.done);
+    if (!items.length) return;
+    lines.push(`\n## ${PRIO_LABELS[p]}\n`);
+    items.forEach(t => {
+      lines.push(`- [ ] **${t.title}** \`${AREA_LABELS[t.area]||t.area}\``);
+      if (t.notes) lines.push(`  - ${t.notes}`);
+    });
+  });
+
+  const done = tasks.filter(t => t.done);
+  if (done.length) {
+    lines.push('\n## Concluídas\n');
+    done.forEach(t => lines.push(`- [x] ~~${t.title}~~`));
+  }
+
+  const free = document.getElementById('freeText').value;
+  if (free.trim()) {
+    lines.push('\n---\n\n## Campo Livre\n\n' + free);
+  }
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/markdown;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'meu_plano.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function exportHTML() {
+  // Save current state into the page's data before downloading
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'meu_plano.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ── Keyboard ─────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal(); }
+});
+
+// ── Init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+
+  // Seed com tarefas iniciais do roadmap se vazio
+  if (tasks.length === 0) {
+    tasks = [
+      { id: uid(), title: 'Detalhes múltiplos por item (Detalhe 1, 2, 3...)',           area: 'frontend',  priority: 'critico',    done: false, notes: '' },
+      { id: uid(), title: 'Indicador de dificuldade por item (🟢🟡🔴)',                 area: 'frontend',  priority: 'critico',    done: false, notes: '' },
+      { id: uid(), title: 'Regras MAFFENG automáticas (calha, forro, Fiscal Carol)',     area: 'backend',   priority: 'critico',    done: false, notes: '' },
+      { id: uid(), title: 'Editor de contexto dinâmico (super prompt)',                  area: 'frontend',  priority: 'importante', done: false, notes: '' },
+      { id: uid(), title: 'Múltiplos serviços por foto com contexto automático',         area: 'backend',   priority: 'importante', done: false, notes: '' },
+      { id: uid(), title: 'Integrar llm_generator.py ao server.py',                     area: 'ia',        priority: 'importante', done: false, notes: 'Conectar ao endpoint /api/generate' },
+      { id: uid(), title: 'Configurar chave de API para geração LLM',                   area: 'ia',        priority: 'importante', done: false, notes: '' },
+      { id: uid(), title: 'Atualizar README com estado real da V2',                     area: 'docs',      priority: 'importante', done: false, notes: '' },
+      { id: uid(), title: 'Seletor de itens da planilha Itens_Reorganizado',             area: 'frontend',  priority: 'someday',    done: false, notes: '' },
+      { id: uid(), title: 'Instalador Windows (.exe ou setup script)',                   area: 'dist',      priority: 'someday',    done: false, notes: '' },
+      { id: uid(), title: 'Versão do app para outros técnicos da equipe',               area: 'dist',      priority: 'someday',    done: false, notes: '' },
+      { id: uid(), title: 'Documentação de usuário final (não-técnico)',                 area: 'docs',      priority: 'someday',    done: false, notes: '' },
+    ];
+    saveData();
+  }
+
+  document.getElementById('freeText').value = freeText;
+  renderPreview();
+  renderAll();
+});
+</script>
+
+</body>
+</html>

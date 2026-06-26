@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Desenvolvimento - TM Pastas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           THEME: CYBER DARK (Cyan & Purple)
+           ═══════════════════════════════════════════ */
+        :root {
+            --color-primary: #00d4ff;
+            /* Cyan */
+            --color-secondary: #7b2cbf;
+            /* Purple */
+            --color-accent: #ffab00;
+            /* Orange */
+            --color-bg: #1a1a2e;
+            --color-bg-rgb: 26, 26, 46;
+            --color-text: #e0e0e0;
+            --color-text-dim: #888888;
+            --color-border: #30363d;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════════════════════════════════════
+           BACKGROUND PARTICLES (CSS only)
+           ═══════════════════════════════════════════ */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-particles::before,
+        .bg-particles::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: floatParticle 25s ease-in-out infinite;
+        }
+
+        .bg-particles::before {
+            width: 700px;
+            height: 700px;
+            background: var(--color-primary);
+            top: -200px;
+            right: -100px;
+        }
+
+        .bg-particles::after {
+            width: 600px;
+            height: 600px;
+            background: var(--color-secondary);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatParticle {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(40px, -60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO SECTION
+           ═══════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--color-text-dim);
+            max-width: 600px;
+            margin: 0 auto 12px;
+            line-height: 1.6;
+        }
+
+        .hero-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+
+        .hero-brand .company {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .hero-brand .separator {
+            color: #30363d;
+            margin: 0 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           STATS BAR
+           ═══════════════════════════════════════════ */
+        .stats-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 0 20px 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           TIMELINE SECTION
+           ═══════════════════════════════════════════ */
+        .timeline-section {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .timeline-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-text-dim);
+            font-weight: 600;
+        }
+
+        .timeline-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timeline-nav button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #30363d;
+            color: var(--color-text);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-nav button:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: scale(1.05);
+        }
+
+        /* ═══════════════════════════════════════════
+           HORIZONTAL TIMELINE TRACK
+           ═══════════════════════════════════════════ */
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: visible;
+            padding-bottom: 30px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #30363d transparent;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .timeline-track-wrapper::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 3px;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 20px 80px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           TIMELINE NODE
+           ═══════════════════════════════════════════ */
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 140px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .node-date {
+            font-size: 0.65rem;
+            color: var(--color-text-dim);
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .node-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #161b22;
+            border: 3px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-node:hover .node-dot,
+        .timeline-node.active .node-dot {
+            border-color: var(--color-primary);
+            transform: scale(1.25);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            background: #1a1a2e;
+        }
+
+        .timeline-node.active .node-dot {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 25px rgba(255, 171, 0, 0.35);
+        }
+
+        .node-label {
+            font-size: 0.7rem;
+            color: var(--color-text-dim);
+            margin-top: 12px;
+            text-align: center;
+            max-width: 120px;
+            font-weight: 500;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .timeline-node:hover .node-label,
+        .timeline-node.active .node-label {
+            color: var(--color-text);
+        }
+
+        /* ═══════════════════════════════════════════
+           DETAIL CARD (Expanded)
+           ═══════════════════════════════════════════ */
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            min-height: 250px;
+        }
+
+        .detail-card {
+            display: none;
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 32px;
+            animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 16px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .card-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--color-text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.94rem;
+        }
+
+        .card-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--color-text);
+            font-size: 0.9rem;
+        }
+
+        .card-features li .check {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 0.7rem;
+        }
+
+        .card-features li strong {
+            color: #fff;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--color-primary);
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-top: 40px;
+        }
+
+        .footer-divider {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+            margin: 0 auto 32px;
+        }
+
+        .footer-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 100px;
+            padding: 8px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-particles"></div>
+
+    <!-- ═══════════ HERO SECTION ═══════════ -->
+    <section class="hero">
+        <div class="hero-badge">📋 Registro de Desenvolvimento</div>
+        <h1>Gerador de Pastas</h1>
+        <p class="hero-subtitle">
+            Estruturação inteligente de levantamentos fotográficos com arquitetura moderna e automação industrial.
+        </p>
+        <div class="hero-brand">
+            <span class="company">TM - Sempre Tecnologia</span>
+            <span class="separator">|</span>
+            <span>Thiago Nascimento Barbosa</span>
+        </div>
+    </section>
+
+    <!-- ═══════════ STATS BAR ═══════════ -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="commitCount">21</div>
+            <div class="stat-label">Commits Totais</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">v3.1.1</div>
+            <div class="stat-label">Versão Atual</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">Stable</div>
+            <div class="stat-label">Status</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Estrito</div>
+        </div>
+    </div>
+
+    <!-- ═══════════ TIMELINE ═══════════ -->
+    <section class="timeline-section">
+        <div class="timeline-header">
+            <span class="timeline-title">Jornada de Desenvolvimento</span>
+            <div class="timeline-nav">
+                <button onclick="scrollTimeline(-1)">←</button>
+                <button onclick="scrollTimeline(1)">→</button>
+            </div>
+        </div>
+
+        <div class="timeline-track-wrapper" id="timelineWrapper">
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+
+                <!-- 18 Nodes -->
+                <div class="timeline-node" onclick="showCard(0, this)">
+                    <span class="node-date">06/02 03:14</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">Início</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(1, this)">
+                    <span class="node-date">06/02 03:15</span>
+                    <div class="node-dot">📁</div>
+                    <span class="node-label">Setup Estrutura</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(2, this)">
+                    <span class="node-date">06/02 03:16</span>
+                    <div class="node-dot">🎨</div>
+                    <span class="node-label">App Principal</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(3, this)">
+                    <span class="node-date">06/02 03:17</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">Deploy & Docs</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(4, this)">
+                    <span class="node-date">06/02 03:18</span>
+                    <div class="node-dot">✅</div>
+                    <span class="node-label">v1.0 Finalizado</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(5, this)">
+                    <span class="node-date">06/02 03:25</span>
+                    <div class="node-dot">📁</div>
+                    <span class="node-label">Pasta Raiz</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(6, this)">
+                    <span class="node-date">06/02 03:27</span>
+                    <div class="node-dot">✍️</div>
+                    <span class="node-label">Assinatura</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(7, this)">
+                    <span class="node-date">06/02 03:29</span>
+                    <div class="node-dot">📷</div>
+                    <span class="node-label">Vista Ampla</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(8, this)">
+                    <span class="node-date">06/02 04:15</span>
+                    <div class="node-dot">🏗️</div>
+                    <span class="node-label">3 Níveis Lógica</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(9, this)">
+                    <span class="node-date">18/02 17:40</span>
+                    <div class="node-dot">🔢</div>
+                    <span class="node-label">Bugfix Numeração</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(10, this)">
+                    <span class="node-date">18/02 17:45</span>
+                    <div class="node-dot">🏷️</div>
+                    <span class="node-label">Interface Branding</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(11, this)">
+                    <span class="node-date">19/02 00:55</span>
+                    <div class="node-dot">🏗️</div>
+                    <span class="node-label">Accordion UX</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(12, this)">
+                    <span class="node-date">19/02 15:37</span>
+                    <div class="node-dot">🖱️</div>
+                    <span class="node-label">Edição Contextual</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(13, this)">
+                    <span class="node-date">19/02 18:55</span>
+                    <div class="node-dot">⚡</div>
+                    <span class="node-label">Otimização</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(14, this)">
+                    <span class="node-date">24/02</span>
+                    <div class="node-dot">🔄</div>
+                    <span class="node-label">Reordenação Física</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(15, this)">
+                    <span class="node-date">25/02 20:59</span>
+                    <div class="node-dot">⚡</div>
+                    <span class="node-label">Flask → FastAPI</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(16, this)">
+                    <span class="node-date">25/02 21:13</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">Página Novidades</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(17, this)">
+                    <span class="node-date">26/02 02:10</span>
+                    <div class="node-dot">✨</div>
+                    <span class="node-label">Realtime D&D</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(18, this)">
+                    <span class="node-date">26/02 03:00</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">v3.1.0 Next.js 16</span>
+                </div>
+                <div class="timeline-node active" onclick="showCard(19, this)">
+                    <span class="node-date">08/03 18:15</span>
+                    <div class="node-dot">🐛</div>
+                    <span class="node-label">Fix Nomes Pastas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ DETAIL CARDS ═══════════ -->
+    <div class="detail-card-area">
+        <!-- Card 0 -->
+        <div class="detail-card" data-card="0">
+            <div class="card-header">
+                <h2 class="card-title">🚀 Início do Desenvolvimento</h2><span class="card-badge">Setup</span>
+            </div>
+            <p class="card-desc">Iniciando a implementação do Gerador de Estrutura de Pastas conforme PRD.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Tecnologia escolhida: <strong>Python + CustomTkinter</strong></li>
+                <li><span class="check">✓</span>Criando estrutura de arquivos do projeto</li>
+                <li><span class="check">✓</span>Configurando ambiente de desenvolvimento</li>
+            </ul>
+        </div>
+        <!-- Card 1 -->
+        <div class="detail-card" data-card="1">
+            <div class="card-header">
+                <h2 class="card-title">📁 Criando Estrutura do Projeto</h2><span class="card-badge">Setup</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>requirements.txt com dependência CustomTkinter</li>
+                <li><span class="check">✓</span>Arquivo principal app.py</li>
+                <li><span class="check">✓</span>Pasta dev/ para documentação</li>
+            </ul>
+        </div>
+        <!-- Card 2 -->
+        <div class="detail-card" data-card="2">
+            <div class="card-header">
+                <h2 class="card-title">🎨 Aplicação Principal Implementada</h2><span class="card-badge">Core</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Interface com tema escuro moderno</li>
+                <li><span class="check">✓</span>Seletor de pasta destino</li>
+                <li><span class="check">✓</span>Painel de ambientes com checkboxes</li>
+                <li><span class="check">✓</span>Preview em tempo real da estrutura</li>
+                <li><span class="check">✓</span>Botão de geração funcional</li>
+            </ul>
+        </div>
+        <!-- Card 3 -->
+        <div class="detail-card" data-card="3">
+            <div class="card-header">
+                <h2 class="card-title">🚀 Arquivos de Execução e Documentação</h2><span class="card-badge">Deploy</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Criado <code>executar_app.bat</code></li>
+                <li><span class="check">✓</span>Criado <code>guia.html</code> - Landing page/tutorial</li>
+            </ul>
+        </div>
+        <!-- Card 4 -->
+        <div class="detail-card" data-card="4">
+            <div class="card-header">
+                <h2 class="card-title">✅ Projeto Finalizado com Sucesso!</h2><span class="card-badge">Concluído</span>
+            </div>
+            <p class="card-desc">v1.0 estável e pronta para uso:</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Aplicação testada e funcional</li>
+                <li><span class="check">✓</span>Interface carrega corretamente</li>
+                <li><span class="check">✓</span>Todos os arquivos de base estruturados</li>
+            </ul>
+        </div>
+        <!-- Card 5 -->
+        <div class="detail-card" data-card="5">
+            <div class="card-header">
+                <h2 class="card-title">📁 Pasta Raiz do Levantamento</h2><span class="card-badge">Feature</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Campo "Nome do Levantamento" adicionado</li>
+                <li><span class="check">✓</span>Preview atualizado com hierarquia correta</li>
+                <li><span class="check">✓</span>Validação obrigatória de nome</li>
+            </ul>
+        </div>
+        <!-- Card 6 -->
+        <div class="detail-card" data-card="6">
+            <div class="card-header">
+                <h2 class="card-title">✍️ Assinatura do Projeto</h2><span class="card-badge">Final</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Assinatura no cabeçalho do código</li>
+                <li><span class="check">✓</span>Créditos na interface</li>
+                <li><span class="check">✓</span>Documentação atualizada</li>
+            </ul>
+        </div>
+        <!-- Card 7 -->
+        <div class="detail-card" data-card="7">
+            <div class="card-header">
+                <h2 class="card-title">📷 Pasta Vista Ampla por Ambiente</h2><span class="card-badge">Feature</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Checkbox "Vista ampla" dedicado</li>
+                <li><span class="check">✓</span>Ícone 📷 no preview visual</li>
+            </ul>
+            <pre>
+📁 Levantamento
+   └─📁 1 - Fachada
+      ├─📷 Vista ampla
+      └─📁 1.1 - Pintura
+            </pre>
+        </div>
+        <!-- Card 8 -->
+        <div class="detail-card" data-card="8">
+            <div class="card-header">
+                <h2 class="card-title">🏗️ Hierarquia de 3 Níveis</h2><span class="card-badge">Refactor</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Área → Ambiente → Serviço</li>
+                <li><span class="check">✓</span>Sugestões baseadas em histórico real</li>
+                <li><span class="check">✓</span>Numeração Contextual (1.1, etc)</li>
+            </ul>
+        </div>
+        <!-- Card 9 -->
+        <div class="detail-card" data-card="9">
+            <div class="card-header">
+                <h2 class="card-title">🔢 Correção: Numeração Vista ampla</h2><span class="card-badge">Bugfix</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Vista ampla agora é ignorada no contador real de serviços</li>
+                <li><span class="check">✓</span>Correção sincronizada entre Preview e Geração</li>
+            </ul>
+        </div>
+        <!-- Card 10 -->
+        <div class="detail-card" data-card="10">
+            <div class="card-header">
+                <h2 class="card-title">🏷️ Versão e Assinatura na Interface</h2><span class="card-badge">Feature</span>
+            </div>
+            <p class="card-desc">Aplicação v1.1.0 identificada:</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Versão visível no título e header</li>
+                <li><span class="check">✓</span>Branding Cyan TM em destaque</li>
+            </ul>
+        </div>
+        <!-- Card 11 -->
+        <div class="detail-card" data-card="11">
+            <div class="card-header">
+                <h2 class="card-title">🏗️ Refatoração do Menu Lateral (Accordion)</h2><span
+                    class="card-badge">Refactor</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Interface dividida em 4 etapas colapsáveis</li>
+                <li><span class="check">✓</span>Transições automáticas e intuitivas</li>
+                <li><span class="check">✓</span>Bloqueios inteligentes para integridade dos dados</li>
+            </ul>
+        </div>
+        <!-- Card 12 -->
+        <div class="detail-card" data-card="12">
+            <div class="card-header">
+                <h2 class="card-title">🖱️ Edição Contextual e Interatividade</h2><span
+                    class="card-badge">Feature</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Seleção direta via Preview</li>
+                <li><span class="check">✓</span>Double-click para edição e reordenação</li>
+                <li><span class="check">✓</span>Labels de contexto na Sidebar</li>
+            </ul>
+        </div>
+        <!-- Card 13 -->
+        <div class="detail-card" data-card="13">
+            <div class="card-header">
+                <h2 class="card-title">⚡ Otimização de Performance e Fluidez</h2><span
+                    class="card-badge">Performance</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Atualização inteligente de destaques (sem rebuilding)</li>
+                <li><span class="check">✓</span>Preservação de Scroll durante alterações</li>
+            </ul>
+        </div>
+        <!-- Card 14 -->
+        <div class="detail-card" data-card="14">
+            <div class="card-header">
+                <h2 class="card-title">🔄 Reordenação de Pastas Físicas</h2><span class="card-badge">Backend</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>API Flask para manipulação do Windows File System</li>
+                <li><span class="check">✓</span>Renomeação segura em dois estágios</li>
+                <li><span class="check">✓</span>Integração React com Drag & Drop simulado</li>
+            </ul>
+        </div>
+        <!-- Card 15 -->
+        <div class="detail-card" data-card="15">
+            <div class="card-header">
+                <h2 class="card-title">⚡ Migração do Backend: Flask → FastAPI</h2><span
+                    class="card-badge">Migração</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Reescrita total para FastAPI (sub-milissegundos)</li>
+                <li><span class="check">✓</span>Modelagem Pydantic para validação</li>
+                <li><span class="check">✓</span>Uvicorn orquestrado via scripts customizados</li>
+            </ul>
+        </div>
+        <!-- Card 16 -->
+        <div class="detail-card" data-card="16">
+            <div class="card-header">
+                <h2 class="card-title">🚀 Redesign: Página "Novidades"</h2><span class="card-badge">Redesign</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Linguagem centrada no usuário (fim dos termos técnicos)</li>
+                <li><span class="check">✓</span>Agrupamento por versões principais</li>
+                <li><span class="check">✓</span>Design Premium com Glassmorphism total</li>
+            </ul>
+        </div>
+        <!-- Card 17 -->
+        <div class="detail-card" data-card="17">
+            <div class="card-header">
+                <h2 class="card-title">✨ Numeração Visual em Tempo Real</h2><span class="card-badge">UI/UX</span>
+            </div>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Recálculo instantâneo de numeração no D&D</li>
+                <li><span class="check">✓</span>Recursividade na árvore visual</li>
+                <li><span class="check">✓</span>Persistência segura em background</li>
+            </ul>
+        </div>
+        <!-- Card 18 -->
+        <div class="detail-card" data-card="18">
+            <div class="card-header">
+                <h2 class="card-title">🚀 Migração para Next.js 16.1.6 (Completa)</h2><span
+                    class="card-badge">Migration</span>
+            </div>
+            <p class="card-desc">Frontend totalmente migrado para Next.js 16 com App Router e Turbopack.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Configuração de ambiente com <strong>Next.js 16.1.6 Stable</strong></li>
+                <li><span class="check">✓</span>Migração de 100% das páginas (Home, Reorder, Guia, Changelog)</li>
+                <li><span class="check">✓</span>Integração nativa do TM Design System (CSS Modular)</li>
+                <li><span class="check">✓</span>Otimização de performance com <strong>Next.js Turbopack</strong></li>
+                <li><span class="check">✓</span>Limpeza completa da raiz e organização em `tm-pastas-next`</li>
+            </ul>
+        </div>
+        <!-- Card 19 -->
+        <div class="detail-card visible" data-card="19">
+            <div class="card-header">
+                <h2 class="card-title">🐛 Correção: Nomes de Pastas (Detalhes / Vista ampla)</h2><span
+                    class="card-badge">Bugfix</span>
+            </div>
+            <p class="card-desc">Correção na formatação dos nomes "Detalhes" e "Vista ampla" — exibição limpa no app, prefixo <code>-</code> aplicado apenas na criação física da pasta.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Nomes exibidos sem prefixo no app: <strong>"Vista ampla"</strong> e <strong>"Detalhes"</strong></li>
+                <li><span class="check">✓</span>Prefixo <code>- </code> adicionado automaticamente na geração do ZIP</li>
+                <li><span class="check">✓</span>Correção em <strong>constants.js</strong>, <strong>useFolderStore.js</strong> e <strong>Step2Environments.jsx</strong></li>
+                <li><span class="check">✓</span>Eliminação de parênteses indesejados nos nomes de pasta</li>
+            </ul>
+        </div>
+
+        <!-- ═══════════ FOOTER ═══════════ -->
+        <footer class="footer">
+            <div class="footer-divider"></div>
+            <div class="footer-status">Versão 3.1.1 Stable</div>
+            <div class="footer-company" style="margin-top: 16px;">TM - Sempre Tecnologia</div>
+            <div class="footer-author">Desenvolvido por: Thiago Nascimento Barbosa</div>
+        </footer>
+
+        <script>
+            function showCard(index, nodeElement) {
+                document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+                document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+                const card = document.querySelector(`.detail-card[data-card="${index}"]`);
+                if (card) {
+                    card.classList.add('visible');
+                    card.style.animation = 'none';
+                    card.offsetHeight;
+                    card.style.animation = '';
+                }
+                if (nodeElement) nodeElement.classList.add('active');
+                document.querySelector('.detail-card-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function scrollTimeline(dir) {
+                document.getElementById('timelineWrapper').scrollBy({ left: dir * 300, behavior: 'smooth' });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') scrollTimeline(-1);
+                if (e.key === 'ArrowRight') scrollTimeline(1);
+            });
+        </script>
+</body>
+
+</html>

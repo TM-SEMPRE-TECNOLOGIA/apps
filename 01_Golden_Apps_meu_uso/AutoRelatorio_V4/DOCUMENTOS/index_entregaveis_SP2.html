@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TM-Automatizando · Entregáveis SP2</title>
+<style>
+  :root {
+    --bg: #f6f4f1;
+    --paper: #ffffff;
+    --ink: #1c1a17;
+    --ink-soft: #4a443d;
+    --line: #d9d3ca;
+    --line-soft: #ebe6dd;
+    --laranja: #d96a1f;
+    --laranja-deep: #b85515;
+    --ok: #2f7d4f;
+    --warn: #b07300;
+    --err: #a23131;
+    --code-bg: #f0ece5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    line-height: 1.55; font-size: 15px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 32px 96px; }
+  h1, h2, h3 { font-family: 'Roboto Slab', Georgia, serif; font-weight: 700; letter-spacing: -.01em; }
+  h1 { font-size: 36px; margin: 0 0 4px; }
+  .lede { color: var(--ink-soft); font-size: 17px; margin: 0 0 32px; max-width: 800px; }
+  .tag { display: inline-block; background: var(--laranja); color: #fff;
+         font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+         padding: 4px 10px; border-radius: 999px; margin-bottom: 18px; }
+  .badge { background: var(--code-bg); padding: 3px 9px; border-radius: 6px;
+           font-size: 12px; color: var(--ink-soft);
+           font-family: 'JetBrains Mono', monospace; margin-right: 6px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  h2 { font-size: 22px; margin: 40px 0 16px; padding-top: 24px;
+       border-top: 1px solid var(--line-soft); }
+  .grid { display: grid; gap: 16px;
+          grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); margin-top: 8px; }
+  .card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 10px; padding: 22px 22px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--laranja); transform: translateY(-1px); }
+  .card .kind {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px; color: var(--laranja-deep);
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .card h3 { margin: 0; font-size: 18px; line-height: 1.25; }
+  .card p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+  .card a.cta {
+    margin-top: auto; align-self: flex-start;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none; padding: 8px 14px;
+    border-radius: 6px; font-size: 13px; font-weight: 600;
+    border: 1px solid var(--ink);
+  }
+  .card a.cta:hover { background: var(--laranja); border-color: var(--laranja); }
+  .card.skill { border-left: 4px solid var(--laranja); }
+  .card.source { border-left: 4px solid var(--ok); }
+  .card.docs { border-left: 4px solid var(--ink); }
+  .quote {
+    background: var(--paper); border-left: 4px solid var(--laranja);
+    padding: 18px 22px; margin: 28px 0;
+    border-radius: 0 10px 10px 0; box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .quote em { color: var(--ink-soft); font-style: normal; font-size: 13px; }
+  details { margin-top: 24px; background: var(--paper);
+            border: 1px solid var(--line-soft); border-radius: 10px;
+            padding: 14px 20px; }
+  details summary { cursor: pointer; font-weight: 600; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
+         font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  ul { margin: 8px 0 0 20px; padding: 0; }
+  li { margin: 4px 0; }
+  .meta {
+    margin-top: 36px; padding-top: 18px; border-top: 1px dashed var(--line);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft);
+  }
+  .stats { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+           margin: 18px 0; }
+  .stat { background: var(--paper); border: 1px solid var(--line-soft);
+          border-radius: 8px; padding: 14px; }
+  .stat .num { font-family: 'Roboto Slab', serif; font-size: 28px; color: var(--laranja-deep); }
+  .stat .lbl { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .08em; }
+  .ok { color: var(--ok); }
+  .warn { color: var(--warn); }
+  .err { color: var(--err); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="tag">TM-Automatizando v0.3 · AutoRelatório V4</span>
+  <h1>Entregáveis da Skill SP</h1>
+  <p class="lede">
+    Mapeamento, plano, comparativo, skill com 11 scripts, fontes de verdade
+    (467 itens oficiais + 9 contratos × regras de pintura) e guia de integração ao
+    frontend. Tudo seguindo o padrão editorial <b>Santa Adélia</b>.
+  </p>
+
+  <div class="quote">
+    "Eu não escrevo. Eu reconheço. Cada palavra que entrego veio antes da sua caneta."<br>
+    <em>— TM-Automatizando, voz da skill</em>
+  </div>
+
+  <div class="row">
+    <span class="badge">3 relatórios analisados</span>
+    <span class="badge">9 contratos cobertos</span>
+    <span class="badge">467 itens oficiais</span>
+    <span class="badge">22 narrativas + 13 detalhes curados</span>
+    <span class="badge">Gerado em 2026-05-14</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">467</div><div class="lbl">Itens master (LOTE SP)</div></div>
+    <div class="stat"><div class="num">9</div><div class="lbl">Contratos × regras pintura</div></div>
+    <div class="stat"><div class="num">3</div><div class="lbl">.docx analisados</div></div>
+    <div class="stat"><div class="num">683</div><div class="lbl">Fotos triangulação</div></div>
+    <div class="stat"><div class="num">11</div><div class="lbl">Módulos da skill</div></div>
+    <div class="stat"><div class="num">4</div><div class="lbl">Níveis de cross-check</div></div>
+  </div>
+
+  <h2>Documentação</h2>
+  <div class="grid">
+
+    <div class="card docs">
+      <div class="kind">01 · MAPA</div>
+      <h3>Mapa do Relatório SP2</h3>
+      <p>Triangulação Santa Adélia × Ribeirão × Guariba — banco de frases, formatação, regras de pintura por contrato.</p>
+      <a class="cta" href="MAPA_RELATORIO_SP2_SANTA_ADELIA.md">Abrir mapa →</a>
+    </div>
+
+    <div class="card docs">
+      <div class="kind">02 · PLANO</div>
+      <h3>Plano de Execução</h3>
+      <p>Rotas A (pastas) e B (DOCX pré-finalizado). Checklist, DoD, limitações e KPIs.</p>
+      <a class="cta" href="PLANO_EXECUCAO_RELATORIO_SP2.md">Abrir plano →</a>
+    </div>
+
+    <div class="card docs">
+      <div class="kind">03 · COMPARATIVO</div>
+      <h3>V4 × TM-Automatizando × 3 docs</h3>
+      <p>O que o V4 já automatiza vs. o que falta. 24 códigos novos identificados.</p>
+      <a class="cta" href="COMPARATIVO_V4_vs_SP2_SANTA_ADELIA.md">Abrir comparativo →</a>
+    </div>
+
+    <div class="card docs">
+      <div class="kind">04 · INTEGRAÇÃO</div>
+      <h3>Como plugar no frontend</h3>
+      <p>Mockup da view <code>/completar</code>, rotas REST, identidade visual, limitações e ordem de implementação.</p>
+      <a class="cta" href="INTEGRACAO_FRONTEND_TM_AUTOMATIZANDO.md">Abrir guia →</a>
+    </div>
+
+  </div>
+
+  <h2>Skill TM-Automatizando</h2>
+  <div class="grid">
+
+    <div class="card skill">
+      <div class="kind">05 · SKILL.md</div>
+      <h3>Definição da skill</h3>
+      <p>Identidade, fluxo de 7 etapas, garantias, regras invioláveis, limitações honestas.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/SKILL.md">Abrir SKILL.md →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">06 · README</div>
+      <h3>Como usar a skill</h3>
+      <p>Exemplo de chamada, status dos módulos, próximos passos.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/README_USO.md">Abrir README →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">07 · PERSONA</div>
+      <h3>persona.py</h3>
+      <p>Voz oficial da skill. Mensagens-padrão. 7 regras invioláveis.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/persona.py">Abrir persona →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">08 · VALIDADOR</div>
+      <h3>validator.py</h3>
+      <p>Cross-check N1–N4: aritmética, coerência, sequência, formatação, órfãs.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/validator.py">Abrir validador →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">09 · VLM</div>
+      <h3>vlm_helper.py</h3>
+      <p>Análise visual híbrida (Claude Vision em ambíguos). Prompt fixo, schema JSON.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/vlm_helper.py">Abrir VLM helper →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">10 · CURADOR</div>
+      <h3>curador.py</h3>
+      <p>Detecta frases novas, propõe ao usuário, aplica APROVAR/AJUSTAR/REJEITAR.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/curador.py">Abrir curador →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">11 · PREVIEW</div>
+      <h3>preview_html.py</h3>
+      <p>HTML interativo gerado ANTES da gravação — botões Aprovar/Ajustar/Rejeitar por bloco.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/preview_html.py">Abrir preview →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">12 · EXPORT</div>
+      <h3>exportar_etapas.py</h3>
+      <p>Cada composição vira arquivo individual em <code>saida/&lt;relatorio&gt;/01_.../07_resumo.md</code>.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/exportar_etapas.py">Abrir export →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">13 · ENTRYPOINT</div>
+      <h3>completar.py</h3>
+      <p>Orquestrador. argparse, log, fluxo das 7 etapas.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/completar.py">Abrir entrypoint →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">14 · PARSER</div>
+      <h3>parser_docx.py</h3>
+      <p>Lê .docx, detecta Foto N, medidas, código, seção, padrão editorial.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/parser_docx.py">Abrir parser →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">15 · GERADOR TEXTO</div>
+      <h3>gerador_texto.py</h3>
+      <p>Aplica banco de frases curado, respeitando regras_pintura.json.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/gerador_texto.py">Abrir gerador →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">16 · MEMORIAL</div>
+      <h3>gerador_memorial.py</h3>
+      <p>Tabela de cálculo: L × A × Faces − Desconto = Total. Soma geral.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/gerador_memorial.py">Abrir memorial →</a>
+    </div>
+
+    <div class="card skill">
+      <div class="kind">17 · GRAVAÇÃO</div>
+      <h3>inserir_no_docx.py</h3>
+      <p>Clona estilo do parágrafo vizinho + 1ª tabela existente. Não sobrescreve original.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/inserir_no_docx.py">Abrir gravador →</a>
+    </div>
+
+  </div>
+
+  <h2>Fonte de verdade (planilhas oficiais)</h2>
+  <div class="grid">
+
+    <div class="card source">
+      <div class="kind">18 · ITENS MASTER</div>
+      <h3>itens_oficiais_master.json</h3>
+      <p><b>467 itens</b> oficiais extraídos da planilha <code>MEMORIAL DE ITENS - LOTE SP.xlsx</code> aba <i>Valores</i>. Código + descrição + unidade + capítulo.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/itens_oficiais_master.json">Abrir master →</a>
+    </div>
+
+    <div class="card source">
+      <div class="kind">19 · ITENS POR CONTRATO</div>
+      <h3>itens_por_contrato.json</h3>
+      <p>6 contratos (1507, 2626, 0908, 3575, 2627, 2057) com seus itens reais usados em obra. Extraído das previsões orçamentárias.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/itens_por_contrato.json">Abrir por contrato →</a>
+    </div>
+
+    <div class="card source">
+      <div class="kind">20 · REGRAS DE PINTURA</div>
+      <h3>regras_pintura.json</h3>
+      <p>Para cada contrato: quais códigos <code>17.x</code> são permitidos em qual superfície. Extraído do HTML MAFFENG.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/regras_pintura.json">Abrir regras →</a>
+    </div>
+
+    <div class="card source">
+      <div class="kind">21 · BANCO FRASES</div>
+      <h3>banco_frases_sp2.json</h3>
+      <p>22 narrativas + 13 detalhes curados a partir dos 3 .docx. Cresce com aprovação manual via curador.</p>
+      <a class="cta" href="skill_completar_relatorio_marcado/scripts/banco_frases_sp2.json">Abrir banco →</a>
+    </div>
+
+  </div>
+
+  <details>
+    <summary>Regras invioláveis da TM-Automatizando</summary>
+    <ul>
+      <li>1. Nunca usar "Prezados," como abertura — segue padrão Santa Adélia.</li>
+      <li>2. Nunca inventar item de contrato. Tudo vem de <code>itens_oficiais_master.json</code>.</li>
+      <li>3. Nunca trocar 17.4/17.6/17.10/17.11 fora do permitido por <code>regras_pintura.json</code>.</li>
+      <li>4. Nunca gravar frase nova no banco sem aprovação humana via curador.</li>
+      <li>5. Nunca sobrescrever o .docx original (<code>_PREENCHIDO_PROPOSTA.docx</code> sempre).</li>
+      <li>6. Detalhes vêm LOGO ABAIXO da foto-narrativa, nunca agrupados no fim.</li>
+      <li>7. Quando ambíguo, parar e perguntar.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Status dos módulos (esqueleto vs pronto)</summary>
+    <ul>
+      <li><span class="ok">✅</span> <code>SKILL.md</code> — pronto, identidade completa.</li>
+      <li><span class="ok">✅</span> <code>banco_frases_sp2.json</code> — 22 narrativas + 13 detalhes.</li>
+      <li><span class="ok">✅</span> <code>itens_oficiais_master.json</code> — 467 itens (oficial).</li>
+      <li><span class="ok">✅</span> <code>itens_por_contrato.json</code> — 6 contratos.</li>
+      <li><span class="ok">✅</span> <code>regras_pintura.json</code> — 9 contratos.</li>
+      <li><span class="ok">✅</span> <code>persona.py</code> — voz + 7 regras.</li>
+      <li><span class="ok">✅</span> <code>validator.py</code> — N1..N4 implementados.</li>
+      <li><span class="ok">✅</span> <code>preview_html.py</code> — gera HTML interativo.</li>
+      <li><span class="ok">✅</span> <code>exportar_etapas.py</code> — arquivos por etapa.</li>
+      <li><span class="warn">🟡</span> <code>completar.py</code> — esqueleto com fluxo final.</li>
+      <li><span class="warn">🟡</span> <code>parser_docx.py</code> — regex e dataclasses prontos, parser TODO.</li>
+      <li><span class="warn">🟡</span> <code>gerador_texto.py</code> — hints prontos, integração TODO.</li>
+      <li><span class="warn">🟡</span> <code>gerador_memorial.py</code> — cálculo pronto, integração TODO.</li>
+      <li><span class="warn">🟡</span> <code>inserir_no_docx.py</code> — assinatura definida, escrita XML TODO.</li>
+      <li><span class="warn">🟡</span> <code>vlm_helper.py</code> — prompt + schema prontos, chamada API TODO.</li>
+      <li><span class="warn">🟡</span> <code>curador.py</code> — proposta + aplicação prontas, integração TODO.</li>
+    </ul>
+  </details>
+
+  <div class="meta">
+    Workspace: <code>01_Golden_Apps_meu_uso/AutoRelatorio_V4/DOCUMENTOS/</code><br>
+    Skill: <code>skill_completar_relatorio_marcado/</code> (11 scripts + 4 JSONs)<br>
+    Fontes: 3 .docx + 8 .xlsx + 1 .html oficiais (recebidos do usuário)<br>
+    Backend referência: <code>APP/backend/generator_sp2.py</code>, <code>utils_sp2.py</code>, <code>word_utils_sp2.py</code>
+  </div>
+
+</div>
+</body>
+</html>

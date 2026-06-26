@@ -1,0 +1,95 @@
+.changelog-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+}
+
+.changelog-header-main {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.changelog-header-main h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.brand-text {
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.commit {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+}
+
+.commit.success {
+    border-left-color: var(--accent-green);
+}
+
+.commit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.commit-time {
+    color: var(--accent-blue);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.commit-tag {
+    background: linear-gradient(90deg, #238636, var(--accent-blue));
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+}
+
+.commit-tag.done {
+    background: linear-gradient(90deg, #238636, var(--accent-green));
+}
+
+.commit-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.commit-desc {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.commit-desc ul {
+    margin-left: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.commit-desc li {
+    margin-bottom: 6px;
+}
+
+.commit-desc strong {
+    color: var(--text-primary);
+}

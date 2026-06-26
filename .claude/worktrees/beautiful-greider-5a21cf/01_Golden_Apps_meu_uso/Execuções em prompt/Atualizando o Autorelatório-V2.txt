@@ -1,0 +1,2033 @@
+Vamos trabalhar no refinamento do auto relatorio V2 (1º Prompt)
+
+
+
+Primeiramente eu vou fazer um uso guiado anotando tudo que eu perceber que não estiver de acordo com o esperado. 
+
+
+
+> Adicionar ao terminal run. (Desenvolvedor * Thiago Nascimento Barbosa) 
+
+arquivos: "C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.bat"
+
+"C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.py"
+
+
+
+> Atualizar e refatorar HTML: "C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\commit.html"
+
+(eu quero que tenha mais personalidade e menos aparência de uma página criada por i.a, eu quero uma página de anotações que sejam persistentes que eu possa salvar e ficar salvo no html, além disso eu queri que ao abrir a tela eu já veja a linha do tempo. use a skill /th-designer. 
+
+
+
+> Me responda: Porque eu tenho duas pastas de frontend em diferentes locais no repositório: C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2
+
+
+
+> Eu quero uma versão de HTML desses dois arquivos, que seja bem interativo: "C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\mapa_edicao.md"
+"C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\setup_guia.md"
+
+> EM RESUMO: Re-avalie essa pasta, eu quero que leia o aplicativo, me traga em linguagem técnica e linguagem que eu entendo, eu quero que revise os três arquivos e atualize-os em informações. 
+> Além disso você vai criar um arquivo estilizado também em .html e em .md o nome dele é Meu Plano - Auto Relatório, no html eu espero escrever e ele gerar a atualização do .md para que eu baixe. 
+
+> Atualize o README, e dento da Minha pasta sobre o aplicativo você vai criar uma versão estilo página de vendas, e outra versão para o meu próprio uso como uma apresentação sem ser comercial. 
+
+Eu quero que avalie o uso de /Turbo-ui /Find-skills e /Th-designer. 
+
+> pode ativar um /turbo-brainstorming ou /opensquad-brainmstorming eu não sei, para que a gente possa ter uma troca de ideia antes das alterações e criações, com perguntas que te direcionam totalmente para que defina a perfeição no estilo dos arquivos criados. 
+
+Resposta ao 1º Prompt: 
+
+Vou explorar a pasta do AutoRelatorio_V2 primeiro para ter uma visão completa antes de qualquer ação.
+
+
+Executado um agente
+Executou agente
+Haiku 4.5
+Explorar estrutura completa do AutoRelatorio V2
+description: Explorar estrutura completa do AutoRelatorio V2
+subagent_type: Explore
+prompt: Explore a pasta C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2 completamente. Eu preciso entender:
+
+1. Estrutura de pastas e arquivos (liste TUDO, incluindo subpastas)
+2. Leia os arquivos: run.bat, run.py, e todos os .md e .html dentro de "Minha pasta sobre o aplicativo"
+3. Liste as duas pastas de frontend que existem no repositório (o usuário mencionou que há dois locais com frontend)
+4. Leia qualquer README existente
+5. Entenda o que o app faz (backend, frontend, tecnologias usadas)
+
+Seja muito detalhado e inclua o conteúdo dos arquivos principais lidos.
+
+Perfeito! Agora tenho todas as informações. Vou compilar um relatório completo:
+
+## Relatório Completo de Exploração: AutoRelatorio_V2
+
+### 1. ESTRUTURA DE PASTAS E ARQUIVOS
+
+A pasta `/C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2` possui a seguinte estrutura:
+
+```
+AutoRelatorio_V2/
+├── .context/
+│   └── planning.md                 ← Planejamento PREVC da V2
+├── APP/
+│   ├── backend/                    ← Backend FastAPI (Python)
+│   │   ├── generator.py            ← Gerador tradicional
+│   │   ├── generator_sp.py         ← Gerador modo São Paulo
+│   │   ├── llm_generator.py        ← Geração LLM (IA)
+│   │   ├── server.py               ← Rotas FastAPI
+│   │   ├── word_utils.py           ← Inserção Word tradicional
+│   │   ├── word_utils_sp.py        ← Inserção Word modo SP
+│   │   ├── utils_sp.py             ← Utilidades SP
+│   │   ├── requirements.txt         ← Dependências Python
+│   │   ├── templates/              ← Templates .docx (9 modelos)
+│   │   ├── output/                 ← Saída gerada
+│   │   └── tests/                  ← Testes unitários
+│   └── frontend/                   ← Frontend Next.js (Ativo)
+│       ├── app/
+│       │   ├── page.tsx            ← Página principal
+│       │   ├── layout.tsx          ← Layout global
+│       │   └── globals.css         ← Estilos globais
+│       ├── components/             ← Componentes React
+│       │   ├── SidebarWizard.tsx   ← Painel de configuração
+│       │   ├── PreviewGrid.tsx     ← Grade de imagens
+│       │   ├── ImageEditorModal.tsx← Editor de fotos
+│       │   ├── ProgressOverlay.tsx ← Overlay de progresso
+│       │   └── ConsoleWatcher.tsx  ← Console de logs
+│       ├── data/
+│       │   └── itens-maffeng.ts    ← Dados de itens
+│       ├── package.json            ← Deps Node.js
+│       └── public/                 ← Assets estáticos
+├── frontend/                       ← Frontend LEGADO (em raiz - obsoleto)
+│   └── package.json                ← Apenas config (sem TSX)
+├── DOCUMENTOS/
+│   ├── mapa_design.md              ← Mapa de design
+│   ├── ENTRADA/                    ← Entrada de dados
+│   └── output/                     ← Saída de documentos
+├── Minha pasta sobre o aplicativo/ ← Documentação manual
+│   ├── setup_guia.md               ← Guia de instalação
+│   ├── mapa_edicao.md              ← Mapa de edição
+│   └── commit.html                 ← Registro visual (HTML)
+├── logs/                           ← Logs de execução
+├── run.py                          ← Launcher orquestrador
+├── run.bat                         ← Script Windows
+└── README.md                       ← Documentação principal
+```
+
+---
+
+### 2. OS DOIS FRONTENDS (IDENTIFICADOS)
+
+#### **Frontend Ativo (Principal)**
+- **Localização:** `/APP/frontend`
+- **Tecnologia:** Next.js 16.1.6 + React 19.2.3 + Tailwind CSS
+- **Responsabilidade:** Interface atual de produção
+- **Componentes principais:**
+  - `page.tsx` - Aplicação principal com state management
+  - `SidebarWizard.tsx` - Configurações e seleção de modo
+  - `PreviewGrid.tsx` - Grade responsiva de imagens
+  - `ImageEditorModal.tsx` - Editor de fotos com canvas (Fabric.js)
+  - `ConsoleWatcher.tsx` - Visualizador de logs em tempo real
+  - `ProgressOverlay.tsx` - Animações de carregamento
+
+#### **Frontend Legado**
+- **Localização:** `/frontend` (raiz do projeto)
+- **Status:** Obsoleto, não possui componentes TSX
+- **Contém apenas:** Arquivo `package.json` e configs
+
+---
+
+### 3. LEITURA DOS ARQUIVOS SOLICITADOS
+
+#### **run.bat**
+```batch
+@echo off
+title TM Relatorio - Sistema Unificado
+cd /d "%~dp0"
+python run.py
+```
+Simples launcher Windows que executa o orquestrador Python.
+
+#### **run.py** (Arquivo Completo - 397 linhas)
+Script profissional de orquestração que:
+- **Inicia backend FastAPI** (porta 5000) e frontend Next.js (porta 3000)
+- **Limpa portas em uso** com `netstat` + `taskkill` (Windows)
+- **Health-check** do backend com spinner animado
+- **Captura logs** em tempo real com styling Rich (cores, prefixos)
+- **Graceful shutdown** de ambos processos
+- **Exibe banner** com informações de status
+
+Principais funções:
+- `get_python()` - Detecta venv ou Python do sistema
+- `kill_port(port)` - Libera portas presas
+- `stream_output()` - Lê logs com análise inteligente de erros
+- `wait_for_backend()` - Health-check com timeout de 30s
+- `show_ready()` - Painel visual quando sistema está pronto
+
+---
+
+### 4. DOCUMENTAÇÃO LIDA
+
+#### **"Minha pasta sobre o aplicativo/setup_guia.md"**
+Guia prático de instalação em máquina "virgem" ou PC formatado:
+
+1. **Requisitos do Sistema:**
+   - Python 3.10+ (com "Add Python to PATH")
+   - Node.js 20+ (para npm)
+
+2. **Setup Backend:**
+   ```powershell
+   cd APP/backend
+   python -m venv .venv
+   .\.venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3. **Setup Frontend:**
+   ```powershell
+   cd APP/frontend
+   npm install
+   ```
+
+4. **Execução Diária:**
+   ```powershell
+   python run.py  # Unificado!
+   ```
+
+#### **"Minha pasta sobre o aplicativo/mapa_edicao.md"**
+Mapeamento técnico de edição dividido em 3 seções:
+
+1. **Fluxo de Execução da Aplicação:**
+   - Usuário executa `python run.py`
+   - Backend (FastAPI:5000) + Frontend (Next.js:3000) iniciam
+   - Frontend carrega Dashboard via `page.tsx`
+   - Usuário seleciona pasta → Backend `/api/scan` processa
+   - Backend chama `generator.py` ou `generator_sp.py` baseado no tipo
+   - Frontend renderiza `PreviewGrid` com imagens
+   - Usuário edita + confirma → `/api/generate` cria Word
+   - Relatório `.docx` salvo → Download via `/api/download`
+
+2. **Mapa de Edição Frontend:**
+   - `app/page.tsx` - Core state management
+   - `components/SidebarWizard.tsx` - Seletor de modo e inputs
+   - `components/PreviewGrid.tsx` - Grid responsivo de imagens
+   - `components/ConsoleWatcher.tsx` - Console visual de status
+   - `app/globals.css` + Tailwind - Estilos globais
+
+3. **Mapa de Edição Backend:**
+   - `server.py` - Endpoints HTTP (rotas)
+   - `generator.py` - Leitura de pastas (modo Tradicional)
+   - `word_utils.py` - Inserção no Word (modo Tradicional)
+   - `generator_sp.py` - Leitura SP (hierarquias complexas)
+   - `word_utils_sp.py` - Inserção SP (repetições)
+   - `templates/` - Templates `.docx` base (9 arquivos)
+
+#### **APP/frontend/README.md**
+Documentação genérica de Next.js (boilerplate padrão).
+
+---
+
+### 5. ARQUIVO /README.md PRINCIPAL**
+
+```markdown
+# AutoRelatorio V2
+
+> Scaffold criado em 19/04/2026 com base no AutoRelatorioV1_Dev.
+> Co-pilotado por Claude Sonnet 4.6.
+
+## O que é
+
+Sistema de geração automática de relatórios fotográficos de manutenção predial — versão 2.0.
+
+A v2 evolui o fluxo "um por um" do v1 para um workflow de **cliques sequenciais**, 
+onde o técnico seleciona itens, adiciona contexto e o app gera o relatório completo.
+```
+
+**Estrutura descrita:**
+- `APP/backend` - Python: geração Word, templates, server
+- `APP/frontend` - Next.js: interface do usuário
+- `DOCUMENTOS/` - Documentação técnica
+- `run.py` - Ponto de entrada
+
+**Status:** Em desenvolvimento (V2) com funcionalidades planejadas (checkboxes não marcadas)
+
+---
+
+### 6. ENTENDIMENTO DO APP (Backend, Frontend, Tecnologias)
+
+#### **O QUE O APP FAZ:**
+
+Sistema de **geração automática de relatórios fotográficos** para manutenção preventiva de imóveis (bancos, agências, edifícios comerciais). 
+
+**Fluxo Principal:**
+1. Técnico seleciona pasta com fotos organizadas em subpastas
+2. Sistema varre a estrutura (raiz → áreas → itens)
+3. Frontend exibe grid das fotos
+4. Técnico pode editar contexto por foto (descrições, medições)
+5. Sistema gera documento Word com relatório formatado + fotos inseridas
+
+#### **BACKEND (Python FastAPI)**
+
+**Stack:**
+- FastAPI (servidor HTTP)
+- uvicorn (ASGI)
+- python-docx (manipulação Word)
+- Pillow (processamento de imagens)
+- Pydantic (validação de dados)
+
+**Arquivos chave:**
+- `server.py` - 20+ endpoints HTTP
+- `generator.py` - Parser de estrutura de pastas (Tradicional)
+- `generator_sp.py` - Parser com regras SP (São Paulo)
+- `word_utils.py` - Inserção de conteúdo em templates
+- `llm_generator.py` - Geração de descrições via IA
+
+**Endpoints principais:**
+```python
+GET    /api/templates          → Lista templates .docx
+POST   /api/upload-template    → Carrega novo template
+POST   /api/scan               → Varre pasta de fotos
+GET    /api/image              → Serve imagem original
+GET    /api/thumbnail          → Thumb 200x200
+POST   /api/generate           → Cria relatório Word
+GET    /api/download           → Baixa documento gerado
+```
+
+#### **FRONTEND (Next.js + React)**
+
+**Stack:**
+- Next.js 16.1.6 (React Server Components)
+- React 19.2.3 (hooks)
+- Tailwind CSS 4.2.2 (estilização)
+- Framer Motion (animações)
+- Fabric.js (editor de imagens canvas)
+- Lucide Icons (ícones SVG)
+
+**Arquivos chave:**
+- `app/page.tsx` - Componente principal com state
+- `components/SidebarWizard.tsx` - Painel lateral (6 steps configuráveis)
+- `components/PreviewGrid.tsx` - Grade responsiva de imagens
+- `components/ImageEditorModal.tsx` - Editor modal full-screen (setas, texto, crop)
+- `components/ConsoleWatcher.tsx` - Display em tempo real de logs
+
+**Fluxo de Estados:**
+```typescript
+pastaRaiz          → Pasta selecionada
+tipoRelatorio      → "tradicional" | "sp"
+conteudo           → Array de itens do scan
+modalData          → Dados editados por foto
+selectedDescription → Desc 1, 2, 3 ou 4
+docGerado          → Caminho do .docx gerado
+```
+
+---
+
+### 7. TECNOLOGIAS UTILIZADAS (Resumo)
+
+| **Camada** | **Tecnologia** | **Versão** | **Propósito** |
+|---|---|---|---|
+| **Backend** | FastAPI | 0.10x | Framework HTTP assíncrono |
+| | Python | 3.10+ | Linguagem principal |
+| | python-docx | Latest | Manipulação de Word |
+| | Pillow | 10.x | Processamento de imagens |
+| **Frontend** | Next.js | 16.1.6 | Framework React |
+| | React | 19.2.3 | Biblioteca UI |
+| | TypeScript | 5.x | Tipagem estática |
+| | Tailwind CSS | 4.2.2 | Utility-first CSS |
+| | Framer Motion | 12.34.4 | Animações |
+| | Fabric.js | 7.3.1 | Canvas editor |
+| | Lucide Icons | 0.576 | Ícones |
+| **Orquestração** | Python | 3.10+ | Launcher (run.py) |
+| | Rich | 13.0+ | Logging colorido |
+
+---
+
+### 8. DOCUMENTAÇÃO PRESENTE
+
+Além dos arquivos lidos, existem:
+- `.context/planning.md` - Planejamento PREVC (5 frentes de desenvolvimento)
+- `DOCUMENTOS/mapa_design.md` - Design system com estilos
+- `frontend/package.json` + `APP/frontend/package.json` - Ambos Next.js
+
+A app está **em ativa construção** com status v2.0-STABLE no launcher.
+
+---
+
+### CONCLUSÃO
+
+O **AutoRelatorio_V2** é um sistema profissional de geração de relatórios fotográficos com:
+- ✅ Backend robusto (FastAPI + manipulação Word)
+- ✅ Frontend moderno (Next.js + Tailwind + Canvas editor)
+- ✅ Dois modos operacionais (Tradicional vs. São Paulo)
+- ✅ Orquestrador inteligente (limpeza de portas, health-checks, logging)
+- ✅ Dois frontends (ativo em `/APP/frontend`, legado em `/frontend`)
+- 🚀 Planejamento para IA (LLM) geração de descrições
+
+shell em segundo plano iniciado
+find /c/Users/thiag/Desktop/TM-MEUS-APPS -name "frontend" -type d 2>/dev/null
+
+shell em segundo plano concluído
+find /c/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2 -name "*.tsx" -o -name "package.json" | grep -v node_modules | grep -v ".next" | sort
+
+shell em segundo plano concluído
+find /c/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/frontend -type f | grep -v node_modules | head -30
+
+shell em segundo plano concluído
+tree -L 3 -I 'node_modules|.next|__pycache__|*.pyc' /c/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2 2>/dev/null || find /c/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2 -maxdepth 3 -type d | grep -v node_modules | grep -v .next | grep -v __pycache__ | sort
+
+shell em segundo plano concluído
+find /c/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2 -type f \( -name "*.py" -o -name "*.tsx" -o -name "*.ts" -o -name "*.json" -o -name "*.md" -o -name "*.html" \) ! -path "*/__pycache__/*" ! -path "*/.next/*" ! -path "*/node_modules/*" | sed 's|.*AutoRelatorio_V2/||' | sort
+Now I have a complete picture of the project. Let me address each of the user's requests:
+
+1. **Adicionar "Desenvolvedor * Thiago Nascimento Barbosa" ao terminal run** - Modify run.bat and run.py to include this attribution
+2. **Atualizar e refatorar commit.html** - Use th-designer skill for this
+3. **Responder sobre as duas pastas de frontend** - I can answer this now
+4. **Versão HTML dos arquivos mapa_edicao.md e setup_guia.md** - Create interactive HTML versions
+
+
+5. **Re-avaliar a pasta, criar "Meu Plano" em HTML e MD** - Create these files
+6. **Atualizar README, criar versão sales page e apresentação pessoal** - Update README and create two versions
+7. **Avaliar uso de /turbo-ui /Find-skills /Th-designer** - Evaluate these tools
+
+But wait—the user specifically requested a brainstorming session first before making any changes or creating new files. I should activate the brainstorming tool to have a proper discussion about the approach. I'm looking at the available skills and realizing the user is asking me to activate brainstorming before tackling the creative work—they want to exchange ideas first. I can see `turbo-brainstorm` is the right skill to use here, and I should prioritize that before diving into the specific tasks like adding the developer credit or evaluating the UI components. I need to parse what the user is actually asking for here. They want me to evaluate the use of certain skills, and crucially, they're requesting a turbo-brainstorming session before I make any creative changes. So my approach should be: answer the direct question about the two frontends, make the simple attribution update to the run files, then activate brainstorming for the design and creative work. Let me start by examining the run.bat and run.py files to see where I should add the developer attribution.
+Ótimo, tenho um mapa completo do projeto. Vou agora:
+
+Responder a pergunta dos dois frontends imediatamente
+Ler run.bat e run.py para a alteração de atribuição
+Ativar o brainstorming antes das criações visuais
+
+Leu 2 arquivos
+Ler
+run.bat
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.bat
+@echo off
+title TM Relatorio - Sistema Unificado
+cd /d "%~dp0"
+python run.py
+Ler
+run.py
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.py
+"""
+TM · Sempre Tecnologia — Launcher Premium
+Gerencia backend (FastAPI) e frontend (Next.js) em um único terminal.
+"""
+
+import os
+import sys
+import signal
+import subprocess
+import threading
+import time
+import datetime
+import urllib.request
+import urllib.error
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+from rich.live import Live
+from rich.spinner import Spinner
+from rich.table import Table
+from rich import box
+
+# ─── Configurações ──────────────────────────────────────────────
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.join(BASE_DIR, "APP", "backend")
+FRONTEND_DIR = os.path.join(BASE_DIR, "APP", "frontend")
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+BACKEND_URL = "http://127.0.0.1:5000/docs"
+FRONTEND_URL = "http://localhost:3000"
+HEALTH_TIMEOUT = 30  # segundos máximo para o backend responder
+VENV_PYTHON = os.path.join(BACKEND_DIR, ".venv", "Scripts", "python.exe")
+
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# ─── Console Rich ───────────────────────────────────────────────
+console = Console()
+processes: list[subprocess.Popen] = []
+
+
+def get_python():
+    """Retorna o caminho do Python do .venv se existir, senão usa o do sistema."""
+    if os.path.isfile(VENV_PYTHON):
+        return VENV_PYTHON
+    return sys.executable
+
+
+def kill_port(port: int):
+    """Mata qualquer processo usando a porta especificada (Windows)."""
+    if os.name != "nt":
+        return
+    try:
+        result = subprocess.run(
+            f'netstat -ano | findstr ":{port} "',
+            shell=True, capture_output=True, text=True
+        )
+        pids = set()
+        for line in result.stdout.splitlines():
+            parts = line.split()
+            if parts and parts[-1].isdigit():
+                # Apenas linhas LISTENING ou ESTABLISHED na porta certa
+                if f":{port}" in parts[1]:
+                    pids.add(parts[-1])
+        for pid in pids:
+            subprocess.run(f'taskkill /F /PID {pid}', shell=True,
+                           capture_output=True)
+            console.print(f"  [dim yellow]🔥 Porta {port} liberada (PID {pid})[/]")
+    except Exception:
+        pass
+
+
+def clean_nextjs_lock():
+    """Remove o arquivo de lock do Next.js se existir."""
+    lock_file = os.path.join(FRONTEND_DIR, ".next", "dev", "lock")
+    if os.path.isfile(lock_file):
+        try:
+            os.remove(lock_file)
+            console.print("  [dim yellow]🔥 Lock do Next.js removido[/]")
+        except Exception:
+            pass
+
+
+def show_banner():
+    """Exibe o banner profissional do sistema."""
+    now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+
+    title = Text()
+    title.append("TM", style="bold bright_white")
+    title.append(" · ", style="dim white")
+    title.append("SEMPRE TECNOLOGIA", style="bold cyan")
+
+    subtitle = Text()
+    subtitle.append("Gerador de Relatório", style="dim white")
+    subtitle.append("  ·  ", style="dim")
+    subtitle.append(f"v2.0", style="dim bright_cyan")
+    subtitle.append("  ·  ", style="dim")
+    subtitle.append(now, style="dim white")
+
+    content = Text.assemble(title, "\n", subtitle)
+
+    panel = Panel(
+        content,
+        border_style="bright_cyan",
+        box=box.ROUNDED,
+        padding=(1, 3),
+    )
+    console.print()
+    console.print(panel)
+    console.print()
+
+
+def stream_output(process: subprocess.Popen, label: str, color: str, log_file: str):
+    """Lê stdout do processo e imprime com prefixo colorido + salva em log."""
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(f"\n{'='*60}\n")
+        f.write(f"Sessão iniciada em {datetime.datetime.now().isoformat()}\n")
+        f.write(f"{'='*60}\n\n")
+
+        for line in iter(process.stdout.readline, ""):
+            if not line:
+                break
+            line = line.rstrip()
+            if not line:
+                continue
+
+            # Salvar no arquivo de log
+            f.write(f"{line}\n")
+            f.flush()
+
+            # Determinar estilo baseado no conteúdo
+            style = "dim white"
+            prefix_style = f"bold {color}"
+
+            line_lower = line.lower()
+            if any(kw in line_lower for kw in ["error", "erro", "exception", "traceback", "failed"]):
+                style = "bold red"
+            elif any(kw in line_lower for kw in ["warning", "warn", "aviso"]):
+                style = "yellow"
+            elif any(kw in line_lower for kw in ["ready", "started", "running", "pronto", "✓", "compiled"]):
+                style = "green"
+
+            # Printar com prefixo
+            output = Text()
+            output.append(f"  [{label}] ", style=prefix_style)
+            output.append(line, style=style)
+            console.print(output)
+
+    # Se saiu do loop, o processo morreu
+    exit_code = process.poll()
+    if exit_code is not None and exit_code != 0:
+        console.print()
+        console.print(
+            Panel(
+                f"[bold red]❌ {label} encerrou com código {exit_code}[/]\n"
+                f"[dim]Verifique os logs em: logs/{label.lower()}.log[/]",
+                border_style="red",
+                box=box.ROUNDED,
+            )
+        )
+
+
+def start_process(cmd: list, cwd: str, label: str, color: str, log_name: str) -> subprocess.Popen:
+    """Inicia um subprocesso com stdout/stderr capturados."""
+    log_file = os.path.join(LOG_DIR, log_name)
+
+    # Fix para rodar npm no Windows sem erro de FileNotFound
+    if os.name == "nt" and cmd and cmd[0] == "npm":
+        cmd[0] = "npm.cmd"
+
+    env = os.environ.copy()
+    # Forçar saída sem buffer para o Python
+    env["PYTHONUNBUFFERED"] = "1"
+    # Forçar cores ANSI no Next.js
+    env["FORCE_COLOR"] = "1"
+
+    proc = subprocess.Popen(
+        cmd,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env=env,
+        creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0,
+    )
+    processes.append(proc)
+
+    # Thread para ler o output em background
+    thread = threading.Thread(
+        target=stream_output,
+        args=(proc, label, color, log_file),
+        daemon=True,
+    )
+    thread.start()
+
+    return proc
+
+
+def wait_for_backend():
+    """Aguarda o backend responder com spinner animado."""
+    start_time = time.time()
+
+    with Live(
+        Spinner("dots", text="[bright_cyan]  Aguardando Backend responder...[/]", style="bright_cyan"),
+        console=console,
+        refresh_per_second=10,
+        transient=True,
+    ):
+        while time.time() - start_time < HEALTH_TIMEOUT:
+            try:
+                req = urllib.request.urlopen(BACKEND_URL, timeout=2)
+                if req.status == 200:
+                    return True
+            except (urllib.error.URLError, ConnectionRefusedError, OSError):
+                pass
+            time.sleep(0.5)
+
+    return False
+
+
+def show_ready():
+    """Exibe o painel de 'sistema pronto'."""
+    content = Text()
+    content.append("  🟢  SISTEMA PRONTO\n\n", style="bold bright_green")
+    content.append("  🌐  ", style="")
+    content.append(FRONTEND_URL, style="bold underline bright_cyan")
+    content.append("\n  📋  ", style="")
+    content.append(f"{BACKEND_URL.replace('/docs', '')} (API)", style="dim white")
+    content.append("\n\n  ⌨   ", style="")
+    content.append("Ctrl+C", style="bold bright_white")
+    content.append(" para encerrar tudo", style="dim white")
+
+    console.print()
+    console.print(Panel(content, border_style="green", box=box.ROUNDED, padding=(0, 1)))
+    console.print()
+    console.print("  [dim]─── Logs em tempo real ───[/]")
+    console.print()
+
+
+def show_last_logs(log_name: str, lines: int = 40):
+    """Exibe as últimas N linhas do log no terminal."""
+    log_file = os.path.join(LOG_DIR, log_name)
+    if not os.path.isfile(log_file):
+        return
+    try:
+        with open(log_file, "r", encoding="utf-8", errors="replace") as f:
+            content = f.readlines()
+        tail = content[-lines:]
+        console.print()
+        console.print(f"  [bold yellow]📄 Últimas {lines} linhas de {log_name}:[/]")
+        console.print("  " + "─" * 60)
+        for line in tail:
+            line = line.rstrip()
+            if not line:
+                continue
+            style = "dim white"
+            ll = line.lower()
+            if any(k in ll for k in ["error", "erro", "exception", "traceback", "failed", "runtimeerror"]):
+                style = "bold red"
+            elif any(k in ll for k in ["warning", "warn"]):
+                style = "yellow"
+            console.print(f"  [dim]│[/] [{style}]{line}[/]")
+        console.print("  " + "─" * 60)
+    except Exception:
+        pass
+
+
+def pause_on_error():
+    """Pausa com mensagem clara para o usuário ler o erro."""
+    console.print()
+    console.print(Panel(
+        "[bold red]❌ O sistema encerrou com erro.[/]\n"
+        "[dim]Leia os logs acima e pressione [bold]ENTER[/bold] para fechar.[/]",
+        border_style="red",
+        box=box.ROUNDED,
+    ))
+    try:
+        input()
+    except Exception:
+        time.sleep(5)
+
+
+def shutdown(signum=None, frame=None, error: bool = False):
+    """Encerra todos os subprocessos de forma limpa."""
+    console.print()
+    console.print("  [dim yellow]⏳ Encerrando processos...[/]")
+
+    for proc in processes:
+        try:
+            if os.name == "nt":
+                proc.terminate()
+            else:
+                proc.send_signal(signal.SIGTERM)
+        except (OSError, ProcessLookupError):
+            pass
+
+    # Aguardar encerramento
+    for proc in processes:
+        try:
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+
+    console.print("  [bold green]✅ Tudo encerrado. Até a próxima![/]")
+    console.print()
+    if error:
+        pause_on_error()
+    sys.exit(0)
+
+
+def main():
+    # Registrar handler de Ctrl+C
+    signal.signal(signal.SIGINT, shutdown)
+    signal.signal(signal.SIGTERM, shutdown)
+
+    # Limpar tela
+    os.system("cls" if os.name == "nt" else "clear")
+
+    # Banner
+    show_banner()
+
+    # ─── PASSO 0: Limpar portas e locks ──────────────────────────
+    console.print("  [dim]🧹 Verificando portas em uso...[/]")
+    kill_port(5000)
+    kill_port(3000)
+    clean_nextjs_lock()
+    console.print()
+
+    # ─── PASSO 1: Backend ───────────────────────────────────────
+    python_path = get_python()
+    console.print("  [bold bright_cyan]⚡[/] [white]Iniciando Backend FastAPI...[/]")
+
+    backend_proc = start_process(
+        cmd=[python_path, "server.py"],
+        cwd=BACKEND_DIR,
+        label="Backend",
+        color="bright_magenta",
+        log_name="backend.log",
+    )
+
+    # Health-check com spinner
+    backend_ok = wait_for_backend()
+
+    if not backend_ok:
+        console.print(f"  [bold red]❌ Backend não respondeu em {HEALTH_TIMEOUT}s[/]")
+        console.print("  [dim]Verifique os logs abaixo:[/]")
+        show_last_logs("backend.log")
+        shutdown(error=True)
+        return
+
+    console.print("  [bold green]✅[/] [white]Backend rodando na porta 5000[/]")
+    console.print()
+
+    # ─── PASSO 2: Frontend ──────────────────────────────────────
+    console.print("  [bold bright_cyan]⚡[/] [white]Iniciando Frontend Next.js...[/]")
+
+    frontend_proc = start_process(
+        cmd=["npm", "run", "dev"],
+        cwd=FRONTEND_DIR,
+        label="Frontend",
+        color="bright_blue",
+        log_name="frontend.log",
+    )
+
+    # Aguardar um pouco para o frontend compilar
+    time.sleep(3)
+    console.print("  [bold green]✅[/] [white]Frontend iniciado[/]")
+
+    # ─── PRONTO ─────────────────────────────────────────────────
+    show_ready()
+
+    # Manter vivo e monitorar processos
+    crashed = False
+    try:
+        while True:
+            # Verificar se algum processo morreu
+            if backend_proc.poll() is not None:
+                console.print("\n  [bold red]⚠  Backend caiu![/]")
+                show_last_logs("backend.log")
+                crashed = True
+                break
+            if frontend_proc.poll() is not None:
+                console.print("\n  [bold red]⚠  Frontend caiu![/]")
+                show_last_logs("frontend.log")
+                crashed = True
+                break
+            time.sleep(1)
+    except KeyboardInterrupt:
+        pass
+
+    shutdown(error=crashed)
+
+
+if __name__ == "__main__":
+    main()
+Now I have the run.bat and run.py content. Let me:
+
+1. Add "Desenvolvedor * Thiago Nascimento Barbosa" to the terminal/banner in run.py and run.bat
+2. Answer the question about two frontends
+3. Activate turbo-brainstorm for the creative work
+
+For run.bat - I can add a subtitle or echo with the developer name.
+For run.py - I can add the developer name to the `show_banner()` function.
+
+Let me first make these simple changes, then address the question, then activate brainstorm for everything else.
+
+
+I'll update the batch file title to include the developer name and modify the Python banner function to display it as well, then move forward with the brainstorm work.
+Agora faço as alterações simples e depois ativo o brainstorming para o trabalho criativo.
+
+Adicionando a atribuição ao terminal:
+
+
+Editado 2 arquivos
+Editado
+run.bat
++1
+-1
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.bat
+@echo off
+title TM Relatorio - Sistema Unificado
+title TM Relatorio — Desenvolvedor Thiago Nascimento Barbosa
+cd /d "%~dp0"
+python run.py
+Editado
+run.py
++6
+-1
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\run.py
+    subtitle = Text()
+    subtitle.append("Gerador de Relatório", style="dim white")
+    subtitle.append("  ·  ", style="dim")
+    subtitle.append(f"v2.0", style="dim bright_cyan")
+    subtitle.append("  ·  ", style="dim")
+    subtitle.append(now, style="dim white")
+
+    content = Text.assemble(title, "\n", subtitle)
+    dev = Text()
+    dev.append("Desenvolvedor  ", style="dim white")
+    dev.append("✦ ", style="bright_cyan")
+    dev.append("Thiago Nascimento Barbosa", style="bold white")
+
+    content = Text.assemble(title, "\n", subtitle, "\n", dev)
+Resposta: Por que existem dois frontends?
+
+Há duas pastas de frontend porque a segunda é um resquício da migração do V1 para o V2:
+
+/frontend (raiz) — Frontend legado, provavelmente era o ponto de partida do projeto. Hoje tem só package.json sem nenhum componente .tsx. Pode ser deletada sem risco.
+/APP/frontend — Frontend ativo, tem todos os componentes React, Tailwind, Fabric.js, etc. É o que o run.py sobe.
+Recomendo deletar /frontend para evitar confusão futura, mas não vou fazer isso agora sem sua confirmação.
+
+Agora vou ativar o brainstorming para definirmos o estilo perfeito dos arquivos antes de criar qualquer coisa visual:
+
+Usou Skill
+skill: turbo-brainstorm
+args: AutoRelatorio V2 — definir estilo visual e estrutura dos arquivos HTML a criar: commit.html (página de anotações persistentes com linha do tempo), mapa_edicao.html, setup_guia.html, Meu Plano (html+md), página de vendas e apresentação pessoal do app. O usuário quer menos aparência de IA, mais personalidade, e quer que as anotações sejam persistentes (salvas no próprio HTML). Use perguntas que direcionem a definição do estilo ideal antes de qualquer criação.
+
+Launching skill: turbo-brainstorm
+The turbo-brainstorm skill has been activated. Now I need to act as the brainstorming squad and ask the user targeted questions to define the perfect style for the HTML files before creating anything. I should ask questions that help define:
+
+1. Visual style/aesthetic
+2. Color palette and typography
+3. The "personality" the user wants
+4. How persistent storage should work in the HTML
+5. What the timeline in commit.html should look like
+6. The difference between the sales page and personal presentation
+
+Let me craft good brainstorming questions that will guide the user toward defining exactly what they want.
+Brainstorming Visual — AutoRelatorio V2
+◈ TURBO BRAINSTORMING SQUAD — AutoRelatorio V2
+Missão: Definir com precisão o estilo, a alma e a estrutura dos arquivos HTML antes de criar qualquer linha de código visual.
+
+BLOCO 1 — Identidade Visual & Personalidade
+Q1. Quando você abre um arquivo de anotações pessoais, qual sensação você quer ter?
+
+A) Terminal hacker — preto, verde neon, fonte mono, zero frescura
+B) Caderno digital — fundo creme/papel, tipografia humanizada, cantos arredondados
+C) Dashboard profissional — escuro elegante, destaques em azul/ciano, grid limpo
+D) Algo seu — me descreve em 2 palavras o visual que você quer (ex: "seco e direto", "rico e denso", "limpo com cor")
+Q2. Você quer que a linha do tempo do commit.html pareça com o quê?
+
+A) Git log — eventos em lista vertical com timestamp, como um git log --oneline
+B) Roadmap de produto — blocos horizontais com fases e status
+C) Diário de bordo — entradas datadas com expansão ao clicar, estilo Notion
+D) Kanban simplificado — colunas por status (Planejado / Em progresso / Feito)
+BLOCO 2 — Anotações Persistentes no HTML
+Q3. Como você imagina salvar as anotações dentro do próprio HTML?
+
+A) Edita o texto direto na tela (contenteditable) e clica "Salvar" — o navegador baixa o HTML atualizado
+B) Tudo salvo no localStorage do navegador — reabre e tá lá, sem precisar baixar nada
+C) Formulário que exporta em .md para você colar no arquivo manual
+D) Combinação: edita na tela + botão que baixa o HTML com as anotações embutidas
+BLOCO 3 — Mapa de Edição & Setup Guia (HTMLs interativos)
+Q4. Para o mapa_edicao.html e setup_guia.html, qual nível de interatividade você precisa?
+
+A) Leitura com pesquisa rápida (Ctrl+F turbinado) e seções colapsáveis
+B) Mapa visual clicável — clica numa área do sistema e abre o arquivo correspondente
+C) Checklist de setup — você vai marcando as etapas conforme instala
+D) Tudo junto — accordion + checklist + busca
+BLOCO 4 — Página de Vendas vs. Apresentação Pessoal
+Q5. A página de vendas é para quem?
+
+A) Para mostrar ao cliente final (agência bancária, empresa) que vai usar o relatório
+B) Para mostrar a outro desenvolvedor ou gestor que pode contratar você
+C) Para seu portfólio pessoal
+D) Para documentação interna do projeto TM
+Q6. A apresentação pessoal (não comercial) — qual formato serve melhor?
+
+A) Slides estilo Figma/Reveal.js — avança com seta, apresentação visual
+B) Documento rico — como um README.md turbinado com seções expansíveis
+C) Dashboard técnico — arquitetura, stack, fluxo em diagrama
+D) Diário do projeto — evolução cronológica de decisões técnicas
+BLOCO 5 — "Meu Plano" (HTML que gera MD)
+Q7. O "Meu Plano" é seu backlog pessoal do projeto. Como você quer organizar?
+
+A) Por fases (Fase 1, Fase 2...) com tarefas dentro de cada fase
+B) Por prioridade (Crítico / Importante / Someday)
+C) Por área (Frontend / Backend / Documentação / Distribuição)
+D) Livre — campo de texto rico onde você escreve e ele formata o MD automaticamente
+Responde as que fizer sentido — pode ser letra, pode ser descrição livre, pode ser "metade A metade C". Com isso eu traço o blueprint completo e já saio criando tudo de uma vez, sem revisar depois.
+
+
+2o Promtp eviado: 
+
+q1: D) Eu quero algo que seja sóbrio, classico. 
+q2: B) Roadmap de produto — blocos horizontais com fases e status. com animações e estilo. 
+q3: D) Combinação: edita na tela + botão que baixa o HTML com as anotações embutidas
+q4: B, e com animações de mouse quando passa por cima etc. 
+q5: B) Para mostrar ao dono da empresa onde já trabalho 
+C) Para seu portfólio pessoal 
+D) Para documentação interna do projeto TM 
+(1 versão de cada)
+q6: eu não sei te responder, me faça o mais indicado
+q7: B) Por prioridade (Crítico / Importante / Someday)
+C) Por área (Frontend / Backend / Documentação / Distribuição)
+D) Livre — campo de texto rico onde você escreve e ele formata o MD automaticamente
+
+
+Respondido 
+
+## Relatório Completo de Exploração: AutoRelatorio_V2
+
+Salve na raiz a sua analise. em formato .md
+
+2a Resposta: 
+
+The user has answered all the brainstorming questions and wants me to:
+1. Save the exploration analysis as .md in the root
+2. Start planning/creating everything based on the answers
+
+Let me first create the analysis file, then I can proceed with the actual implementation.
+
+From the answers:
+- **Q1 (Visual Style):** Sóbrio, clássico - think dark/neutral tones, serif or clean sans-serif, no flashy colors, professional
+- **Q2 (Timeline):** Roadmap horizontal with phases and status, animations
+- **Q3 (Persistence):** Editable on screen + download updated HTML button
+
+
+- **Q4 (mapa_edicao/setup):** Visual clickable map with hover animations
+- **Q5 (Sales page):** 3 versions: boss/owner, portfolio, internal docs
+- **Q6 (Personal presentation):** Going with a hybrid approach - a scrollable landing page with elegant, expandable sections that works like a technical dashboard showing architecture and flow, rather than traditional slides
+- **Q7 (My Plan):** Priority + Area + Free text that formats to Markdown
+
+Now I can start the actual implementation with these requirements in mind.
+Vou ler os arquivos existentes enquanto escrevo a análise em paralelo.
+
+
+Leu 4 arquivos
+Ler
+commit.html
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\commit.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Desenvolvimento - TM Relatório SP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #58a6ff;
+            --color-secondary: #7b2cbf;
+            --color-accent: #bc8cff;
+            --color-success: #3fb950;
+            --color-danger: #f85149;
+            --color-bg: #0d1117;
+            --color-text: #e6edf3;
+            --color-text-dim: #7d8590;
+            --color-border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-particles::before,
+        .bg-particles::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.08;
+            animation: floatParticle 25s ease-in-out infinite;
+        }
+
+        .bg-particles::before {
+            width: 700px;
+            height: 700px;
+            background: var(--color-primary);
+            top: -200px;
+            right: -150px;
+        }
+
+        .bg-particles::after {
+            width: 600px;
+            height: 600px;
+            background: var(--color-accent);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatParticle {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(40px, -60px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--color-text-dim);
+            max-width: 600px;
+            margin: 0 auto 12px;
+            line-height: 1.6;
+        }
+
+        .hero-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+
+        .hero-brand .company {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .stats-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 0 20px 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .timeline-section {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .timeline-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-text-dim);
+            font-weight: 600;
+        }
+
+        .timeline-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timeline-nav button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #30363d;
+            color: var(--color-text);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            scroll-behavior: smooth;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 20px 80px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary));
+            border-radius: 2px;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 160px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .node-date {
+            font-size: 0.65rem;
+            color: var(--color-text-dim);
+            margin-bottom: 12px;
+        }
+
+        .node-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #161b22;
+            border: 3px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.4s;
+        }
+
+        .timeline-node:hover .node-dot,
+        .timeline-node.active .node-dot {
+            border-color: var(--color-primary);
+            transform: scale(1.25);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            min-height: 250px;
+        }
+
+        .detail-card {
+            display: none;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(24px);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 32px;
+            animation: cardFadeIn 0.5s;
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #fff;
+        }
+
+        .card-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            color: var(--color-primary);
+        }
+
+        .card-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .card-features li {
+            display: flex;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .card-features li .check {
+            color: var(--color-primary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-text-dim);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-particles"></div>
+    <section class="hero">
+        <div class="hero-badge">📍 Registro de Desenvolvimento</div>
+        <h1>TM Relatório SP</h1>
+        <p class="hero-subtitle">Gerador de relatórios técnicos especializados para São Paulo.</p>
+        <div class="hero-brand"><span class="company">TM - Sempre Tecnologia</span> | <span>Thiago Nascimento
+                Barbosa</span></div>
+    </section>
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">9</div>
+            <div class="stat-label">Commits</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">v1.1</div>
+            <div class="stat-label">Versão</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">Stable</div>
+            <div class="stat-label">Status</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Concluído</div>
+        </div>
+    </div>
+    <section class="timeline-section">
+        <div class="timeline-header"><span class="timeline-title">Jornada de Desenvolvimento</span></div>
+        <div class="timeline-track-wrapper" id="timelineWrapper">
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-node" onclick="showCard(0, this)">
+                    <span class="node-date">01</span>
+                    <div class="node-dot">🚀</div>
+                    <span class="node-label">Setup Inicial</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(1, this)">
+                    <span class="node-date">02</span>
+                    <div class="node-dot">📏</div>
+                    <span class="node-label">Extração de Medidas SP</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(2, this)">
+                    <span class="node-date">03</span>
+                    <div class="node-dot">📂</div>
+                    <span class="node-label">Varredura Hierárquica</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(3, this)">
+                    <span class="node-date">04</span>
+                    <div class="node-dot">📝</div>
+                    <span class="node-label">Integrador Word</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(4, this)">
+                    <span class="node-date">05</span>
+                    <div class="node-dot">⚡</div>
+                    <span class="node-label">Integração API/Frontend</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(5, this)">
+                    <span class="node-date">06</span>
+                    <div class="node-dot">✅</div>
+                    <span class="node-label">Validação Vila Tatetuba</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(6, this)">
+                    <span class="node-date">07</span>
+                    <div class="node-dot">🔄</div>
+                    <span class="node-label">Robustez os.walk</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(7, this)">
+                    <span class="node-date">08</span>
+                    <div class="node-dot">💎</div>
+                    <span class="node-label">Refinamento Estético</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(8, this)">
+                    <span class="node-date">09/03</span>
+                    <div class="node-dot">🗂️</div>
+                    <span class="node-label">Ordenação Perfeita</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(9, this)">
+                    <span class="node-date">09/03</span>
+                    <div class="node-dot">📄</div>
+                    <span class="node-label">Descrições Dinâmicas</span>
+                </div>
+                <div class="timeline-node" onclick="showCard(10, this)">
+                    <span class="node-date">27/03</span>
+                    <div class="node-dot">💾</div>
+                    <span class="node-label">Checkpoint v1</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="detail-card-area">
+        <div class="detail-card" data-card="0">
+            <div class="card-header">
+                <h2 class="card-title">Setup Inicial</h2>
+                <span class="card-badge">SETUP</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Duplicação do legado Relatório</li>
+                <li><span class="check">✓</span>Iniciação do log dev</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="1">
+            <div class="card-header">
+                <h2 class="card-title">Extração de Medidas SP</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Regex em nomes de arquivos</li>
+                <li><span class="check">✓</span>Cálculo Largura/Altura/Desconto</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="2">
+            <div class="card-header">
+                <h2 class="card-title">Varredura Hierárquica</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Agrupamento Foto x Detalhes</li>
+                <li><span class="check">✓</span>Modelo JSON descritivo</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="3">
+            <div class="card-header">
+                <h2 class="card-title">Integrador Word</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Tabelas Word 5 colunas</li>
+                <li><span class="check">✓</span>Parágrafos técnicos automáticos</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="4">
+            <div class="card-header">
+                <h2 class="card-title">Integração API/Frontend</h2>
+                <span class="card-badge">FRONTEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Toggle Tradicional vs SP</li>
+                <li><span class="check">✓</span>FastAPI routing core</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="5">
+            <div class="card-header">
+                <h2 class="card-title">Validação Vila Tatetuba</h2>
+                <span class="card-badge">VERIF</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Sincronização de fotos</li>
+                <li><span class="check">✓</span>Emparelhamento garantido</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="6">
+            <div class="card-header">
+                <h2 class="card-title">Robustez os.walk</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Refatoração algoritmo original</li>
+                <li><span class="check">✓</span>Match de 439 imagens</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="7">
+            <div class="card-header">
+                <h2 class="card-title">Refinamento Estético</h2>
+                <span class="card-badge">FINAL</span>
+            </div>
+            <p class="card-desc"></p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Tabelas fidelidade (Subtotal)</li>
+                <li><span class="check">✓</span>Destaque medidas em vermelho</li>
+                <li><span class="check">✓</span>Item 13.12 integrado</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="8">
+            <div class="card-header">
+                <h2 class="card-title">Nova Ordenação Perfeita</h2>
+                <span class="card-badge">BACKEND</span>
+            </div>
+            <p class="card-desc">Unificação lógica os.walk para garantir prioridade de visualização.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Garante prioridade: Vista Ampla em primeiro lugar</li>
+                <li><span class="check">✓</span>Garante Sufixo: Detalhes em último lugar</li>
+                <li><span class="check">✓</span>Natural sort para pastas numeradas</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="9">
+            <div class="card-header">
+                <h2 class="card-title">Descrições Dinâmicas</h2>
+                <span class="card-badge">FEAT</span>
+            </div>
+            <p class="card-desc">Substituição do placeholder {Desc_here} via UI.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Seletor dropdown com 4 opções de texto</li>
+                <li><span class="check">✓</span>Regex find/replace no conteúdo do Word</li>
+                <li><span class="check">✓</span>Compatível com modo Tradicional e SP</li>
+            </ul>
+        </div>
+        <div class="detail-card" data-card="10">
+            <div class="card-header">
+                <h2 class="card-title">Checkpoint autorelatoriov1</h2>
+                <span class="card-badge">STABLE</span>
+            </div>
+            <p class="card-desc">Versão funcional estável antes de melhorias visuais.</p>
+            <ul class="card-features">
+                <li><span class="check">✓</span>Estabilização do Launcher Integrado</li>
+                <li><span class="check">✓</span>Correção de Panics do Turbopack (Desativado)</li>
+                <li><span class="check">✓</span>Proteção contra TypeErrors no PreviewGrid</li>
+                <li><span class="check">✓</span>Consolidação de logs de backend e frontend</li>
+            </ul>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>TM - Sempre Tecnologia</p>
+        <p>Março 2026</p>
+    </footer>
+    <script>
+        function showCard(index, node) {
+            document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+            document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.detail-card[data-card="${index}"]`).classList.add('visible');
+            node.classList.add('active');
+        }
+        // Auto select last node
+        window.onload = () => {
+            const nodes = document.querySelectorAll('.timeline-node');
+            if (nodes.length > 0) nodes[nodes.length - 1].click();
+        };
+    </script>
+</body>
+
+</html>
+Ler
+mapa_edicao.md
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\mapa_edicao.md
+# 🗺 Mapeamento de Edição: Auto Relatório V1
+
+Este documento descreve onde encontrar e editar cada função principal do ecossistema Auto Relatório. Esta doc foi criada a partir da análise da arquitetura base (Next.js + FastAPI).
+
+## 1. Fluxo de Execução da Aplicação (Sequência Mapeada)
+
+1. O usuário executa `python run.py`.
+2. O script inicia o Backend (FastAPI na porta `5000`) e o Frontend (Next.js na porta `3000`).
+3. O Frontend carrega o *Dashboard* (via `APP/frontend/app/page.tsx`), buscando na API os modelos de relatório disponíveis (`/api/templates`).
+4. O usuário escolhe a pasta raiz local. O App chama `/api/scan` no Backend.
+5. O Backend valida o tipo de relatório e delega para `generator.py` (Tradicional) ou `generator_sp.py` (SP), e em seguida retorna para o Frontend as fotos organizadas e seus descritivos.
+6. O componente visual `PreviewGrid` renderiza essas imagens no navegador. O usuário pode alterá-las.
+7. O usuário confirma para gerar. O Frontend bate no endpoint `POST /api/generate`.
+8. O Backend usa iteradores para inserir dados no `.docx` base referenciando o `word_utils.py` ou `word_utils_sp.py`.
+9. O relatório `.docx` é salvo. O painel avisa o sucesso, permitindo o download via `/api/download`.
+
+---
+
+## 2. Mapa de Edição (Onde Alterar as Configurações)
+
+### 🖥 Frontend (Interface & UX)
+Diretório principal: `APP/frontend/`
+- **Página Principal (Layout, Botoes Gerais, Core State):** `app/page.tsx`
+- **Menu Lateral/Wizard (Inputs, Seletores de Modo Tradicional/SP):** `components/SidebarWizard.tsx` (se existir refatorado)
+- **Lista de Imagens Pós-Scanner (Grid Responsivo):** `components/PreviewGrid.tsx` (se existir refatorado)
+- **Console Visual de Status (Onde mostra Logs verdes/vermelhos em tela):** `components/ConsoleWatcher.tsx` (se existir refatorado)
+- **Design Base Global / Cores Tailwind / Estilos Custom:** `app/globals.css`, `postcss.config.mjs` ou pacote `tailwindcss` em si.
+- *(Nota)*: Para editar as labels do dropdown de textos base, altere a constante `descriptionsOptions` ou as lógicas fixas descritas no início de `page.tsx` ou mesmo lá na API FastAPI onde mapeiam a chave.
+
+### ⚙ Backend (Lógica de Varredura e Implantação de Templates)
+Diretório principal: `APP/backend/`
+- **Rotas (Endpoints HTTP) e Lógicas do Core:** `server.py`
+  - *Editar aqui caso queira adicionar uma nova ação de requisição visual com a GUI do Windows ou com JSONs.*
+- **Lógica de Leitura/Extração de Pastas (Modo Tradicional):** `generator.py`
+- **Lógica de Inserção de Elementos no Word (Modo Tradicional):** `word_utils.py`
+- **Lógica de Leitura/Extração Específica (Modo SP, hierarquias pesadas):** `generator_sp.py`
+- **Lógica de Inserção de Elementos Específicos (Modo SP, repetições complexas no Word):** `word_utils_sp.py`
+- **Alteração de Templates (`.docx` base):** `templates/` (coloque apenas arquivos nativos Word lá, são a matéria prima)
+
+### 🕹️ Inicializador Global
+Diretório principal: Módulo Raiz do Projeto `AutoRelatorioV1_Dev`
+- **Script Pai e Console Manager:** `run.py` 
+  - *Aqui você muda timeouts, estilo de log de output local no terminal Windows ou gerencia as instâncias NextJS/FastAPI caso adicione um outro módulo.*
+Ler
+setup_guia.md
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\Minha pasta sobre o aplicativo\setup_guia.md
+# 🚀 Guia de Implementação (Instalação Virgem)
+
+Este guia prático ensina o usuário final ou o desenvolvedor a replicar o ambiente perfeitamente limpo do Auto Relatório (FastAPI + Next.js) num PC formatado ou "cru".
+
+## 1. Instalação Completa dos Requisitos do Sistema
+Para a execução do framework duplo, o computador Windows deve possuir duas tecnologias estruturais instaladas de forma global (com `PATH` configurado caso aplicável):
+
+- **Python 3.10 ou superior:** 
+  É absolutamente necessário marcar a caixinha **"Add Python to PATH"** logo na primeira tela do instalador Python do [python.org](https://www.python.org/).
+- **Node.js (versão 20+ recomendada):**
+  Efetue o download do LTS no [nodejs.org](https://nodejs.org/). O gerenciador de pacotes `NPM` será instalado junto nativamente.
+
+---
+
+## 2. Passo a Passo do Setup do Projeto
+
+> **OBS:** Você também precisará do código em si, devidamente extraído numa pasta. Vamos assumir que essa pasta é `C:\AutoRelatorioV1_Dev`.
+
+### A. Preparando o Ambiente Python (Backend API)
+Crie o ambiente virtual (venv) para que as bibliotecas Python (ex: Fastapi, python-docx) não se percam pelo Windows.
+
+1. Navegue até a pasta do backend abrindo seu **Prompt de Comando** (cmd) ou **PowerShell**:
+   ```powershell
+   cd C:\AutoRelatorioV1_Dev\APP\backend
+   ```
+2. Crie e ative o ambiente virtual:
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\activate
+   ```
+   *(Sua linha de comando exibirá o texto `(.venv)` antes do input)*
+3. Instale os requerimentos fixados:
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+### B. Preparando o Ambiente Node/React (Frontend UX)
+Nós agora baixaremos os binários das UIs (React Hooks, Tailwind, Framer-motion).
+
+1. Mova-se ao diretório do frontend:
+   ```powershell
+   cd C:\AutoRelatorioV1_Dev\APP\frontend
+   ```
+2. Dispare a instalação pelo NPM:
+   ```powershell
+   npm install
+   ```
+*(Aguarde, esse processo de mapeamento do Node-Modules costuma buscar milhares de sub-arquivos)*
+
+---
+
+## 3. Rodando Definitivamente o Aplicativo
+
+Após essas execuções de primeira vez, os "motores" já estão alimentados.
+
+Para o uso diário, **tudo está unificado em 1 lugar só.**
+
+1. Volte ao diretório raiz primário:
+   ```powershell
+   cd C:\AutoRelatorioV1_Dev
+   ```
+2. Execute o orquestrador:
+   ```powershell
+   python run.py
+   ```
+   *Eles se encarregam de limpar processos ociosos (portas 3000/5000) e fará as barras de carregamento de ambos os sistemas e em seguida levantará visualmente que a plataforma abriu perfeitamente. Nenhuma outra janela precisa ser aberta pelo usuário.*
+Ler
+README.md
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\README.md
+# AutoRelatorio V2
+
+> Scaffold criado em 19/04/2026 com base no AutoRelatorioV1_Dev.
+> Co-pilotado por Claude Sonnet 4.6.
+
+## O que é
+
+Sistema de geração automática de relatórios fotográficos de manutenção predial — versão 2.0.
+
+A v2 evolui o fluxo "um por um" do v1 para um workflow de **cliques sequenciais**, onde o técnico seleciona itens, adiciona contexto e o app gera o relatório completo.
+
+## Estrutura
+
+```
+AutoRelatorio_V2/
+├── APP/
+│   ├── backend/        ← Python: geração de Word, templates, server
+│   └── frontend/       ← Next.js: interface do usuário
+├── DOCUMENTOS/         ← Documentação técnica
+├── dev/                ← Notas e rascunhos de desenvolvimento
+├── run.py              ← Ponto de entrada principal
+└── run.bat             ← Launcher Windows
+```
+
+## Funcionalidades planejadas (v2)
+
+- [ ] Detalhes múltiplos por item (Detalhe 1, 2, 3...)
+- [ ] Seletor de itens da planilha `Itens_Reorganizado`
+- [ ] Editor de contexto dinâmico (super prompt)
+- [ ] Múltiplos serviços por foto
+- [ ] Editor de imagem (modal tela cheia: seta, caixa de texto, círculo)
+- [ ] Indicador de dificuldade por item (🟢🟡🔴)
+- [ ] Regras MAFFENG automáticas (calha, forro, Fiscal Carol, SP 0908)
+- [ ] Tela de progresso durante geração do documento
+
+## Como rodar (igual ao v1 por enquanto)
+
+```bash
+# Backend
+cd APP/backend
+pip install -r requirements.txt
+python server.py
+
+# Frontend (novo terminal)
+cd APP/frontend
+npm install
+npm run dev
+```
+
+## PRD completo
+
+Ver `brain_obisidian/00 - Jarvis Brain/Knowledge/AutoRelatorio_v2_PRD.md`
+Now I have everything I need. Let me create:
+
+1. The analysis .md file in the root
+2. Then I'll start creating the HTML files
+
+Let me first create the analysis, which the user specifically asked to save in the root.
+
+The analysis should cover:
+- Technical overview (linguagem técnica)
+- Simple language overview (linguagem que eu entendo)
+- Review and update of the three files (commit.html, mapa_edicao.md, setup_guia.md)
+- Status of the project
+- Notes on frontend duplication
+
+Now let me write this analysis file at `C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\analise_exploracao.md`.
+
+
+Writing the analysis document...
+Tenho tudo que preciso. Criando agora a análise na raiz.
+
+Criado
+analise_exploracao.md
++98
+-0
+C:\Users\thiag\Desktop\TM-MEUS-APPS\01_Golden_Apps_meu_uso\AutoRelatorio_V2\analise_exploracao.md
+# Análise de Exploração — AutoRelatorio V2
+> Sessão: 2026-04-23 · Claude Sonnet 4.6 · Desenvolvedor: Thiago Nascimento Barbosa
+
+---
+
+## Em linguagem técnica
+
+### Stack atual
+| Camada | Tecnologia | Versão |
+|---|---|---|
+| Backend | FastAPI + Uvicorn | Python 3.10+ |
+| Geração de documentos | python-docx + Pillow | — |
+| Frontend | Next.js + React | 16.1.6 / 19.2.3 |
+| Estilização | Tailwind CSS | 4.2.2 |
+| Editor de imagem | Fabric.js (canvas) | 7.3.1 |
+| Animações | Framer Motion | 12.34.4 |
+| Orquestrador | Rich (Python) | — |
+
+### Arquitetura
+O sistema segue o padrão **BFF (Backend for Frontend)**: o `run.py` sobe dois processos independentes (FastAPI na :5000, Next.js na :3000), onde o frontend consome a API REST local via fetch. Não há banco de dados — os dados transitam em memória por sessão.
+
+### Fluxo de dados
+```
+run.py (orquestrador)
+  ├── server.py (FastAPI :5000)
+  │     ├── /api/scan       → generator.py | generator_sp.py
+  │     ├── /api/generate   → word_utils.py | word_utils_sp.py
+  │     └── /api/download   → arquivo .docx gerado
+  └── npm run dev (Next.js :3000)
+        ├── page.tsx         (state machine da sessão)
+        ├── SidebarWizard    (inputs + seleção de modo)
+        ├── PreviewGrid      (renderização das fotos)
+        └── ImageEditorModal (canvas com Fabric.js)
+```
+
+### Dois modos operacionais
+- **Tradicional:** Varredura plana de pasta → fotos → Word simples
+- **São Paulo (SP):** Varredura hierárquica com regex em nomes de arquivo para extrair medidas (largura, altura, desconto) → tabelas Word de 5 colunas com formatação específica
+
+### Problema identificado: Frontend duplicado
+- `AutoRelatorio_V2/frontend/` — pasta legada, contém apenas `package.json`, zero componentes. Resquício da migração do V1. **Pode ser deletada.**
+- `AutoRelatorio_V2/APP/frontend/` — frontend ativo e funcional, referenciado pelo `run.py`
+
+### Estado atual dos arquivos de documentação
+| Arquivo | Status | Problema identificado |
+|---|---|---|
+| `commit.html` | Desatualizado | Reflete V1 (SP), não V2. Sem persistência de anotações. |
+| `mapa_edicao.md` | Desatualizado | Referencia `AutoRelatorioV1_Dev`, não V2. Falta `llm_generator.py`. |
+| `setup_guia.md` | Desatualizado | Caminho errado (`C:\AutoRelatorioV1_Dev` em vez de caminho V2). Falta `run.bat`. |
+| `README.md` | Incompleto | Estrutura não condiz com estado real (falta `/Minha pasta`, `/logs`, `.context/`). Funcionalidades não marcadas como concluídas. |
+
+---
+
+## Em linguagem que eu entendo
+
+### O que o app faz
+Você tem um trabalho onde precisa tirar fotos de lugares (agências bancárias, prédios) e montar um relatório Word com essas fotos organizadas, descritas e formatadas. Isso era feito manualmente ou de forma muito lenta.
+
+O AutoRelatorio resolve isso assim:
+1. Você aponta para a pasta com as fotos
+2. O app escaneia tudo automaticamente
+3. Você vê as fotos na tela, pode editar, adicionar seta, texto
+4. Clica em gerar — sai um relatório Word completo, formatado, pronto
+
+**A V2 é a evolução da V1:** na V1 você fazia um por um. Na V2 o fluxo é sequencial — seleciona os itens, adiciona contexto, clica gerar, pronto. Muito mais rápido.
+
+### Qual é o estado atual
+O código do aplicativo em si está **bom e funcional**. O que está desatualizado é a **documentação** — os três arquivos na pasta "Minha pasta sobre o aplicativo" ainda falam da V1 em vários lugares.
+
+### O que precisamos fazer (prioridade)
+
+**Alta prioridade:**
+- Reescrever `commit.html` — nova versão com estilo sóbrio/clássico, linha do tempo horizontal em roadmap, anotações que você edita direto na tela e baixa salvo
+- Reescrever `mapa_edicao.md` e criar versão `.html` interativa com mapa clicável
+- Reescrever `setup_guia.md` e criar versão `.html` com checklist interativo
+- Criar `Meu Plano.html` + `Meu Plano.md` (por prioridade + por área + campo livre)
+- Atualizar `README.md`
+
+**Recomendado:**
+- Deletar pasta `/frontend` legada da raiz
+- Criar `pagina_vendas_gestor.html` (para dono da empresa)
+- Criar `pagina_vendas_portfolio.html` (portfólio pessoal)
+- Criar `pagina_vendas_interno.html` (documentação interna TM)
+
+### Blueprint de estilo definido (pós-brainstorming)
+- **Visual:** Sóbrio, clássico — dark neutro (não hacker, não neon), tipografia humanizada, grid limpo
+- **Linha do tempo:** Roadmap horizontal, blocos com fase e status, animações suaves
+- **Persistência de dados:** Edição direto na tela + botão "Salvar e Baixar HTML"
+- **Mapas interativos:** Clicáveis com hover animations, mapa visual do sistema
+- **Página de vendas:** 3 versões distintas (gestor, portfólio, interno)
+- **Apresentação pessoal:** Dashboard técnico — arquitetura, stack, fluxo visual
+- **Meu Plano:** 3 modos — por prioridade (Crítico/Importante/Someday) + por área + campo livre que exporta `.md`
+
+---
+
+## Observações finais
+
+O app em si está sólido. A documentação está desatualizada e o projeto merece uma identidade documental à altura do trabalho feito. Tudo que está planejado acima é sobre apresentação, registro e usabilidade dos arquivos que cercam o app — não mexe em código de produção.
+analise_exploracao.md criada na raiz do projeto.
+
+Resumo do que já está feito:
+
+Item	Status
+run.bat — atribuição no título da janela	✅
+run.py — linha "Desenvolvedor ✦ Thiago Nascimento Barbosa" no banner	✅
+Resposta sobre os dois frontends	✅
+analise_exploracao.md na raiz	✅
+Para prosseguir com a fila de criação, me diz qual você quer primeiro — ou posso ir criando tudo em sequência agora:
+
+commit.html — refatoração completa (sóbrio + roadmap + persistência)
+mapa_edicao.html + atualização do .md
+setup_guia.html + atualização do .md
+Meu Plano.html + Meu Plano.md
+README.md atualizado
+pagina_vendas_gestor.html, pagina_vendas_portfolio.html, pagina_vendas_interno.html
+
+Quer que eu vá direto ou prefere aprovar um por vez?
+
+
+3º Promnpt enviado:
+
+Resposta sobre os dois frontends, eu quero que apague a pasta legada. 
+
+Vou aprovar 1 por ve assim consigo evoluir cada arquivo corretamente. 
+
+3ª resposta: 
+
+Tem `node_modules` e alguns arquivos de config — tudo legado, zero componentes. Apagando.
+
+Pasta legada deletada. Agora só existe um frontend: `APP/frontend/`.
+
+---
+
+Primeiro da fila: **`commit.html`** — refatoração completa.
+
+Blueprint aplicado:
+- Estilo sóbrio e clássico (dark neutro, tipografia clean, sem neon)
+- Linha do tempo como **roadmap horizontal** com fases e status, animações suaves
+- Anotações **editáveis direto na tela** + botão que baixa o HTML com tudo salvo
+- Abrir já na linha do tempo (não no hero)
+- Atualizado para V2
+
+[commit.html](01_Golden_Apps_meu_uso/AutoRelatorio_V2/Minha%20pasta%20sobre%20o%20aplicativo/commit.html) está visível no painel de preview agora.
+
+O que foi feito na refatoração:
+
+- **Visual sóbrio e clássico** — dark neutro (#0f0f0f), tipografia Inter + IBM Plex Mono, sem gradientes neon
+- **Sidebar fixa** com status do projeto, navegação e atribuição do desenvolvedor
+- **Roadmap horizontal** com 7 fases (Concluído / Em progresso / Planejado), clique abre painel de detalhes com animação
+- **Anotações persistentes** — 5 campos editáveis direto na tela, salvos automaticamente no `localStorage` (reabrir = tá lá)
+- **Botão "Salvar HTML"** — baixa o arquivo com as anotações embutidas no próprio HTML
+- **Log de commits** com histórico completo atualizado para V2, mais formulário inline para adicionar novos commits
+- **Já abre na fase ativa** (Refinamento V2)
+
+---
+
+Pronto para o próximo: **`mapa_edicao.html`** + atualização do `.md`?
+
+
+4º Prompt: 
+
+os botões da seção lateral não funcionou  não funcionou, e eu achei bom. Vamos ver o próximo também.
+
+4ª Resposta: 
+
+O problema é o nome da função — `scrollTo` conflita com o método nativo do navegador. Corrigindo agora.
+
+Preciso também corrigir os `onclick` nos botões da sidebar que ainda chamam `scrollTo`.
+
+Corrigido — visível no preview agora. Os botões da sidebar devem navegar corretamente para Roadmap, Anotações e Log.
+
+---
+
+Próximo: **`mapa_edicao.html`** — mapa visual clicável do sistema com hover animations, atualizado para V2.
+
+[mapa_edicao.html](01_Golden_Apps_meu_uso/AutoRelatorio_V2/Minha%20pasta%20sobre%20o%20aplicativo/mapa_edicao.html) visível no preview. Clique em qualquer arquivo do mapa para ver os detalhes no painel direito.
+
+Atualizando o `.md` correspondente para V2 também:
+
+`mapa_edicao.md` atualizado para V2 também.
+
+---
+
+**Resumo desta entrega:**
+- `mapa_edicao.html` — mapa visual clicável, painel de detalhes com hover, atualizado com todos os arquivos V2 incluindo `llm_generator.py`
+- `mapa_edicao.md` — reescrito com tabelas, caminhos corretos e distinção Tradicional vs SP
+
+Pronto para o próximo: **`setup_guia.html`** + atualização do `.md`?
+
+
+5º Prompt: 
+
+Siga para o próximo
+
+5ª Resposta: 
+
+[setup_guia.html](01_Golden_Apps_meu_uso/AutoRelatorio_V2/Minha%20pasta%20sobre%20o%20aplicativo/setup_guia.html) visível no preview.
+
+Atualizando o `.md` com os caminhos corretos da V2:
+
+`setup_guia.md` atualizado também.
+
+O HTML tem: checklist persistente (salva no navegador), barra de progresso no topo, botões de copiar em cada comando, fases colapsáveis, banner de conclusão quando tudo estiver marcado, e botão de resetar.
+
+---
+
+Próximo da fila: **`Meu Plano.html`** + **`Meu Plano.md`** — por prioridade, por área e campo livre que exporta `.md`. Seguir?
+
+
+6º Prompt:
+
+Eu quero que você faça a página do meu plano com mais vida, elementos e deixe esse html com mesma base de cores etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

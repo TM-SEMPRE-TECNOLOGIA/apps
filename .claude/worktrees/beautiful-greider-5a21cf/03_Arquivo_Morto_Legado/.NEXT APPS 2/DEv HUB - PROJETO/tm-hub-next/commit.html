@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - TM HUB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* OCEAN BREEZE — TOKENS OFICIAIS */
+            --tm-bg: #f8faf9;
+            --tm-bg-card: #ffffff;
+            --tm-bg-hover: #f1f5f9;
+            --tm-bg-input: #ffffff;
+            --tm-bg-sidebar: #ffffff;
+
+            --tm-text: #1e293b;
+            --tm-text-muted: #64748b;
+            --tm-text-subtle: #94a3b8;
+
+            --tm-border: #e2e8f0;
+            --tm-border-hover: #cbd5e1;
+
+            --tm-primary: #22c55e;
+            --tm-primary-hover: #16a34a;
+            --tm-primary-light: #f0fdf4;
+            --tm-primary-light-alpha: rgba(34, 197, 94, 0.15);
+
+            --tm-success: #22c55e;
+            --tm-info: #0ea5e9;
+
+            --tm-gradient: linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%);
+
+            --TM-font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+            --TM-font-serif: 'Lora', Georgia, serif;
+            --TM-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+            --TM-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --TM-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --tm-shadow: var(--TM-shadow-sm);
+            --TM-radius-md: 0.5rem;
+            --TM-radius-lg: 0.75rem;
+            --TM-radius-xl: 1rem;
+        }
+
+        html.dark {
+            --tm-bg: #0f172a;
+            --tm-bg-card: #1e293b;
+            --tm-bg-hover: #19212e;
+            --tm-bg-sidebar: #1e293b;
+            --tm-text: #d1d5db;
+            --tm-text-muted: #a1a1aa;
+            --tm-text-subtle: #6b7280;
+            --tm-border: #4b5563;
+            --tm-primary: #34d399;
+            --tm-primary-hover: #10b981;
+            --tm-primary-light-alpha: rgba(52, 211, 153, 0.15);
+            --tm-gradient: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+        }
+
+        body {
+            font-family: var(--TM-font-sans);
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--tm-bg-card);
+            border-bottom: 1px solid var(--tm-border);
+            padding: 16px 24px;
+            box-shadow: var(--TM-shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-family: var(--TM-font-serif);
+            font-weight: 700;
+            color: var(--tm-text);
+        }
+
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--tm-primary-light-alpha);
+            color: var(--tm-primary);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-family: var(--TM-font-mono);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            border: 1px solid var(--tm-border);
+            padding: 8px 16px;
+            border-radius: var(--TM-radius-md);
+            cursor: pointer;
+            font-family: var(--TM-font-sans);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--tm-primary);
+            color: var(--tm-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-family: var(--TM-font-serif);
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--tm-text);
+            border-bottom: 2px solid var(--tm-border);
+            padding-bottom: 12px;
+        }
+
+        .section-intro {
+            color: var(--tm-text-muted);
+            margin-bottom: 40px;
+            font-size: 16px;
+            max-width: 800px;
+        }
+
+        .timeline-track-wrapper {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .timeline-track {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            min-width: max-content;
+            padding: 20px 80px 0;
+            gap: 20px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background: var(--tm-primary-light-alpha);
+            z-index: 0;
+        }
+
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 160px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            border-radius: var(--TM-radius-md);
+            transition: all 0.2s;
+        }
+
+        .timeline-node:hover {
+            background: var(--tm-bg-hover);
+        }
+
+        .node-date {
+            font-size: 12px;
+            color: var(--tm-text-muted);
+            margin-bottom: 12px;
+            font-family: var(--TM-font-mono);
+        }
+
+        .node-dot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--tm-bg-card);
+            border: 3px solid var(--tm-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tm-text-muted);
+            transition: all 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .timeline-node.active .node-dot,
+        .timeline-node:hover .node-dot {
+            border-color: var(--tm-primary);
+            color: var(--tm-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 0 4px var(--tm-primary-light-alpha);
+        }
+
+        .node-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tm-text);
+            text-align: center;
+        }
+
+        .detail-card-area {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+        }
+
+        .detail-card {
+            display: none;
+            background: var(--tm-bg-card);
+            border: 1px solid var(--tm-border);
+            border-radius: var(--TM-radius-xl);
+            padding: 32px;
+            box-shadow: var(--TM-shadow-lg);
+            animation: cardFade 0.3s ease-out;
+        }
+
+        .detail-card.visible {
+            display: block;
+        }
+
+        @keyframes cardFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--tm-border);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-family: var(--TM-font-serif);
+            color: var(--tm-text);
+        }
+
+        .card-features {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .card-features li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--tm-text-muted);
+            align-items: flex-start;
+        }
+
+        .card-features li .check {
+            color: var(--tm-primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--tm-text-subtle);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-content">
+            <div class="header-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--tm-primary)" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                </svg>
+                <h1>Histórico TM HUB</h1>
+                <span class="version-badge">App Router</span>
+            </div>
+            <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                Tema
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">Linha do Tempo: Construção do HUB</h2>
+            <p class="section-intro">
+                Acompanhamento cronológico do desenvolvimento do portal TM HUB, desde a fundação Next.js até os módulos.
+            </p>
+
+            <div class="timeline-track-wrapper">
+                <div class="timeline-track">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-node" onclick="showCard(1, this)">
+                        <span class="node-date">08/03</span>
+                        <div class="node-dot">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                        </div>
+                        <span class="node-label">Conexão & Estratégia</span>
+                    </div>
+
+                    <div class="timeline-node active" onclick="showCard(2, this)">
+                        <span class="node-date">08/03</span>
+                        <div class="node-dot">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                            </svg>
+                        </div>
+                        <span class="node-label">Restauração Visual 1:1</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="detail-card-area">
+                <div class="detail-card visible" data-card="0">
+                    <div class="card-header">
+                        <h2 class="card-title">Fundação Next.js e Design System</h2>
+                        <span class="version-badge">HUB-01</span>
+                    </div>
+                    <p style="color: var(--tm-text); margin-bottom: 16px; font-size: 15px;">Setup inicial da estrutura
+                        SaaS baseada nos portais iLovePDF.</p>
+                    <ul class="card-features">
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Inicialização do Next.js 16+ na pasta do projeto usando App Router.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Configuração global do Tailwind CSS e tipografias (DM Sans, Lora, IBM Plex Mono).
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Criação do commit.html premium baseado no design Ocean Breeze v2.0.
+                        </li>
+                    </ul>
+                </div>
+                <div class="detail-card visible" data-card="2">
+                    <div class="card-header">
+                        <h2 class="card-title">Fidelidade Total: HUB vs HTML</h2>
+                        <span class="version-badge">HUB-03</span>
+                    </div>
+                    <p style="color: var(--tm-text); margin-bottom: 16px; font-size: 15px;">Restauração completa de
+                        animações premium e comportamento estrutural 1:1.</p>
+                    <ul class="card-features">
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Implementação de <b>Shimmers</b>, <b>Staggers</b> e <b>Hero Background Pulse</b> no Next.js.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Reversão para seletores nativos (header, aside) para garantir a paridade com o design system
+                            original.
+                        </li>
+                        <li>
+                            <svg class="check" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Restauração das animações de entrada (fade-up) em todos os componentes da Dashboard.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        TM Sempre Tecnologia &copy; 2026. Design System Premium TM HUB.
+    </footer>
+
+    <script>
+        function showCard(index, node) {
+            document.querySelectorAll('.detail-card').forEach(c => c.classList.remove('visible'));
+            document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.detail-card[data-card="${index}"]`).classList.add('visible');
+            node.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

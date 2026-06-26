@@ -1,0 +1,24 @@
+COMPARAÇÃO DE ITENS (RELATÓRIO x ORÇAMENTO)
+Data/Hora: 2026-01-31 00:04:54
+Relatório: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - Enviados/ESCRITÓRIO PRIVATE - 9307 - Enviado/- Envio portal/RELATÓRIO FOTOGRÁFICO - ESCRITÓRIO PRIVATE - LEVANTAMENTO PREVENTIVO.docx
+Orçamento: C:/Users/thiag/Desktop/000 - Minha Demanda/2 - Enviados/FORUM SUZANO 6710-01 - Enviado/- Envio portal/- Final/PREVISÃO ORÇAMENTÁRIA PARA APROVAÇÃO - FORUM SUZANO - LEVANTAMENTO PREVENTIVO.xlsx
+
+RESUMO
+- Total de linhas comparadas: 10
+- Compatíveis: 1
+- Divergentes: 2
+- Só no orçamento (não citado no relatório): 5
+- Só no relatório (não previsto no orçamento): 2
+
+DETALHAMENTO
+Item	QtdRelatorio	QtdOrcamento	Diferenca	Status
+1.1		1,00		Não citado no relatório
+1.2		147,00		Não citado no relatório
+2.28	1,00			Não previsto no orçamento
+13.12		8,00		Não citado no relatório
+15.3	1,00			Não previsto no orçamento
+17.4		74,04		Não citado no relatório
+19.1	1,00	1,00	0,00	Compatível
+19.3	1,00	6,00	-5,00	Divergente
+19.10	1,00	4,00	-3,00	Divergente
+19.96		1,00		Não citado no relatório

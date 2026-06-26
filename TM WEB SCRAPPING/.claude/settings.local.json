@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm init *)",
+      "PowerShell(cd \"C:\\\\Users\\\\thiag\\\\Desktop\\\\APPS\\\\TM WEB SCRAPPING\"; Get-ChildItem -Recurse -Exclude node_modules, .next | Select-Object Name, @{Name='Tipo'; Expression={if\\($_.PSIsContainer\\) {'📁'} else {'📄'}}} | Format-Table -AutoSize)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(curl -s http://localhost:3003/api/scrape -X POST -H 'Content-Type: application/json' -d '{\"url\":\"https://www.aicoders.academy/\",\"selector\":\"body\"}')",
+      "Bash(python3 -m json.tool)",
+      "PowerShell(pip install *)"
+    ]
+  }
+}

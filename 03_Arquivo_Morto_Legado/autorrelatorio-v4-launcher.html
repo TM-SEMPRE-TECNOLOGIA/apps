@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoRelatório V4.1 Launcher — TM Sempre Tecnologia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* DESIGN SYSTEM TOKENS — TM SEMPRE TECNOLOGIA v3                          */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    :root {
+      /* Primary & Accents */
+      --TM-primary: #E47A4A;        /* Orange — Construction */
+      --TM-primary-dark: #C05A2A;
+      --TM-primary-light: #F5A978;
+
+      /* Backgrounds & Surfaces */
+      --tm-bg-base: #FEFDF8;        /* Warm paper */
+      --tm-bg-surface: #F9F7F2;
+      --tm-bg-overlay: #F1EFE8;
+      --tm-bg-code: #161513;        /* Terminal dark */
+
+      /* Text Colors */
+      --tm-text: #1A1915;           /* Deep brown */
+      --tm-text-secondary: #6E6C66; /* Gray-warm */
+      --tm-text-tertiary: #A8A39E;
+      --tm-text-inverse: #EFEDE8;   /* Light for dark bg */
+
+      /* Dark mode */
+      --tm-dark-bg: #0F0E0B;
+      --tm-dark-surface: #1A1915;
+      --tm-dark-overlay: #24221D;
+      --tm-dark-text: #EFEDE8;
+
+      /* Semantic */
+      --tm-success: #4F7A3A;
+      --tm-warning: #C68B2F;
+      --tm-error: #A74E4E;
+      --tm-info: #345878;
+
+      /* Spacing */
+      --tm-gap-xs: 4px;
+      --tm-gap-sm: 8px;
+      --tm-gap-md: 16px;
+      --tm-gap-lg: 24px;
+      --tm-gap-xl: 32px;
+      --tm-gap-2xl: 48px;
+
+      /* Border Radius */
+      --tm-radius-sm: 4px;
+      --tm-radius-md: 6px;
+      --tm-radius-lg: 8px;
+      --tm-radius-xl: 12px;
+      --tm-radius-full: 999px;
+
+      /* Fonts */
+      --tm-font-display: 'Roboto Slab', serif;
+      --tm-font-ui: 'Inter', sans-serif;
+      --tm-font-mono: 'JetBrains Mono', monospace;
+
+      /* Shadows */
+      --tm-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --tm-shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+      --tm-shadow-lg: 0 12px 32px rgba(0,0,0,0.15);
+
+      color-scheme: light;
+    }
+
+    html.dark {
+      --tm-bg-base: #0F0E0B;
+      --tm-bg-surface: #1A1915;
+      --tm-bg-overlay: #24221D;
+      --tm-text: #EFEDE8;
+      --tm-text-secondary: #A8A39E;
+      --tm-text-tertiary: #6E6C66;
+      --tm-text-inverse: #1A1915;
+      color-scheme: dark;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* RESET & BASE                                                            */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--tm-font-ui);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--tm-text);
+      background: var(--tm-bg-base);
+      overflow-x: hidden;
+    }
+
+    a { color: var(--TM-primary); text-decoration: none; }
+    a:hover { color: var(--TM-primary-dark); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* HEADER                                                                  */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    .hdr {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--tm-gap-md) var(--tm-gap-lg);
+      background: var(--tm-bg-base);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    html.dark .hdr {
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--tm-gap-sm);
+      font-weight: 600;
+      font-family: var(--tm-font-display);
+      font-size: 15px;
+      color: var(--tm-text);
+      transition: color 0.2s;
+    }
+
+    .brand:hover { color: var(--TM-primary); }
+
+    .brand-logo {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .hdr-actions {
+      display: flex;
+      gap: var(--tm-gap-md);
+      align-items: center;
+    }
+
+    .btn-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: var(--tm-gap-xs) var(--tm-gap-md);
+      background: var(--tm-bg-overlay);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--tm-radius-md);
+      color: var(--tm-text);
+      font-family: var(--tm-font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    html.dark .btn-toggle {
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .btn-toggle:hover {
+      background: var(--TM-primary);
+      color: white;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* HERO SECTION                                                            */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    .hero {
+      padding: var(--tm-gap-2xl) var(--tm-gap-lg);
+      text-align: center;
+      background: linear-gradient(135deg, var(--tm-bg-surface) 0%, var(--tm-bg-overlay) 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    html.dark .hero {
+      background: linear-gradient(135deg, var(--tm-dark-surface) 0%, var(--tm-dark-overlay) 100%);
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--tm-gap-xs);
+      padding: var(--tm-gap-xs) var(--tm-gap-md);
+      background: rgba(228, 122, 74, 0.1);
+      border: 1px solid rgba(228, 122, 74, 0.3);
+      border-radius: var(--tm-radius-lg);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--TM-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--tm-gap-lg);
+      animation: slideDown 0.6s ease;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--tm-success);
+      border-radius: var(--tm-radius-full);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .hero-avatar {
+      height: 120px;
+      width: 120px;
+      object-fit: contain;
+      animation: slideDown 0.8s ease;
+    }
+
+    .hero-title {
+      font-family: var(--tm-font-display);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--tm-gap-md);
+      color: var(--tm-text);
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--tm-text-secondary);
+      margin-bottom: var(--tm-gap-lg);
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: var(--tm-gap-md);
+      margin-top: var(--tm-gap-lg);
+    }
+
+    .btn {
+      padding: 11px 20px;
+      border-radius: var(--tm-radius-md);
+      font-family: var(--tm-font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--TM-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--TM-primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--tm-shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--TM-primary);
+      border: 1.5px solid var(--TM-primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(228, 122, 74, 0.05);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* TERMINAL SECTION                                                        */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    .terminal-container {
+      padding: var(--tm-gap-2xl) var(--tm-gap-lg);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .terminal-card {
+      background: var(--tm-bg-code);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--tm-radius-xl);
+      overflow: hidden;
+      box-shadow: var(--tm-shadow-lg);
+      animation: slideUp 0.8s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      padding: var(--tm-gap-md) var(--tm-gap-lg);
+      background: #1F1E1B;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: var(--tm-gap-md);
+      font-size: 12px;
+      color: var(--tm-text-secondary);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: var(--tm-radius-full);
+    }
+
+    .dot-red { background: #E47A4A; }
+    .dot-yellow { background: #C68B2F; }
+    .dot-green { background: #4F7A3A; }
+
+    .terminal-body {
+      font-family: var(--tm-font-mono);
+      font-size: 12.5px;
+      line-height: 1.8;
+      padding: var(--tm-gap-lg);
+      color: #EFEDE8;
+      overflow-x: auto;
+      background: var(--tm-bg-code);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .terminal-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .terminal-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .terminal-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    .terminal-line {
+      margin-bottom: 8px;
+      animation: fadeInLine 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInLine {
+      to { opacity: 1; }
+    }
+
+    .tm-logo {
+      color: #F5A978;
+      font-weight: 700;
+    }
+
+    .tm-secondary {
+      color: #A8A39E;
+    }
+
+    .tm-value {
+      color: #EFEDE8;
+    }
+
+    .tm-success {
+      color: #4F7A3A;
+    }
+
+    .tm-info {
+      color: #345878;
+    }
+
+    .tm-warning {
+      color: #E47A4A;
+    }
+
+    /* Status Box */
+    .status-box {
+      background: rgba(79, 122, 58, 0.1);
+      border: 1px solid rgba(79, 122, 58, 0.3);
+      border-radius: var(--tm-radius-lg);
+      padding: var(--tm-gap-lg);
+      margin-top: var(--tm-gap-2xl);
+      animation: slideUp 0.8s ease 0.3s both;
+    }
+
+    html.dark .status-box {
+      background: rgba(79, 122, 58, 0.15);
+    }
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      gap: var(--tm-gap-sm);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--tm-success);
+      margin-bottom: var(--tm-gap-md);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--tm-gap-lg);
+    }
+
+    .status-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--tm-gap-xs);
+    }
+
+    .status-label {
+      font-size: 12px;
+      color: var(--tm-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .status-value {
+      font-family: var(--tm-font-mono);
+      font-size: 14px;
+      color: var(--tm-text);
+      word-break: break-all;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* FEATURES GRID                                                           */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    .features {
+      padding: var(--tm-gap-2xl) var(--tm-gap-lg);
+      background: var(--tm-bg-surface);
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    html.dark .features {
+      background: var(--tm-dark-surface);
+      border-top-color: rgba(255,255,255,0.06);
+    }
+
+    .features-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--tm-gap-lg);
+    }
+
+    .feature-card {
+      padding: var(--tm-gap-lg);
+      background: var(--tm-bg-base);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--tm-radius-lg);
+      border-top: 3px solid var(--TM-primary);
+      transition: all 0.3s;
+      animation: slideUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    html.dark .feature-card {
+      background: var(--tm-dark-overlay);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--tm-shadow-md);
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: var(--tm-gap-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-card h3 {
+      font-family: var(--tm-font-display);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: var(--tm-gap-sm);
+      color: var(--tm-text);
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--tm-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Stagger animation */
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+    .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+    /* ─────────────────────────────────────────────────────────────────────── */
+    /* FOOTER                                                                  */
+    /* ─────────────────────────────────────────────────────────────────────── */
+    .footer {
+      padding: var(--tm-gap-xl) var(--tm-gap-lg);
+      background: var(--tm-bg-overlay);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    html.dark .footer {
+      background: var(--tm-dark-overlay);
+      border-top-color: rgba(255,255,255,0.06);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--tm-gap-sm);
+      font-family: var(--tm-font-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tm-text);
+    }
+
+    .footer-logo {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-meta {
+      display: flex;
+      gap: var(--tm-gap-lg);
+      align-items: center;
+      font-size: 12px;
+      color: var(--tm-text-secondary);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: rgba(79, 122, 58, 0.2);
+      border-radius: var(--tm-radius-full);
+      color: var(--tm-success);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .status-pill .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--tm-success);
+      border-radius: var(--tm-radius-full);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: 28px; }
+      .hero { padding: var(--tm-gap-xl) var(--tm-gap-md); }
+      .terminal-container { padding: var(--tm-gap-lg) var(--tm-gap-md); }
+      .status-grid { grid-template-columns: 1fr; }
+      .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--tm-gap-lg);
+      }
+      .footer-meta { flex-direction: column; gap: var(--tm-gap-sm); }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="hdr">
+    <a href="#" class="brand">
+      <img src="C:\Users\thiag\Desktop\TM-MEUS-APPS\TM Design System - NOVO Laranjado\Imagens\LOGO.png" alt="TM Logo" class="brand-logo">
+      <span class="brand-name">TM Sempre Tecnologia</span>
+    </a>
+    <div class="hdr-actions">
+      <button class="btn-toggle" id="dark-toggle">
+        <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-sun" width="14" height="14" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        Tema
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <div style="display: flex; justify-content: center; margin-bottom: var(--tm-gap-lg);">
+        <img src="C:\Users\thiag\Desktop\TM-MEUS-APPS\TM Design System - NOVO Laranjado\Imagens\icone_perfil_ocean_breeze.png" alt="TM Avatar" class="hero-avatar">
+      </div>
+      <div class="hero-badge">
+        <span class="live-dot"></span>
+        SISTEMA OPERACIONAL
+      </div>
+      <h1 class="hero-title">AutoRelatório V4.1</h1>
+      <p class="hero-subtitle">Launcher Premium — Gerador de Relatórios Fotográficos com Análise Automática e Integração com IA</p>
+      <div class="hero-cta">
+        <a href="#terminal" class="btn btn-primary">Ver Terminal</a>
+        <a href="#features" class="btn btn-outline">Documentação</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL -->
+  <section class="terminal-container" id="terminal">
+    <div class="terminal-card">
+      <div class="terminal-bar">
+        <div class="terminal-dot dot-red"></div>
+        <div class="terminal-dot dot-yellow"></div>
+        <div class="terminal-dot dot-green"></div>
+        <div style="flex: 1;"></div>
+        <span>AutoRelatorio V4.1 — Terminal</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <!-- Lines will be inserted here by JS -->
+      </div>
+    </div>
+
+    <!-- Status Box -->
+    <div class="status-box">
+      <div class="status-header">
+        <span class="live-dot"></span>
+        🟢 SISTEMA PRONTO
+      </div>
+      <div class="status-grid">
+        <div class="status-item">
+          <span class="status-label">Frontend</span>
+          <span class="status-value">http://localhost:3000</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Backend API</span>
+          <span class="status-value">http://127.0.0.1:5000</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-family: var(--tm-font-display); font-size: 28px; margin-bottom: var(--tm-gap-2xl); color: var(--tm-text); text-align: center;">
+        Capacidades do Sistema
+      </h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--TM-primary);">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>Orquestração Automática</h3>
+          <p>Inicia Backend + Frontend em um único comando. Health-check inteligente e limpeza de portas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--TM-primary);">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <h3>Análise de Fotos</h3>
+          <p>Processa múltiplas imagens com IA generativa. Extrai dados automaticamente.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--TM-primary);">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="13" x2="12" y2="17"/>
+              <line x1="10" y1="15" x2="14" y2="15"/>
+            </svg>
+          </div>
+          <h3>Geração de Relatórios</h3>
+          <p>Cria documentos Word (.docx) com 9 templates diferentes e preenchimento automático.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--TM-primary);">
+              <circle cx="12" cy="12" r="1"/>
+              <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24M19.78 19.78l-4.24-4.24m-2.12-2.12l-4.24-4.24"/>
+            </svg>
+          </div>
+          <h3>3 Modos de Operação</h3>
+          <p>Tradicional, São Paulo (SP) e São José do Rio Preto (SP2) com templates específicos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="C:\Users\thiag\Desktop\TM-MEUS-APPS\TM Design System - NOVO Laranjado\Imagens\LOGO.png" alt="TM Logo" class="footer-logo">
+      TM Sempre Tecnologia
+    </div>
+    <div class="footer-meta">
+      <span>AutoRelatório V4.1 · 2026</span>
+      <div class="status-pill">
+        <span class="dot"></span>
+        ESTÁVEL
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────────────────
+    // DARK MODE
+    // ─────────────────────────────────────────────────────────────────────────
+    const html = document.documentElement;
+    const toggle = document.getElementById('dark-toggle');
+    const moon = document.getElementById('icon-moon');
+    const sun = document.getElementById('icon-sun');
+
+    function applyTheme(dark) {
+      html.classList.toggle('dark', dark);
+      moon.style.display = dark ? 'none' : '';
+      sun.style.display = dark ? '' : 'none';
+      try { localStorage.setItem('tm-theme', dark ? 'dark' : 'light'); } catch(e) {}
+    }
+
+    (function() {
+      let saved;
+      try { saved = localStorage.getItem('tm-theme'); } catch(e) {}
+      applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+    })();
+
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // TERMINAL ANIMATION
+    // ─────────────────────────────────────────────────────────────────────────
+    const termLines = [
+      { delay: 100, html: '<div class="terminal-line"><span class="tm-logo">╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</span></div>' },
+      { delay: 200, html: '<div class="terminal-line"><span class="tm-logo">│</span></div>' },
+      { delay: 300, html: '<div class="terminal-line"><span class="tm-logo">│   TM · SEMPRE TECNOLOGIA</span><span class="tm-secondary">                                                                                             </span><span class="tm-logo">│</span></div>' },
+      { delay: 400, html: '<div class="terminal-line"><span class="tm-logo">│   Gerador de Relatório</span><span class="tm-secondary">  ·  </span><span class="tm-logo">v4.1</span><span class="tm-secondary">  ·  </span><span class="tm-value">13/05/2026 00:52</span><span class="tm-secondary">                                                                 </span><span class="tm-logo">│</span></div>' },
+      { delay: 500, html: '<div class="terminal-line"><span class="tm-logo">│   Desenvolvedor  </span><span class="tm-value">Thiago Nascimento Barbosa</span><span class="tm-secondary">                                                                           </span><span class="tm-logo">│</span></div>' },
+      { delay: 600, html: '<div class="terminal-line"><span class="tm-logo">│                                                                                                                      │</span></div>' },
+      { delay: 700, html: '<div class="terminal-line"><span class="tm-logo">╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span></div>' },
+      { delay: 800, html: '<div class="terminal-line"><span class="tm-secondary">  🧹 Verificando portas em uso...</span></div>' },
+      { delay: 1200, html: '<div class="terminal-line"><span class="tm-warning">  ⚡ Iniciando Backend FastAPI...</span></div>' },
+      { delay: 1800, html: '<div class="terminal-line"><span class="tm-info">  [Backend] INFO:     Started server process [21724]</span></div>' },
+      { delay: 2000, html: '<div class="terminal-line"><span class="tm-info">  [Backend] INFO:     Waiting for application startup.</span></div>' },
+      { delay: 2300, html: '<div class="terminal-line"><span class="tm-success">  [Backend] INFO:     Application startup complete.</span></div>' },
+      { delay: 2600, html: '<div class="terminal-line"><span class="tm-info">  [Backend] INFO:     Uvicorn running on http://127.0.0.1:5000 (Press CTRL+C to quit)</span></div>' },
+      { delay: 3000, html: '<div class="terminal-line"><span class="tm-success">  ✅ Backend rodando na porta 5000</span></div>' },
+      { delay: 3400, html: '<div class="terminal-line"><span class="tm-warning">  ⚡ Iniciando Frontend Next.js...</span></div>' },
+      { delay: 4000, html: '<div class="terminal-line"><span class="tm-info">  [Frontend] > nx-relatorios-sp@1.0.0 dev</span></div>' },
+      { delay: 4200, html: '<div class="terminal-line"><span class="tm-info">  [Frontend] > next dev --port 3000</span></div>' },
+      { delay: 5000, html: '<div class="terminal-line"><span class="tm-success">  ✅ Frontend iniciado</span></div>' },
+      { delay: 5800, html: '<div class="terminal-line" style="margin-top: 16px;"><span class="tm-logo">╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</span></div>' },
+      { delay: 6000, html: '<div class="terminal-line"><span class="tm-logo">│   🟢  SISTEMA PRONTO</span><span class="tm-secondary">                                                                                                                                     </span><span class="tm-logo">│</span></div>' },
+      { delay: 6200, html: '<div class="terminal-line"><span class="tm-logo">│                                                                                                                                                          │</span></div>' },
+      { delay: 6400, html: '<div class="terminal-line"><span class="tm-logo">│   🌐  http://localhost:3000</span><span class="tm-secondary">                                                                                                                              </span><span class="tm-logo">│</span></div>' },
+      { delay: 6600, html: '<div class="terminal-line"><span class="tm-logo">│   📋  http://127.0.0.1:5000 (API)</span><span class="tm-secondary">                                                                                                                        </span><span class="tm-logo">│</span></div>' },
+      { delay: 6800, html: '<div class="terminal-line"><span class="tm-logo">│                                                                                                                                                          │</span></div>' },
+      { delay: 7000, html: '<div class="terminal-line"><span class="tm-logo">│   ⌨   Ctrl+C para encerrar tudo</span><span class="tm-secondary">                                                                                                                          </span><span class="tm-logo">│</span></div>' },
+      { delay: 7200, html: '<div class="terminal-line"><span class="tm-logo">╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span></div>' },
+      { delay: 7600, html: '<div class="terminal-line"><span class="tm-secondary">  ─── Logs em tempo real ───</span></div>' },
+      { delay: 8000, html: '<div class="terminal-line"><span class="tm-info">  [Frontend] ▲ Next.js 16.1.6 (Turbopack)</span></div>' },
+      { delay: 8200, html: '<div class="terminal-line"><span class="tm-info">  [Frontend] - Local:         http://localhost:3000</span></div>' },
+      { delay: 8400, html: '<div class="terminal-line"><span class="tm-info">  [Frontend] ✓ Starting...</span></div>' },
+      { delay: 8800, html: '<div class="terminal-line"><span class="tm-success">  [Frontend] ✓ Ready in 6.5s</span></div>' },
+    ];
+
+    const tb = document.getElementById('terminal-body');
+    termLines.forEach(({ delay, html: lineHtml }) => {
+      setTimeout(() => {
+        tb.innerHTML += lineHtml;
+        tb.scrollTop = tb.scrollHeight;
+      }, delay);
+    });
+  </script>
+</body>
+</html>

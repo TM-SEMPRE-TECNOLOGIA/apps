@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "code-review-quality-analysis",
+  "prompt": "Consegue revisar a qualidade do código do meu projeto? Quero entender se há duplicação, funções muito complexas, tratamento de erros inadequado.",
+  "assertions": [
+    {
+      "id": "count_suggestions",
+      "text": "Gerou exatamente 3 sugestões",
+      "passed": true
+    },
+    {
+      "id": "language_portuguese",
+      "text": "Todas as sugestões em português",
+      "passed": true
+    },
+    {
+      "id": "different_verbs",
+      "text": "3 verbos diferentes (Revisar, Analisar, Validar)",
+      "passed": true
+    },
+    {
+      "id": "pattern_format",
+      "text": "Segue padrão [Verbo] [Descrição] ([Status])",
+      "passed": true
+    }
+  ]
+}

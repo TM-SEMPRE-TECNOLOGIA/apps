@@ -1,0 +1,10 @@
+{
+  "name": "tm-design-system",
+  "version": "0.1.0",
+  "description": "Design System TM Sempre Tecnologia v3 — cria páginas web animadas, landing pages e páginas de vendas com os tokens DS (laranja construção, Roboto Slab, Inter, JetBrains Mono), curadoria de referências de design e padrões de animação sóbrios.",
+  "author": {
+    "name": "Thiago Nascimento Barbosa",
+    "email": "thiagonascimento.barbosapro@gmail.com"
+  },
+  "keywords": ["design-system", "html", "landing-page", "animacao", "tm-sempre-tecnologia"]
+}

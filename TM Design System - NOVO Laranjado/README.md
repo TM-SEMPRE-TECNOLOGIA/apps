@@ -43,13 +43,24 @@ TM Construtora Design System/
 │   ├── type-*.html            ← display, headings, body, mono, families
 │   ├── spacing-*.html         ← scale, radii, shadows
 │   ├── components-*.html      ← buttons, badges, inputs, card, toasts, stat, header, alerts
-│   └── brand-*.html           ← logo, icons
+│   │                             + breadcrumb, progress, table   ← incorporado do V2
+│   ├── brand-*.html           ← logo, icons, document            ← incorporado do V2
+│   └── brand-document.html    ← preview tipografia em relatório técnico
 └── ui_kits/
-    └── autorelatorio-v2/      ← recriação fiel do app
-        ├── README.md
-        ├── index.html         ← protótipo interativo
-        └── *.jsx              ← componentes React
+    ├── autorelatorio-v2/      ← recriação fiel do app AutoRelatório
+    │   ├── index.html
+    │   └── *.jsx
+    └── zap-inspecao/          ← app mobile inspeção (incorporado do V2)
+        ├── index.html
+        ├── screens.jsx
+        ├── chat.jsx
+        ├── ios-frame.jsx
+        └── design-canvas.jsx
 ```
+
+> **Histórico:** v3 unificada em 26/05/2026 — incorporados 4 componentes preview
+> (`brand-document`, `components-breadcrumb`, `components-progress`, `components-table`)
+> e 1 ui_kit (`zap-inspecao`) da pasta "V2 - mesclar com NOVO Laranjado".
 
 ---
 

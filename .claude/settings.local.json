@@ -81,7 +81,18 @@
       "Bash(cp -r C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/Documentos C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V3/)",
       "Bash(cp -r C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/logs C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V3/)",
       "Bash(cp -r C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/Minha.pasta.projeto.Autorelatorio.V2 C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V3/)",
-      "Bash(rsync -av --exclude=node_modules --exclude=.next C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/APP/frontend/ C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V3/APP/frontend/)"
+      "Bash(rsync -av --exclude=node_modules --exclude=.next C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V2/APP/frontend/ C:/Users/thiag/Desktop/TM-MEUS-APPS/01_Golden_Apps_meu_uso/AutoRelatorio_V3/APP/frontend/)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\thiag\\\\Desktop\\\\TM-MEUS-APPS\\\\01_Golden_Apps_meu_uso\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(python -m py_compile server.py generator.py generator_sp.py word_utils.py word_utils_sp.py)",
+      "PowerShell($file = 'C:\\\\Users\\\\thiag\\\\Desktop\\\\TM-MEUS-APPS\\\\01_Golden_Apps_meu_uso\\\\AutoRelatorio V4 - TM Sempre Tecnologia \\(desenvolver e aplicar\\).html'; $content = [System.IO.File]::ReadAllText\\($file\\); Write-Host \"Total chars: $\\($content.Length\\)\"; $content.Substring\\(0, 6000\\))",
+      "PowerShell($file = 'C:\\\\Users\\\\thiag\\\\Desktop\\\\TM-MEUS-APPS\\\\01_Golden_Apps_meu_uso\\\\AutoRelatorio V4 - TM Sempre Tecnologia \\(desenvolver e aplicar\\).html'; $content = [System.IO.File]::ReadAllText\\($file\\); $content.Substring\\(6000, 8000\\))",
+      "PowerShell($file = 'C:\\\\Users\\\\thiag\\\\Desktop\\\\TM-MEUS-APPS\\\\01_Golden_Apps_meu_uso\\\\AutoRelatorio V4 - TM Sempre Tecnologia \\(desenvolver e aplicar\\).html'; $content = [System.IO.File]::ReadAllText\\($file\\); $content.Substring\\(14000, 8000\\))",
+      "Bash(npm show *)",
+      "Bash(npm install *)",
+      "Bash(uipro --version)",
+      "Bash(uipro --help)",
+      "Bash(uipro init *)"
     ]
   }
 }

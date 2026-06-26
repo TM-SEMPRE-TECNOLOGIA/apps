@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Formatar data em PT-BR
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+// Estimativa de leitura (~200 palavras/min)
+const estimateReadTime = (body: string) => {
+  if (!body) return 1;
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 200));
+};
+
+const readTime = estimateReadTime(post.body ?? '');
+---
+
+<BaseLayout
+  title={`${post.data.title} — TM Sempre Tecnologia`}
+  description={post.data.description ?? `Artigo: ${post.data.title}`}
+>
+  <article class="post-page" aria-label={post.data.title}>
+
+    <!-- Header -->
+    <header class="post-header">
+      <!-- Breadcrumb -->
+      <nav class="post-breadcrumb" aria-label="Navegação estrutural">
+        <a href="/">Início</a>
+        <span aria-hidden="true">/</span>
+        <a href="/blog">Blog</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{post.data.title}</span>
+      </nav>
+
+      <!-- Tags -->
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="post-tags" aria-label="Tags do artigo">
+          {post.data.tags.map((tag: string) => (
+            <span class="post-tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <!-- Title -->
+      <h1 class="post-title">{post.data.title}</h1>
+
+      {post.data.description && (
+        <p class="post-description">{post.data.description}</p>
+      )}
+
+      <!-- Meta row -->
+      <div class="post-meta" aria-label="Informações do artigo">
+        <div class="meta-author">
+          <div class="meta-avatar" aria-hidden="true">
+            {post.data.author.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <span class="meta-name">{post.data.author}</span>
+          </div>
+        </div>
+        <div class="meta-details">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {formatDate(post.data.pubDate)}
+          </time>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <span>{estimateReadTime(post.body ?? '')} min de leitura</span>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="post-divider" aria-hidden="true"></div>
+    </header>
+
+    <!-- Markdown Content -->
+    <div class="blog-content">
+      <Content />
+    </div>
+
+    <!-- Footer -->
+    <footer class="post-footer" aria-label="Rodapé do artigo">
+      <div class="post-footer-inner">
+        <div class="post-footer-left">
+          <p class="footer-label">Escrito por</p>
+          <p class="footer-author">{post.data.author}</p>
+        </div>
+        <div class="post-footer-right">
+          <a href="/blog" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Todos os artigos
+          </a>
+        </div>
+      </div>
+
+      <!-- CTA box -->
+      <div class="cta-box" aria-labelledby="cta-title">
+        <h2 class="cta-title" id="cta-title">Gostou do conteúdo?</h2>
+        <p class="cta-desc">
+          Cadastre-se na nossa lista e receba artigos técnicos como este diretamente no seu e-mail.
+        </p>
+        <a href="/#notify" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          Quero receber novidades
+        </a>
+      </div>
+    </footer>
+
+  </article>
+</BaseLayout>
+
+<style>
+  .post-page {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 120px 32px 100px;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  /* ─── Header ─── */
+  .post-header {
+    margin-bottom: 56px;
+  }
+
+  /* Breadcrumb */
+  .post-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .post-breadcrumb a,
+  .post-breadcrumb span {
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .post-breadcrumb a {
+    color: var(--sub);
+    transition: color 0.2s;
+  }
+
+  .post-breadcrumb a:hover {
+    color: var(--o);
+  }
+
+  .post-breadcrumb span[aria-current='page'] {
+    color: var(--muted);
+  }
+
+  .post-breadcrumb span[aria-hidden] {
+    color: var(--sub);
+  }
+
+  /* Tags */
+  .post-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .post-tag {
+    font-family: var(--fm);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--o);
+    background: var(--acc);
+    border: 1px solid var(--bro);
+    border-radius: 100px;
+    padding: 3px 12px;
+  }
+
+  /* Title */
+  .post-title {
+    font-family: var(--fs);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .post-description {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  /* Meta */
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .meta-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .meta-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--o), var(--oh));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fs);
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .meta-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    display: block;
+  }
+
+  .meta-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--sub);
+    flex-wrap: wrap;
+  }
+
+  .meta-sep {
+    color: var(--brd);
+  }
+
+  .post-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--bro), transparent);
+  }
+
+  /* ─── Blog Content ─── */
+  .blog-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  /* Typography for Markdown */
+  .blog-content :global(h2) {
+    font-family: var(--fs);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    color: var(--text);
+    line-height: 1.25;
+    margin: 52px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--brd);
+  }
+
+  .blog-content :global(h3) {
+    font-family: var(--fs);
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--text);
+    line-height: 1.3;
+    margin: 36px 0 14px;
+  }
+
+  .blog-content :global(h4) {
+    font-family: var(--ff);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    margin: 28px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .blog-content :global(p) {
+    margin-bottom: 24px;
+    color: var(--muted);
+  }
+
+  .blog-content :global(a) {
+    color: var(--o);
+    text-decoration: underline;
+    text-decoration-color: rgba(232, 96, 16, 0.4);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s, color 0.2s;
+  }
+
+  .blog-content :global(a:hover) {
+    color: #ffb060;
+    text-decoration-color: rgba(255, 176, 96, 0.6);
+  }
+
+  .blog-content :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .blog-content :global(em) {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .blog-content :global(ul),
+  .blog-content :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .blog-content :global(li) {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .blog-content :global(ul li::marker) {
+    color: var(--o);
+  }
+
+  .blog-content :global(ol li::marker) {
+    color: var(--o);
+    font-family: var(--fm);
+    font-size: 13px;
+  }
+
+  .blog-content :global(blockquote) {
+    border-left: 3px solid var(--o);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: var(--card);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+  }
+
+  .blog-content :global(blockquote p) {
+    margin-bottom: 0;
+    color: var(--text);
+  }
+
+  .blog-content :global(code) {
+    font-family: var(--fm);
+    font-size: 13px;
+    background: var(--acc);
+    border: 1px solid var(--brd);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--o);
+  }
+
+  .blog-content :global(pre) {
+    background: var(--card);
+    border: 1px solid var(--brd);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 28px 0;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .blog-content :global(pre::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--o), transparent);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .blog-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .blog-content :global(hr) {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--bro), transparent);
+    margin: 48px 0;
+  }
+
+  .blog-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+
+  .blog-content :global(th) {
+    font-family: var(--fm);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--o);
+    border-bottom: 1px solid var(--bro);
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .blog-content :global(td) {
+    color: var(--muted);
+    border-bottom: 1px solid var(--brd);
+    padding: 12px 16px;
+  }
+
+  .blog-content :global(tr:hover td) {
+    background: var(--card);
+  }
+
+  /* ─── Footer ─── */
+  .post-footer {
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--brd);
+  }
+
+  .post-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .footer-label {
+    font-family: var(--fm);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 6px;
+  }
+
+  .footer-author {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* CTA Box */
+  .cta-box {
+    background: var(--card);
+    border: 1px solid var(--brd);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--o), transparent);
+  }
+
+  .cta-title {
+    font-family: var(--fs);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .cta-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+
+  /* Responsive */
+  @media (max-width: 580px) {
+    .post-page {
+      padding: 100px 20px 80px;
+    }
+
+    .post-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .post-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cta-box {
+      padding: 28px 20px;
+    }
+  }
+</style>

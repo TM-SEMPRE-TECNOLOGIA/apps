@@ -1,0 +1,9 @@
+PROCESS LOG - Geração de Relatório via Web (FastAPI)
+
+Pasta raiz: C:/Users/thiag/Desktop/000 - Minha Demanda/1 - AGUARDANDO CORREÇÃO/SANTO ANTONIO DO AMPARO 2601 - AGUARDANDO CORREÇÃO
+Modelo: C:\Users\thiag\TM-MEUS-APPS\NEXT APPS\TM Relatorio\templates\MODELO - 2627 - VALADARES.docx
+Saída: C:\Users\thiag\TM-MEUS-APPS\NEXT APPS\TM Relatorio\output
+
+>>> Gerando relatório...
+[OK] Relatório salvo em: C:\Users\thiag\TM-MEUS-APPS\NEXT APPS\TM Relatorio\output\RELATÓRIO FOTOGRÁFICO - SANTO ANTONIO DO AMPARO 2601 - AGUARDANDO CORREÇÃO - LEVANTAMENTO PREVENTIVO.docx
+[OK] Total de imagens inseridas: 370

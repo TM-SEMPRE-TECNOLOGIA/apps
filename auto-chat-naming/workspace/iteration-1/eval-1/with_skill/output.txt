@@ -1,0 +1,3 @@
+1. ✅ Inserir placeholders nos templates Word (BLOQUEANTE)
+2. ✅ Implementar placeholders em 9 templates de relatório (BLOQUEANTE)
+3. ✅ Atualizar placeholders nos templates Word (BLOQUEANTE)

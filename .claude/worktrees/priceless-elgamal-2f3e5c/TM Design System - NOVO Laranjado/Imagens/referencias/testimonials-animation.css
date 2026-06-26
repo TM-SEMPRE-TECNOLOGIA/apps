@@ -1,0 +1,67 @@
+/* Animação de scroll infinito para as colunas de depoimentos */
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll linear infinite;
+}
+
+/* Efeito de pausa ao passar o mouse */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Gradiente de fundo sutil para o efeito de profundidade */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Efeito de brilho no hover dos cards */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 102, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+  }
+}
+
+.card-glow:hover {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .animate-scroll {
+    animation-duration: 10s;
+  }
+}
+
+/* Efeito de transição suave para bordas */
+.border-gradient {
+  background: linear-gradient(90deg, #ff6600, #ff6600);
+  padding: 1px;
+  border-radius: 0.5rem;
+}
+
+.border-gradient > * {
+  background: linear-gradient(to bottom right, #0f172a, #000000);
+  border-radius: 0.5rem;
+}
